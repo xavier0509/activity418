@@ -255,12 +255,7 @@ var app = {
                         movieSource = data.data.source;
                         if (movieSource == "tencent") {
                             needQQ = true;
-                            $("#allowanceItem1 .imgBlur2").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/lxw/allowance2/itembg01.png");
-                            $("#allowanceItem1 .imgFocus2").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/lxw/allowance2/itemborder.png");
-                        }else{
-                            $("#allowanceItem1 .imgBlur2").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/lxw/allowance2/itembg00.png");
-                            $("#allowanceItem1 .imgFocus2").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/lxw/allowance2/itemborder.png");
-                        }
+                        }else{}
                     }
                     hasLogin(needQQ, true, true);
                 },
@@ -1296,7 +1291,46 @@ function initMap(setFocus) {
 }
 
 function initBtn() {
-    buttonInitBefore();
+    $(".replaceBtn1").unbind("itemFocus").bind("itemFocus", function() {
+        $("#gameDraw").show();
+        $("#gamePanel").css("transform", "translate3D(-1280px, 0, 0)");
+        setTimeout(function (){
+            $("#gameMap").hide();
+            map = new coocaakeymap($(".coocaabtn"), $("#drawBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+        },200)
+
+    })
+    $(".replaceBtn2").unbind("itemFocus").bind("itemFocus", function() {
+        $("#gameMap").show();
+        $("#gamePanel").css("transform", "translate3D(0, 0, 0)");
+        setTimeout(function (){
+            $("#gameDraw").hide();
+            map = new coocaakeymap($(".coocaabtn"), $("#mapBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+        },200)
+
+    })
+    $(".gameBtn").unbind("itemFocus").bind("itemFocus", function() {
+        $("#mainbox").css("transform", "translate3D(0, 0, 0)");
+    })
+    $(".mission").unbind("itemFocus").bind("itemFocus", function() {
+        $("#mainbox").css("transform", "translate3D(0, -200px, 0)");
+    })
+    $(".operationmap").unbind("itemFocus").bind("itemFocus", function() {
+        var blockNum = $(".operationmap").index($(this));
+        if(blockNum <　3){
+            $("#mainbox").css("transform", "translate3D(0, -400px, 0)");
+        }else{
+            var translate = Math.floor((blockNum+1)/4)*(-200)+(-400) > -720?Math.floor((blockNum+1)/4)*(-200)+(-400):-720;
+            $("#mainbox").css("transform", "translate3D(0, "+translate+"px, 0)");
+        }
+    })
+
+
+
+
+
+
+
     $("#finishMyAwardGet").unbind("itemFocus").bind("itemFocus", function() {
         $("#youhave").css("margin-top", "0px");
     })
@@ -1634,184 +1668,8 @@ function initBtn() {
         }
         $("#mainbox").css("transform", "translate3D(0, -" + x + "px, 0)");
     })
-    // $(".block").unbind("itemBlur").bind("itemBlur", function() {
-        // console.log("222222222222222222222222222222222222222222222");
-        // $("#arrows").show();
-        // $("#mainbox").css("transform", "translate3D(0, -" + 0 + "px, 0)");
-        // if (ADMsg != null && ADMsg.schedules != undefined && ADMsg.schedules[0] != undefined &&  gameStatus!=3) {
-        //     sentInnerAdshow("img", ADMsg, "G0003", "1", "1", "1", "", "");
-        //     sentThirdAdshow("img", ADMsg);
-        // }
-    // })
 }
 
-function buttonInitBefore() {
-    $("#whatisallowance").unbind("itemClick").bind("itemClick", function() {
-        console.log("点击了津贴页面的什么是津贴按钮");
-        $("#allowanceRulePage").css("display", "block");
-        map = new coocaakeymap($(".coocaa_btn"), document.getElementById("allowanceRuleBtn"), "btn-focus", function() {}, function(val) {}, function(obj) {});
-    });
-    $("#allowanceRuleBtn").unbind("itemClick").bind("itemClick", function() {
-        console.log("点击了津贴页面弹窗的我知道了");
-        $("#allowanceRulePage").css("display", "none");
-        map = new coocaakeymap($(".coocaa_btn"), document.getElementById("whatisallowance"), "btn-focus", function() {}, function(val) {}, function(obj) {});
-    });
-
-    $("#allowanceLogin").unbind("itemClick").bind("itemClick", function() {
-        console.log("津贴页面启登录");
-        startAndSendLog();
-    });
-    $("#redHasGetBtn").unbind("itemClick").bind("itemClick", function() {
-        console.log("点击了继续参与");
-        $("#dialogPage").css("display", "none");
-        $("#redHasGet").css("display", "none");
-        $("#myAwardPage").css("display", "none");
-        showPage(false, false);
-    });
-    $("#noAwardBtn").unbind("itemClick").bind("itemClick", function() {
-        console.log("点击了去集卡");
-        $("#myAwardPage").css("display", "none");
-        map = new coocaakeymap($(".coocaabtn"), document.getElementById("overChance"), "btnFocus", function() {}, function(val) {}, function(obj) {});
-    });
-    $(".allowanceItemLi").unbind("itemFocus").bind("itemFocus", function() {
-        var _FocusIndex = $(".allowanceItemLi").index($(this));
-        var _times = Math.floor(parseInt(_FocusIndex) / 5);
-        var myScrollTopValue = _times * 436;
-        $("#allowanceItemBox").stop(true, true).animate({ scrollTop: myScrollTopValue }, { duration: 0, easing: "swing" });
-    });
-    $(".allowanceItemLi").unbind("itemClick").bind("itemClick", function() {
-        var _FocusIndex = $(".allowanceItemLi").index($(this));
-        _curAllBtn = _FocusIndex;
-        var _couponGoodsId = ["18278", "18508", "18507", "18506", "18505", "17231", "16990"];
-        var _allowancepageBtnName = ["影视VIP年卡","教育VIP12个月","赛普瑞斯.先生战马不粘锅具","锦泰丰手工桑蚕长丝被荣耀组","诺肯智能马桶套组","浪威极致奢华真钻机械表","荣事达智能脱糖养生煲","山水超薄触摸全钢电陶炉","利仁自动搅拌揉面机","更多"]
-        sentLog("okr_web_button_click", '{"page_name":"我的津贴页面","activity_name":"春节集卡活动","button_name":"' + _allowancepageBtnName[_FocusIndex] + '"}');
-        _czc.push(['_trackEvent', '我的津贴页面', '春节集卡活动', _FocusIndex, '', '']);
-        if (_FocusIndex == 0) {
-            console.log(movieSource);
-            if (movieSource == "tencent") {
-                coocaaosapi.startMovieMemberCenter("5", function(message) { console.log(message); }, function(error) {});
-            } else {
-                coocaaosapi.startMovieMemberCenter("1", function(message) { console.log(message); }, function(error) {});
-            }
-        } else if (_FocusIndex == 1) {
-            coocaaosapi.startMovieMemberCenter("58", function(message) { console.log(message); }, function(error) {});
-        }else{
-            if(mallVersion<31000028){
-                $("#needUpdate").show();
-                $("#blackBg").show();
-                $("#needUpdate").css("background", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/index/mallupdate.png)");
-                map = new coocaakeymap($("#needUpdate"), $("#needUpdate"), "btnFocus", function() {}, function(val) {}, function(obj) {});
-                toastTimeout = setTimeout(function(){
-                    hideToast(2)
-                }, 5000);
-            }else{
-                if (_FocusIndex == 9) {
-                    coocaaosapi.startAppShopZone2("195", function(message) { console.log(message); }, function(error) {});
-                } else {
-                    coocaaosapi.startAppShopDetail(_couponGoodsId[_FocusIndex - 2], function(message) { console.log(message); }, function(error) {});
-                }
-            }
-        }
-    });
-
-    $("#noChanceBtn").unbind("itemClick").bind("itemClick", function() {
-        console.log("点击了去做任务");
-        $("#dialogPage").css("display","none");
-        $("#noChance").css("display","none");
-        coocaaosapi.startNewBrowser3(taskurl, function() {
-            needFresh = true;
-        }, function() {});
-
-    });
-    $("#otherBtn1").unbind("itemClick").bind("itemClick", function() {
-        console.log("点击了再看看");
-        $("#getOtherAward1").css("display", "none");
-        $("#sendPrizeFail").css("display", "none");
-        $("#dialogPage").css("display", "none");
-        // map = new coocaakeymap($(".coocaabtn"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
-        showPage(false,false);
-    });
-    $("#otherBtn2").unbind("itemClick").bind("itemClick", function() {
-        console.log("点击了领取奖励");
-        otherBtn2ClickFunc();
-    });
-    $("#detainBtn1").unbind("itemClick").bind("itemClick", function() {
-        console.log("点击了坚决退出");
-        $("#detain").css("display", "none");
-        $("#dialogPage").css("display", "none");
-        canClick = true;
-        // map = new coocaakeymap($(".coocaabtn"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
-        showPage(false,false)
-    });
-    $("#detainBtn2").unbind("itemClick").bind("itemClick", function() {
-        console.log("点击了我要翻卡");
-        $("#detain").css("display", "none");
-        $("#getFoca").css("display", "block");
-        map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("focaImg"), "btn-focus", function() {}, function(val) {}, function(obj) {});
-    });
-    $("#otherImgBox3").unbind("itemClick").bind("itemClick", function() {
-        var _curAwardType = $("#otherImgBox3").attr("awardTypeId");
-        if (_curAwardType == 12) {
-            console.log("点击了视频");
-            var _curAwardName = $("#otherImgBox3").attr("awardName");
-            var _curAwardVideoUrl = $("#otherImgBox3").attr("awardVideo");
-            console.log(_curAwardType + "--" + _curAwardVideoUrl);
-            coocaaosapi.startCommonWebview("cjvideo", _curAwardVideoUrl, _curAwardName, "1080", "1920", "", "祝福视频", _curAwardVideoUrl, function(message) { console.log(message); }, function(error) { console.log("error"); });
-        }
-    });
-    $("#focaImg").unbind("itemClick").bind("itemClick", function() {
-        var nowTime = new Date().getTime();
-        var clickTime = $("#focaImg").attr("ctime");
-        if (!canClick) {
-            console.log('操作过于频繁，稍后再试');
-            return false;
-        } else {
-            console.log("点击了翻卡");
-            canClick = false;
-            removeBackButton = true;
-            $("#focaImg").css("transition", "all 3s");
-            $("#focaImg").css("transform", "rotateY(360deg)");
-            $("#focaImg").css("-ms-transform", "rotateY(360deg)");
-            $("#focaImg").css("-moz-transform", "rotateY(360deg)");
-            $("#focaImg").css("-webkit-transform", "rotateY(360deg)");
-            $("#focaImg").css("-o-transform", "rotateY(360deg)");
-            setTimeout(function() {
-                removeBackButton = false;
-                $("#focaImg").css("transition", "all 0s");
-                $("#focaImg").css("transform", "rotateY(0deg)");
-                $("#focaImg").css("-ms-transform", "rotateY(0deg)");
-                $("#focaImg").css("-moz-transform", "rotateY(0deg)");
-                $("#focaImg").css("-webkit-transform", "rotateY(0deg)");
-                $("#focaImg").css("-o-transform", "rotateY(0deg)");
-                startDrawFunc("filpCard");
-            }, 3000);
-        }
-        // if (clickTime != 'undefined' && (nowTime - clickTime < 3000)) {
-        //     console.log('操作过于频繁，稍后再试');
-        //     return false;
-        // } else {
-        //     console.log("点击了翻卡");
-        //     removeBackButton = true;
-        //     $("#focaImg").attr("ctime", nowTime);
-        //     $("#focaImg").css("transition", "all 3s");
-        //     $("#focaImg").css("transform", "rotateY(360deg)");
-        //     $("#focaImg").css("-ms-transform", "rotateY(360deg)");
-        //     $("#focaImg").css("-moz-transform", "rotateY(360deg)");
-        //     $("#focaImg").css("-webkit-transform", "rotateY(360deg)");
-        //     $("#focaImg").css("-o-transform", "rotateY(360deg)");
-        //     setTimeout(function() {
-        //         removeBackButton = false;
-        //         $("#focaImg").css("transition", "all 0s");
-        //         $("#focaImg").css("transform", "rotateY(0deg)");
-        //         $("#focaImg").css("-ms-transform", "rotateY(0deg)");
-        //         $("#focaImg").css("-moz-transform", "rotateY(0deg)");
-        //         $("#focaImg").css("-webkit-transform", "rotateY(0deg)");
-        //         $("#focaImg").css("-o-transform", "rotateY(0deg)");
-        //         startDrawFunc("filpCard");
-        //     }, 3000);
-        // }
-    });
-}
 
 
 function showAwardlist(box, inner, name) {
@@ -1853,176 +1711,177 @@ function hideToast(pageNum) {
 
 //页面初始化或刷新
 function showPage(first, resume) {
-    console.log("$$$$$$$$$$$$$$$$$$====" + first + "===========" + resume);
-    if(loginstatus == "true"){
-        $("#allowance").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/720/index/allowance1.png)")
-    }else{
-        $("#allowance").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/720/index/dailingqu.png)")
-    }
-    if (first) {
-        checkVersion();
-    }
-    console.log("---" + macAddress + "------" + TVchip + "-----" + TVmodel + "------" + emmcId + "--------" + activityId + "---------" + access_token + "-------" + cOpenId);
-    $.ajax({
-        type: "post",
-        async: true,
-        url: adressIp + "/building/cny/init",
-        data: { divideId:divideId, id: actionId, cChip: TVchip, cModel: TVmodel, cUDID: activityId, MAC: macAddress, cEmmcCID: emmcId, cOpenId: cOpenId, cNickName: nick_name, cAvatar: avatar },
-        dataType: "json",
-        // timeout: 20000,
-        success: function(data) {
-            console.log("初始化返回状态：" + JSON.stringify(data));
-            showAwardInfo();
-            isTrade = data.data.isTrade;
-            collectNum = data.data.collectNum || 0;
-            $("#collectNum").html(collectNum);
-            $("#finishNum1").html(collectNum);
-            $("#finishNum2").html(collectNum);
-            if (data.code == "50100") {
-                $("#closebg").show();
-                if(first || resume){
-                    selectAd("adStation", "CCADTV10017", "G0004", "1", "1", "1", "", "");
-                }
-                page_type = "集市未开启";
-                gameStatus = 1;
-                remainNum = data.data.remainingNumber || 0;
-                $("#chanceNum").html(remainNum);
-                localChanceNum = localStorage.getItem("lastChance") || 0;
-                addNum = remainNum - localChanceNum;
-                console.log("============lastChance==========" + localChanceNum+"======ADDNUM====="+addNum);
-                if (remainNum > localChanceNum) {
-                    $("#moveChace").show();
-                    $("#moveChace").html("+" + addNum);
-                    $("#moveChace").addClass("showmove");
-                    setTimeout(removeClass, 1500)
-
-                    function removeClass() {
-                        $("#moveChace").hide();
-                        $("#moveChace").removeClass("showmove")
-                    }
-                }
-                if(remainNum != localChanceNum){
-                    localStorage.setItem("lastChance", remainNum)
-                }
-                if (data.data.alter > 0) {
-                    needshowdialog1 = true;
-                }
-                //test:集市开启
-                if (data.data.isTrade) {
-                    page_type = "集市已开启";
-                    $("#buyZoneImg").show();
-                    $("#buyZoneBtn").show();
-                    $(".bgdiv").hide();
-                    $("#normalbg").show();
-                }
-                if (new Date(data.data.systemTime).getTime() > 1549382400000 ) {
-                    if(data.data.isFirstInitToday){
-                        needshowdialog2 = true;
-                    }
-                    page_type = "开奖当天";
-                }
-                if(data.data.isTradeAlter){
-                    needshowdialog3 = true;
-                }
-            } else {
-                if (data.code == 50046) { //集市冻结
-
-                    if(first || resume){
-                        selectAd("adStation", "CCADTV10017", "G0004", "1", "1", "1", "", "");
-                    }
-                    _isLessThanHalfhour = true;
-                    page_type = "数据冻结期";
-                    gameStatus = 2;
-                    $("#buyZoneImg").hide();
-                    $("#buyZoneBtn").hide();
-                    $(".bgdiv").hide();
-                    $("#stopbg").show();
-                    $("#missionBtn").hide();
-                    $("#missionImg").hide();
-                    // $("#myCard").hide();
-                    $("#overChance").hide();
-                    $("#topBanner").css("background", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/index/stopBg.jpg)");
-                } else {
-                    $("#adStation").hide();
-                    $("#activityTime").hide();
-                    gameStatus = 3;
-                    $("#topBanner").hide();
-                    $("#street").hide();
-                    $("#arrows").hide();
-                    $("#finishAct").show();
-
-                    // data.data.rememberModel = {"lotteryActiveId":95,"awardId":703,"lotteryRememberId":81106,"awardName":"微信红包-0.1","awardUrl":"http://172.20.155.51//","awardTypeId":"7","userKeyId":"68505336","userOpenId":"","awardExchangeFlag":0,"awardInfo":{"province":"广东省","city":"深圳市","bonus":"0.1","addByDay":"false","queue":"13"},"awardTime":"2019-01-07 14:08:58","seq":4,"remainingNumber":0};
-
-                    if (data.data.rememberModel != null) {
-                        if(data.data.isActiveEndFirstIn){
-                            needshowdialog5 = true;
-                        }
-                        finalawardInfo = data.data.rememberModel;
-                        page_type = "已开奖集齐用户";
-                        console.log("参与了瓜分");
-                        $("#finishMyAwardNum").html(finalawardInfo.awardInfo.bonus+"元");
-                        hasFinalAward = true;
-                        $("#youhave").show();
-                    } else {
-                        page_type = "已开奖未集齐用户";
-                        $("#younothave").show();
-                    }
-                    console.log("*********end---------------");
-                }
-
-            }
-            var showMainShow = false;
-            if (first || resume) { showMainShow = true; }
-            showMyCard(showMainShow);
-            if (data.code != 5003) {
-                $("#cutdownNum").html("");
-                var nowTime = new Date(data.data.systemTime).getTime();
-                var beginTime = new Date(data.data.lotteryEndTime).getTime();
-                // var beginTime = nowTime+10000;
-                clearInterval(intervalForCutdown);
-                intervalForCutdown = setInterval(showTime, 1000);
-
-                function showTime() {
-                    nowTime = nowTime + 1000;
-                    var cutdown = beginTime - nowTime;
-                    var transTime = Math.ceil(cutdown / 1000 / 60 / 60 / 24);
-                    if (transTime > 1) {
-                        $("#cutdownNum").html(transTime + "天");
-                    } else if (transTime == 1) {
-                        var hour = Math.floor(cutdown / 1000 / 60 / 60);
-                        var minute = Math.floor((cutdown - hour * 60 * 60 * 1000) / 1000 / 60);
-                        var second = Math.floor((cutdown - hour * 60 * 60 * 1000 - minute * 60 * 1000) / 1000);
-                        if (hour > 0) {
-                            $("#cutdownNum").html(hour + "时" + minute + "分" + second + "秒");
-                        } else if (minute > 0) {
-                            $("#cutdownNum").html(minute + "分" + second + "秒");
-                        } else if(second > 0){
-                            // console.log("========================"+second);
-                            $("#cutdownNum").html(second + "秒");
-                            if(second == 1){
-                                setTimeout(function () {
-                                    showPage(false,false);
-                                    console.log("***********刷新页面************");
-                                    clearInterval(intervalForCutdown);
-                                },1000);
-                            }
-                        }else{
-                            console.log("========================"+second);
-                            showPage(false,false);
-                            console.log("***********刷新页面************");
-                            clearInterval(intervalForCutdown);
-                        }
-                    } else {
-                        clearInterval(intervalForCutdown);
-
-                    }
-                }
-            }
-        },
-        error: function(error) {
-            console.log("-----------访问失败---------" + JSON.stringify(error));
-        }
-    });
+    // console.log("$$$$$$$$$$$$$$$$$$====" + first + "===========" + resume);
+    // if(loginstatus == "true"){
+    //     $("#allowance").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/720/index/allowance1.png)")
+    // }else{
+    //     $("#allowance").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/720/index/dailingqu.png)")
+    // }
+    // if (first) {
+    //     checkVersion();
+    // }
+    // console.log("---" + macAddress + "------" + TVchip + "-----" + TVmodel + "------" + emmcId + "--------" + activityId + "---------" + access_token + "-------" + cOpenId);
+    // $.ajax({
+    //     type: "post",
+    //     async: true,
+    //     url: adressIp + "/building/cny/init",
+    //     data: { divideId:divideId, id: actionId, cChip: TVchip, cModel: TVmodel, cUDID: activityId, MAC: macAddress, cEmmcCID: emmcId, cOpenId: cOpenId, cNickName: nick_name, cAvatar: avatar },
+    //     dataType: "json",
+    //     // timeout: 20000,
+    //     success: function(data) {
+    //         console.log("初始化返回状态：" + JSON.stringify(data));
+    //         showAwardInfo();
+    //         isTrade = data.data.isTrade;
+    //         collectNum = data.data.collectNum || 0;
+    //         $("#collectNum").html(collectNum);
+    //         $("#finishNum1").html(collectNum);
+    //         $("#finishNum2").html(collectNum);
+    //         if (data.code == "50100") {
+    //             $("#closebg").show();
+    //             if(first || resume){
+    //                 selectAd("adStation", "CCADTV10017", "G0004", "1", "1", "1", "", "");
+    //             }
+    //             page_type = "集市未开启";
+    //             gameStatus = 1;
+    //             remainNum = data.data.remainingNumber || 0;
+    //             $("#chanceNum").html(remainNum);
+    //             localChanceNum = localStorage.getItem("lastChance") || 0;
+    //             addNum = remainNum - localChanceNum;
+    //             console.log("============lastChance==========" + localChanceNum+"======ADDNUM====="+addNum);
+    //             if (remainNum > localChanceNum) {
+    //                 $("#moveChace").show();
+    //                 $("#moveChace").html("+" + addNum);
+    //                 $("#moveChace").addClass("showmove");
+    //                 setTimeout(removeClass, 1500)
+    //
+    //                 function removeClass() {
+    //                     $("#moveChace").hide();
+    //                     $("#moveChace").removeClass("showmove")
+    //                 }
+    //             }
+    //             if(remainNum != localChanceNum){
+    //                 localStorage.setItem("lastChance", remainNum)
+    //             }
+    //             if (data.data.alter > 0) {
+    //                 needshowdialog1 = true;
+    //             }
+    //             //test:集市开启
+    //             if (data.data.isTrade) {
+    //                 page_type = "集市已开启";
+    //                 $("#buyZoneImg").show();
+    //                 $("#buyZoneBtn").show();
+    //                 $(".bgdiv").hide();
+    //                 $("#normalbg").show();
+    //             }
+    //             if (new Date(data.data.systemTime).getTime() > 1549382400000 ) {
+    //                 if(data.data.isFirstInitToday){
+    //                     needshowdialog2 = true;
+    //                 }
+    //                 page_type = "开奖当天";
+    //             }
+    //             if(data.data.isTradeAlter){
+    //                 needshowdialog3 = true;
+    //             }
+    //         } else {
+    //             if (data.code == 50046) { //集市冻结
+    //
+    //                 if(first || resume){
+    //                     selectAd("adStation", "CCADTV10017", "G0004", "1", "1", "1", "", "");
+    //                 }
+    //                 _isLessThanHalfhour = true;
+    //                 page_type = "数据冻结期";
+    //                 gameStatus = 2;
+    //                 $("#buyZoneImg").hide();
+    //                 $("#buyZoneBtn").hide();
+    //                 $(".bgdiv").hide();
+    //                 $("#stopbg").show();
+    //                 $("#missionBtn").hide();
+    //                 $("#missionImg").hide();
+    //                 // $("#myCard").hide();
+    //                 $("#overChance").hide();
+    //                 $("#topBanner").css("background", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/index/stopBg.jpg)");
+    //             } else {
+    //                 $("#adStation").hide();
+    //                 $("#activityTime").hide();
+    //                 gameStatus = 3;
+    //                 $("#topBanner").hide();
+    //                 $("#street").hide();
+    //                 $("#arrows").hide();
+    //                 $("#finishAct").show();
+    //
+    //                 // data.data.rememberModel = {"lotteryActiveId":95,"awardId":703,"lotteryRememberId":81106,"awardName":"微信红包-0.1","awardUrl":"http://172.20.155.51//","awardTypeId":"7","userKeyId":"68505336","userOpenId":"","awardExchangeFlag":0,"awardInfo":{"province":"广东省","city":"深圳市","bonus":"0.1","addByDay":"false","queue":"13"},"awardTime":"2019-01-07 14:08:58","seq":4,"remainingNumber":0};
+    //
+    //                 if (data.data.rememberModel != null) {
+    //                     if(data.data.isActiveEndFirstIn){
+    //                         needshowdialog5 = true;
+    //                     }
+    //                     finalawardInfo = data.data.rememberModel;
+    //                     page_type = "已开奖集齐用户";
+    //                     console.log("参与了瓜分");
+    //                     $("#finishMyAwardNum").html(finalawardInfo.awardInfo.bonus+"元");
+    //                     hasFinalAward = true;
+    //                     $("#youhave").show();
+    //                 } else {
+    //                     page_type = "已开奖未集齐用户";
+    //                     $("#younothave").show();
+    //                 }
+    //                 console.log("*********end---------------");
+    //             }
+    //
+    //         }
+    //         var showMainShow = false;
+    //         if (first || resume) { showMainShow = true; }
+    //         showMyCard(showMainShow);
+    //         if (data.code != 5003) {
+    //             $("#cutdownNum").html("");
+    //             var nowTime = new Date(data.data.systemTime).getTime();
+    //             var beginTime = new Date(data.data.lotteryEndTime).getTime();
+    //             // var beginTime = nowTime+10000;
+    //             clearInterval(intervalForCutdown);
+    //             intervalForCutdown = setInterval(showTime, 1000);
+    //
+    //             function showTime() {
+    //                 nowTime = nowTime + 1000;
+    //                 var cutdown = beginTime - nowTime;
+    //                 var transTime = Math.ceil(cutdown / 1000 / 60 / 60 / 24);
+    //                 if (transTime > 1) {
+    //                     $("#cutdownNum").html(transTime + "天");
+    //                 } else if (transTime == 1) {
+    //                     var hour = Math.floor(cutdown / 1000 / 60 / 60);
+    //                     var minute = Math.floor((cutdown - hour * 60 * 60 * 1000) / 1000 / 60);
+    //                     var second = Math.floor((cutdown - hour * 60 * 60 * 1000 - minute * 60 * 1000) / 1000);
+    //                     if (hour > 0) {
+    //                         $("#cutdownNum").html(hour + "时" + minute + "分" + second + "秒");
+    //                     } else if (minute > 0) {
+    //                         $("#cutdownNum").html(minute + "分" + second + "秒");
+    //                     } else if(second > 0){
+    //                         // console.log("========================"+second);
+    //                         $("#cutdownNum").html(second + "秒");
+    //                         if(second == 1){
+    //                             setTimeout(function () {
+    //                                 showPage(false,false);
+    //                                 console.log("***********刷新页面************");
+    //                                 clearInterval(intervalForCutdown);
+    //                             },1000);
+    //                         }
+    //                     }else{
+    //                         console.log("========================"+second);
+    //                         showPage(false,false);
+    //                         console.log("***********刷新页面************");
+    //                         clearInterval(intervalForCutdown);
+    //                     }
+    //                 } else {
+    //                     clearInterval(intervalForCutdown);
+    //
+    //                 }
+    //             }
+    //         }
+    //     },
+    //     error: function(error) {
+    //         console.log("-----------访问失败---------" + JSON.stringify(error));
+    //     }
+    // });
+    initMap(null)
 }
 
 function showOperation(showMainShow) {
