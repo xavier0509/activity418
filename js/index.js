@@ -14,7 +14,7 @@ var app = {
     },
     homeButtonFunction:function () {
         console.log("-----------按了主页键------------");
-      exitAll();
+      	exitAll();
     },
     handleresume: function() {
         console.log("************************");
@@ -969,8 +969,24 @@ function initBtn() {
         //     }
         // }
     })
-
-
+	
+	
+	//	林心旺
+	//---------------------------------
+	$("#drawBtn").unbind("itemClick").bind("itemClick", function() {
+		console.log("开始抽奖");
+		var score = 470;
+		score -= 100;
+		if(score < 0) {
+			for(i = 1; i <= 11; i++) {
+				$(".qiu_" + i).removeClass("wieyi_" + i);
+			}
+			console.log("没有积分");
+		} else {
+			draw()
+		}
+	});
+	//---------------------------------
 }
 //领取津贴接口
 function getAllowance() {
@@ -1402,7 +1418,7 @@ function showPage(first, resume) {
             console.log("-----------访问失败---------" + JSON.stringify(error));
         }
     });
-    showOperation(null)
+    showOperation(null);
     selectChipInfo();
 }
 //查询碎片信息
@@ -1713,4 +1729,65 @@ function getMyTasksList(initData) {
             }
         }
     });
+}
+
+//扭蛋机抽奖动效
+function draw() {
+	var number = Math.floor(4 * Math.random() + 1);
+	for(i = 1; i <= 11; i++) {
+		$(".qiu_" + i).removeClass("diaol_" + i);
+		$(".qiu_" + i).addClass("wieyi_" + i);
+	};
+	setTimeout(function() {
+		for(i = 1; i <= 11; i++) {
+			$(".qiu_" + i).removeClass("wieyi_" + i);
+		}
+	}, 1500);
+	setTimeout(function() {
+		switch(number) {
+			case 1:
+				$(".zjdl").children("span").addClass("diaL_one");
+				break;
+			case 2:
+				$(".zjdl").children("span").addClass("diaL_two");
+				break;
+			case 3:
+				$(".zjdl").children("span").addClass("diaL_three");
+				break;
+			case 4:
+				$(".zjdl").children("span").addClass("diaL_four");
+				break;
+		}
+		$(".zjdl").removeClass("none").addClass("dila_Y");
+		setTimeout(function() {
+			switch(number) {
+				case 1:
+					console.log("抽到了一等奖");
+					break;
+				case 2:
+					console.log("抽到了二等奖");
+					break;
+				case 3:
+					console.log("抽到了三等奖");
+					break;
+				case 4:
+					console.log("抽到了四等奖");
+					break;
+				case 5:
+					console.log("抽到了五等奖");
+					break;
+				case 6:
+					console.log("抽到了六等奖");
+					break;
+				case 7:
+					console.log("抽到了七等奖");
+					break;
+			}
+		}, 900);
+	}, 1500);
+	//取消动画
+	setTimeout(function() {
+		$(".zjdl").addClass("none").removeClass("dila_Y");
+		$(".zjdl").children("span").removeAttr('class');
+	}, 2500);
 }
