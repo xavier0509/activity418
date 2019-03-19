@@ -20,59 +20,62 @@
     <div id="mainbox">
         <div id="adStation"></div>
         <div id="topMain">
-            <div id="allowanceBtn" class="topbtn coocaabtn">津贴</div>
-            <div id="myAwardBtn" class="topbtn coocaabtn">奖品</div>
-            <div id="ruleBtn" class="topbtn coocaabtn">规则</div>
+            <div id="allowanceBtn" class="topbtn coocaabtn"><img  src="http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/allowancefocus.png" alt=""/></div>
+            <div id="myAwardBtn" class="topbtn coocaabtn"><img  src="http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/awardfocus.png" alt=""/></div>
+            <div id="ruleBtn" class="topbtn coocaabtn"><img  src="http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/rulefocus.png" alt=""/></div>
         </div>
         <div id="gameBox">
             <div id="gamePanel">
                 <div id="gameMap">
+                    <div id="map0" class="map"></div>
+                    <div id="map1" class="map"></div>
+                    <div id="map2" class="map"></div>
+                    <div id="map3" class="map"></div>
+                    <div id="map4" class="map"></div>
+                    <div id="map5" class="map"></div>
+                    <div id="map6" class="map"></div>
+                    <div id="map7" class="map"></div>
+                    <div id="map8" class="map"></div>
+                    <div id="map9" class="map"></div>
+                    <div id="map10" class="map"></div>
+                    <div id="map11" class="map"></div>
+                    <div id="map12" class="map"></div>
+                    <div id="map13" class="map"></div>
+                    <div id="map14" class="map"></div>
+                    <div id="map15" class="map"></div>
                     <div id="mapBtn" class="gameBtn coocaabtn" rightTarget=".replaceBtn1"></div>
+                    <div id="mapChance"></div>
                     <div class="replaceBtn1"></div>
+                    <span class="dice-icon-1" id="diceIcon_1" style="display:block;"></span>
+                    <div id="tips">
+                        <div class="tiplc418"></div>
+                    </div>
+                    <div class="lc4 lc"></div>
+                    <div class="lc1 lc"></div>
+                    <div class="lc8 lc"></div>
+                    <div class="lc418"></div>
                 </div>
                 <div id="gameDraw">
                     <div id="drawBtn" class="gameBtn coocaabtn" leftTarget=".replaceBtn2"></div>
+                    <div id="drawBtnBorder"></div>
+                    <div id="drawDoor"></div>
+                    <div id="tips1"></div>
+                    <div id="tips2"></div>
                     <div class="replaceBtn2"></div>
                 </div>
             </div>
         </div>
-        <div id="missionList">
-            <div class="mission coocaabtn"></div>
-            <div class="mission coocaabtn"></div>
-            <div class="mission coocaabtn"></div>
-            <div class="mission coocaabtn"></div>
-        </div>
-        <div id="payZone">
-            <div id="allowanceGet" class="operationmap coocaabtn"></div>
-            <div class="operationmap coocaabtn">
-                <div class="text"></div>
+        <div id="bottom">
+            <div id="missionListTitle">浏览指定页面，解锁1次游戏机会(<span></span>/4)</div>
+            <div id="missionList">
+                <div class="mission coocaabtn normaltask">111</div>
+                <div class="mission coocaabtn normaltask">22</div>
+                <div class="mission coocaabtn normaltask">33</div>
+                <div class="mission coocaabtn" id="question">44</div>
             </div>
-            <div class="operationmap coocaabtn">
-                <div class="text"></div>
-            </div>
-            <div class="operationmap coocaabtn">
-                <div class="text"></div>
-            </div>
-            <div class="operationmap coocaabtn">
-                <div class="text"></div>
-            </div>
-            <div class="operationmap coocaabtn">
-                <div class="text"></div>
-            </div>
-            <div class="operationmap coocaabtn">
-                <div class="text"></div>
-            </div>
-            <div class="operationmap coocaabtn">
-                <div class="text"></div>
-            </div>
-            <div class="operationmap coocaabtn">
-                <div class="text"></div>
-            </div>
-            <div class="operationmap coocaabtn">
-                <div class="text"></div>
-            </div>
-            <div class="operationmap coocaabtn">
-                <div class="text"></div>
+            <div id="payZoneTitle">付费解锁更多游戏机会，重复购买多次叠加！（付费100元以下+2次，满100元+5次）</div>
+            <div id="payZone">
+                <div id="allowanceGet" class="allowanceGet operationmap coocaabtn"></div>
             </div>
         </div>
     </div>
@@ -83,8 +86,18 @@
             <img id="rule3" class="rule" src="" alt=""/>
         </div>
     </div>
+    <div id="questionbox">
+        <div id="ques">?</div>
+        <div id="answer1" class="answerbtn"></div>
+        <div id="answer2" class="answerbtn"></div>
+        <div id="answer3" class="answerbtn">偷看答案</div>
+        <div id="answer4" class="answerResultbtn">试试其他任务</div>
+        <div id="answer5" class="answerResultbtn">查看正确答案</div>
+        <div id="answer6" class="answerResultbtn">去掷骰子</div>
+    </div>
     <div id="blackBg"></div>
     <div id="needUpdate"></div>
+    <div id="normalToast"><span></span></div>
 </div>
 <script type="text/javascript">
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
