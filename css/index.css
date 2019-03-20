@@ -115,6 +115,16 @@ img[src=''] {
     width: 130px;
     background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/award.png");
 }
+#awardCircle{
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 10px;
+    position: fixed;
+    top: 22px;
+    left: 1115px;
+     display: none;
+}
 #ruleBtn{
     width: 130px;
     background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/rule.png");
@@ -190,7 +200,39 @@ img[src=''] {
     top: 156px;
     left: 986px;
 }
-
+#gameMapNews{
+    width:250px;
+    height: 16px;
+    position: absolute;
+    top:20px;
+    left:212px;
+    line-height: 16px;
+    font-size: 16px;
+    color: #fef9ab;
+    text-align: center;
+    overflow: hidden;
+}
+#gameMapNewsul{
+    transition:all 0.2s;
+    -moz-transition:all 0.2s;
+    -webkit-transition:all 0.2s;
+}
+#gameMapNewsul li{
+    height: 16px;
+    line-height: 16px;
+    white-space:nowrap;
+}
+#bannerWord{
+    position: absolute;
+    width: 1280px;
+    height:20px;
+    line-height: 20px;
+    font-size: 20px;
+    text-align: center;
+    top: 140px;
+    left: -20px;
+    color: #f7f296;
+}
 #mapBtn{
     width: 251px;
     height:86px;
@@ -289,6 +331,48 @@ img[src=''] {
     left:32px;
     background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/tips2.png");
 }
+.drawcl{
+    font-weight: bolder;
+    width: 19px;
+    height: 13px;
+    line-height: 13px;
+    font-size: 13px;
+    color: #f7f2d2;
+    text-align: center;
+    position: absolute;
+    top: 272px;
+    left: 940px;
+}
+.draw1cl{
+    left:1000px;
+}
+.draw8cl{
+    left:1060px;
+}
+.draw418cl{
+    font-weight: bolder;
+    width: 25px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 16px;
+    color: #31733a;
+    text-align: center;
+    position: absolute;
+    top: 202px;
+    left: 990px;
+}
+.draw418{
+    font-weight: bolder;
+    width: 25px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 16px;
+    color: #fed12c;
+    text-align: center;
+    position: absolute;
+    top: 383px;
+    left: 149px;
+}
 #bottom{
     width: 1280px;
     height:1216px;
@@ -353,8 +437,13 @@ img[src=''] {
     margin-left: 35px;
     margin-bottom: 28px;
     background-size: 100%;
+    position: relative;
 }
-
+.text{
+    width: 247px;
+    height: 28px;
+    position: relative;
+}
 #allowanceGet {
     background: white;
     width: 564px;
@@ -525,7 +614,30 @@ img[src=''] {
     line-height: 50px;
     height: 50px;
 }
-
+#getallowancesuccess{
+    width: 780px;
+    height:300px;
+    position: absolute;
+    bottom: 100px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+    z-index: 999;
+    display: none;
+}
+#getallowancesuccessbtn{
+    width: 280px;
+    height:60px;
+    position: absolute;
+    bottom: 100px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
+    z-index: 999;
+    background-color: red;
+}
 @keyframes myfirst1
 {
     0%   {opacity:1;top:484px;display: none;}
@@ -657,12 +769,13 @@ img[src=''] {
 .zonj_zezc .jpzs {
 	width: 450px;
 	height: 286px;
-	position: relative；-webkit-border-radius: 10px;
+	position: relative;
+    -webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
 	background: #fff;
 	margin: 300px auto 0px auto;
-	position: relative
+	position: relative;
 }
 .zonj_zezc .jpzs em {
 	height: 95px;
@@ -674,7 +787,7 @@ img[src=''] {
 	font-size: 36px;
 	color: #ff1a4b;
 	text-align: center;
-	line-height40px;
+	line-height:40px;
 	display: flex;
 	justify-content: center;
 	align-items: center;

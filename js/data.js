@@ -62,9 +62,13 @@ var ADMsg = null;
 
 var lotteryNum = 0;
 var startDayNum = 0;
+var userKeyId = "";
 var capsuleIsStart = false;
 var todayFirst = false;
 var cardsNum = 0;
+var beginTime = null;
+var endTime = null;
+var nowTime = null;
 var nowPosition = "";
 
 var _province = "";
@@ -72,13 +76,14 @@ var _city = "";
 var interval_diceMove = null;
 var diceCanClick = true;
 
-// var lc4Num = 0;
-// var lc1Num = 0;
-// var lc8Num = 0;
-// var lc418Num = 0;
+
 var haveMarge = false;
 var haveUnReceive = false;
-
+var needAddChance = false;
+var intervalForCutdown = null;
+var _adsTaskId = "";
+var _bPlayFormalAdsVideo = false;//播放的是否正式广告:  false:播放的是任务视频， true:正式广告视频
+var hasfinishvideo = false;//是否加过广告机会
 
 
 
@@ -102,7 +107,7 @@ var needshowdialog2 = false;//最后一天提示
 var needshowdialog3 = false;//交易成功弹窗
 var needshowdialog4 = false;//合成弹窗
 var needshowdialog5 = false;//开奖弹窗
-var intervalForCutdown = null;
+
 var localChanceNum = 0;
 var gameStatus = 0;//0未开始；1正常期；2冻结期；3开奖结束期
 var isTrade = false;

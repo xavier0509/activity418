@@ -273,13 +273,56 @@ var app = {
     triggleButton: function() {
         cordova.require("coocaaosapi");
         listenUserChange();
+        listenPlayer();
         getLocationInfo();
     }
 };
 
 
 app.initialize();
-
+//监听播放器
+function listenPlayer() {
+    coocaaosapi.addCommonListener(function(message) {
+        console.log("--------------->commonListen==" + message.web_player_event);
+        if(message.web_player_event == "on_start") {
+            console.log("on_start 开始播放");
+            if(_bPlayFormalAdsVideo == true) { //正式广告，提交数据采集
+                sentInnerAdshow(ADMsg,"","","","",actionId,_adsTaskId.toString(), "true");
+            }
+        }
+        if(message.web_player_event == "on_complete") {
+            console.log("广告播放完成----_adsTaskId:"+_adsTaskId);
+            if(_bPlayFormalAdsVideo == true) {//第三方监测:播放完成
+                sentThirdAdshow("videoEnd",ADMsg);
+                _bPlayFormalAdsVideo = false;//reset
+            }
+            //加机会
+            if(!hasfinishvideo){
+                addChance(1,_adsTaskId);
+            }
+            //数据复位
+            ADMsg = null;
+            _adsTaskId = undefined;
+        }
+        if(message.web_player_event == "on_error") {
+            console.log("on_error 播放失败");
+            //正式广告播放失败，清除flag，播备用视频
+            if(_bPlayFormalAdsVideo == true) {
+                _bPlayFormalAdsVideo = false;
+                sentInnerAdshow(ADMsg,"","","","",actionId.toString(),_adsTaskId.toString(), "false");
+//					playAdsBackupVideo();
+            }
+            toastWhenPlayVideoError();
+        }
+        if(message.web_player_event == "on_interrupt") {
+            console.log("on_interrupt 播放中断");
+            //清除flag
+            if(_bPlayFormalAdsVideo == true) {
+                _bPlayFormalAdsVideo = false;
+            }
+        }
+    });
+}
 //获取省市
 function getLocationInfo() {
     coocaaosapi.getDeviceLocation(function(message) {
@@ -459,7 +502,8 @@ function initMap(setFocus) {
         $("#finishMissionWindow").show();
         $("#addchanceaftermission").html(addNum);
         map = new coocaakeymap($("#finishMissionWindow"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
-    } else if (needshowdialog2) {
+    }
+    else if (needshowdialog2) {
         sentLog("okr_web_page_show", '{"page_name":"主活动页面最后一天提示弹窗","activity_name":"春节集卡活动"}');
         _czc.push(['_trackEvent', '春节集卡活动', '主活动页面最后一天提示弹窗', '', '', '']);
         needshowdialog2 = false;
@@ -468,7 +512,8 @@ function initMap(setFocus) {
         $("#indexWindow").show();
         $("#lastDayWindow").show();
         map = new coocaakeymap($("#lastDayWindow"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
-    } else if (needshowdialog3) {
+    }
+    else if (needshowdialog3) {
         sentLog("okr_web_page_show", '{"page_name":"主活动页面交易完成弹窗","activity_name":"春节集卡活动"}');
         _czc.push(['_trackEvent', '春节集卡活动', '主活动页面交易完成弹窗', '', '', '']);
         needshowdialog3 = false;
@@ -477,7 +522,8 @@ function initMap(setFocus) {
         $("#indexWindow").show();
         $("#dealFinishWindow").show();
         map = new coocaakeymap($("#dealFinishWindow .homewindowbtn"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
-    } else if (needshowdialog4) {
+    }
+    else if (needshowdialog4) {
         sentLog("okr_web_page_show", '{"page_name":"主活动页面合成弹窗","activity_name":"春节集卡活动"}');
         _czc.push(['_trackEvent', '春节集卡活动', '主活动页面合成弹窗', '', '', '']);
         removeBackButton = true;
@@ -504,7 +550,8 @@ function initMap(setFocus) {
             $("#compoundWindow").show();
             map = new coocaakeymap($("#compoundWindow .homewindowbtn"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
         }
-    } else if (needshowdialog5) {
+    }
+    else if (needshowdialog5) {
         sentLog("okr_web_page_show", '{"page_name":"主活动页面瓜分弹窗","activity_name":"春节集卡活动"}');
         _czc.push(['_trackEvent', '春节集卡活动', '主活动页面瓜分弹窗', '', '', '']);
         needshowdialog5 = false;
@@ -570,86 +617,14 @@ function initBtn() {
 
     $(".operationblock").unbind("itemClick").bind("itemClick", function() {
         getParamAndStart(this,false);
-        // var block_name = $(this).attr("block_name");
-        // var block_bussiness_type = $(this).attr("business");
-        // var blockNum = $(".block").index($(this));
-        // remembernum = $(".block").index($(this));
-        // var block_order = "入口一";
-        // if ((blockNum + 1) % 3 == 0) {
-        //     block_order = "入口三";
-        // } else if ((blockNum + 1) % 3 == 2) {
-        //     block_order = "入口二";
-        // }
-        // sentLog("okr_web_button_click", '{"button_name":"各业务入口","page_name":"春节集卡活动主页","activity_name":"春节集卡活动","page_type":"' + page_type + '","link_type":"' + link_type + '","block_name":"' + block_name + '","block_order":"' + block_order + '","block_bussiness_type":"' + block_bussiness_type + '"}');
-        // _czc.push(['_trackEvent', '双旦活动-福利街', '福利街页面', '打包清单点击', '', '']);
-        // var startAction = $(this).attr("action");
-        // var pkgname = JSON.parse(startAction).packagename;
-        // var bywhat = JSON.parse(startAction).bywhat;
-        // var byvalue = JSON.parse(startAction).byvalue;
-        // var needversioncode = JSON.parse(startAction).versioncode;
-        // var hasversioncode = "";
-        // var a = '{ "pkgList": ["' + pkgname + '"] }';
-        // var param1 = "",
-        //     param2 = "",
-        //     param3 = "",
-        //     param4 = "",
-        //     param5 = "";
-        // var str = "[]";
-        // coocaaosapi.getAppInfo(a, function(message) {
-        //     console.log("getAppInfo====" + message);
-        //     if (JSON.parse(message)[pkgname].status == -1) {
-        //         coocaaosapi.startAppStoreDetail(pkgname, function() {}, function() {});
-        //     } else {
-        //         hasversioncode = JSON.parse(message)[pkgname].versionCode;
-        //         // hasversioncode = "307";
-        //         if (bywhat == "activity" || bywhat == "class") {
-        //             param1 = pkgname;
-        //             param2 = byvalue;
-        //         } else if (bywhat == "uri") {
-        //             param1 = pkgname;
-        //             param5 = byvalue
-        //         } else if (bywhat == "pkg") {
-        //             param1 = pkgname;
-        //         } else if (bywhat == "action") {
-        //             param1 = "action";
-        //             param2 = byvalue;
-        //             param3 = pkgname;
-        //         }
-        //         if (JSON.stringify(JSON.parse(startAction).params) != "{}") {
-        //             str = '[' + JSON.stringify(JSON.parse(startAction).params).replace(/,/g, "},{") + ']'
-        //         }
-        //         if (hasversioncode < needversioncode) {
-        //             var appName = "";
-        //             if (block_bussiness_type == "教育" || block_bussiness_type == "影视") {
-        //                 appName = "影视-教育（YSJY）";
-        //                 $("#needUpdate").show();
-        //                 $("#blackBg").show();
-        //                 $("#needUpdate").css("background", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/index/movieupdate.png)");
-        //                 map = new coocaakeymap($("#needUpdate"), $("#needUpdate"), "btnFocus", function() {}, function(val) {}, function(obj) {});
-        //                 toastTimeout = setTimeout(function(){
-        //                     hideToast(1)
-        //                 }, 5000);
-        //             } else if (block_bussiness_type == "购物") {
-        //                 appName = "优选购物（YXGW）";
-        //                 $("#needUpdate").show();
-        //                 $("#blackBg").show();
-        //                 $("#needUpdate").css("background", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/index/mallupdate.png)");
-        //                 map = new coocaakeymap($("#needUpdate"), $("#needUpdate"), "btnFocus", function() {}, function(val) {}, function(obj) {});
-        //                 toastTimeout = setTimeout(function(){
-        //                     hideToast(1)
-        //                 }, 5000);
-        //             }
-        //             console.log("当前版本过低，请前往应用圈搜索进行" + appName + "升级");
-        //         } else {
-        //             coocaaosapi.startCommonNormalAction(param1, param2, param3, param4, param5, str, function() { needSentADLog = false; }, function() {});
-        //         }
-        //     }
-        // }, function(error) {
-        //     console.log("getAppInfo----error" + JSON.stringify(error));
-        //     coocaaosapi.startAppStoreDetail(pkgname, function() {}, function() {});
-        // });
     })
     $("#question").unbind("itemClick").bind("itemClick", function(){
+        diceCanClick = true;
+        var _this = this;
+        if($(_this).attr("remainingNumber")==0){
+            showAndHideToast("已经回答过问题了，试试其他任务");
+            return;
+        }
         var date = 3;
         $("#questionbox").show();
         $(".answerbtn").attr("right","false");
@@ -672,12 +647,14 @@ function initBtn() {
                 $(".answerbtn").hide();
                 $("#answer4").show();
                 $("#answer6").show();
+                addChance("1",$(_this).attr("taskId"),"1");
                 map = new coocaakeymap($(".answerResultbtn"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
             }else if(thisRight == "false"){
                 console.log("false");
                 $(".answerbtn").hide();
                 $("#answer4").show();
                 $("#answer5").show();
+                addChance("1",$(_this).attr("taskId"),"0");
                 map = new coocaakeymap($(".answerResultbtn"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
             }else{
                 console.log("other");
@@ -696,21 +673,46 @@ function initBtn() {
     })
 
     $(".normaltask").unbind("itemClick").bind("itemClick", function(){
+        console.log("-------------"+$(".normaltask").index($(this)))
         var taskId = ($(this).attr("taskId"));
+        hasfinishvideo = ($(this).attr("remainingNumber"))>0?false:true;
+        var _this = this;
+        console.log("================="+taskId);
         if($(this).attr("taskType") == "jump"){
             getParamAndStart(this,true)
         }else if($(this).attr("taskType") == "video"){
+            if(hasfinishvideo){
+                showAndHideToast("即将跳转，完成后回来,已经完成不加机会");
+            }else{
+                showAndHideToast("即将跳转，完成后回来");
+            }
 
+            setTimeout(function () {
+                diceCanClick = true;
+                selectAd("video",null,"CCADTV10015","","","","",actionId,$(_this).attr("taskId"),$(_this).attr("url"));
+            },2000);
         }else{}
     })
 
     $("#mapBtn").unbind("itemClick").bind("itemClick", function(){
         if(diceCanClick){
             diceCanClick = false;
-            if(lotteryNum >= 0){
+            if(lotteryNum > 0){
                 startMapFunc()
             }else{
-
+                var hasfinishNum = 0;
+                for(var i=0;i<4;i++){
+                    if($(".mission:eq("+i+")").attr("remainingNumber")>0){
+                        $(".mission:eq("+i+")").trigger("itemClick");
+                        break;
+                        //数据采集时需要排除
+                    }else{hasfinishNum++}
+                }
+                if(hasfinishNum == 4){
+                    diceCanClick = true;
+                    $("#allowanceGet").trigger("itemFocus");
+                    map = new coocaakeymap($(".coocaabtn"), $("#allowanceGet"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+                }
             }
         }else{return}
     })
@@ -719,7 +721,11 @@ function initBtn() {
         var nowHours = new Date().getHours();
         if(nowHours==11||nowHours==12||nowHours==19||nowHours==20||nowHours==21){
             //调用领取接口
-            getAllowance();
+            if(loginstatus=="true"){
+                getAllowance();
+            }else{
+                startLogin(needQQ);
+            }
         }else{
             if(nowHours<11 || (nowHours>12&&nowHours<19)){
                 //稍后再来
@@ -888,7 +894,7 @@ function initBtn() {
         if(($("#mainbox").offset().top)<-500){
             // console.log("-------------")
             if (ADMsg != null && ADMsg.schedules != undefined && ADMsg.schedules[0] != undefined &&  gameStatus!=3) {
-                sentInnerAdshow("img", ADMsg, "G0003", "1", "1", "1", "", "");
+                sentInnerAdshow(ADMsg, "G0003", "1", "1", "1", "", "");
                 sentThirdAdshow("img", ADMsg);
             }
         }
@@ -1013,7 +1019,11 @@ function getAllowance() {
         success: function(data) {
             console.log("领取津贴信息=========================="+JSON.stringify(data));
             if(data.code == "50100") { //服务器返回正常
+                $("#getallowancesuccess").show();
+                map = new coocaakeymap($("#getallowancesuccessbtn"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
+                $("#getallowancesuccessbtn").unbind("itemClick").bind("itemClick",function(){
 
+                })
             }
             else if(data.code == "50003") {
                 if(startDayNum == 9){
@@ -1123,9 +1133,12 @@ function getParamAndStart(obj,needCheckVersion) {
                             showAndHideToast("模块加载中。。。");
                             return;
                         } else {//版本满足需求，才真正执行按键判断:
-                            var needAddChance = false;
+                            console.log("剩余可完成次数======="+$(obj).attr("remainingNumber"));
                             if($(obj).attr("remainingNumber")!=undefined&&$(obj).attr("remainingNumber")!=0){
+                                console.log("剩余可完成次数======="+$(obj).attr("remainingNumber"));
                                 needAddChance = true;
+                            }else{
+                                needAddChance = false;
                             }
                             if (pkgname == "com.tianci.movieplatform") {
                                 if(cAppVersion<7410022){
@@ -1151,9 +1164,10 @@ function getParamAndStart(obj,needCheckVersion) {
                             }
                             function startLowVersion(needAddChance) {
                                 console.log("olg------------------------------"+needAddChance);
-                                if(needAddChance){addChance()}
+                                if(needAddChance){addChance(1,$(obj).attr("taskId"),0)}
                                 showAndHideToast("即将跳转，完成后回来");
                                 setTimeout(function () {
+                                    diceCanClick = true;
                                     coocaaosapi.startCommonNormalAction(param1, param2, param3, param4, param5, str, function() { needSentADLog = false; }, function() {});
                                 },2000);
                             }
@@ -1161,11 +1175,12 @@ function getParamAndStart(obj,needCheckVersion) {
                                 console.log("new------------------------------");
                                 showAndHideToast("即将跳转，完成后回来");
                                 str = JSON.parse(str);
-                                var external = {"taskId":$(obj).attr("taskId"),"id":actionId,"userKeyId":activityId, "countDownTime":10, "verify_key":new Date().getTime(), "subTask":"0"};
+                                var external = {"taskId":$(obj).attr("taskId"),"id":actionId,"userKeyId":userKeyId, "countDownTime":10, "verify_key":new Date().getTime(), "subTask":"0"};
                                 var doubleEggs_Active = {"doubleEggs_Active":external};
                                 str.push(doubleEggs_Active);
                                 str = JSON.stringify(str);
                                 setTimeout(function () {
+                                    diceCanClick = true;
                                     coocaaosapi.startCommonNormalAction(param1, param2, param3, param4, param5, str, function() { needSentADLog = false; }, function() {});
                                 },2000);
                             }
@@ -1195,7 +1210,7 @@ function addChance(taskType, taskId, askResult) {
         data: {
             taskId:taskId
             ,activeId:actionId
-            ,userKeyId:activityId
+            ,userKeyId:userKeyId
             ,askResult: askResult
             ,"cOpenId": cOpenId
             ,"cNickName": nick_name
@@ -1402,7 +1417,11 @@ function showPage(first, resume) {
                 nowPosition = data.data.nowPosition;
                 startDayNum = data.data.startDayNum;
                 capsuleIsStart = data.data.capsuleIsStart;
+                beginTime = new Date(data.data.capsuleBeginTime).getTime();
+                endTime = new Date(data.data.capsuleEndTime).getTime();
+                nowTime = new Date(data.data.systemTime).getTime();
                 todayFirst = data.data.todayFirst;
+                userKeyId = data.data.userKeyId;
                 if(cardsNum>0 && capsuleIsStart && first){
                     $("#gamePanel").css("transform", "translate3D(-1280px, 0, 0)");
                     $("#gameDraw").show();
@@ -1411,15 +1430,39 @@ function showPage(first, resume) {
                 }
                 $(".map").removeClass("focus");
                 $("#map"+nowPosition).addClass("focus");
-                $("#mapChance").html("(剩余"+lotteryNum+"次机会)");
-            }else{}
+                if(lotteryNum>0){
+                    $("#mapChance").html("(剩余"+lotteryNum+"次机会)");
+                }else{
+                    $("#mapChance").html("点击解锁游戏机会");
+                }
+
+                if(startDayNum<5){
+                    $("#bannerWord").html("集齐周年卡片4月18日0元赢创维最新款电视");
+                }else if(startDayNum == 5){
+                    $("#bannerWord").html("距离418终极奖励开启还有1天");
+                }else if(startDayNum == 6){
+                    $("#cutdownNum").html("");
+                    clearInterval(intervalForCutdown);
+                    intervalForCutdown = setInterval(function(){showTime(1)}, 1000);
+                    // showTime();
+                }else if(startDayNum>6&&startDayNum<9){
+                    $("#bannerWord").html("剩余xx台电视大奖，集齐周年卡片0元带走");
+                }else{
+                    intervalForCutdown = setInterval(function(){showTime(2)}, 1000);
+                }
+
+            }else if(data.code==50003){
+                $("#bannerWord").html("活动已结束~获奖名单稍后公布");
+            }
+            selectChipInfo();
         },
         error: function(error) {
+            selectChipInfo();
             console.log("-----------访问失败---------" + JSON.stringify(error));
         }
     });
-    showOperation(null);
-    selectChipInfo();
+    showOperation(first);
+
 }
 //查询碎片信息
 function selectChipInfo() {
@@ -1433,11 +1476,19 @@ function selectChipInfo() {
         success: function(data) {
             console.log("卡片信息：====="+JSON.stringify(data));
             if(data.code == 50100){
+                haveUnReceive = data.data.haveUnReceive;
+                if(haveUnReceive){$("#awardCircle").show()}else{$("#awardCircle").hide()}
                 $(".lc4").html(data.data.lc4Num+"片");
                 $(".lc1").html(data.data.lc1Num+"片");
                 $(".lc8").html(data.data.lc8Num+"片");
-                $("#gameMap .lc418").html(data.data.lc418Num+"套");
-                $("#tips .tiplc418").html(data.data.lc418Num);
+                $("#gameMap .lc418").html(cardsNum+"套");
+                $("#tips .tiplc418").html(cardsNum);
+
+                $(".draw4cl").html(data.data.lc4Num);
+                $(".draw1cl").html(data.data.lc1Num);
+                $(".draw8cl").html(data.data.lc8Num);
+                $(".draw418cl").html(cardsNum);
+                $(".draw418").html(cardsNum);
             }
         },
         error: function(error) {
@@ -1451,23 +1502,42 @@ function selectChipInfo() {
         }
     });
 }
-function showTime() {
+function showTime(type) {
     nowTime = nowTime + 1000;
-    var cutdown = beginTime - nowTime;
+    if(type == 1){
+        var cutdown = beginTime - nowTime;
+    }else{
+        var cutdown = endTime - nowTime;
+    }
     var transTime = Math.ceil(cutdown / 1000 / 60 / 60 / 24);
     if (transTime > 1) {
-        $("#cutdownNum").html(transTime + "天");
+        if(type == 1){
+            $("#bannerWord").html("距离418终极奖励开启还有"+transTime+"天");
+        }else{
+            $("#bannerWord").html("活动剩余"+transTime+"天，418终极电视大奖最后召集");
+        }
     } else if (transTime == 1) {
         var hour = Math.floor(cutdown / 1000 / 60 / 60);
         var minute = Math.floor((cutdown - hour * 60 * 60 * 1000) / 1000 / 60);
         var second = Math.floor((cutdown - hour * 60 * 60 * 1000 - minute * 60 * 1000) / 1000);
         if (hour > 0) {
-            $("#cutdownNum").html(hour + "时" + minute + "分" + second + "秒");
+            if(type == 1){
+                $("#bannerWord").html("距离418终极奖励开启还有"+hour + "时" + minute + "分" + second + "秒");
+            }else{
+                $("#bannerWord").html("活动剩余"+hour + "时" + minute + "分" + second + "秒，418终极电视大奖最后召集");
+            }
         } else if (minute > 0) {
-            $("#cutdownNum").html(minute + "分" + second + "秒");
+            if(type == 1){
+                $("#bannerWord").html("距离418终极奖励开启还有"+ minute + "分" + second + "秒");
+            }else{
+                $("#bannerWord").html("活动剩余"+ minute + "分" + second + "秒，418终极电视大奖最后召集");
+            }
         } else if(second > 0){
-            // console.log("========================"+second);
-            $("#cutdownNum").html(second + "秒");
+            if(type == 1){
+                $("#bannerWord").html("距离418终极奖励开启还有" + second + "秒");
+            }else{
+                $("#bannerWord").html("活动剩余"+ second + "秒，418终极电视大奖最后召集");
+            }
             if(second == 1){
                 setTimeout(function () {
                     showPage(false,false);
@@ -1488,16 +1558,14 @@ function showTime() {
 }
 //获取福利街运营内容
 function showOperation(showMainShow) {
-    aaa=new Date().getTime();
-    console.log("------nowtime------------------"+aaa);
     var couponStation = {};
     var businessOrder = ["影视", "购物", "教育", "应用"];
     var tag_id = "";
-    if(needQQ){tag_id = 103188}else {tag_id = 103187}//test
-    // if (needQQ) { tag_id = 103228 } else { tag_id = 103229 }
-    $("#payZone").html('<div id="allowanceGet" class="allowanceGet operationmap coocaabtn"></div>');
-    var header = JSON.stringify({cUDID:activityId,MAC:macAddress,cModel:TVmodel,cChip:TVchip,cSize:deviceInfo.panel,cTcVersion:deviceInfo.version.replace(/\.*/g, ""),cFMode:"Default",cPattern:"normal","cBrand":"Skyworth"});
-    // var header = JSON.stringify({});
+    // if(needQQ){tag_id = 103188}else {tag_id = 103187}//test
+    if (needQQ) { tag_id = 103228 } else { tag_id = 103229 }
+    $("#payZone").html('<div id="allowanceGet" class="allowanceGet operationmap coocaabtn"><div class="text">&nbsp;</div></div>');
+    // var header = JSON.stringify({cUDID:activityId,MAC:macAddress,cModel:TVmodel,cChip:TVchip,cSize:deviceInfo.panel,cTcVersion:deviceInfo.version.replace(/\.*/g, ""),cFMode:"Default",cPattern:"normal","cBrand":"Skyworth"});
+    var header = JSON.stringify({});
     $.ajax({
         type: "get",
         async: true,
@@ -1512,24 +1580,29 @@ function showOperation(showMainShow) {
             var tabInner = "";
             for (var i = 0; i < operationData.data.length; i++) {
                 for (var j = 0; j < operationData.data[i].baseBlocks.length; j++) {
-                    var tabItem = '<div class="operationblock operationmap coocaabtn" action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="text"></div></div>';
+                    var action_this = JSON.parse(operationData.data[i].baseBlocks[j].action);
+                    if(action_this.params.allowance != undefined){
+                        if(loginstatus == "true"){
+                            var tabItem = '<div class="operationblock operationmap coocaabtn" action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="text" style="background-color: red">使用津贴再减'+action_this.params.allowance+'元</div></div>';
+                        }else{
+                            var tabItem = '<div class="operationblock operationmap coocaabtn" action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="text"  style="background-color: red">领取津贴再减'+action_this.params.allowance+'元</div></div>';
+                        }
+                    }else{
+                        var tabItem = '<div class="operationblock operationmap coocaabtn" action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="text">&nbsp;</div></div>';
+                    }
                     tabInner += tabItem;
                 }
             }
             $("#payZone").append(tabInner);
 
 
-            initMap(null);
-            // if (pagefrom != null && pagefrom != undefined && showMainShow) {
-            //     initMap("#panel1 .block:eq(0)");
-            // } else {
-            //     if (gameStatus == 2) {
-            //         initMap("#myCard");
-            //     } else {
-            //         console.log("------nowtime----------------"+(new Date().getTime() - aaa));
-            //         initMap("#overChance");
-            //     }
-            // }
+            if($("#gameMap").css("display")=="block"){
+                initMap("#mapBtn");
+            }else if($("#gameDraw").css("display")=="block"){
+                initMap("#drawBtn");
+            }else{
+                initMap(null);
+            }
             if (showMainShow) {
                 sentLog("okr_web_page_show", '{"page_name":"春节集卡活动主页","activity_name":"春节集卡活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","link_type":"' + link_type + '"}');
                 _czc.push(['_trackEvent', '春节集卡活动', '春节集卡活动主页', '曝光', '', '']);
@@ -1544,23 +1617,24 @@ function showOperation(showMainShow) {
 }
 //获取中奖信息
 function showAwardInfo() {
-    $("#fakeNewsul").html("");
+    $("#gameMapNewsul").html("");
     $.ajax({
         type: "get",
         async: true,
-        url: adressIp + "/building/cny/news",
+        url: adressIp + "/building/common/news",
         data: { id: actionId },
         dataType: "json",
         // timeout: 20000,
         success: function(data) {
             // console.log("中奖喜讯返回状态：" + JSON.stringify(data));
-            // var box = document.getElementById("fakeNewsul");
-            // for (var i = 0; i < data.data.fakeNews.length; i++) {
-            //     var list = document.createElement("li");
-            //     list.innerHTML = (data.data.fakeNews[i].nickName + data.data.fakeNews[i].awardName).substr(0,20);
-            //     box.appendChild(list);
-            // }
-            // showAwardlist("#fakeNews", "#fakeNewsul", "2");
+            var box = document.getElementById("gameMapNewsul");
+            var tabInner = "";
+            for (var i = 0; i < data.data.fakeNews.length; i++) {
+                var tabItem = '<li>'+data.data.fakeNews[i].nickName.substr(0,4)+' 掷骰子获得 '+data.data.fakeNews[i].awardName.substr(0,10)+'</li>';
+                tabInner += tabItem;
+            }
+            $("#gameMapNewsul").append(tabInner);
+            showAwardlist("#gameMapNews", "#gameMapNewsul", "2");
         },
         error: function(error) {
             console.log("-----------访问失败---------" + JSON.stringify(error));
@@ -1568,25 +1642,50 @@ function showAwardInfo() {
     });
 }
 //获取广告信息
-function selectAd(boxId, appid, game_id, game_scene, game_panel, game_position, activity_id, task_id) {
-    console.log("@@@@@@@@@@@@@@@@@@@@@@@");
+function selectAd(type,boxId, appid, game_id, game_scene, game_panel, game_position, activity_id, task_id, backUrl) {
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@"+appid+"--"+game_id+"=="+game_scene+"--"+game_panel+"=="+game_position+"---"+activity_id+"=="+task_id);
     coocaaosapi.getAdData(appid, game_id, game_scene, game_panel, game_position, activity_id, task_id, function(msg) {
         console.log("admsg====" + msg);
         ADMsg = JSON.parse(msg);
-        if (JSON.parse(msg).total > 0) {
-            console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-            $("#" + boxId).css("backgroundImage", "url(" + JSON.parse(msg).schedules[0].content + ")");
-            $("#activityTime").css("top","69px");
-            sentInnerAdshow("img", JSON.parse(msg), game_id, game_scene, game_panel, game_position, activity_id, task_id);
-            sentThirdAdshow("img", JSON.parse(msg));
-        } else {
-            console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+        _adsTaskId = task_id;
+        if(ADMsg == null || ADMsg == undefined || ADMsg == "{}"){
+           console.log("获取广告丢失=====================================");
+        }else{
+            if (JSON.parse(msg).total > 0) {
+                console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                if(type=="img"){
+                    $("#" + boxId).css("backgroundImage", "url(" + JSON.parse(msg).schedules[0].content + ")");
+                    sentInnerAdshow(JSON.parse(msg), game_id, game_scene, game_panel, game_position, activity_id, task_id,"true");
+                }else{
+                    var url = ADMsg.schedules[0].content;
+                    console.log("广告数据正常 url:"+url);
+                    _bPlayFormalAdsVideo = true;
+                    coocaaosapi.startCommonWebview("", url, "广告视频", "1080", "1920", "", "广告1", "广告2", function(message) {
+                        console.log(message);
+                    }, function(error) {
+                        console.log("startCommonWebview-"+error);
+                    });
+                    sentThirdAdshow("videoStart", JSON.parse(msg));
+                }
+
+                sentThirdAdshow("img", JSON.parse(msg));
+            } else {
+                console.log("广告total为0，没有投广告^^^^^^^^^^^");
+                if(type == "video"){
+                    coocaaosapi.startCommonWebview("", backUrl, "广告视频", "1080", "1920", "", "广告1", "广告2", function(message) {
+                        console.log(message);
+                    }, function(error) {
+                        console.log("startCommonWebview-"+error);
+                    });
+                }
+            }
         }
+
     }, function(error) {})
 }
 //广告内部提交
-function sentInnerAdshow(type, msg, game_id, game_scene, game_panel, game_position, activity_id, task_id) {
-    coocaaosapi.submitAdData(JSON.stringify(msg.schedules[0]), game_id, game_scene, game_panel, game_position, activity_id, task_id, function(msg) {
+function sentInnerAdshow(msg, game_id, game_scene, game_panel, game_position, activity_id, task_id,result) {
+    coocaaosapi.submitAdData(JSON.stringify(msg.schedules[0]), game_id, game_scene, game_panel, game_position, activity_id, task_id,result, function(msg) {
         console.log("sent  inner  log  success===" + msg);
     }, function(err) {
         console.log("sent  inner  log  err===" + err);

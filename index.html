@@ -21,7 +21,7 @@
         <div id="adStation"></div>
         <div id="topMain">
             <div id="allowanceBtn" class="topbtn coocaabtn"><img  src="http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/allowancefocus.png" alt=""/></div>
-            <div id="myAwardBtn" class="topbtn coocaabtn"><img  src="http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/awardfocus.png" alt=""/></div>
+            <div id="myAwardBtn" class="topbtn coocaabtn"><img  src="http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/awardfocus.png" alt=""/><div id="awardCircle"></div></div>
             <div id="ruleBtn" class="topbtn coocaabtn"><img  src="http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/rulefocus.png" alt=""/></div>
         </div>
         <div id="gameBox">
@@ -54,6 +54,10 @@
                     <div class="lc1 lc"></div>
                     <div class="lc8 lc"></div>
                     <div class="lc418"></div>
+                    <div id="gameMapNews">
+                        <ul id="gameMapNewsul"></ul>
+                    </div>
+                    <div id="bannerWord"></div>
                 </div>
                 <div id="gameDraw">
                     <div class="niu_danji">
@@ -84,20 +88,25 @@
                     <div id="tips1"></div>
                     <div id="tips2"></div>
                     <div class="replaceBtn2"></div>
+                    <div class="draw4cl drawcl"></div>
+                    <div class="draw1cl drawcl"></div>
+                    <div class="draw8cl drawcl"></div>
+                    <div class="draw418cl"></div>
+                    <div class="draw418"></div>
                 </div>
             </div>
         </div>
         <div id="bottom">
             <div id="missionListTitle">浏览指定页面，解锁1次游戏机会(<span></span>/4)</div>
             <div id="missionList">
-                <div class="mission coocaabtn normaltask">111</div>
-                <div class="mission coocaabtn normaltask">22</div>
-                <div class="mission coocaabtn normaltask">33</div>
-                <div class="mission coocaabtn" id="question">44</div>
+                <div class="mission coocaabtn normaltask" mi="2"></div>
+                <div class="mission coocaabtn normaltask" mi="1"></div>
+                <div class="mission coocaabtn normaltask" mi="0"></div>
+                <div class="mission coocaabtn" id="question" mi="0"></div>
             </div>
             <div id="payZoneTitle">付费解锁更多游戏机会，重复购买多次叠加！（付费100元以下+2次，满100元+5次）</div>
             <div id="payZone">
-                <div id="allowanceGet" class="allowanceGet operationmap coocaabtn"></div>
+                <div id="allowanceGet" class="allowanceGet operationmap coocaabtn"><div class="text">&nbsp;</div></div>
             </div>
         </div>
     </div>
@@ -120,6 +129,7 @@
     <div id="blackBg"></div>
     <div id="needUpdate"></div>
     <div id="normalToast"><span></span></div>
+    <div id="getallowancesuccess">领取成功，去专区看看吧<div id="getallowancesuccessbtn">去看看</div></div>
 </div>
 <script type="text/javascript">
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
