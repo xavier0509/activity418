@@ -21,6 +21,13 @@ body {
 img[src=''] {
 	visibility: hidden;
 }
+.fullChild{
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+}
 /*.entitySon{
 	position: absolute;
     width: 100%;
@@ -569,7 +576,7 @@ img[src=''] {
     -moz-transform: scale(1.08, 1.08);
 }
 
-#rulePage{
+#rulePage,#allowancePage{
     width:1280px;
     height:720px;
     overflow: hidden;
@@ -587,6 +594,143 @@ img[src=''] {
     width: 1280px;
     background-size: 100%;
 }
+#allowancePage{
+	background-image: url(../images/allowance.jpg);
+	background-repeat: no-repeat;
+	background-size: 100%;
+	/*display: block;*/
+}
+#loginbox{
+	position: absolute;
+	top: 0px;
+	left: 65px;
+	height: 67px;
+	width: 145px;
+}
+#loginbtn,#loginborder,#notLoginNum,#LoginedNum{
+	background:url(../images/spriteimg.png)  no-repeat;
+	display: none;
+}
+#loginbtn{
+	display: block;
+	z-index: 20;
+	background-position: 0 0;
+}
+#loginborder{
+	z-index: 19;
+	background-position: -145px 0;
+}
+.btn-focus #loginborder{
+	display: block;
+}
+#allowanceNumBox{
+	position: absolute;
+    top: 35px;
+    left: 485px;
+    height: 35px;
+    width: 311px;
+}
+#LoginedNum{
+	background-position: -290px 0;
+}
+#notLoginNum{
+	background-position: -601px 0;
+}
+#allowanceNum{
+	position: absolute;
+    top: -18px;
+    left: 177px;
+    height: 60px;
+    width: 100px;
+    text-align: center;
+    font-size: 50px;
+    color: #fff900;
+    line-height: 60px;
+}
+#everyAllowanceBox{
+	position: absolute;
+    top: 148px;
+    left: 65px;
+    height: 527px;
+    width: 1165px;
+    overflow: hidden;
+}
+#everyAllowanceUl{
+	font-size: 0;
+}
+.everyAllowanceLi{
+	display: block;
+	height: 252px;
+	width: 218px;
+	margin: 5px 7px;
+	float: left;
+}
+.everyAllItem{
+	position: absolute;
+    height: 219px;
+    width: 212px;
+    margin: 4px;
+    background-color: white;
+    z-index: 9;
+}
+.everyAllBorder{
+	position: absolute;
+    display: block;
+    height: 255px;
+	width: 220px;
+    background-color: #8fff27;
+    z-index: 8;
+    display: none;
+}
+.btn-focus .everyAllBorder{
+	display: block;
+}
+.everyAllInfo{
+	position: absolute;
+    display: block;
+    height: 28px;
+    width: 174px;
+    line-height: 26px;
+    text-align: center;
+    font-size: 16px;
+    z-index: 10;
+    margin-top: 5px;
+    margin-left: 23px;
+	color: #FFFFFF;
+}
+.everyAllInfo::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    z-index: -1;
+    transform: perspective(.5em) rotateX(-2deg);
+    -ms-transform: perspective(.5em) rotateX(-2deg);
+    -webkit-transform: perspective(.5em) rotateX(-2deg);
+    -o-transform: perspective(.5em) rotateX(-2deg);
+    -moz-transform: perspective(.5em) rotateX(-2deg);
+    background-color: #7e4a20;
+}
+.everyAllWarm{
+	position: absolute;
+	margin-top: 223px;
+	margin-left: 4px;
+    display: block;
+    height: 27px;
+    width: 212px;
+    line-height: 27px;
+    text-align: center;
+    font-size: 14px;
+    z-index: 10;
+	color: #FFFFFF;
+	background-color: #3f1a01;
+	display: none;
+}
+.btn-focus .everyAllWarm{
+	display: block;
+}
+
+
+
 #needUpdate{
     width: 1280px;
     height:720px;

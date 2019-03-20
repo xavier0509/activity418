@@ -342,6 +342,13 @@ function listenUserChange() {
         changeLoginFlag = true;
         hasLogin(needQQ, false, false);
     });
+    if($("#allowancePage").style.display="block"){
+    	console.log("津贴页面账户发生变化，默认登录");
+    	$("#loginbox").css("display","none");
+		$("#notLoginNum").css("display","none");
+		$("#LoginedNum").css("display","block");
+    	map = new coocaakeymap($(".coocaabtn2"), $(".everyAllowanceLi:eq(0)"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+    }
 }
 
 function startAndSendLog() {
@@ -502,8 +509,7 @@ function initMap(setFocus) {
         $("#finishMissionWindow").show();
         $("#addchanceaftermission").html(addNum);
         map = new coocaakeymap($("#finishMissionWindow"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
-    }
-    else if (needshowdialog2) {
+    } else if (needshowdialog2) {
         sentLog("okr_web_page_show", '{"page_name":"主活动页面最后一天提示弹窗","activity_name":"春节集卡活动"}');
         _czc.push(['_trackEvent', '春节集卡活动', '主活动页面最后一天提示弹窗', '', '', '']);
         needshowdialog2 = false;
@@ -512,8 +518,7 @@ function initMap(setFocus) {
         $("#indexWindow").show();
         $("#lastDayWindow").show();
         map = new coocaakeymap($("#lastDayWindow"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
-    }
-    else if (needshowdialog3) {
+    } else if (needshowdialog3) {
         sentLog("okr_web_page_show", '{"page_name":"主活动页面交易完成弹窗","activity_name":"春节集卡活动"}');
         _czc.push(['_trackEvent', '春节集卡活动', '主活动页面交易完成弹窗', '', '', '']);
         needshowdialog3 = false;
@@ -522,8 +527,7 @@ function initMap(setFocus) {
         $("#indexWindow").show();
         $("#dealFinishWindow").show();
         map = new coocaakeymap($("#dealFinishWindow .homewindowbtn"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
-    }
-    else if (needshowdialog4) {
+    } else if (needshowdialog4) {
         sentLog("okr_web_page_show", '{"page_name":"主活动页面合成弹窗","activity_name":"春节集卡活动"}');
         _czc.push(['_trackEvent', '春节集卡活动', '主活动页面合成弹窗', '', '', '']);
         removeBackButton = true;
@@ -550,8 +554,7 @@ function initMap(setFocus) {
             $("#compoundWindow").show();
             map = new coocaakeymap($("#compoundWindow .homewindowbtn"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
         }
-    }
-    else if (needshowdialog5) {
+    } else if (needshowdialog5) {
         sentLog("okr_web_page_show", '{"page_name":"主活动页面瓜分弹窗","activity_name":"春节集卡活动"}');
         _czc.push(['_trackEvent', '春节集卡活动', '主活动页面瓜分弹窗', '', '', '']);
         needshowdialog5 = false;
@@ -992,7 +995,37 @@ function initBtn() {
 			draw()
 		}
 	});
+	$("#allowanceBtn").unbind("itemClick").bind("itemClick", function() {
+        $("#mainbox").css("display", "none");
+        $("#allowancePage").css("display", "block");
+        console.log(loginstatus);
+		getAllowanceInfo();
+	});
+	$("#drawBtn").unbind("itemClick").bind("itemClick", function() {
+		console.log("点击了登录按钮");
+		startAndSendLog();
+	});
 	//---------------------------------
+}
+
+function initBtnAfter(){
+	$(".everyAllowanceLi").unbind("itemFocus").bind("itemFocus", function() {
+		var _fIndex = $(".everyAllowanceLi").index($(this));
+		console.log(_fIndex);
+		var _itemWidth = $(".everyAllowanceLi:eq(0)").outerHeight(true) + 15;
+		console.log(_itemWidth);
+		var floorNum = Math.floor(_fIndex/5);
+		console.log(floorNum);
+		var myScrollTopValue = _itemWidth * floorNum;
+		console.log(myScrollTopValue);
+		$("#everyAllowanceBox").stop(true, true).animate({scrollTop: myScrollTopValue}, {duration: 0,easing: "swing"});
+		
+	});
+	$(".everyAllowanceLi").unbind("itemClick").bind("itemClick", function() {
+		var _fIndex = $(".everyAllowanceLi").index($(this));
+		console.log(_fIndex);
+		getParamAndStart(this,false);
+	});
 }
 //领取津贴接口
 function getAllowance() {
@@ -1734,33 +1767,32 @@ function checkVersion() {
 }
 //查找我的津贴
 function selectMyAllowanceNum() {
-        $.ajax({
-            type: "GET",
-            async: true,
-            url: allowanceUrl,
-            // data: {clientId:"YS_BETA",authenticationType:"openid",authenticationValue :cOpenId,currentTimestamp:new Date().getTime()},
-            data: {clientId:allowanceClientId,authenticationType:"openid",authenticationValue :cOpenId,currentTimestamp:new Date().getTime()},
-            dataType:"jsonp",
-            jsonp:"callback",
-            success: function(data){
-                console.log("sent------------------"+JSON.stringify(data));
-                if(data.code == 0 ){//用户拥有津贴是否大于0
-                    $("#allowanceValue").html((data.data.totalSubsidy/100) + "元");
-                    $("#allowanceNum").html((data.data.totalSubsidy/100) + "元");
-                    $("#allowanceMoney").html('<span style="font-size: 56px;">' + (data.data.totalSubsidy/100) + '</span>元');
-                }else{
-                    $("#allowanceValue").html("0元");
-                    $("#allowanceNum").html("0元");
-                    $("#allowanceMoney").html('<span style="font-size: 56px;">' +0 + '</span>元');
-                }
-            },
-            error: function(){
+    $.ajax({
+        type: "GET",
+        async: true,
+        url: allowanceUrl,
+        // data: {clientId:"YS_BETA",authenticationType:"openid",authenticationValue :cOpenId,currentTimestamp:new Date().getTime()},
+        data: {clientId:allowanceClientId,authenticationType:"openid",authenticationValue :cOpenId,currentTimestamp:new Date().getTime()},
+        dataType:"jsonp",
+        jsonp:"callback",
+        success: function(data){
+            console.log("sent------------------"+JSON.stringify(data));
+            if(data.code == 0 ){//用户拥有津贴是否大于0
+                $("#allowanceValue").html((data.data.totalSubsidy/100) + "元");
+                $("#allowanceNum").html((data.data.totalSubsidy/100) + "元");
+                $("#allowanceMoney").html('<span style="font-size: 56px;">' + (data.data.totalSubsidy/100) + '</span>元');
+            }else{
                 $("#allowanceValue").html("0元");
                 $("#allowanceNum").html("0元");
                 $("#allowanceMoney").html('<span style="font-size: 56px;">' +0 + '</span>元');
             }
-        });
-
+        },
+        error: function(){
+            $("#allowanceValue").html("0元");
+            $("#allowanceNum").html("0元");
+            $("#allowanceMoney").html('<span style="font-size: 56px;">' +0 + '</span>元');
+        }
+    });
 }
 //获取我的任务信息
 function getMyTasksList(initData) {
@@ -1889,4 +1921,68 @@ function draw() {
 		$(".zjdl").addClass("none").removeClass("dila_Y");
 		$(".zjdl").children("span").removeAttr('class');
 	}, 2500);
+}
+
+//展示我的津贴页面
+function getAllowanceInfo(){
+	document.getElementById("everyAllowanceUl").innerHTML = "";
+    var tag_id = "";
+    //if(needQQ){tag_id = 103188}else {tag_id = 103187}//test
+    if (needQQ) { tag_id = 103228 } else { tag_id = 103229 }
+    var header = JSON.stringify({cUDID:activityId,MAC:macAddress,cModel:TVmodel,cChip:TVchip,cSize:deviceInfo.panel,cTcVersion:deviceInfo.version.replace(/\.*/g, ""),cFMode:"Default",cPattern:"normal","cBrand":"Skyworth"});
+    $.ajax({
+        type: "get",
+        async: true,
+        url: operationurl,
+        data: { page: 1, page_size: 6, tag_id: tag_id ,mode:"simple",content_type:"Tab",header:header},
+        dataType: "json",
+        timeout: 8000,
+        success: function(data) {
+            console.log("运营数据==="+JSON.stringify(data));
+            if(data.data.length>0){
+				var liListItems = "";
+				for(var i = 0; i < data.data.length; i++) {
+					for (var j = 0; j < data.data[i].baseBlocks.length; j++) {
+						console.log(data.data[i].baseBlocks[j].imgs.poster.images);
+						console.log(data.data[i].baseBlocks[j].action);
+						console.log(JSON.parse(data.data[i].baseBlocks[j].action).params.source_id);
+						liListItems += '<div class="everyAllowanceLi coocaabtn2" action='+JSON.stringify(JSON.parse(data.data[i].baseBlocks[j].action))+'><img class="everyAllItem" src="images/itemimg.png"/><div class="everyAllBorder"></div><div class="everyAllInfo">使用津贴再减50元</div><div class="everyAllWarm">按【确定键】看详情购买</div></div>';
+					}
+				}
+				$("#everyAllowanceUl").append(liListItems);
+				for (var k=0;k<$(".everyAllowanceLi").length;k++) {
+					var curBtnId = "myAllowance" + k;
+					$(".everyAllowanceLi:eq("+k+")").attr("id",curBtnId);
+					if (k>1&&(k%5==0)) {
+						console.log(k);
+						var upBtnId = "#myAllowance" + (k-5);
+						$(".everyAllowanceLi:eq("+k+")").attr("upTarget",upBtnId);
+					}
+				}
+            }else{
+            	console.log("获取信息出错");
+            }
+        },
+        error: function(error) {
+            console.log("-----------访问失败---------" + JSON.stringify(error));
+        },
+        complete: function(XMLHttpRequest, status) {　　　　
+			if(status == 'timeout') {　　　　　
+				ajaxTimeoutOne.abort();　　　　
+			}
+        	if (loginstatus == "true") {
+				$("#loginbox").css("display","none");
+				$("#notLoginNum").css("display","none");
+				$("#LoginedNum").css("display","block");
+				map = new coocaakeymap($(".coocaabtn2"), $(".everyAllowanceLi:eq(0)"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+			} else{
+				console.log("未登录");
+				$("#loginbox").css("display","block");
+				$("#notLoginNum").css("display","block");
+				$("#LoginedNum").css("display","none");
+				map = new coocaakeymap($(".coocaabtn2"), $("#loginbox"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+			}
+			initBtnAfter();
+        }
+    });
 }
