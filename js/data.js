@@ -85,15 +85,16 @@ var _adsTaskId = "";
 var _bPlayFormalAdsVideo = false;//播放的是否正式广告:  false:播放的是任务视频， true:正式广告视频
 var hasfinishvideo = false;//是否加过广告机会
 
-
-
+var needFresh = false;
+var rememberBtn = null;//用于刷新页面后定位焦点
+var needRememberFocus = false;//是否需要定位焦点的标志
 
 
 
 
 
 var needSentADLog = false;
-var needFresh = false;
+
 var actEnd = false;
 var awardToast = false;
 var marqueeInterval1 = null;
@@ -111,8 +112,7 @@ var needshowdialog5 = false;//开奖弹窗
 var localChanceNum = 0;
 var gameStatus = 0;//0未开始；1正常期；2冻结期；3开奖结束期
 var isTrade = false;
-var rememberBtn = null;//用于刷新页面后定位焦点
-var needRememberFocus = false;//是否需要定位焦点的标志
+
 var remembernum = "0";//福利街版块如果版本不符合，弹窗提示后重新new焦点
 var toastTimeout = null;
 var remainNum = 0;

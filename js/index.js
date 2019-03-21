@@ -489,8 +489,9 @@ var appDown = {
 
 function initMap(setFocus) {
     initBtn();
+    console.log("--------" + needRememberFocus+"========="+rememberBtn);
     var setFocus = setFocus;
-    if (needRememberFocus&&gameStatus!=2&&gameStatus!=3) {
+    if (needRememberFocus) {
         needRememberFocus = false;
         setFocus = rememberBtn;
     }
@@ -664,7 +665,19 @@ function initBtn() {
                 getParamAndStart(this,false);
             }
             $("#answer4").unbind("itemClick").bind("itemClick", function(){
-                // getParamAndStart(this,false);
+                $("#questionbox").hide();
+                var hasfinishNum = 0;
+                for(var i=0;i<4;i++){
+                    if($(".mission:eq("+i+")").attr("remainingNumber")>0){
+                        map = new coocaakeymap($(".coocaabtn"), $(".mission:eq("+i+")"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+                        break;
+                        //数据采集时需要排除
+                    }else{hasfinishNum++}
+                }
+                if(hasfinishNum == 4){
+                    $("#allowanceGet").trigger("itemFocus");
+                    map = new coocaakeymap($(".coocaabtn"), $("#allowanceGet"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+                }
             })
             $("#answer5").unbind("itemClick").bind("itemClick", function(){
                 getParamAndStart(this,false);
@@ -687,6 +700,9 @@ function initBtn() {
             if(hasfinishvideo){
                 showAndHideToast("即将跳转，完成后回来,已经完成不加机会");
             }else{
+                needFresh = true;
+                needRememberFocus = true;
+                rememberBtn = ".mission:eq("+$('.mission').index($(_this))+")";
                 showAndHideToast("即将跳转，完成后回来");
             }
 
@@ -1197,8 +1213,15 @@ function getParamAndStart(obj,needCheckVersion) {
                             }
                             function startLowVersion(needAddChance) {
                                 console.log("olg------------------------------"+needAddChance);
-                                if(needAddChance){addChance(1,$(obj).attr("taskId"),0)}
-                                showAndHideToast("即将跳转，完成后回来");
+                                if(needAddChance){
+                                    addChance(1,$(obj).attr("taskId"),0);
+                                    showAndHideToast("即将跳转，完成后回来");
+                                    needFresh = true;
+                                    needRememberFocus = true;
+                                    rememberBtn = ".mission:eq("+$('.mission').index($(obj))+")";
+                                }else{
+                                    showAndHideToast("即将跳转，完成后回来,已经完成不加机会");
+                                }
                                 setTimeout(function () {
                                     diceCanClick = true;
                                     coocaaosapi.startCommonNormalAction(param1, param2, param3, param4, param5, str, function() { needSentADLog = false; }, function() {});
@@ -1213,6 +1236,9 @@ function getParamAndStart(obj,needCheckVersion) {
                                 str.push(doubleEggs_Active);
                                 str = JSON.stringify(str);
                                 setTimeout(function () {
+                                    needFresh = true;
+                                    needRememberFocus = true;
+                                    rememberBtn = ".mission:eq("+$('.mission').index($(obj))+")";
                                     diceCanClick = true;
                                     coocaaosapi.startCommonNormalAction(param1, param2, param3, param4, param5, str, function() { needSentADLog = false; }, function() {});
                                 },2000);
@@ -1337,8 +1363,8 @@ function startMapFunc() {
             console.log("掷骰子返回状态：" + JSON.stringify(data));
             if(data.code == 50100){
                 var obj = data.data;
-                setTimeout(function(){showAndHideToast("恭喜您，可以往前走"+obj.diceNumber+"步",obj,true)},4000);
-                setTimeout(function(){mapMove(obj,false)},5300);
+                // setTimeout(function(){showAndHideToast("恭喜您，可以往前走"+obj.diceNumber+"步",obj,true)},4000);
+                setTimeout(function(){mapMove(obj,false)},4000);
             }else{
                 diceCanClick = true;
                 clearInterval(interval_diceMove);
@@ -1503,7 +1529,7 @@ function selectChipInfo() {
         type: "post",
         async: true,
         url: adressIp + "/building/ludo/chip-info",
-        data: { id: actionId, cChip: TVchip, cModel: TVmodel, cUDID: activityId, MAC: macAddress, cEmmcCID: emmcId, cOpenId: cOpenId, cNickName: nick_name,cHomepageVersion:cAppVersion,province:_province,city:_city},
+        data: {capsuleId:capsuleId, id: actionId, cChip: TVchip, cModel: TVmodel, cUDID: activityId, MAC: macAddress, cEmmcCID: emmcId, cOpenId: cOpenId, cNickName: nick_name,cHomepageVersion:cAppVersion,province:_province,city:_city},
         dataType: "json",
         // timeout: 20000,
         success: function(data) {
