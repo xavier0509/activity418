@@ -59,27 +59,31 @@ var activityCenterVersion = 0;
 var mallVersion = 0;
 
 var ADMsg = null;
-
 var lotteryNum = 0;
 var startDayNum = 0;
 var userKeyId = "";
 var capsuleIsStart = false;
 var todayFirst = false;
+var activeFirst = false;
 var cardsNum = 0;
 var beginTime = null;
 var endTime = null;
 var nowTime = null;
 var nowPosition = "";
+var nowPosition = "";
+var alter = "";
+var alterType = "";
 
 var _province = "";
 var _city = "";
 var interval_diceMove = null;
 var diceCanClick = true;
 
-
 var haveMarge = false;
 var haveUnReceive = false;
 var needAddChance = false;
+var haveGiftChip = "";
+var chipKey = false;
 var intervalForCutdown = null;
 var _adsTaskId = "";
 var _bPlayFormalAdsVideo = false;//播放的是否正式广告:  false:播放的是任务视频， true:正式广告视频
@@ -89,6 +93,19 @@ var needFresh = false;
 var rememberBtn = null;//用于刷新页面后定位焦点
 var needRememberFocus = false;//是否需要定位焦点的标志
 
+var speak7type = "answer";
+var hasOverTask = 0;
+var speak1,speak2,speak3,speak4,speak5,speak6,speak7,speak8 = false;
+var str1,str2,str3,str4,str5,str6,str7,str8 = "";
+
+var needshowdialog1 = false; //赠卡、合成
+var needshowdialog2 = false;//赠卡、未合成
+var needshowdialog3 = false;//正常合成18之前
+var needshowdialog4 = false;//正常合成18之后
+var needshowdialog5 = false;//走一圈18前
+var needshowdialog6 = false;//走一圈18后
+var needshowdialog7 = false;//赠送机会
+var removeBackButton = false;
 
 
 
@@ -103,11 +120,6 @@ var userIp = "";
 var startLoginFlag = false;
 var changeLoginFlag = false;
 
-var needshowdialog1 = false; //任务完成弹窗
-var needshowdialog2 = false;//最后一天提示
-var needshowdialog3 = false;//交易成功弹窗
-var needshowdialog4 = false;//合成弹窗
-var needshowdialog5 = false;//开奖弹窗
 
 var localChanceNum = 0;
 var gameStatus = 0;//0未开始；1正常期；2冻结期；3开奖结束期
@@ -125,7 +137,7 @@ var link_type = "";//首行影视链接、首行教育链接、首行购物链�
 
 
 var _curHomeBtn = ""; //记录我的奖励页面点击的btn
-var removeBackButton = false;
+
 var collectNum = 0;
 var _curAllBtn = 0; //记录我的津贴页面点击的btn
 var isActiveEndFirstIn = false;
