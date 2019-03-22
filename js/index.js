@@ -342,7 +342,7 @@ function listenUserChange() {
         changeLoginFlag = true;
         hasLogin(needQQ, false, false);
     });
-    if($("#allowancePage").style.display="block"){
+    if($("#allowancePage").style.display=="block"){
     	console.log("津贴页面账户发生变化，默认登录");
     	$("#loginbox").css("display","none");
 		$("#notLoginNum").css("display","none");
@@ -1075,7 +1075,7 @@ function initBtn() {
         console.log(loginstatus);
 		getAllowanceInfo();
 	});
-	$("#drawBtn").unbind("itemClick").bind("itemClick", function() {
+	$("#loginbox").unbind("itemClick").bind("itemClick", function() {
 		console.log("点击了登录按钮");
 		startAndSendLog();
 	});
@@ -1100,6 +1100,132 @@ function initBtnAfter(){
 		console.log(_fIndex);
 		getParamAndStart(this,false);
 	});
+	
+	$(".myAwards").unbind("itemFocus").bind("itemFocus", function() {
+        console.log("in myAwards");
+        var _index1 = $(".myAwards").index($(this)); //btn是第几个
+        var _index2 = $(".awardTabs").index($(this).parent()); //btn所在的盒子是第几个
+        console.log(_index1 + "--" + _index2);
+        var boxHeight = 0;
+        var myScrollTopValue = 0;
+        if (_index2 == 0) {
+            myScrollTopValue = 0;
+        } else if (_index2 == 1) {
+            myScrollTopValue = $(".awardTabs")[0].offsetHeight + 20;
+        } else if (_index2 == 2) {
+            myScrollTopValue = $(".awardTabs")[0].offsetHeight + $(".awardTabs")[1].offsetHeight + 40;
+        } else if (_index2 == 3) {
+            myScrollTopValue = $(".awardTabs")[0].offsetHeight + $(".awardTabs")[1].offsetHeight + $(".awardTabs")[2].offsetHeight + 60;
+        } else if (_index2 == 4) {
+            myScrollTopValue = $(".awardTabs")[0].offsetHeight + $(".awardTabs")[1].offsetHeight + $(".awardTabs")[2].offsetHeight + $(".awardTabs")[3].offsetHeight + 80;
+        }
+        console.log(myScrollTopValue);
+        $("#myAwardBox").stop(true, true).animate({ scrollTop: myScrollTopValue }, { duration: 0, easing: "swing" });
+    });
+    $(".myAwards").unbind("itemClick").bind("itemClick", function() {
+//      $(".awardbg").css("display", "none");
+//      var _clickIndex = $(".myAwards").index($(this));
+//      var _awardName = $(this).attr("awardName");
+//      var _awardTime = $(this).attr("awardTime");
+//      var _awardType = $(this).attr("awardType");
+//      var _awardState = $(this).attr("awardState");
+//      var _lotteryActiveId = $(this).attr("lotteryActiveId");
+//      console.log(_lotteryActiveId);
+//      var _rememberId = $(this).attr("rememberId");
+//      var _userkeyId = $(this).attr("userkeyId");
+//
+//      _curHomeBtn = $(this).attr("id");
+//      console.log(_curHomeBtn);
+//      console.log(_clickIndex + "--" + _awardType + "--" + _awardState + "--" + loginstatus);
+        if (_awardType == 17) {
+            if (loginstatus == "false") {
+                console.log("点击了购物津贴+启登录");
+                startAndSendLog();
+            } else {
+                console.log("点击了购物津贴+跳转页面");
+//              $("#myAllowancePage").css("display", "block");
+//              $("#allowanceItemBox").stop(true, true).animate({ scrollTop: 0 }, { duration: 0, easing: "swing" });
+//              $("#allowanceValueBox").css("display","block");
+//              $("#allowanceLogin").css("display","none");
+//          	$(".allowanceInfo1").css("display","block");
+//          	$(".allowanceInfo2").css("display","none");
+//              map = new coocaakeymap($(".coocaa_btn"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
+//              sentLog("okr_web_button_click", '{"button_name":"津贴","page_name":"我的奖励页面","activity_name":"春节集卡活动"}');
+//              _czc.push(['_trackEvent', '春节集卡活动', '我的奖励页面', '津贴点击', '', '']);
+//              sentLog("okr_web_page_show", '{"page_name":"我的津贴页面","activity_name":"春节集卡活动"}');
+//              _czc.push(['_trackEvent', '春节集卡活动', '我的津贴页面曝光', '', '', '']);
+//          	//跳转津贴页面并领取未领取的津贴
+//      		getAllNotGetAllowance();
+            }
+        }
+        if (_awardType == 7) {
+            var _redNumber = $(this).attr("redNumber");
+            console.log("点击了红包");
+            if (loginstatus == "false") {
+                console.log("点击了红包+启登录");
+                startAndSendLog();
+            } else {
+            	console.log("点击了红包+展示信息");
+//              $("#dialogPage").css("display", "block");
+//              sentLog("okr_web_button_click", '{"page_name":"我的奖励页面","activity_name":"春节集卡活动","button_name":"红包"}');
+//              _czc.push(['_trackEvent', '我的奖励页面', '春节集卡活动', '红包', '', '']);
+//              if (_awardState == 0) {
+//                  console.log("点击了红包+显示二维码");
+//                  $("#redNotGet").css("display", "block");
+//                  if (_lotteryActiveId == 95) {
+//                      $("#redStrongPart").html("福卡红包");
+//                  } else {
+//                      $("#redStrongPart").html("瓜分红包");
+//                  }
+//                  $("#redContent").html('<span style="font-size: 112px;">' + _redNumber + '</span>元');
+//                  console.log(_lotteryActiveId + "--" + _rememberId + "--" + _userkeyId);
+//                  getRedPacketsQrcode(_lotteryActiveId, _rememberId, _userkeyId, "redQrcode", 260, 260);
+//                  map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("redQrcode"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+//              } else {
+//                  console.log("点击了红包+显示领取信息");
+//                  $("#redHasGet").css("display", "block");
+//                  map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("redHasGetBtn"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+//              }
+            }
+        }
+        if (_awardType == 2) {
+            if (loginstatus == "false") {
+                console.log("点击了实物奖+启登录");
+                startAndSendLog();
+            } else {
+            	console.log("点击了实物奖+展示奖品");
+//              $("#dialogPage").css("display", "block");
+//              sentLog("okr_web_button_click", '{"page_name":"我的奖励页面","activity_name":"春节集卡活动","button_name":"实物"}');
+//              _czc.push(['_trackEvent', '我的奖励页面', '春节集卡活动', '实物', '', '']);
+//              if (_awardState == 0) {
+//                  console.log("点击了实物奖+显示二维码");
+//                  $("#otherInfo1").html("奖品名称:&nbsp;&nbsp;" + _awardName);
+//                  $("#otherInfo2").html("发放时间:&nbsp;&nbsp;" + _awardTime);
+//                  $("#otherInfo3").html('使用<span class="otherAwardVar">微信扫码</span>完善收货信息，确保奖品能够送达哦~');
+//                  $("#otherNotGet").css("display", "block");
+//                  $("#otherQrcode").css("display", "block");
+//                  map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherInfo3"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+//                  var enstr = enurl + "activeId=" + _lotteryActiveId + "&rememberId=" + _rememberId + "&userKeyId=" + _userkeyId + "&access_token=" + access_token;
+//                  drawQrcode("otherQrcode", enstr, 180);
+//              } else {
+//                  console.log("点击了实物奖+显示领取信息");
+//                  var _awardAddress = $(this).attr("awardAddress");
+//                  var _userPhone = $(this).attr("userPhone");
+//                  var _userName = $(this).attr("userName");
+//
+//                  $("#otherHasGet").css("display", "block");
+//                  $("#hasGotInfo1").html("奖品名称:&nbsp;&nbsp;" + _awardName);
+//                  $("#hasGotInfo2").html("发放时间:&nbsp;&nbsp;" + _awardTime);
+//                  $("#hasGotInfo3").html("联系人:&nbsp;&nbsp;" + _userName);
+//                  $("#hasGotInfo4").html("联系电话:&nbsp;&nbsp;" + _userPhone);
+//                  $("#hasGotInfo5").css("display", "block");
+//                  $("#hasGotInfo6").css("display", "none");
+//                  $("#hasGotInfo5").html("收货地址:&nbsp;&nbsp;" + _awardAddress);
+//                  map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("hasGotInfo4"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+//              }
+            }
+        }
+    });
 }
 //领取津贴接口
 function getAllowance() {

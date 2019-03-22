@@ -28,17 +28,6 @@ img[src=''] {
 	height: 100%;
 	width: 100%;
 }
-/*.entitySon{
-	position: absolute;
-    width: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
-	-moz-transform: translate(-50%, -50%);
-	-webkit-transform: translate(-50%, -50%);
-	-o-transform: translate(-50%, -50%);
-}*/
 /*弹窗部分*/
 #dialogPage {
 	background-color: rgba(0, 0, 0, 0.8);
@@ -763,6 +752,305 @@ img[src=''] {
 .btn-focus .everyAllWarm{
 	display: block;
 }
+#myAwardPage{
+    /*background-image: url(../images/myawardbg2.jpg);*/
+    background-image: url(../images/bg_1.jpg);
+    display: block;
+}
+#myAwardBox{
+    position: absolute;
+    top: 92px;
+    left: 125px;
+    height: 630px;
+    width: 1010px;
+    overflow: hidden;
+}
+.awardTabBox{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 12px;
+    /*display: none;*/
+}
+/*左边Tab标签样式*/
+.awardTabName{
+    display: inline-block;
+    margin-top: 45px;
+    margin-left: 20px;
+    float: left;
+    width: 163px;
+    height: 57px;
+    background:url(../images/awardlable.png)  no-repeat;
+}
+#allowanceTitle{
+	background-position: -1065px 0;
+}
+#redTitle{
+	background-position: -1228px 0;
+}
+#entityTitle{
+	background-position: -902px 0;
+}
+#packageTitle{
+	background-position: -1554px 0;
+}
+#goldcoinTitle{
+	background-position: -1391px 0;
+}
+
+.awardTabs{
+    display: inline-block;
+    width: 810px;
+    float: right;
+    overflow: hidden;
+}
+.myAwards{
+    position: relative;
+    display: inline-block;
+    height: 113px;
+    margin: 10px;
+}
+#allowanceBox .myAwards{
+	width: 341px;
+}
+#redBox .myAwards{
+	width: 341px;
+	margin-right: 46px;
+}
+#entityBox .myAwards{
+	width: 231px;
+}
+#packageBox .myAwards{
+	width: 231px;
+}
+#goldcoinBox .myAwards{
+	width: 341px;
+	margin-right: 46px;
+}
+/*每个奖励元素的集合样式*/
+.myawardsImg{
+	position: absolute;
+	margin: 5px;
+	height:113px;
+	background:url(../images/awardlable.png)  no-repeat;
+}
+#allowanceTabs .myawardsImg{
+	width:341px;
+	background-position: -2359px 0;
+}
+#redTabs .myawardsImg{
+	width:341px;
+	background-position: -3041px 0;
+}
+#entityTabs .myawardsImg{
+	width:231px;
+	background-position: -2128px 0;
+}
+#packageTabs .myawardsImg{
+	width:231px;
+	background-position: -1897px 0;
+}
+#goldcoinTabs .myawardsImg{
+	width:341px;
+	background-position: -2700px 0;
+}
+.myawardsBorder{
+	position: absolute;
+	height:113px;
+	width:341px;
+	border: 5px solid #59ff3e;
+	box-shadow: 0 0 15px #59ff3e;
+	border-radius: 15px;
+	display: none;
+}
+.btn-focus .myawardsBorder{
+	display: block;
+}
+#allowanceTabs .myawardsBorder{
+	width:341px;
+}
+#redTabs .myawardsBorder{
+	width:341px;
+}
+#entityTabs .myawardsBorder{
+	width:231px;
+}
+#packageTabs .myawardsBorder{
+	width:231px;
+}
+#goldcoinTabs .myawardsBorder{
+	width:341px;
+}
+.awardMoney{
+    position: absolute;
+    top: 30px;
+    right: 170px;
+    height: 65px;
+    width: 180px;
+    text-align: right;
+    font-size: 42px;
+    color: #f7d7ae;
+    bottom: 0px;
+}
+.redBtn{
+	position: relative;
+    top: 25px;
+    right: 28px;
+    height: 85px;
+    width: 30px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    color: #c34a06;
+    float: right;
+    line-height: 25px;
+}
+.redUnit{
+	position: relative;
+	display: inline-block;
+    top: 25px;
+    right: 75px;
+    height: 60px;
+    width: 30px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    color: #FFF4BD;
+    float: right;
+    line-height: 106px;
+}
+.redMoney{
+	position: relative;
+    display: inline-block;
+    top: 40px;
+    right: 75px;
+    height: 60px;
+    min-width: 100px;
+    font-size: 56px;
+    font-weight: 600;
+    color: #fff4bd;
+    float: right;
+    line-height: 60px;
+    letter-spacing: -2px;
+}
+.cumulative{
+	position: relative;
+    display: inline-block;
+    top: 50px;
+    right: 75px;
+    height: 60px;
+    width: 30px;
+    line-height: 20px;
+    text-align: center;
+    font-size: 20px;
+    color: #fff4bd;
+    float: right;
+}
+.entityImg,.packageImg{
+	position: absolute;
+	top: 15px;
+	left: 10px;
+	height: 85px;
+	width: 81px;
+	border-radius: 5px;
+}
+.entityName,.packageName{
+	position: absolute;
+    top: 5px;
+    left: 95px;
+    height: 60px;
+    width: 130px;
+    text-align: center;
+    color: #fff4bd;
+    font-size: 24px;
+    font-weight: 600;
+}
+.entitySon,.packageSon{
+	position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+}
+.entityStatus,.packageStatus,.goldcoinStatus{
+	position: absolute;
+	top: 69px;
+    left: 105px;
+	height: 36px;
+	width: 106px;
+	background:url(../images/awardlable.png)  no-repeat;
+}
+#entityBox .hasgot{
+	background-position: -106px 0;
+}
+#entityBox .notget{
+	background-position: -318px 0;
+}
+#packageBox .hasgot{
+	background-position: -212px 0;
+}
+#packageBox .notget{
+	background-position: -212px 0;
+}
+#goldcoinBox .hasgot{
+	left: 159px;
+    top: 60px;
+    height: 43px;
+    width: 133px;
+	background-position: -769px 0;
+}
+#goldcoinBox .notget{
+	left: 159px;
+    top: 60px;
+    height: 43px;
+    width: 133px;
+	background-position: -636px 0;
+}
+.goldcoinNum{
+	position: absolute;
+    top: 19px;
+    left: 205px;
+    height: 30px;
+    width: 69px;
+    line-height: 30px;
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+
+
+
+
+#noAwardBox1{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1080px;
+    width: 1920px;
+}
+#noAwardBox2{
+    position: absolute;
+    top: 643px;
+    left: 600px;
+    height: 60px;
+    width: 720px;
+    line-height: 60px;
+    font-size: 36px;
+    color: #ac855e;
+    text-align: center;
+    letter-spacing: 3px;
+    font-weight: 900;
+}
+
+
+
+
+
 
 
 
