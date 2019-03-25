@@ -275,7 +275,7 @@ var app = {
     triggleButton: function() {
         cordova.require("coocaaosapi");
         listenUserChange();
-        listenPlayer();
+        listenPlayerStatus();
         getLocationInfo();
     }
 };
@@ -283,9 +283,10 @@ var app = {
 
 app.initialize();
 //监听播放器
-function listenPlayer() {
+function listenPlayerStatus() {
+    console.log("--------------->commonListen==");
     coocaaosapi.addCommonListener(function(message) {
-        console.log("--------------->commonListen==" + message.web_player_event);
+        console.log("--------------->commonListen==" + JSON.stringify(message));
         if(message.web_player_event == "on_start") {
             console.log("on_start 开始播放");
             if(_bPlayFormalAdsVideo == true) { //正式广告，提交数据采集
@@ -300,7 +301,7 @@ function listenPlayer() {
             }
             //加机会
             if(!hasfinishvideo){
-                addChance(1,_adsTaskId);
+                addChance("0",_adsTaskId);
             }
             //数据复位
             ADMsg = null;
@@ -344,7 +345,7 @@ function listenUserChange() {
         changeLoginFlag = true;
         hasLogin(needQQ, false, false);
     });
-    if($("#allowancePage").style.display=="block"){
+    if(document.getElementById("allowancePage").style.display=="block"){
     	console.log("津贴页面账户发生变化，默认登录");
     	$("#loginbox").css("display","none");
 		$("#notLoginNum").css("display","none");
@@ -543,8 +544,8 @@ function mergeShow(dialog) {
     }
 }
 function initMap(setFocus,needShowSpeak) {
+    selectMyAllowanceNum();
     initBtn();
-    getAllowanceInfo();
     console.log("--------" + needRememberFocus+"========="+rememberBtn);
     var setFocus = setFocus;
     if (needRememberFocus) {
@@ -804,7 +805,7 @@ function initBtn() {
             if(hasfinishvideo){
                 showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/bujiajihui.png");
             }else{
-                needFresh = true;
+                // needFresh = true;
                 needRememberFocus = true;
                 rememberBtn = ".mission:eq("+$('.mission').index($(_this))+")";
                 showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jijiangtiaozhuan.png");
@@ -881,6 +882,7 @@ function initBtn() {
 		}
 	});
 	$("#allowanceBtn").unbind("itemClick").bind("itemClick", function() {
+        getAllowanceInfo();
         $("#mainbox").css("display", "none");
         $("#allowancePage").css("display", "block");
         map = new coocaakeymap($(".coocaabtn2"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
@@ -1066,7 +1068,7 @@ function getAllowance() {
         },
         success: function(data) {
             console.log("领取津贴信息=========================="+JSON.stringify(data));
-            if(data.code != "50100") { //服务器返回正常
+            if(data.code == "50100") { //服务器返回正常
                 $("#blackBg").show();
                 $("#getallowancesuccess").show();
                 map = new coocaakeymap($("#getallowancesuccess"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
@@ -1216,7 +1218,7 @@ function getParamAndStart(obj,needCheckVersion) {
                             function startLowVersion(needAddChance) {
                                 console.log("olg------------------------------"+needAddChance);
                                 if(needAddChance){
-                                    addChance(1,$(obj).attr("taskId"),0);
+                                    addChance("1",$(obj).attr("taskId"),0);
                                     showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jijiangtiaozhuan.png");
                                     needFresh = true;
                                     needRememberFocus = true;
@@ -1280,9 +1282,11 @@ function addChance(taskType, taskId, askResult) {
         success: function(data) {
             console.log("------------addChanceWhenFinishTask----result-------------"+JSON.stringify(data));
             if(data.code == 50100){
-                if(taskType == 1){
+                if(taskType == "1"){
                     //刷新页面状态:
                     getMyTasksList(false);
+                }else if(taskType == "0"){
+                    showPage(false, false);
                 }
             }else if(data.code == 91009){
                 console.log("任务已过期");
@@ -1588,6 +1592,40 @@ function showPage(first, resume) {
 }
 //小狐狸说话信息
 function speakToast(overtask){
+    if(activeFirst){
+        speak1 = true;
+        str1="投掷骰子每到一格都有奖励哦！快来试试~";
+    }
+    if(startDayNum<6){
+        speak2 = true;
+        if(startDayNum<4){
+            str2="大富翁<span>今日大奖</span>是<span>戴森三件套</span>，快掷骰子参与吧！";
+        }else if(startDayNum < 7){
+            str2="大富翁<span>今日大奖</span>是<span>iPhone XS</span>，快掷骰子参与吧！";
+        }else{
+            str2="大富翁<span>今日大奖</span>是<span>新款苹果电脑</span>，快掷骰子参与吧！";
+        }
+        if(cardsNum==0){
+            speak3 = true;
+            str3="还在等什么呢,最新创维电视正在等您，快集齐418周年卡片吧！";
+        }else{
+            if(todayFirst){
+                speak4 = true;
+                str4="您已有<span>"+cardsNum+"</span>套卡片可0元赢新品电视，<span>4月18日开奖，</span>记得回来哦！";
+            }
+        }
+    }
+    else{
+        if(cardsNum==0){
+            speak3 = true;
+            str3="还在等什么呢,最新创维电视正在等您，快集齐418周年卡片吧！";
+        }else{
+            speak4 = true;
+            str4="您已有<span>"+cardsNum+"</span>套卡片可0元赢新品电视，<span>4月18日开奖，</span>记得回来哦！";
+        }
+    }
+
+
     speak2 = true;
     if(startDayNum<4){
         str2="大富翁<span>今日大奖</span>是<span>戴森三件套</span>，快掷骰子参与吧！";
