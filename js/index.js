@@ -1632,46 +1632,35 @@ function speakToast(overtask){
             speak4 = true;
             str4="您已有<span>"+cardsNum+"</span>套卡片可0元赢新品电视，<span>4月18日开奖，</span>记得回来哦！";
         }
-    }
-
-
-    speak2 = true;
-    if(startDayNum<4){
-        str2="大富翁<span>今日大奖</span>是<span>戴森三件套</span>，快掷骰子参与吧！";
-    }else if(startDayNum < 7){
-        str2="大富翁<span>今日大奖</span>是<span>iPhone XS</span>，快掷骰子参与吧！";
-    }else{
-        str2="大富翁<span>今日大奖</span>是<span>新款苹果电脑</span>，快掷骰子参与吧！";
-    }
-
-    if(activeFirst){
-        speak1 = true;
-        str1="投掷骰子每到一格都有奖励哦！快来试试~";
-        if(startDayNum>5){
-            speak6 = true;
-            str6="418大奖倒计时！<span>创维电视正在免费送，</span>快去集418卡片赢电视吧！";
-        }
-    }else{
         if(todayFirst){
-            if(startDayNum>5){
-                speak5 = true;
-                str5='终极大奖开启！集齐418周年卡片赢新品电视！快去"扭一扭"吧！';
+            speak2 = true;
+            if(startDayNum == 6){
+                str2='终极大奖开启！集齐418周年卡片赢新品电视！快去"扭一扭"吧！';
             }else{
-                if(cardsNum>0){
-                    speak4 = true;
-                    str4="您已有<span>"+cardsNum+"</span>套卡片可0元赢新品电视，<span>4月18日开奖，</span>记得回来哦！";
+                var random = Math.random();
+                if(startDayNum<4){
+                    if(random>0.5){
+                        str2='终极大奖开启！集齐418周年卡片赢新品电视！快去"扭一扭"吧！';
+                    }else{
+                        str2="大富翁<span>今日大奖</span>是<span>戴森三件套</span>，快掷骰子参与吧！";
+                    }
+                }else if(startDayNum < 7){
+                    if(random>0.5){
+                        str2='终极大奖开启！集齐418周年卡片赢新品电视！快去"扭一扭"吧！';
+                    }else {
+                        str2 = "大富翁<span>今日大奖</span>是<span>iPhone XS</span>，快掷骰子参与吧！";
+                    }
                 }else{
-                    speak3 = true;
-                    str3="还在等什么呢,最新创维电视正在等您，快集齐418周年卡片吧！";
+                    if(random>0.5){
+                        str2='终极大奖开启！集齐418周年卡片赢新品电视！快去"扭一扭"吧！';
+                    }else {
+                        str2 = "大富翁<span>今日大奖</span>是<span>新款苹果电脑</span>，快掷骰子参与吧！";
+                    }
                 }
             }
-        }else{
-            if(startDayNum>5){
-                speak6 = true;
-                str6="418大奖倒计时！创维电视正在免费送，快去集418卡片赢电视吧！";
-            }
         }
     }
+
 
     if(lotteryNum == 0){
         if(overtask == 4){
