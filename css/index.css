@@ -28,10 +28,6 @@ img[src=''] {
 	height: 100%;
 	width: 100%;
 }
-/*弹窗部分*/
-#dialogPage {
-	background-color: rgba(0, 0, 0, 0.8);
-}
 /*.line{
 	position: absolute;
     top: 450px;
@@ -1172,6 +1168,270 @@ img[src=''] {
     letter-spacing: 3px;
     font-weight: 900;
 }
+/*奖励页面弹窗*/
+#dialogPage {
+	/*display: block;*/
+	background-color: rgba(0, 0, 0, 0.8);
+	/*background-image: url(../images/myaward/bigbg3.png);*/
+	/*background-repeat: no-repeat;*/
+    /*background-size: 100%;*/
+}
+.fullscreen{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: none;
+}
+.awardbg{
+	top: 166px;
+	left: 337px;
+	height: 426px;
+	width: 616px;
+	background-image: url(../images/myaward/bg1.png);
+}
+#redHasGet{
+	position: absolute;
+	top: 166px;
+	left: 337px;
+	height: 426px;
+	width: 616px;
+}
+#redHasGetInfo{
+	position: absolute;
+    top: 73px;
+    left: 108px;
+    height: 60px;
+    width: 400px;
+    text-align: center;
+    line-height: 50px;
+    color: #9a4100;
+    font-size: 32px;
+    font-weight: 900;
+}
+#redHasGetNum{
+	height: 60px;
+	line-height: 60px;
+	font-size: 44px;
+	color: #fa3f07;
+}
+#redLine{
+	position: absolute;
+    top: 148px;
+    color: white;
+    height: 2px;
+    left: 120px;
+    width: 384px;
+    font-size: 55px;
+    overflow: hidden;
+    border-bottom: 2px solid #964c00;
+}
+#redHasGetInfo2{
+	position: absolute;
+    top: 177px;
+    left: 108px;
+    height: 60px;
+    width: 400px;
+    text-align: center;
+    line-height: 26px;
+    color: #711100;
+    font-size: 21px;
+    font-weight: 900;
+    letter-spacing: 0px;
+}
+#redHasGetBtn{
+	position: absolute;
+    top: 255px;
+    left: 225px;
+    height: 61px;
+    width: 160px;
+    text-align: center;
+    line-height: 51px;
+    font-size: 24px;
+    font-weight: 900;
+    color: #ffffff;
+    background-image: url(../images/myaward/btn_blur.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+.btnName{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    line-height: 51px;
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 26px;
+}
+.btnFocus{
+	background-image: url(../images/myaward/btn_focus.png);
+	display: none;
+}
+.btn-focus .btnFocus{
+	display: block;
+}
+#redInfo1{
+    position: absolute;
+    height: 34px;
+    width: 260px;
+    top: 90px;
+    left: 80px;
+    font-size: 22px;
+    color: #9a4100;
+    text-align: center;
+    font-weight: 900;
+}
+#redStrongPart{
+    display: inline-block;
+    width: 120px;
+    height: 30px;
+    line-height: 30px;
+    color: #FFFFFF;
+    border-radius: 5px;
+    background-color: #aa4d00;
+    margin: 0 3px;
+}
+#redContent{
+    position: absolute;
+    height: 80px;
+    width: 260px;
+    top: 137px;
+    left: 70px;
+    line-height: 80px;
+    text-align: center;
+    font-size: 32px;
+    bottom: 0px;
+    color: #9a4100;
+    font-weight: 900;
+}
+#redInfo2{
+    position: absolute;
+    height: 24px;
+    width: 200px;
+    top: 237px;
+    left: 110px;
+    background-image: url(../images/myaward/arrow.png);
+}
+#redQrcode{
+    position: absolute;
+    height: 175px;
+    width: 175px;
+    top: 92px;
+    left: 338px;
+    border: 5px solid white;
+}
+
+
+#otherInfo1,#hasGotInfo1,#otherInfo2,#hasGotInfo2{
+    position: absolute;
+    height: 36px;
+    width: 410px;
+    top: 75px;
+    left: 130px;
+    font-size: 23px;
+    line-height: 36px;
+    font-weight: 600;
+    color: #9a4100;
+    letter-spacing: 1px;
+}
+#otherInfo2,#hasGotInfo2{
+    top: 106px;
+    font-size: 19px;
+}
+.awardLine{
+	position: absolute;
+    top: 148px;
+    color: white;
+    height: 2px;
+    left: 120px;
+    width: 384px;
+    font-size: 55px;
+    overflow: hidden;
+    border-bottom: 2px solid #964c00;
+}
+#otherInfo3{
+    position: absolute;
+    top: 180px;
+    left: 132px;
+    height: 120px;
+    width: 186px;
+    line-height: 28px;
+    font-size: 20px;
+    color: #711100;
+    font-weight: 600;
+}
+.otherAwardVar{
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    margin: 0px 15px;
+    width: 170px;
+    line-height: 43px;
+    border-radius: 20px;
+    text-align: center;
+    color: #FFFADB;
+    background-color: #911601;
+}
+#otherQrcode{
+    position: absolute;
+    height: 125px;
+    width: 125px;
+    top: 160px;
+    left: 355px;
+    border: 6px solid white;
+}
+#otherQrcodeImg{
+    position: absolute;
+    height: 180px;
+    width: 180px;
+    top: 449px;
+    left: 1017px;
+}
+#hasGotInfo3,#hasGotInfo4,#hasGotInfo5,#hasGotInfo6{
+	position: absolute;
+    height: 30px;
+    width: 410px;
+    top: 160px;
+    left: 130px;
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 600;
+    color: #9a4100;
+    letter-spacing: 1px;
+}
+#hasGotInfo4{
+    top: 190px;
+}
+#hasGotInfo5{
+    top: 225px;
+    height: 82px;
+    line-height: 24px;
+    overflow: hidden;
+}
+#hasGotInfo6{
+    top: 250px;
+    font-size: 26px;
+    line-height: 34px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

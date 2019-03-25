@@ -34,7 +34,7 @@ var capsuleId = "";
 // var adressIp = "https://restful.skysrt.com";
 // var orderUrl = "https://api-business.skysrt.com/v3/order/genOrderByJsonp.html?data=";
 
-    var adressIp = "http://beta.restful.lottery.coocaatv.com";
+var adressIp = "http://beta.restful.lottery.coocaatv.com";
 var orderUrl = "http://172.20.132.182:8090/v3/order/genOrderByJsonp.html?data=";
 
 
