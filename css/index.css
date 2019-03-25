@@ -1269,11 +1269,11 @@ img[src=''] {
     color: #FFFFFF;
     font-size: 26px;
 }
-.btnFocus{
+.imgFocus{
 	background-image: url(../images/myaward/btn_focus.png);
 	display: none;
 }
-.btn-focus .btnFocus{
+.btn-focus .imgFocus{
 	display: block;
 }
 #redInfo1{
