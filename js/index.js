@@ -894,6 +894,7 @@ function initBtn() {
 //      _czc.push(['_trackEvent', '春节集卡活动', '春节集卡活动主页', '我的奖励点击', '', '']);
 //      sentLog("okr_web_page_show", '{"page_name":"我的奖励","activity_name":"春节集卡活动","last_page_name":"春节集卡活动主页"}');
 //      _czc.push(['_trackEvent', '春节集卡活动', '我的奖励曝光', '', '', '']);
+		$("#mainbox").css("display", "none");
         $("#myAwardPage").css("display", "block");
         getMyAwards(2);
     });
@@ -926,10 +927,8 @@ function initBtnAfter(){
 	});
 	
 	$(".myAwards").unbind("itemFocus").bind("itemFocus", function() {
-        console.log("in myAwards");
         var _index1 = $(".myAwards").index($(this)); //btn是第几个
         var _index2 = $(".awardTabs").index($(this).parent()); //btn所在的盒子是第几个
-        console.log(_index1 + "--" + _index2);
         var boxHeight = 0;
         var myScrollTopValue = 0;
         if (_index2 == 0) {
@@ -943,7 +942,6 @@ function initBtnAfter(){
         } else if (_index2 == 4) {
             myScrollTopValue = $(".awardTabs")[0].offsetHeight + $(".awardTabs")[1].offsetHeight + $(".awardTabs")[2].offsetHeight + $(".awardTabs")[3].offsetHeight + 48;
         }
-        console.log(myScrollTopValue);
         $("#myAwardBox").stop(true, true).animate({ scrollTop: myScrollTopValue }, { duration: 0, easing: "swing" });
     });
     $(".myAwards").unbind("itemClick").bind("itemClick", function() {
@@ -2208,10 +2206,8 @@ function getMyAwards(num) {
         	//假数据
         	data = myAwardObj;
             console.log(JSON.stringify(data));
-            
             if (data.code == 50100) {
                 if (data.data == undefined){
-                	console.log("------------------1");
                     data.data = [];
                 }
                 console.log(data.data.length);
@@ -2282,10 +2278,8 @@ function getMyAwards(num) {
                             }
                             _arr2.push(objItem);
                         } else if (data.data[i].awardTypeId == "13") {
-                        	console.log("特价购买权");
                             _arr3.push(objItem);
                         } else if (data.data[i].awardTypeId == "19") {
-                        	console.log("金币");
                         	objItem.coinNumber = data.data[i].awardInfo.num;
                             _arr4.push(objItem);
                         }
