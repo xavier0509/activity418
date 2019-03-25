@@ -916,11 +916,8 @@ function initBtnAfter(){
 		var _itemWidth = $(".everyAllowanceLi:eq(0)").outerHeight(true) + 15;
 		console.log(_itemWidth);
 		var floorNum = Math.floor(_fIndex/5);
-		console.log(floorNum);
 		var myScrollTopValue = _itemWidth * floorNum;
-		console.log(myScrollTopValue);
 		$("#everyAllowanceBox").stop(true, true).animate({scrollTop: myScrollTopValue}, {duration: 0,easing: "swing"});
-		
 	});
 	$(".everyAllowanceLi").unbind("itemClick").bind("itemClick", function() {
 		var _fIndex = $(".everyAllowanceLi").index($(this));
@@ -2137,14 +2134,14 @@ function getAllowanceInfo(){
         dataType: "json",
         timeout: 8000,
         success: function(data) {
-            console.log("运营数据==="+JSON.stringify(data));
+//          console.log("运营数据==="+JSON.stringify(data));
             if(data.data.length>0){
 				var liListItems = "";
 				for(var i = 0; i < data.data.length; i++) {
 					for (var j = 0; j < data.data[i].baseBlocks.length; j++) {
-						console.log(data.data[i].baseBlocks[j].imgs.poster.images);
-						console.log(data.data[i].baseBlocks[j].action);
-						console.log(JSON.parse(data.data[i].baseBlocks[j].action).params.source_id);
+//						console.log(data.data[i].baseBlocks[j].imgs.poster.images);
+//						console.log(data.data[i].baseBlocks[j].action);
+//						console.log(JSON.parse(data.data[i].baseBlocks[j].action).params.source_id);
 						liListItems += '<div class="everyAllowanceLi coocaabtn2" action='+JSON.stringify(JSON.parse(data.data[i].baseBlocks[j].action))+'><img class="everyAllItem" src="images/itemimg.png"/><div class="everyAllBorder"></div><div class="everyAllInfo">使用津贴再减50元</div><div class="everyAllWarm">按【确定键】看详情购买</div></div>';
 					}
 				}
