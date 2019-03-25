@@ -344,7 +344,7 @@ function listenUserChange() {
         changeLoginFlag = true;
         hasLogin(needQQ, false, false);
     });
-    if($("#allowancePage").style.display=="block"){
+    if(document.getElementById("allowancePage").style.display=="block"){
     	console.log("津贴页面账户发生变化，默认登录");
     	$("#loginbox").css("display","none");
 		$("#notLoginNum").css("display","none");
@@ -901,7 +901,16 @@ function initBtn() {
     $("#noAwardBtn").unbind("itemClick").bind("itemClick", function() {
         console.log("点击了去玩游戏");
         $("#myAwardPage").css("display", "none");
-        map = new coocaakeymap($(".coocaabtn"), document.getElementById("overChance"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+        $("#mainbox").css("display", "block");
+        map = new coocaakeymap($(".coocaabtn"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
+    });
+    $("#redHasGetBtn").unbind("itemClick").bind("itemClick", function() {
+        console.log("点击了继续参与");
+        $("#mainbox").css("display", "block");
+        $("#dialogPage").css("display", "none");
+        $("#redHasGet").css("display", "none");
+        $("#myAwardPage").css("display", "none");
+        map = new coocaakeymap($(".coocaabtn"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
     });
     
     
@@ -981,11 +990,11 @@ function initBtnAfter(){
                 startAndSendLog();
             } else {
             	console.log("点击了红包+展示信息");
-//              $("#dialogPage").css("display", "block");
+                $("#dialogPage").css("display", "block");
 //              sentLog("okr_web_button_click", '{"page_name":"我的奖励页面","activity_name":"春节集卡活动","button_name":"红包"}');
 //              _czc.push(['_trackEvent', '我的奖励页面', '春节集卡活动', '红包', '', '']);
-//              if (_awardState == 0) {
-//                  console.log("点击了红包+显示二维码");
+                if (_awardState == 0) {
+                    console.log("点击了红包+显示二维码");
 //                  $("#redNotGet").css("display", "block");
 //                  if (_lotteryActiveId == 95) {
 //                      $("#redStrongPart").html("福卡红包");
@@ -996,11 +1005,11 @@ function initBtnAfter(){
 //                  console.log(_lotteryActiveId + "--" + _rememberId + "--" + _userkeyId);
 //                  getRedPacketsQrcode(_lotteryActiveId, _rememberId, _userkeyId, "redQrcode", 260, 260);
 //                  map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("redQrcode"), "btn-focus", function() {}, function(val) {}, function(obj) {});
-//              } else {
-//                  console.log("点击了红包+显示领取信息");
+                } else {
+                    console.log("点击了红包+显示领取信息");
 //                  $("#redHasGet").css("display", "block");
 //                  map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("redHasGetBtn"), "btn-focus", function() {}, function(val) {}, function(obj) {});
-//              }
+                }
             }
         }
         if (_awardType == 2) {
