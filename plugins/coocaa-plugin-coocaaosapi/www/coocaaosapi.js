@@ -1063,6 +1063,14 @@ cordova.define("coocaaosapi", function(require, exports, module) {
             [{ "url": url }]
         ], success, error);
     }
+    CoocaaOSApi.prototype.startNewBrowser5 = function(url, success, error) {
+        console.log("启动新版浏览器")
+        argscheck.checkArgs('sff', 'CoocaaOSApi.startNewBrowser', arguments);
+        startapp.start([
+            ["action", "coocaa.intent.action.browser.theme_bg", "com.coocaa.app_browser"],
+            [{ "url": url }]
+        ], success, error);
+    }
     //启动新版浏览器+++activity【有路径，即启动多层activity】
     //如需要启动透明的，使用action：coocaa.intent.action.browser.withroute
     // CoocaaOSApi.prototype.startNewBrowser3 = function(url, success, error) {

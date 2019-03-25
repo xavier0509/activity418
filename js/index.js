@@ -17,6 +17,7 @@ var app = {
       	exitAll();
     },
     handleresume: function() {
+        entertime = new Date().getTime();
         console.log("************************");
         if (needFresh) {
             needFresh = false;
@@ -76,7 +77,8 @@ var app = {
         }
     },
     handlepause: function() {
-        console.log("===========================pause==========");
+        leavetime = new Date().getTime();
+        console.log("===========================pause=========="+(leavetime-entertime));
     },
     handleBackButton: function() {
 
@@ -506,7 +508,7 @@ function showSpeak() {
             },2000);
             clearInterval(speakInter);
         }else{
-            $("#map"+nowPosition).html("<div class='foxspeak'>"+speakArry[intervalNum]+"</div>");
+            $("#map"+nowPosition).html("<div class='foxspeak'><div>"+speakArry[intervalNum]+"</div></div>");
 
             console.log("------"+speakArry[intervalNum])
             setTimeout(function(){
@@ -523,32 +525,32 @@ function mergeShow(dialog) {
     setTimeout(hecheng, 1000)
 
     function hecheng() {
-        $(".fbox").css({ "top": "413px", "left": "853px", "opacity": "0" })
+        $(".fbox").css({ "top": "276px", "left": "576px", "opacity": "0" })
     }
     setTimeout(showCenter, 2000);
 
     function showCenter() {
-        $("#b10").show();
-        $("#b10").css({ "top": "225px", "left": "634px", "opacity": "1" })
+        $("#b418").show();
+        $("#b418").css({ "top": "100px", "left": "379px", "opacity": "1" })
     }
     setTimeout(function(){showFinalWindow(dialog)}, 3500);
 
     function showFinalWindow(dialog) {
         removeBackButton = false;
-        $("#b10").hide();
+        $("#b418").hide();
         $("#compoundWindow").show();
         map = new coocaakeymap($("#compoundWindow"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
     }
 }
 function initMap(setFocus,needShowSpeak) {
     initBtn();
-    console.log("--------" + needRememberFocus+"========="+rememberBtn);
+    console.log("--------" + needRememberFocus+"========="+rememberBtn+"---------"+needshowdialog7);
     var setFocus = setFocus;
     if (needRememberFocus) {
         needRememberFocus = false;
         setFocus = rememberBtn;
     }
-    setFocuss = setFocus;
+    rememberSetFocus = setFocus;
     console.log("--------" + setFocus);
     map = new coocaakeymap($(".coocaabtn"), $(setFocus), "btnFocus", function() {}, function(val) {}, function(obj) {});
     $(setFocus).trigger("itemFocus");
@@ -602,9 +604,30 @@ function initMap(setFocus,needShowSpeak) {
      else if (needshowdialog7) {
          // sentLog("okr_web_page_show", '{"page_name":"主活动页面合成弹窗","activity_name":"春节集卡活动"}');
          // _czc.push(['_trackEvent', '春节集卡活动', '主活动页面合成弹窗', '', '', '']);
-         removeBackButton = true;
          needshowdialog7 = false;
-         mergeShow("needshowdialog7");
+         $("#addChanceWindow").show();
+         $("#blackBg").show();
+         if(alterType == "jump"){
+             $("#addChanceWindow .addchancep1").html("恭喜完成跳转任务");
+         }else if(alterType == "video"){
+             $("#addChanceWindow .addchancep1").html("恭喜完成视频任务");
+         }else if(alterType == "buy"){
+             $("#addChanceWindow .addchancep1").html("恭喜完成付费任务");
+         }
+         if(alter == "1"){
+            $("#addChanceWindow .addchancep3").css("background-image",'url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/addchance1.png")');
+         }else if(alter == "2"){
+             $("#addChanceWindow .addchancep3").css("background-image",'url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/addchance2.png")');
+         }else if(alter == "5"){
+             $("#addChanceWindow .addchancep3").css("background-image",'url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/addchance5.png")');
+         }
+         map = new coocaakeymap($(".addchancep4"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
+         $("#addChanceWindowBtn").unbind("itemClick").bind("itemClick", function() {
+             $("#addChanceWindow").hide();
+             $("#blackBg").hide();
+             map = new coocaakeymap($(".coocaabtn"), $("#mapBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+             $("#mapBtn").trigger("itemFocus");
+         })
      }
 }
 function initBtn() {
@@ -640,12 +663,17 @@ function initBtn() {
     $(".gameBtn").unbind("itemBlur").bind("itemBlur", function() {
         $("#drawBtnBorder").hide();
     })
+    $(".topbtn").unbind("itemFocus").bind("itemFocus", function() {
+        $("#mainbox").css("transform", "translate3D(0, 0, 0)");
+    })
     $(".mission").unbind("itemFocus").bind("itemFocus", function() {
         $("#mainbox").css("transform", "translate3D(0, -400px, 0)");
-        if($("#gameMap").css("display") == "block"){
-            $(".mission").attr("uptarget","#mapBtn");
-        }else{
-            $(".mission").attr("uptarget","#drawBtn");
+        if(gameStatus != 3){
+            if($("#gameMap").css("display") == "block"){
+                $(".mission").attr("uptarget","#mapBtn");
+            }else{
+                $(".mission").attr("uptarget","#drawBtn");
+            }
         }
     })
     $(".operationmap").unbind("itemFocus").bind("itemFocus", function() {
@@ -662,6 +690,9 @@ function initBtn() {
     $(".operationblock").unbind("itemClick").bind("itemClick", function() {
         getParamAndStart(this,false);
     })
+    $(".operationmore").unbind("itemClick").bind("itemClick", function() {
+        $("#allowanceBtn").trigger("itemClick");
+    })
     $("#question").unbind("itemClick").bind("itemClick", function(){
         diceCanClick = true;
         var _this = this;
@@ -673,26 +704,36 @@ function initBtn() {
             setTimeout(startanswer,2000)
         }
         function startanswer() {
-            var date = 3;
+            var date = startDayNum;
+            var questionList=null;
+            if(needQQ){
+                questionList = _interlucationsArrayTencent;
+            }else{
+                questionList = _interlucationsArrayYinhe;
+            }
             $("#questionbox").show();
+            $("#blackBg").show();
             $(".answerbtn").attr("right","false");
-            $("#ques").html(_interlucationsArrayYinhe[date-1].question);
-            $("#answer1").html(_interlucationsArrayYinhe[date-1].answerA);
-            $("#answer2").html(_interlucationsArrayYinhe[date-1].answerB);
-            if(_interlucationsArrayYinhe[date-1].right == "A"){
+            $("#ques div").html(questionList[date-1].question);
+            $("#answer1").html(questionList[date-1].answerA);
+            $("#answer2").html(questionList[date-1].answerB);
+            if(questionList[date-1].right == "A"){
                 $("#answer1").attr("right","true");
             }else{
                 $("#answer2").attr("right","true");
             }
             $("#answer3").attr("right","other");
-            $("#answer3").attr("action",JSON.stringify(_interlucationsArrayYinhe[date-1].jump));
-            $("#answer5").attr("action",JSON.stringify(_interlucationsArrayYinhe[date-1].jump));
+            $("#answer3").attr("action",JSON.stringify(questionList[date-1].jump));
+            $("#answer5").attr("action",JSON.stringify(questionList[date-1].jump));
             map = new coocaakeymap($(".answerbtn"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
             $(".answerbtn").unbind("itemClick").bind("itemClick", function(){
                 var thisRight = $(this).attr("right");
+                $("#clickOkSure").hide();
                 if(thisRight == "true"){
                     console.log("true");
                     $(".answerbtn").hide();
+                    $("#ques").hide();
+                    $("#rightanswer").show();
                     $("#answer4").show();
                     $("#answer6").show();
                     addChance("1",$(_this).attr("taskId"),"1");
@@ -700,6 +741,8 @@ function initBtn() {
                 }else if(thisRight == "false"){
                     console.log("false");
                     $(".answerbtn").hide();
+                    $("#ques").hide();
+                    $("#erroranswer").show();
                     $("#answer4").show();
                     $("#answer5").show();
                     addChance("1",$(_this).attr("taskId"),"0");
@@ -710,6 +753,7 @@ function initBtn() {
                 }
                 $("#answer4").unbind("itemClick").bind("itemClick", function(){
                     $("#questionbox").hide();
+                    $("#blackBg").hide();
                     var hasfinishNum = 0;
                     for(var i=0;i<4;i++){
                         if($(".mission:eq("+i+")").attr("remainingNumber")>0){
@@ -740,7 +784,9 @@ function initBtn() {
                     getParamAndStart(this,false);
                 })
                 $("#answer6").unbind("itemClick").bind("itemClick", function(){
-
+                    $("#questionbox").hide();
+                    $("#blackBg").hide();
+                    showPage(false,false);
                 })
             })
         }
@@ -772,6 +818,7 @@ function initBtn() {
     })
 
     $("#mapBtn").unbind("itemClick").bind("itemClick", function(){
+        if(gameStatus == 3){return};
         if(diceCanClick){
             diceCanClick = false;
             if(lotteryNum > 0){
@@ -819,241 +866,6 @@ function initBtn() {
         }
     })
 
-
-
-
-
-
-    $("#finishMyAwardGet").unbind("itemFocus").bind("itemFocus", function() {
-        $("#youhave").css("margin-top", "0px");
-    })
-    $("#finishMyAwardBtn").unbind("itemFocus").bind("itemFocus", function() {
-        $("#youhave").css("margin-top", "-890px");
-    })
-
-    $("#finishMyAward").unbind("itemClick").bind("itemClick", function() {
-        sentLog("okr_web_button_click", '{"button_name":"我的奖励","page_name":"春节集卡活动主页","activity_name":"春节集卡活动","page_type":"' + page_type + '","link_type":"' + link_type + '"}');
-        _czc.push(['_trackEvent', '春节集卡活动', '春节集卡活动主页', '我的奖励点击', '', '']);
-        $("#myAwardPage").css("display", "block");
-        getMyAwards(2);
-    })
-    $("#finishMyAwardGet").unbind("itemClick").bind("itemClick", function() {
-        sentLog("okr_web_button_click", '{"button_name":"领取","page_name":"春节集卡活动主页","activity_name":"春节集卡活动","page_type":"' + page_type + '","link_type":"' + link_type + '"}');
-        _czc.push(['_trackEvent', '春节集卡活动', '春节集卡活动主页', '领取点击', '', '']);
-        $("#myAwardPage").css("display", "block");
-        getMyAwards(2);
-    })
-    $("#finishMyAwardBtn").unbind("itemClick").bind("itemClick", function() {
-        sentLog("okr_web_button_click", '{"button_name":"我的奖励","page_name":"春节集卡活动主页","activity_name":"春节集卡活动","page_type":"' + page_type + '","link_type":"' + link_type + '"}');
-        _czc.push(['_trackEvent', '春节集卡活动', '春节集卡活动主页', '我的奖励点击', '', '']);
-        $("#myAwardPage").css("display", "block");
-        getMyAwards(2);
-    })
-
-    $("#finishMissionWindow").unbind("itemClick").bind("itemClick", function() {
-        $("#blackBg").hide();
-        $(".window").hide();
-        initMap(setFocuss);
-    })
-    $("#lastDayWindow").unbind("itemClick").bind("itemClick", function() {
-        $("#blackBg").hide();
-        $(".window").hide();
-        initMap(setFocuss);
-    })
-    $("#dealbtn1").unbind("itemClick").bind("itemClick", function() {
-        $("#blackBg").hide();
-        $(".window").hide();
-        initMap(setFocuss);
-    })
-    $("#dealbtn2").unbind("itemClick").bind("itemClick", function() {
-        $("#blackBg").hide();
-        $(".window").hide();
-        coocaaosapi.startNewBrowser4(mydealurl+isTrade, function() { needFresh = true; }, function() {});
-    })
-    $("#compoundbtn1").unbind("itemClick").bind("itemClick", function() {
-        $("#blackBg").hide();
-        $(".window").hide();
-        showPage(false, false);
-    })
-    $("#compoundbtn2").unbind("itemClick").bind("itemClick", function() {
-        $("#blackBg").hide();
-        $(".window").hide();
-        coocaaosapi.startNewBrowser3(taskurl, function() {
-            needFresh = true;
-        }, function() {});
-    })
-    $("#getAwardWindow").unbind("itemClick").bind("itemClick", function() {})
-    $("#enjoyAwardWindow").unbind("itemClick").bind("itemClick", function() {
-        $("#enjoyAwardWindow").hide();
-        $("#getAwardWindow").show();
-        $("#getAwardWindowWord").html(finalawardInfo.awardInfo.bonus);
-        map = new coocaakeymap($("#getAwardWindow"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
-        getRedPacketsQrcode(finalawardInfo.lotteryActiveId, finalawardInfo.lotteryRememberId, finalawardInfo.userKeyId, "getAwardWindowCode", 200, 200);
-    })
-
-
-    $("#rule").unbind("itemClick").bind("itemClick", function() {
-        sentLog("okr_web_button_click", '{"button_name":"活动细则","page_name":"春节集卡活动主页","activity_name":"春节集卡活动","page_type":"' + page_type + '","link_type":"' + link_type + '"}');
-        _czc.push(['_trackEvent', '春节集卡活动', '春节集卡活动主页', '活动细则点击', '', '']);
-        $("#mainbox").hide();
-        $("#rulePage").show();
-        sentLog("okr_web_page_show", '{"page_name":"活动细则页面","activity_name":"春节集卡活动"}');
-        _czc.push(['_trackEvent', '春节集卡活动', '活动细则页面', '', '', '']);
-        map = new coocaakeymap($("#ruleInner"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
-    })
-    $("#allowance").unbind("itemBlur").bind("itemBlur", function() {
-        console.log("loginstatus====================="+loginstatus);
-        if(loginstatus == "true"){
-            $("#allowance").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/720/index/allowance1.png)")
-        }else{
-            $("#allowance").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/720/index/dailingqu.png)")
-        }
-    })
-
-    $("#allowance").unbind("itemClick").bind("itemClick", function() {
-        console.log("点击了购物津贴+跳转页面");
-
-        $("#myAllowancePage").css("display", "block");
-        $("#allowanceItemBox").stop(true, true).animate({ scrollTop: 0 }, { duration: 0, easing: "swing" });
-        if(loginstatus == "true"){
-            $(".allowanceInfo1").css("display","block");
-            $(".allowanceInfo2").css("display","none");
-            $("#allowanceLogin").css("display","none");
-            $("#allowanceValueBox").css("display","block");
-            getAllNotGetAllowance();
-        }else{
-            $(".allowanceInfo1").css("display","none");
-            $(".allowanceInfo2").css("display","block");
-            $("#allowanceLogin").css("display","block");
-            $("#allowanceValueBox").css("display","none");
-        }
-            map = new coocaakeymap($(".coocaa_btn"), $("#allowanceItem1"), "btn-focus", function() {}, function(val) {}, function(obj) {});
-
-            sentLog("okr_web_button_click", '{"button_name":"可用津贴","page_name":"春节集卡活动主页","activity_name":"春节集卡活动","page_type":"' + page_type + '","link_type":"' + link_type + '"}');
-            _czc.push(['_trackEvent', '春节集卡活动', '春节集卡活动主页', '可用津贴点击', '', '']);
-            sentLog("okr_web_page_show", '{"page_name":"我的津贴页面","activity_name":"春节集卡活动"}');
-            _czc.push(['_trackEvent', '春节集卡活动', '我的津贴页面曝光', '', '', '']);
-    })
-
-    $("#mygift").unbind("itemClick").bind("itemClick", function() {
-        sentLog("okr_web_button_click", '{"button_name":"我的奖励","page_name":"春节集卡活动主页","activity_name":"春节集卡活动","page_type":"' + page_type + '","link_type":"' + link_type + '"}');
-        _czc.push(['_trackEvent', '春节集卡活动', '春节集卡活动主页', '我的奖励点击', '', '']);
-        sentLog("okr_web_page_show", '{"page_name":"我的奖励","activity_name":"春节集卡活动","last_page_name":"春节集卡活动主页"}');
-        _czc.push(['_trackEvent', '春节集卡活动', '我的奖励曝光', '', '', '']);
-        $("#myAwardPage").css("display", "block");
-        getMyAwards(2);
-    })
-
-    $(".topbtn").unbind("itemFocus").bind("itemFocus", function() {
-        if (gameStatus == 2) {
-            $(".topbtn").attr("downtarget", "#myCard");
-        }
-    })
-    $("#allowance").unbind("itemFocus").bind("itemFocus", function() {
-        console.log("loginstatus====================="+loginstatus);
-        if(loginstatus == "false"){
-            console.log("loginstatus====================="+loginstatus);
-            $("#allowance .onfocus").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/720/index/dailingquluojiao.png)")
-        }else{
-            console.log("loginstatus====================="+loginstatus);
-            $("#allowance .onfocus").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/720/index/allowancefocus.png)")
-        }
-        if (gameStatus == 2) {
-            $(".topbtn").attr("downtarget", "#myCard");
-        }
-    })
-    $("#myCard").unbind("itemFocus").bind("itemFocus", function() {
-        $("#myCard").attr("lefttarget", "#missionBtn");
-        if (isTrade) {
-            $("#myCard").attr("righttarget", "#buyZoneBtn");
-        }
-        // console.log("2222222222222222222222222222222"+(parseInt($("#mainbox").offset().top)<-500)+"============================="+$("#mainbox").offset().top);
-        if(($("#mainbox").offset().top)<-500){
-            // console.log("-------------")
-            if (ADMsg != null && ADMsg.schedules != undefined && ADMsg.schedules[0] != undefined &&  gameStatus!=3) {
-                sentInnerAdshow(ADMsg, "G0003", "1", "1", "1", "", "");
-                sentThirdAdshow("img", ADMsg);
-            }
-        }
-        $("#arrows").show();
-        $("#mainbox").css("transform", "translate3D(0, -" + 0 + "px, 0)");
-    })
-
-    $("#myCard").unbind("itemClick").bind("itemClick", function() {
-        sentLog("okr_web_button_click", '{"button_name":"更多我的福卡","page_name":"春节集卡活动主页","activity_name":"春节集卡活动","page_type":"' + page_type + '","link_type":"' + link_type + '"}');
-        _czc.push(['_trackEvent', '春节集卡活动', '春节集卡活动主页', '更多我的福卡点击', '', '']);
-        coocaaosapi.startNewBrowser4(mycardurl+isTrade, function() {
-            needFresh = true;
-            rememberBtn = "#myCard";
-            needRememberFocus = true
-        }, function() {});
-    })
-
-    $("#missionBtn").unbind("itemClick").bind("itemClick", function() {
-        sentLog("okr_web_button_click", '{"button_name":"进去看看","page_name":"春节集卡活动主页","activity_name":"春节集卡活动","page_type":"' + page_type + '","link_type":"' + link_type + '"}');
-        _czc.push(['_trackEvent', '春节集卡活动', '春节集卡活动主页', '进去看看点击', '', '']);
-        coocaaosapi.startNewBrowser3(taskurl, function() {
-            needFresh = true;
-            rememberBtn = "#missionBtn";
-            needRememberFocus = true
-        }, function() {});
-    })
-
-    $("#buyZoneBtn").unbind("itemClick").bind("itemClick", function() {
-        sentLog("okr_web_button_click", '{"button_name":"更多交易","page_name":"春节集卡活动主页","activity_name":"春节集卡活动","page_type":"' + page_type + '","link_type":"' + link_type + '"}');
-        _czc.push(['_trackEvent', '春节集卡活动', '春节集卡活动主页', '更多交易点击', '', '']);
-        coocaaosapi.startNewBrowser4(marketurl+isTrade, function() {
-            needFresh = true;
-            rememberBtn = "#buyZoneBtn";
-            needRememberFocus = true
-        }, function() {});
-    })
-
-    $("#overChance").unbind("itemClick").bind("itemClick", function() {
-        sentLog("okr_web_button_click", '{"button_name":"剩余抽卡机会","page_name":"春节集卡活动主页","activity_name":"春节集卡活动","page_type":"' + page_type + '","link_type":"' + link_type + '"}');
-        _czc.push(['_trackEvent', '春节集卡活动', '春节集卡活动主页', '更多交易点击', '', '']);
-        if(!canClick){
-            console.log('操作过于频繁，稍后再试');
-            return false;
-        }else{
-            canClick = false;
-            console.log("开始抽奖");
-            console.log("------------------"+remainNum);
-            if (remainNum>0) {
-                startDrawFunc("lottery");
-            } else{
-                canClick = true;
-                console.log("没有抽卡机会");
-                sentLog("okr_web_page_show", '{"page_name":"没有抽卡机会弹窗","activity_name":"春节集卡活动"}');
-                _czc.push(['_trackEvent', '春节集卡活动', '没有抽卡机会弹窗曝光', '', '', '']);
-                $("#dialogPage").css("display","block");
-                $("#noChance").css("display","block");
-                map = new coocaakeymap($(".coocaa_btn3"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
-            }
-        }
-        // var nowTime = new Date().getTime();
-        // var clickTime = $("#overChance").attr("ctime");
-        // if(clickTime != 'undefined' && (nowTime - clickTime < 3000)) {
-        //     console.log('操作过于频繁，稍后再试');
-        //     return false;
-        // } else {
-        //     console.log("开始抽奖");
-        //     $("#overChance").attr("ctime", nowTime);
-        //     console.log("------------------"+remainNum);
-        //     if (remainNum>0) {
-        //         startDrawFunc("lottery");
-        //     } else{
-        //         console.log("没有抽卡机会");
-        //         sentLog("okr_web_page_show", '{"page_name":"没有抽卡机会弹窗","activity_name":"春节集卡活动"}');
-        //         _czc.push(['_trackEvent', '春节集卡活动', '没有抽卡机会弹窗曝光', '', '', '']);
-        //         $("#dialogPage").css("display","block");
-        //         $("#noChance").css("display","block");
-        //         map = new coocaakeymap($(".coocaa_btn3"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
-        //     }
-        // }
-    })
-	
-	
 	//	林心旺
 	//---------------------------------
 	$("#drawBtn").unbind("itemClick").bind("itemClick", function() {
@@ -1251,11 +1063,14 @@ function getAllowance() {
         },
         success: function(data) {
             console.log("领取津贴信息=========================="+JSON.stringify(data));
-            if(data.code == "50100") { //服务器返回正常
+            if(data.code != "50100") { //服务器返回正常
+                $("#blackBg").show();
                 $("#getallowancesuccess").show();
-                map = new coocaakeymap($("#getallowancesuccessbtn"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
-                $("#getallowancesuccessbtn").unbind("itemClick").bind("itemClick",function(){
-
+                map = new coocaakeymap($("#getallowancesuccess"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
+                $("#getallowancesuccess").unbind("itemClick").bind("itemClick",function(){
+                    $("#blackBg").hide();
+                    $("#getallowancesuccess").hide();
+                    $("#allowanceBtn").trigger("itemClick");
                 })
             }
             else if(data.code == "50003") {
@@ -1643,11 +1458,13 @@ function mapMove(obj,isSecondMove) {
 //页面初始化或刷新
 function showPage(first, resume) {
     console.log("$$$$$$$$$$$$$$$$$$====" + first + "===========" + resume);
-    // if(loginstatus == "true"){
-    //     $("#allowanceBtn").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/720/index/allowance1.png)")
-    // }else{
-    //     $("#allowanceBtn").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/720/index/dailingqu.png)")
-    // }
+    if(loginstatus == "true"){
+        $("#allowanceBtn").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/allowance.png)");
+        $("#allowanceBtn img").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/allowancefocus.png");
+    }else{
+        $("#allowanceBtn").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/dailingqu.png)");
+        $("#allowanceBtn img").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/dailingqufocus.png");
+    }
     if (first) {
         checkVersion();
     }
@@ -1666,6 +1483,7 @@ function showPage(first, resume) {
             showAwardInfo();
 
             if(data.code == 50100){
+                gameStatus = 1;
                 lotteryNum = data.data.lotteryNum;
                 cardsNum = data.data.cardsNum;
                 nowPosition = data.data.nowPosition;
@@ -1678,11 +1496,10 @@ function showPage(first, resume) {
                 activeFirst = data.data.activeFirst;
                 userKeyId = data.data.userKeyId;
                 alter = data.data.alter;
-                if(alert>0){
+                if(alter>0){
                     alterType = data.data.alterType;
                     needshowdialog7 = true;
                 }
-
                 // if(cardsNum>0 && capsuleIsStart && first){
                 //     $("#gamePanel").css("transform", "translate3D(-1280px, 0, 0)");
                 //     $("#gameDraw").show();
@@ -1716,8 +1533,12 @@ function showPage(first, resume) {
                     intervalForCutdown = setInterval(function(){showTime(2)}, 1000);
                 }
 
-            }else if(data.code==50003){
+            }
+            else if(data.code==50003){
+                gameStatus = 3;
                 $("#bannerWord").html("活动已结束~获奖名单稍后公布");
+                $("#mapBtn").addClass("finishAct");
+                $("#mapBtn").removeClass("coocaabtn");
                 $("#tips").css("background-image","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/yijieshu.png")
             }
             selectChipInfo();
@@ -1726,9 +1547,11 @@ function showPage(first, resume) {
             if(nowHours==11||nowHours==12){
                 //调用领取接口
                 $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/50/11dian.png)");
-            }else if(nowHours==19||nowHours==20||nowHours==21){
+            }
+            else if(nowHours==19||nowHours==20||nowHours==21){
                 $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/100/19dian.png)");
-            }else{
+            }
+            else{
                 if(nowHours<11 ){
                     //稍后再来
                     $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/50/xiachang1.png)");
@@ -1744,6 +1567,14 @@ function showPage(first, resume) {
                     }
                 }
             }
+
+            if(startDayNum<4){
+                $("#todayaward").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/daisen.png)");
+            }else if(startDayNum < 7){
+                $("#todayaward").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/iphone.png)");
+            }else{
+                $("#todayaward").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/macbook.png)");
+            }
         },
         error: function(error) {
             selectChipInfo();
@@ -1755,32 +1586,39 @@ function showPage(first, resume) {
 //小狐狸说话信息
 function speakToast(overtask){
     speak2 = true;
-    str2="this 2";
+    if(startDayNum<4){
+        str2="大富翁<span>今日大奖</span>是<span>戴森三件套</span>，快掷骰子参与吧！";
+    }else if(startDayNum < 7){
+        str2="大富翁<span>今日大奖</span>是<span>iPhone XS</span>，快掷骰子参与吧！";
+    }else{
+        str2="大富翁<span>今日大奖</span>是<span>新款苹果电脑</span>，快掷骰子参与吧！";
+    }
+
     if(activeFirst){
         speak1 = true;
-        str1="this 1";
+        str1="投掷骰子每到一格都有奖励哦！快来试试~";
         if(startDayNum>5){
             speak6 = true;
-            str6="this 6";
+            str6="418大奖倒计时！<span>创维电视正在免费送，</span>快去集418卡片赢电视吧！";
         }
     }else{
         if(todayFirst){
             if(startDayNum>5){
                 speak5 = true;
-                str5="this 5";
+                str5='终极大奖开启！集齐418周年卡片赢新品电视！快去"扭一扭"吧！';
             }else{
                 if(cardsNum>0){
                     speak4 = true;
-                    str4="this 4";
+                    str4="您已有<span>"+cardsNum+"</span>套卡片可0元赢新品电视，<span>4月18日开奖，</span>记得回来哦！";
                 }else{
                     speak3 = true;
-                    str3="this 3";
+                    str3="还在等什么呢,最新创维电视正在等您，快集齐418周年卡片吧！";
                 }
             }
         }else{
             if(startDayNum>5){
                 speak6 = true;
-                str6="this 6";
+                str6="418大奖倒计时！创维电视正在免费送，快去集418卡片赢电视吧！";
             }
         }
     }
@@ -1788,16 +1626,15 @@ function speakToast(overtask){
     if(lotteryNum == 0){
         if(overtask == 4){
             speak8 = true;
-            str8="this 8";
+            str8="哎呀机会又用完啦！试试付费任务解锁机会！";
         }else{
             speak7 = true;
-            str7="this 7---1";
+            str7="哎呀机会用完啦！今日完成趣味答题可<span>再获得1次机会哦！</span>";
             for(var i=0;i<3;i++){
                 if($(".mission:eq("+i+")").attr("remainingNumber")>0){
                     speak7type = "jump";
-                    str7="this 6---2";
+                    str7="哎呀机会用完啦！去浏览指定内容解锁更多机会~";
                     break;
-                    //数据采集时需要排除
                 }else{}
             }
         }
@@ -1946,9 +1783,9 @@ function showOperation(showMainShow) {
                     var action_this = JSON.parse(operationData.data[i].baseBlocks[j].action);
                     if(action_this.params.allowance != undefined){
                         if(loginstatus == "true"){
-                            var tabItem = '<div class="operationblock operationmap coocaabtn" action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="sureGet">按【确定】键 看详情购买</div><div class="text show" style="background-color: red">使用津贴再减'+action_this.params.allowance+'元</div></div>';
+                            var tabItem = '<div class="operationblock operationmap coocaabtn" action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="sureGet">按【确定】键 看详情购买</div><div class="text show" >使用津贴再减<span>'+action_this.params.allowance+'</span>元</div></div>';
                         }else{
-                            var tabItem = '<div class="operationblock operationmap coocaabtn" action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="sureGet">按【确定】键 看详情购买</div><div class="text show"  style="background-color: red">领取津贴再减'+action_this.params.allowance+'元</div></div>';
+                            var tabItem = '<div class="operationblock operationmap coocaabtn" action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="sureGet">按【确定】键 看详情购买</div><div class="text show"  >领取津贴再减<span>'+action_this.params.allowance+'</span>元</div></div>';
                         }
                     }else{
                         var tabItem = '<div class="operationblock operationmap coocaabtn" action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="sureGet">按【确定】键 看详情购买</div><div class="text">&nbsp;</div></div>';
@@ -1957,9 +1794,12 @@ function showOperation(showMainShow) {
                 }
             }
             $("#payZone").append(tabInner);
+            $("#payZone").append('<div class="operationmore operationmap coocaabtn"  style="background-image:url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/operationmore.png)"><div class="sureGet">按【确定】键 看详情购买</div><div class="text">&nbsp;</div></div>');
 
-
-            if($("#gameMap").css("display")=="block"){
+            if(gameStatus == 3){
+                initMap("#myAwardBtn",showMainShow);
+            }
+            else if($("#gameMap").css("display")=="block"){
                 initMap("#mapBtn",showMainShow);
             }else if($("#gameDraw").css("display")=="block"){
                 initMap("#drawBtn",showMainShow);
@@ -1967,6 +1807,7 @@ function showOperation(showMainShow) {
                 initMap(null,showMainShow);
             }
             if (showMainShow) {
+                entertime = new Date().getTime();
                 sentLog("okr_web_page_show", '{"page_name":"春节集卡活动主页","activity_name":"春节集卡活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","link_type":"' + link_type + '"}');
                 _czc.push(['_trackEvent', '春节集卡活动', '春节集卡活动主页', '曝光', '', '']);
             }
@@ -2162,6 +2003,7 @@ function getMyTasksList(needCheckSpeak) {
                             $(".mission:eq("+missionBoxNum+")").attr("jumpBgImgUrl",taskList[taskOrder[i]][j].jumpBgImgUrl);
                             $(".mission:eq("+missionBoxNum+")").attr("jumpImgUrl",taskList[taskOrder[i]][j].jumpImgUrl);
                             $(".mission:eq("+missionBoxNum+")").attr("jumpRemindImgUrl",taskList[taskOrder[i]][j].jumpRemindImgUrl);
+                            $(".mission:eq("+missionBoxNum+")").css("background-image","url("+taskList[taskOrder[i]][j].imgUrl+")");
                             if(taskOrder[i] == "jump"){
                                 $(".mission:eq("+missionBoxNum+")").attr("action",taskList[taskOrder[i]][j].param);
                             }else if(taskOrder[i] == "video"){

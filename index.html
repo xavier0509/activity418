@@ -20,7 +20,7 @@
     <div id="mainbox">
         <div id="adStation"></div>
         <div id="topMain">
-            <div id="allowanceBtn" class="topbtn coocaabtn"><img  src="http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/allowancefocus.png" alt=""/></div>
+            <div id="allowanceBtn" class="topbtn coocaabtn"><img  src="" alt=""/></div>
             <div id="myAwardBtn" class="topbtn coocaabtn"><img  src="http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/awardfocus.png" alt=""/><div id="awardCircle"></div></div>
             <div id="ruleBtn" class="topbtn coocaabtn"><img  src="http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/rulefocus.png" alt=""/></div>
         </div>
@@ -47,9 +47,8 @@
                     <div id="mapChance"></div>
                     <div class="replaceBtn1"></div>
                     <span class="dice-icon-1" id="diceIcon_1" style="display:block;"></span>
-                    <div id="tips">
-                        <!--<div class="tiplc418"></div>-->
-                    </div>
+                    <div id="todayaward"></div>
+                    <div id="tips"></div>
                     <div class="lc4 lc"></div>
                     <div class="lc1 lc"></div>
                     <div class="lc8 lc"></div>
@@ -287,10 +286,13 @@
         </div>
     </div>
     <div id="questionbox">
-        <div id="ques">?</div>
+        <div id="ques"><div></div></div>
         <div id="answer1" class="answerbtn"></div>
         <div id="answer2" class="answerbtn"></div>
-        <div id="answer3" class="answerbtn">偷看答案</div>
+        <div id="answer3" class="answerbtn"></div>
+        <div id="clickOkSure">按【确定】键选择~</div>
+        <div id="erroranswer"><div class="erroricon"></div><div class="errorword">抱歉~答错了</div></div>
+        <div id="rightanswer"><div class="righticon"></div><div class="rightword">回答正确！<br>+1次掷骰子机会</div></div>
         <div id="answer4" class="answerResultbtn">试试其他任务</div>
         <div id="answer5" class="answerResultbtn">查看正确答案</div>
         <div id="answer6" class="answerResultbtn">去掷骰子</div>
@@ -298,20 +300,15 @@
     <div id="blackBg"></div>
     <div id="needUpdate"></div>
     <div id="normalToast"><span></span></div>
-    <div id="getallowancesuccess">领取成功，去专区看看吧<div id="getallowancesuccessbtn">去看看</div></div>
-    <div id="compoundWindow" class="window"><div id="compoundWindowImg"></div><div id="compoundWindowCode"></div><div id="compoundbtn1" class="homewindowbtn"></div><div id="compoundbtn2"  class="homewindowbtn"></div></div>
-    <div id="compound" class="window">
-        <div class="fbox" id="b1"></div>
-        <div class="fbox" id="b2"></div>
-        <div class="fbox" id="b3"></div>
+    <div id="getallowancesuccess"></div>
+    <div id="compoundWindow" ></div>
+    <div id="compound">
         <div class="fbox" id="b4"></div>
-        <div class="fbox" id="b5"></div>
-        <div class="fbox" id="b6"></div>
-        <div class="fbox" id="b7"></div>
+        <div class="fbox" id="b1"></div>
         <div class="fbox" id="b8"></div>
-        <div class="fbox" id="b9"></div>
-        <div class="fbox" id="b10"></div>
+        <div class="fbox" id="b418"></div>
     </div>
+    <div id="addChanceWindow"><div class="addchancep1"></div><div class="addchancep2">赠送游戏机会</div><div class="addchancep3"></div><div class="addchancep4" id="addChanceWindowBtn">去掷骰子</div></div>
 </div>
 <script type="text/javascript">
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");

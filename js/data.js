@@ -106,76 +106,231 @@ var needshowdialog5 = false;//走一圈18前
 var needshowdialog6 = false;//走一圈18后
 var needshowdialog7 = false;//赠送机会
 var removeBackButton = false;
+var marqueeInterval1 = null;
+var marqueeInterval2 = null;
+
+var entertime = null;
+var leavetime = null;
+var gameStatus = 0;//0未开始；1正常期；2冻结期；3开奖结束期
+var rememberSetFocus = null;
+
+
+
+
 
 
 
 
 var needSentADLog = false;
-
 var actEnd = false;
 var awardToast = false;
-var marqueeInterval1 = null;
-var marqueeInterval2 = null;
 var userIp = "";
 var startLoginFlag = false;
 var changeLoginFlag = false;
-
-
 var localChanceNum = 0;
-var gameStatus = 0;//0未开始；1正常期；2冻结期；3开奖结束期
 var isTrade = false;
-
 var remembernum = "0";//福利街版块如果版本不符合，弹窗提示后重新new焦点
 var toastTimeout = null;
 var remainNum = 0;
 var addNum = 0;
-var setFocuss = null;
 var hasFinalAward = false;
 var _isLessThanHalfhour = false;
 var page_type = "";//开启状态;
 var link_type = "";//首行影视链接、首行教育链接、首行购物链接、首行应用链接
-
-
 var _curHomeBtn = ""; //记录我的奖励页面点击的btn
-
 var collectNum = 0;
 var _curAllBtn = 0; //记录我的津贴页面点击的btn
 var isActiveEndFirstIn = false;
 var finalawardInfo = null;
-
-
 var notGetAllowanceArray = [];//记录未领取的津贴
 var notGetAllowanceIndex = 0;//记录未领取津贴的数组下标
-
 var canClick = true;
 
 
-var _interlucationsArrayYinhe = [
+var _interlucationsArrayTencent = [
     //题目， 答案A，答案B，正确答案，出现日期， 用户是否做过此题
-    {businessName: "影视活动爱奇艺", question: "奇异果VIP会员每月免费赠送几张点播券?", answerA:"A.2张", answerB:"B.4张", right: "B", date: 1,
-        jump: {business:"browser",type:"browser", packageName:"com.coocaa.app_browser", action:"coocaa.intent.action.browser",countDownTime:10,"subTask":0,param:{"url":"http://img.sky.fs.skysrt.com/movie_homepage_images/20180823/20180823202553287008_1920x1080.jpg"}}}
-    ,{businessName: "影视活动爱奇艺", question: "开通奇异果VIP可以送多少时长的手机端爱奇艺会员?", answerA:"A.同开通时间", answerB:"B.只送1个月", right: "A", date: 2,
-        jump: {business:"browser",type:"browser", packageName:"com.coocaa.app_browser", action:"coocaa.intent.action.browser",countDownTime:10,"subTask":0,param:{"url":"https://webapp.skysrt.com/appstore/righ_aiqiyi/index.html?part=2"}}}
-    ,{businessName: "影视", question: "沈腾一个月花光十亿，是那部电影的情节?", answerA:"A.羞羞的铁拳", answerB:"B.西虹市首富", right: "B", date: 3,
+    {businessName: "教育", question: "哪个频道可以学习健身课程/中医养生/科学启蒙课程?", answerA:"A:购物频道", answerB:"B:TV课堂", right: "B",
+        jump: {"byvalue": "coocaa.intent.action.HOME_COMMON_LIST",
+            "packagename": "com.tianci.movieplatform",
+            "dowhat": "startActivity",
+            "versioncode": "-1",
+            "params": {
+                "id": "102831"
+            },
+            "bywhat": "action"}
+    },
+    {businessName: "影视活动", question: "超级影视VIP权益=TV端会员权益+腾讯视频VIP权益(手机、电脑、PAD)吗?", answerA:"A:是的", answerB:"B:不是", right: "A",
         jump: {"byvalue": "coocaa.intent.vip.center",
             "packagename": "com.tianci.movieplatform",
             "dowhat": "startActivity",
             "versioncode": "-1",
             "params": {
-                "business_type": "0",
                 "source_id": "5"
             },
-            "bywhat": "action"}}
-    ,{businessName: "影视", question: "赵丽颖、冯绍峰在哪部电视剧里饰演夫妻?", answerA:"A.知否知否", answerB:"B.扶摇", right: "A", date: 4,
-        jump: {business:"movie",type:"detailinfo", packageName:"com.tianci.movieplatform", action:"coocaa.intent.movie.detailinfo",countDownTime:10,"subTask":0,param:{"id":"_oqy_216266201"}}}
-    ,{businessName: "教育", question: "教育频道下新推出的成人教育频道叫什么名字？", answerA:"A.TV课堂", answerB:"B.兴趣课堂", right: "A", date: 5,
-        jump: {business:"movie",type:"commonlist", packageName:"com.tianci.movieplatform", action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0,param:{"id":"102987"}}}
-    ,{businessName: "教育", question: "少儿VIP年卡春节期间售价是多少?", answerA:"A.339元/年", answerB:"B.169元/年", right: "B", date: 6,
-        jump: {business:"movie",type:"movie", packageName:"com.tianci.movieplatform", action:"coocaa.intent.vip.center",countDownTime:10,"subTask":0,param:{"business_type": "1", "source_id": "57"}, versionCode: "3180001"}}
-    ,{businessName: "教育", question: "教育VIP可以观看多少个学龄段的内容?", answerA:"A.12个年级", answerB:"B.某个选定的年级", right: "A", date: 7,
-        jump: {business:"movie",type:"commonlist", packageName:"com.tianci.movieplatform", action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0,param:{"id":"10738"}, versionCode: "3180001"}}
-    ,{businessName: "购物", question: "双立人是哪个国家的品牌?", answerA:"A.德国", answerB:"B.美国", right: "A", date: 8,
-        jump: {business:"mall",type:"commonlist", packageName:"com.tianci.movieplatform", action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0,param:{"id":"102930"}}}
-    ,{businessName: "购物", question: "购物商品支持扫描下单吗?", answerA:"A.支持", answerB:"B.不支持", right: "A", date: 9,
-        jump: {business:"mall",type:"commonlist", packageName:"com.tianci.movieplatform", action:"coocaa.intent.action.HOME_COMMON_LIST",countDownTime:10,"subTask":0,param:{"id":"102930"}}}
+            "bywhat": "action"}
+    },
+    {businessName: "影视内容", question: "电视剧《都挺好》中饰演苏家老二苏明成的演员是?", answerA:"A:郭京飞", answerB:"B:陆毅", right: "A",
+        jump: {"byvalue": "coocaa.intent.movie.detailinfo",
+            "packagename": "com.tianci.movieplatform",
+            "dowhat": "startActivity",
+            "versioncode": "-1",
+            "params": {
+                "id": "_otx_wu1e7mrffzvibjy"
+            },
+            "bywhat": "action"}
+    },
+    {businessName: "购物", question: "荣耀SL轨睡眠按摩椅是否包括足底按摩?", answerA:"A:包括", answerB:"B:不包括", right: "A",
+        jump: {"byvalue": "coocaa.intent.action.HOME_COMMON_LIST",
+            "packagename": "com.tianci.movieplatform",
+            "dowhat": "startActivity",
+            "versioncode": "-1",
+            "params": {
+                "id": "102930"
+            },
+            "bywhat": "action"}
+    },
+    {businessName: "教育", question: "孩子想看动画片/儿歌/早教/英文/绘本/故事去哪个频道?", answerA:"A:少儿频道", answerB:"B:体育频道", right: "A",
+        jump: {"byvalue": "coocaa.intent.action.HOME_COMMON_LIST",
+            "packagename": "com.tianci.movieplatform",
+            "dowhat": "startActivity",
+            "versioncode": "-1",
+            "params": {
+                "id": "103177"
+            },
+            "bywhat": "action"}
+    },
+    {businessName: "影视活动", question: "超级影视VIP会员可以免费看4K或1080p高清画质的影片吗?", answerA:"A:可以", answerB:"B:不可以", right: "A",
+        jump: {"byvalue": "coocaa.intent.vip.center",
+            "packagename": "com.tianci.movieplatform",
+            "dowhat": "startActivity",
+            "versioncode": "-1",
+            "params": {
+                "source_id": "5"
+            },
+            "bywhat": "action"}
+    },
+    {businessName: "影视内容", question: "周星驰贺岁片《新喜剧之王》男主演是谁?", answerA:"A:黄渤", answerB:"B:王宝强", right: "B",
+        jump: {"byvalue": "coocaa.intent.movie.detailinfo",
+            "packagename": "com.tianci.movieplatform",
+            "dowhat": "startActivity",
+            "versioncode": "-1",
+            "params": {
+                "id": "_otx_lt0w27nj9tpfllw"
+            },
+            "bywhat": "action"}
+    },
+    {businessName: "购物", question: "食材净化器可以去除食物的什么部分？", answerA:"A:营养成分", answerB:"B:农药", right: "B",
+        jump: {"byvalue": "coocaa.intent.action.HOME_COMMON_LIST",
+            "packagename": "com.tianci.movieplatform",
+            "dowhat": "startActivity",
+            "versioncode": "-1",
+            "params": {
+                "id": "102930"
+            },
+            "bywhat": "action"}
+    },
+    {businessName: "教育", question: "哪个频道学习小学、初高中课程/语数英辅导/健身瑜伽/芭蕾吉他?", answerA:"A:教育", answerB:"B:购物", right: "A",
+        jump: {"byvalue": "coocaa.intent.action.HOME_COMMON_LIST",
+            "packagename": "com.tianci.movieplatform",
+            "dowhat": "startActivity",
+            "versioncode": "-1",
+            "params": {
+                "id": "10738"
+            },
+            "bywhat": "action"}
+    },
+]
+
+var _interlucationsArrayYinhe = [
+    //题目， 答案A，答案B，正确答案，出现日期， 用户是否做过此题
+    {businessName: "教育", question: "哪个频道可以学习健身课程/中医养生/科学启蒙课程?", answerA:"A:购物频道", answerB:"B:TV课堂", right: "B",
+        jump: {"byvalue": "coocaa.intent.action.HOME_COMMON_LIST",
+            "packagename": "com.tianci.movieplatform",
+            "dowhat": "startActivity",
+            "versioncode": "-1",
+            "params": {
+                "id": "102987"
+            },
+            "bywhat": "action"}
+    },
+    {businessName: "影视活动", question: "购买奇异果VIP会赠送等时长的爱奇艺移动端VIP权益吗？", answerA:"A:赠送", answerB:"B:不赠送", right: "A",
+        jump: {"byvalue": "coocaa.intent.vip.center",
+            "packagename": "com.tianci.movieplatform",
+            "dowhat": "startActivity",
+            "versioncode": "-1",
+            "params": {
+                "source_id": "1"
+            },
+            "bywhat": "action"}
+    },
+    {businessName: "影视内容", question: "电视剧《都挺好》中饰演苏家老二苏明成的演员是?", answerA:"A:郭京飞", answerB:"B:陆毅", right: "A",
+        jump: {"byvalue": "coocaa.intent.movie.detailinfo",
+            "packagename": "com.tianci.movieplatform",
+            "dowhat": "startActivity",
+            "versioncode": "-1",
+            "params": {
+                "id": "_oqy_225915601"
+            },
+            "bywhat": "action"}
+    },
+    {businessName: "购物", question: "荣耀SL轨睡眠按摩椅是否包括足底按摩?", answerA:"A:包括", answerB:"B:不包括", right: "A",
+        jump: {"byvalue": "coocaa.intent.action.HOME_COMMON_LIST",
+            "packagename": "com.tianci.movieplatform",
+            "dowhat": "startActivity",
+            "versioncode": "-1",
+            "params": {
+                "id": "102930"
+            },
+            "bywhat": "action"}
+    },
+    {businessName: "教育", question: "孩子想看动画片/儿歌/早教/英文/绘本/故事去哪个频道?", answerA:"A:少儿频道", answerB:"B:体育频道", right: "A",
+        jump: {"byvalue": "coocaa.intent.action.HOME_COMMON_LIST",
+            "packagename": "com.tianci.movieplatform",
+            "dowhat": "startActivity",
+            "versioncode": "-1",
+            "params": {
+                "id": "103178"
+            },
+            "bywhat": "action"}
+    },
+    {businessName: "影视活动", question: "奇异果VIP会员可以免费看4K或1080p高清画质的影片吗?", answerA:"A:可以", answerB:"B:不可以", right: "A",
+        jump: {"byvalue": "coocaa.intent.vip.center",
+            "packagename": "com.tianci.movieplatform",
+            "dowhat": "startActivity",
+            "versioncode": "-1",
+            "params": {
+                "source_id": "1"
+            },
+            "bywhat": "action"}
+    },
+    {businessName: "影视内容", question: "周星驰贺岁片《新喜剧之王》男主演是谁?", answerA:"A:黄渤", answerB:"B:王宝强", right: "B",
+        jump: {"byvalue": "coocaa.intent.movie.detailinfo",
+            "packagename": "com.tianci.movieplatform",
+            "dowhat": "startActivity",
+            "versioncode": "-1",
+            "params": {
+                "id": "_oqy_1630560500"
+            },
+            "bywhat": "action"}
+    },
+    {businessName: "购物", question: "食材净化器可以去除食物的什么部分？", answerA:"A:营养成分", answerB:"B:农药", right: "B",
+        jump: {"byvalue": "coocaa.intent.action.HOME_COMMON_LIST",
+            "packagename": "com.tianci.movieplatform",
+            "dowhat": "startActivity",
+            "versioncode": "-1",
+            "params": {
+                "id": "102930"
+            },
+            "bywhat": "action"}
+    },
+    {businessName: "教育", question: "哪个频道学习小学、初高中课程/语数英辅导/健身瑜伽/芭蕾吉他?", answerA:"A:教育", answerB:"B:购物", right: "A",
+        jump: {"byvalue": "coocaa.intent.action.HOME_COMMON_LIST",
+            "packagename": "com.tianci.movieplatform",
+            "dowhat": "startActivity",
+            "versioncode": "-1",
+            "params": {
+                "id": "10738"
+            },
+            "bywhat": "action"}
+    },
 ]
