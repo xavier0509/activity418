@@ -753,24 +753,36 @@ img[src=''] {
 	display: block;
 }
 #myAwardPage{
-    /*background-image: url(../images/myawardbg2.jpg);*/
-    background-image: url(../images/bg_1.jpg);
-    display: block;
+    background-image: url(../images/myawardbg.jpg);
+    /*display: block;*/
+}
+#hasAwardLine{
+	position: absolute;
+    top: 95px;
+    left: 175px;
+    height: 635px;
+    width: 100px;
+    background-image: url(../images/line.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    z-index: -1;
+    display: none;
 }
 #myAwardBox{
     position: absolute;
-    top: 92px;
+    top: 110px;
     left: 125px;
     height: 630px;
     width: 1010px;
     overflow: hidden;
+    display: none;
 }
 .awardTabBox{
     position: relative;
-    display: inline-block;
+    /*display: inline-block;*/
     width: 100%;
     margin-bottom: 12px;
-    /*display: none;*/
+    display: none;
 }
 /*左边Tab标签样式*/
 .awardTabName{
@@ -985,10 +997,10 @@ img[src=''] {
 	background:url(../images/awardlable.png)  no-repeat;
 }
 #entityBox .hasgot{
-	background-position: -106px 0;
+	background-position: -318px  0;
 }
 #entityBox .notget{
-	background-position: -318px 0;
+	background-position: -424px  0;
 }
 #packageBox .hasgot{
 	background-position: -212px 0;
@@ -1016,37 +1028,42 @@ img[src=''] {
     left: 205px;
     height: 30px;
     width: 69px;
+    text-align: center;
     line-height: 30px;
     color: white;
     font-size: 22px;
     font-weight: 600;
 }
-
-
-
-
-
 #noAwardBox1{
     position: absolute;
     top: 0;
     left: 0;
-    height: 1080px;
-    width: 1920px;
+    height: 720px;
+    width: 1280px;
+}
+#noAwardBtn{
+	position: absolute;
+    top: 190px;
+    left: 358px;
+    height: 368px;
+    width: 564px;
+    background-image: url(../images/noaward1.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
 }
 #noAwardBox2{
     position: absolute;
-    top: 643px;
-    left: 600px;
+    top: 243px;
+    left: 300px;
     height: 60px;
-    width: 720px;
+    width: 680px;
     line-height: 60px;
-    font-size: 36px;
-    color: #ac855e;
+    font-size: 29px;
+    color: #fefca3;
     text-align: center;
     letter-spacing: 3px;
     font-weight: 900;
 }
-
 
 
 
