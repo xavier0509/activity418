@@ -913,16 +913,13 @@ function initBtn() {
 function initBtnAfter(){
 	$(".everyAllowanceLi").unbind("itemFocus").bind("itemFocus", function() {
 		var _fIndex = $(".everyAllowanceLi").index($(this));
-		console.log(_fIndex);
 		var _itemWidth = $(".everyAllowanceLi:eq(0)").outerHeight(true) + 15;
-		console.log(_itemWidth);
 		var floorNum = Math.floor(_fIndex/5);
 		var myScrollTopValue = _itemWidth * floorNum;
 		$("#everyAllowanceBox").stop(true, true).animate({scrollTop: myScrollTopValue}, {duration: 0,easing: "swing"});
 	});
 	$(".everyAllowanceLi").unbind("itemClick").bind("itemClick", function() {
 		var _fIndex = $(".everyAllowanceLi").index($(this));
-		console.log(_fIndex);
 		getParamAndStart(this,false);
 	});
 	
