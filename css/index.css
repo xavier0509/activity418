@@ -150,7 +150,7 @@ img[src=''] {
     height: 667px;
     position: absolute;
     left:0;
-    /*display: none;*/
+    display: none;
     background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/bg.jpg");
 }
 .lc{
@@ -334,6 +334,7 @@ img[src=''] {
     background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/nn.png");
 }
 #drawBtnBorder{
+    display: none;
     width: 108px;
     height: 159px;
     position: absolute;
@@ -2673,14 +2674,115 @@ img[src=''] {
 }
 
 #compoundWindow{
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    top:0;
-    left:0;
+    width: 654px;
+    height: 480px;
+    position: fixed;
+    left: 317px;
+    top:138px;
     display: none;
-    background-image:url("http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/index/compoundWindow2.png");
+    background-image:url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/zengsongkapian.png");
     z-index: 88;
+}
+#compoundbtn1{
+    width: 159px;
+    height: 61px;
+    background-image:url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/btn.png");
+    position: fixed;
+    left: 443px;
+    top:456px;
+    line-height: 58px;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+}
+#compoundbtn2{
+    width: 159px;
+    height: 61px;
+    background-image:url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/btn.png");
+    position: fixed;
+    left: 672px;
+    top:456px;
+    line-height: 58px;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+}
+.compoundbtnborder{
+    width: 159px;
+    height: 61px;
+    background-image:url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/btnborder.png");
+    position: absolute;
+    display: none;
+}
+.btnFocus .compoundbtnborder{
+    display: block;
+}
+.topword{
+    width: 654px;
+    height:24px;
+    line-height: 24px;
+    font-size: 24px;
+    font-weight: bolder;
+    text-align: center;
+    position: absolute;
+    top:80px;
+    color: #8e4600;
+}
+.midcard{
+    width: 140px;
+    height:140px;
+    background-size: 100%;
+    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/f4.jpg");
+    position: fixed;
+    top:253px;
+    left:485px;
+}
+.midqrcode{
+    width: 135px;
+    height: 135px;
+    background-color: white;
+    position: fixed;
+    top:254px;
+    left:652px;
+}
+.qrcodetitle{
+    width: 14px;
+    font-size: 14px;
+    color: #b7341e;
+    position: fixed;
+    top: 265px;
+    left: 795px;
+    line-height: 14px;
+    font-weight: bold;
+}
+.bottomword1{
+    width: 400px;
+    height:26px;
+    line-height: 26px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 18px;
+    color: #ffffff;
+    background: #d12f00;
+    position: fixed;
+    top:405px;
+    left:449px;
+    font-weight: bold;
+}
+
+.bottom2{
+    width: 400px;
+    height:26px;
+    line-height: 26px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #b7341e;
+    /*background: #d12f00;*/
+    position: fixed;
+    top:432px;
+    left:449px;
+    font-weight: bold;
 }
 #compound{
     display: none;

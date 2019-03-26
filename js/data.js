@@ -113,7 +113,7 @@ var entertime = null;
 var leavetime = null;
 var gameStatus = 0;//0未开始；1正常期；2冻结期；3开奖结束期
 var rememberSetFocus = null;
-
+var pagefrom = null;
 
 
 

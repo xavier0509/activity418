@@ -500,7 +500,7 @@ function showSpeak() {
     }
     console.log("显示数组====="+speakArry);
     var intervalNum = 0;
-    var speakInter = setInterval(aaa,3000)
+    var speakInter = setInterval(aaa,1000);
     function aaa() {
         if(intervalNum == speakArry.length){
             setTimeout(function(){
@@ -534,12 +534,41 @@ function mergeShow(dialog) {
         $("#b418").css({ "top": "100px", "left": "379px", "opacity": "1" })
     }
     setTimeout(function(){showFinalWindow(dialog)}, 3500);
-
-    function showFinalWindow(dialog) {
-        removeBackButton = false;
-        $("#b418").hide();
+}
+function showFinalWindow(dialog) {
+    removeBackButton = false;
+    $("#b418").hide();
+    if(dialog == "needshowdialog1"){
+        $(".midqrcode").hide();
+        $(".qrcodetitle").hide();
+        $(".midcard").css("left","576px");
         $("#compoundWindow").show();
-        map = new coocaakeymap($("#compoundWindow"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
+        $("#compoundWindow").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/jichengkapian.png)");
+        $(".topword").html("418周年狂欢正在进行中，送您一张周年卡片");
+        $(".bottomword1").html("当前已拥有<span>"+cardsNum+"</span>套418周年卡片，有机会0元赢电视");
+        $(".bottom2").html("集418卡片赢最新创维电视火热进行中！马上参与！");
+        map = new coocaakeymap($(".compoundbtn"), $("#compoundbtn1"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+    }else if(dialog == "needshowdialog3"){
+        $("#compoundbtn2").hide();
+        $("#compoundbtn1").css("left","563px");
+        $("#compoundWindow").show();
+        $("#compoundWindow").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/jichengkapian.png)");
+        $(".topword").css("top","60px");
+        $(".topword").html("获得第2阶段抽奖资格<br>有机会0元带走创维新品电视！");
+        $(".bottomword1").html("当前已拥有<span>"+cardsNum+"</span>套418周年卡片");
+        $(".bottom2").html("可继续玩游戏手机更多周年卡片4月18日赢大奖！");
+        map = new coocaakeymap($(".compoundbtn"), $("#compoundbtn1"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+    }else if(dialog == "needshowdialog4"){
+        $(".midqrcode").hide();
+        $(".qrcodetitle").hide();
+        $(".midcard").css("left","576px");
+        $("#compoundWindow").show();
+        $("#compoundWindow").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/jichengkapian.png)");
+        $(".topword").css("top","60px");
+        $(".topword").html("获得第2阶段抽奖资格<br>有机会0元带走创维新品电视！");
+        $(".bottomword1").html("当前已拥有<span>"+cardsNum+"</span>套418周年卡片");
+        $(".bottom2").html("集418卡片赢最新创维电视火热进行中！马上参与！");
+        map = new coocaakeymap($(".compoundbtn"), $("#compoundbtn1"), "btnFocus", function() {}, function(val) {}, function(obj) {});
     }
 }
 function initMap(setFocus,needShowSpeak) {
@@ -556,80 +585,79 @@ function initMap(setFocus,needShowSpeak) {
     map = new coocaakeymap($(".coocaabtn"), $(setFocus), "btnFocus", function() {}, function(val) {}, function(obj) {});
     $(setFocus).trigger("itemFocus");
 
-    if(needShowSpeak){
-        showSpeak();
-    }
-
-     if (needshowdialog1) {
-        // sentLog("okr_web_page_show", '{"page_name":"主活动页面合成弹窗","activity_name":"春节集卡活动"}');
-        // _czc.push(['_trackEvent', '春节集卡活动', '主活动页面合成弹窗', '', '', '']);
-        removeBackButton = true;
-        needshowdialog1 = false;
-         mergeShow("needshowdialog1");
-    }
-    else if (needshowdialog2) {
-        // sentLog("okr_web_page_show", '{"page_name":"主活动页面合成弹窗","activity_name":"春节集卡活动"}');
-        // _czc.push(['_trackEvent', '春节集卡活动', '主活动页面合成弹窗', '', '', '']);
-        removeBackButton = true;
-        needshowdialog2 = false;
-         mergeShow("needshowdialog2");
-    }
-     else if (needshowdialog3) {
-         // sentLog("okr_web_page_show", '{"page_name":"主活动页面合成弹窗","activity_name":"春节集卡活动"}');
-         // _czc.push(['_trackEvent', '春节集卡活动', '主活动页面合成弹窗', '', '', '']);
-         removeBackButton = true;
-         needshowdialog3 = false;
-         mergeShow("needshowdialog3");
-     }
-     else if (needshowdialog4) {
-         // sentLog("okr_web_page_show", '{"page_name":"主活动页面合成弹窗","activity_name":"春节集卡活动"}');
-         // _czc.push(['_trackEvent', '春节集卡活动', '主活动页面合成弹窗', '', '', '']);
-         removeBackButton = true;
-         needshowdialog4 = false;
-         mergeShow("needshowdialog4");
-     }
-     else if (needshowdialog5) {
-         // sentLog("okr_web_page_show", '{"page_name":"主活动页面合成弹窗","activity_name":"春节集卡活动"}');
-         // _czc.push(['_trackEvent', '春节集卡活动', '主活动页面合成弹窗', '', '', '']);
-         removeBackButton = true;
-         needshowdialog5 = false;
-         mergeShow("needshowdialog5");
-     }
-     else if (needshowdialog6) {
-         // sentLog("okr_web_page_show", '{"page_name":"主活动页面合成弹窗","activity_name":"春节集卡活动"}');
-         // _czc.push(['_trackEvent', '春节集卡活动', '主活动页面合成弹窗', '', '', '']);
-         removeBackButton = true;
-         needshowdialog6 = false;
-         mergeShow("needshowdialog6");
-     }
-     else if (needshowdialog7) {
-         // sentLog("okr_web_page_show", '{"page_name":"主活动页面合成弹窗","activity_name":"春节集卡活动"}');
-         // _czc.push(['_trackEvent', '春节集卡活动', '主活动页面合成弹窗', '', '', '']);
-         needshowdialog7 = false;
-         $("#addChanceWindow").show();
-         $("#blackBg").show();
-         if(alterType == "jump"){
-             $("#addChanceWindow .addchancep1").html("恭喜完成跳转任务");
-         }else if(alterType == "video"){
-             $("#addChanceWindow .addchancep1").html("恭喜完成视频任务");
-         }else if(alterType == "buy"){
-             $("#addChanceWindow .addchancep1").html("恭喜完成付费任务");
-         }
-         if(alter == "1"){
-            $("#addChanceWindow .addchancep3").css("background-image",'url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/addchance1.png")');
-         }else if(alter == "2"){
-             $("#addChanceWindow .addchancep3").css("background-image",'url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/addchance2.png")');
-         }else if(alter == "5"){
-             $("#addChanceWindow .addchancep3").css("background-image",'url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/addchance5.png")');
-         }
-         map = new coocaakeymap($(".addchancep4"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
-         $("#addChanceWindowBtn").unbind("itemClick").bind("itemClick", function() {
-             $("#addChanceWindow").hide();
-             $("#blackBg").hide();
-             map = new coocaakeymap($(".coocaabtn"), $("#mapBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
-             $("#mapBtn").trigger("itemFocus");
-         })
-     }
+    setTimeout(function(){
+        console.log("---------"+needShowSpeak);
+        if (needshowdialog1) {
+            removeBackButton = true;
+            needshowdialog1 = false;
+            mergeShow("needshowdialog1");
+        }
+        else if (needshowdialog2) {
+            needshowdialog2 = false;
+            $("#blackBg").show();
+            $(".midqrcode").hide();
+            $(".qrcodetitle").hide();
+            $("#compoundbtn2").hide();
+            $("#compoundbtn1").css("left","563px");
+            $(".midcard").css("left","576px");
+            $("#compoundWindow").show();
+            $("#compoundWindow").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/zengsongkapian.png)");
+            $(".topword").html("418周年狂欢正在进行中，送您一张周年卡片");
+            $(".bottomword1").html("现在集齐一套418卡片即有机会0元带走创维新品电视");
+            $(".bottom2").html("快去掷骰子赢周年卡片吧！");
+            map = new coocaakeymap($(".compoundbtn"), $("#compoundbtn1"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+        }
+        else if (needshowdialog3) {
+            removeBackButton = true;
+            needshowdialog3 = false;
+            mergeShow("needshowdialog3");
+        }
+        else if (needshowdialog4) {
+            removeBackButton = true;
+            needshowdialog4 = false;
+            mergeShow("needshowdialog4");
+        }
+        else if (needshowdialog5) {
+            removeBackButton = true;
+            needshowdialog5 = false;
+            mergeShow("needshowdialog5");
+        }
+        else if (needshowdialog6) {
+            removeBackButton = true;
+            needshowdialog6 = false;
+            mergeShow("needshowdialog6");
+        }
+        else if (needshowdialog7) {
+            needshowdialog7 = false;
+            $("#addChanceWindow").show();
+            $("#blackBg").show();
+            if(alterType == "jump"){
+                $("#addChanceWindow .addchancep1").html("恭喜完成跳转任务");
+            }else if(alterType == "video"){
+                $("#addChanceWindow .addchancep1").html("恭喜完成视频任务");
+            }else if(alterType == "buy"){
+                $("#addChanceWindow .addchancep1").html("恭喜完成付费任务");
+            }
+            if(alter == "1"){
+                $("#addChanceWindow .addchancep3").css("background-image",'url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/addchance1.png")');
+            }else if(alter == "2"){
+                $("#addChanceWindow .addchancep3").css("background-image",'url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/addchance2.png")');
+            }else if(alter == "5"){
+                $("#addChanceWindow .addchancep3").css("background-image",'url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/addchance5.png")');
+            }
+            console.log("-------------弹窗落焦----------")
+            map = new coocaakeymap($(".addchancep4"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
+            $("#addChanceWindowBtn").unbind("itemClick").bind("itemClick", function() {
+                $("#addChanceWindow").hide();
+                $("#blackBg").hide();
+                // map = new coocaakeymap($(".coocaabtn"), $("#mapBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+                // $("#mapBtn").trigger("itemFocus");
+                initMap("#mapBtn",true);
+            })
+        }else if(needShowSpeak){
+            showSpeak();
+        }
+    },1000)
 }
 function initBtn() {
     $(".replaceBtn1").unbind("itemFocus").bind("itemFocus", function() {
@@ -865,6 +893,23 @@ function initBtn() {
             }
         }
     })
+    $("#compoundbtn1").unbind("itemClick").bind("itemClick", function() {
+        $("#compoundWindow").hide();
+        $("#blackBg").hide();
+        $(".replaceBtn2").trigger("itemFocus");
+        initMap("#mapBtn",true);
+
+    });
+    $("#compoundbtn2").unbind("itemClick").bind("itemClick", function() {
+        $("#compoundWindow").hide();
+        $("#blackBg").hide();
+        needshowdialog7 = false;
+        $(".replaceBtn1").trigger("itemFocus");
+        initMap("#drawBtn",true);
+
+    });
+
+
 	//	林心旺
 	//---------------------------------
 	$("#drawBtn").unbind("itemClick").bind("itemClick", function() {
@@ -1396,7 +1441,7 @@ function startMapFunc() {
         type: "post",
         async: true,
         url: adressIp + "/building/ludo/lottery",
-        data: { cAppVersion:cAppVersion, id: actionId, cChip: TVchip, cModel: TVmodel, cUDID: activityId, MAC: macAddress, cEmmcCID: emmcId, cOpenId: cOpenId, cNickName: nick_name,province:_province,city:_city},
+        data: { cHomepageVersion:cAppVersion, id: actionId, cChip: TVchip, cModel: TVmodel, cUDID: activityId, MAC: macAddress, cEmmcCID: emmcId, cOpenId: cOpenId, cNickName: nick_name,province:_province,city:_city},
         dataType: "json",
         // timeout: 20000,
         success: function(data) {
@@ -1830,14 +1875,13 @@ function showTime(type) {
 }
 //获取福利街运营内容
 function showOperation(showMainShow) {
-    var couponStation = {};
-    var businessOrder = ["影视", "购物", "教育", "应用"];
+    console.log("开始获取运营数据===");
     var tag_id = "";
     // if(needQQ){tag_id = 103188}else {tag_id = 103187}//test
     if (needQQ) { tag_id = 103228 } else { tag_id = 103229 }
     $("#payZone").html('<div id="allowanceGet" class="allowanceGet operationmap coocaabtn"><div class="sureGet">按【确定】键 立即领取</div><div class="text">&nbsp;</div></div>');
-    // var header = JSON.stringify({cUDID:activityId,MAC:macAddress,cModel:TVmodel,cChip:TVchip,cSize:deviceInfo.panel,cTcVersion:deviceInfo.version.replace(/\.*/g, ""),cFMode:"Default",cPattern:"normal","cBrand":"Skyworth"});
-    var header = JSON.stringify({});
+    var header = JSON.stringify({cUDID:activityId,MAC:macAddress,cModel:TVmodel,cChip:TVchip,cSize:deviceInfo.panel,cTcVersion:deviceInfo.version.replace(/\.*/g, ""),cFMode:"Default",cPattern:"normal","cBrand":"Skyworth"});
+    // var header = JSON.stringify({});
     $.ajax({
         type: "get",
         async: true,
@@ -1846,7 +1890,7 @@ function showOperation(showMainShow) {
         dataType: "json",
         timeout: 8000,
         success: function(data) {
-            // console.log("运营数据==="+JSON.stringify(data));
+            console.log("得到运营数据===");
             var operationData = data;
             var payZone = document.getElementById("payZone");
             var tabInner = "";
@@ -1868,11 +1912,21 @@ function showOperation(showMainShow) {
             $("#payZone").append(tabInner);
             $("#payZone").append('<div class="operationmore operationmap coocaabtn"  style="background-image:url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/operationmore.png)"><div class="sureGet">按【确定】键 看详情购买</div><div class="text">&nbsp;</div></div>');
 
-            // if(gameStatus == 3){
-            //     initMap("#myAwardBtn",showMainShow);
-            // }
-            // else
-            if($("#gameMap").css("display")=="block"){
+            pagefrom = getUrlParam("pagefrom");
+            if (pagefrom != null && pagefrom != undefined && showMainShow) {
+                if(pagefrom == "task1"){
+                    initMap(".normaltask:eq(0)",showMainShow);
+                }else if(pagefrom == "task2"){
+                    initMap(".normaltask:eq(1)",showMainShow);
+                }else if(pagefrom == "task3"){
+                    initMap(".normaltask:eq(2)",showMainShow);
+                }else if(pagefrom == "allowance"){
+                    initMap("#allowanceGet",showMainShow);
+                }else{
+                    initMap(null,showMainShow);
+                }
+            }
+            else if($("#gameMap").css("display")=="block"){
                 initMap("#mapBtn",showMainShow);
             }else if($("#gameDraw").css("display")=="block"){
                 initMap("#drawBtn",showMainShow);
