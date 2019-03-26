@@ -502,7 +502,6 @@ function showSpeak() {
     var intervalNum = 0;
     var speakInter = setInterval(aaa,3000)
     function aaa() {
-        console.log("============="+speakArry[intervalNum])
         if(intervalNum == speakArry.length){
             setTimeout(function(){
                 $("#map"+nowPosition).html("");
@@ -669,13 +668,13 @@ function initBtn() {
     })
     $(".mission").unbind("itemFocus").bind("itemFocus", function() {
         $("#mainbox").css("transform", "translate3D(0, -400px, 0)");
-        if(gameStatus != 3){
+        // if(gameStatus != 3){
             if($("#gameMap").css("display") == "block"){
                 $(".mission").attr("uptarget","#mapBtn");
             }else{
                 $(".mission").attr("uptarget","#drawBtn");
             }
-        }
+        // }
     })
     $(".operationmap").unbind("itemFocus").bind("itemFocus", function() {
         var blockNum = $(".operationmap").index($(this));
@@ -1497,7 +1496,6 @@ function showPage(first, resume) {
         success: function(data) {
             console.log("初始化返回状态：" + JSON.stringify(data));
             showAwardInfo();
-
             if(data.code == 50100){
                 gameStatus = 1;
                 lotteryNum = data.data.lotteryNum;
@@ -1516,12 +1514,12 @@ function showPage(first, resume) {
                     alterType = data.data.alterType;
                     needshowdialog7 = true;
                 }
-                // if(cardsNum>0 && capsuleIsStart && first){
-                //     $("#gamePanel").css("transform", "translate3D(-1280px, 0, 0)");
-                //     $("#gameDraw").show();
-                // }else{
+                if(cardsNum>0 && capsuleIsStart && first){
+                    $("#gamePanel").css("transform", "translate3D(-1280px, 0, 0)");
+                    $("#gameDraw").show();
+                }else{
                     $("#gameMap").show();
-                // }
+                }
                 if(capsuleIsStart){
                     $("#tips").css("background-image","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/huorejinxingzhong.png");
                 }
@@ -1534,16 +1532,14 @@ function showPage(first, resume) {
                 }
                 getMyTasksList(true);
 
-                if(startDayNum<5){
+                if(startDayNum<4){
                     $("#bannerWord").html("集齐周年卡片4月18日0元赢创维最新款电视");
-                }else if(startDayNum == 5){
-                    $("#bannerWord").html("距离418终极奖励开启还有1天");
-                }else if(startDayNum == 6){
+                }else if(startDayNum < 6){
                     $("#bannerWord").html("");
                     clearInterval(intervalForCutdown);
                     intervalForCutdown = setInterval(function(){showTime(1)}, 1000);
                     // showTime();
-                }else if(startDayNum>6&&startDayNum<9){
+                }else if(startDayNum>=6&&startDayNum<9){
                     $("#bannerWord").html("剩余xx台电视大奖，集齐周年卡片0元带走");
                 }else{
                     intervalForCutdown = setInterval(function(){showTime(2)}, 1000);
@@ -1554,7 +1550,7 @@ function showPage(first, resume) {
                 gameStatus = 3;
                 $("#bannerWord").html("活动已结束~获奖名单稍后公布");
                 $("#mapBtn").addClass("finishAct");
-                $("#mapBtn").removeClass("coocaabtn");
+                // $("#mapBtn").removeClass("coocaabtn");
                 $("#tips").css("background-image","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/yijieshu.png")
             }
             selectChipInfo();
@@ -1848,10 +1844,11 @@ function showOperation(showMainShow) {
             $("#payZone").append(tabInner);
             $("#payZone").append('<div class="operationmore operationmap coocaabtn"  style="background-image:url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/operationmore.png)"><div class="sureGet">按【确定】键 看详情购买</div><div class="text">&nbsp;</div></div>');
 
-            if(gameStatus == 3){
-                initMap("#myAwardBtn",showMainShow);
-            }
-            else if($("#gameMap").css("display")=="block"){
+            // if(gameStatus == 3){
+            //     initMap("#myAwardBtn",showMainShow);
+            // }
+            // else
+            if($("#gameMap").css("display")=="block"){
                 initMap("#mapBtn",showMainShow);
             }else if($("#gameDraw").css("display")=="block"){
                 initMap("#drawBtn",showMainShow);

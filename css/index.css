@@ -237,8 +237,11 @@ img[src=''] {
 #mapBtn.btnFocus{
     background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/mapbtnfocus.png");
 }
-#mapBtn.finishAct.btnFocus,#mapBtn.finishAct{
+#mapBtn.finishAct{
     background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/finishbtn.png");
+}
+#mapBtn.finishAct.btnFocus{
+    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/finishbtnfocus.png");
 }
 #mapChance{
     position: absolute;
