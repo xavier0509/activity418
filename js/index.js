@@ -549,6 +549,11 @@ function showFinalWindow(dialog) {
         $(".bottom2").html("集418卡片赢最新创维电视火热进行中！马上参与！");
         map = new coocaakeymap($(".compoundbtn"), $("#compoundbtn1"), "btnFocus", function() {}, function(val) {}, function(obj) {});
     }else if(dialog == "needshowdialog3"){
+        if(needQQ){
+            $(".midqrcode").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/tencentqrcode.png)");
+        }else{
+            $(".midqrcode").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/yinheqrcode.png)");
+        }
         $("#compoundbtn2").hide();
         $("#compoundbtn1").css("left","563px");
         $("#compoundWindow").show();
@@ -1150,6 +1155,7 @@ function getAllowance() {
                 $("#getallowancesuccess").show();
                 map = new coocaakeymap($("#getallowancesuccess"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
                 $("#getallowancesuccess").unbind("itemClick").bind("itemClick",function(){
+                    selectMyAllowanceNum();
                     $("#blackBg").hide();
                     $("#getallowancesuccess").hide();
                     $("#allowanceBtn").trigger("itemClick");
@@ -1415,7 +1421,7 @@ function hideToast(pageNum) {
     }
 }
 //展示并隐藏toast，不抢焦点
-function showAndHideToast(text,obj,stopDice) {
+function showAndHideToast(text,time,obj,stopDice) {
     clearInterval(interval_diceMove);
     $("#diceIcon_1").stop(true,true);
     if(stopDice){
@@ -1428,8 +1434,9 @@ function showAndHideToast(text,obj,stopDice) {
     // $("#blackBg").show();
     setTimeout(function () {
         $("#normalToast").hide();
+        $("#speedNum").html("");
         // $("#blackBg").hide();
-    },2000);
+    },time);
 }
 //掷骰子接口
 function startMapFunc() {
@@ -1600,20 +1607,6 @@ function showPage(first, resume) {
                     $("#mapChance").html("点击解锁游戏机会");
                 }
                 getMyTasksList(true);
-
-                if(startDayNum<4){
-                    $("#bannerWord").html("集齐周年卡片4月18日0元赢创维最新款电视");
-                }else if(startDayNum < 6){
-                    $("#bannerWord").html("");
-                    clearInterval(intervalForCutdown);
-                    intervalForCutdown = setInterval(function(){showTime(1)}, 1000);
-                    // showTime();
-                }else if(startDayNum>=6&&startDayNum<9){
-                    $("#bannerWord").html("剩余xx台电视大奖，集齐周年卡片0元带走");
-                }else{
-                    intervalForCutdown = setInterval(function(){showTime(2)}, 1000);
-                }
-
             }
             else if(data.code==50003){
                 gameStatus = 3;
@@ -1945,26 +1938,64 @@ function showOperation(showMainShow) {
         }
     });
 }
-//获取中奖信息
+// //获取中奖信息
+// function showAwardInfo() {
+//     $("#gameMapNewsul").html("");
+//     $.ajax({
+//         type: "get",
+//         async: true,
+//         url: adressIp + "/building/common/news",
+//         data: { id: actionId },
+//         dataType: "json",
+//         // timeout: 20000,
+//         success: function(data) {
+//             // console.log("中奖喜讯返回状态：" + JSON.stringify(data));
+//             var box = document.getElementById("gameMapNewsul");
+//             var tabInner = "";
+//             for (var i = 0; i < data.data.fakeNews.length; i++) {
+//                 var tabItem = '<li>'+data.data.fakeNews[i].nickName.substr(0,4)+' 掷骰子获得 '+data.data.fakeNews[i].awardName.substr(0,10)+'</li>';
+//                 tabInner += tabItem;
+//             }
+//             $("#gameMapNewsul").append(tabInner);
+//             showAwardlist("#gameMapNews", "#gameMapNewsul", "2");
+//         },
+//         error: function(error) {
+//             console.log("-----------访问失败---------" + JSON.stringify(error));
+//         }
+//     });
+// }
 function showAwardInfo() {
     $("#gameMapNewsul").html("");
     $.ajax({
         type: "get",
         async: true,
-        url: adressIp + "/building/common/news",
-        data: { id: actionId },
+        url: adressIp + "/building/ludo/tv-news",
+        data: { capsuleId: capsuleId },
         dataType: "json",
         // timeout: 20000,
         success: function(data) {
             // console.log("中奖喜讯返回状态：" + JSON.stringify(data));
-            var box = document.getElementById("gameMapNewsul");
             var tabInner = "";
             for (var i = 0; i < data.data.fakeNews.length; i++) {
-                var tabItem = '<li>'+data.data.fakeNews[i].nickName.substr(0,4)+' 掷骰子获得 '+data.data.fakeNews[i].awardName.substr(0,10)+'</li>';
+                var tabItem = '<li>'+data.data.newsModelList[i].nickName.substr(0,6)+' '+data.data.newsModelList[i].awardName.substr(0,14)+'</li>';
                 tabInner += tabItem;
             }
             $("#gameMapNewsul").append(tabInner);
-            showAwardlist("#gameMapNews", "#gameMapNewsul", "2");
+            showAwardlist("#gameMapNews", "#gameMapNewsul", "1");
+            $("#overTvNum").html(data.data.overTvNumber);
+            $("#joinNum").html(data.data.joinUsers);
+            if(startDayNum<4){
+                $("#bannerWord").html("集齐周年卡片4月18日0元赢创维最新款电视");
+            }else if(startDayNum < 6){
+                $("#bannerWord").html("");
+                clearInterval(intervalForCutdown);
+                intervalForCutdown = setInterval(function(){showTime(1)}, 1000);
+                // showTime();
+            }else if(startDayNum>=6&&startDayNum<9){
+                $("#bannerWord").html("剩余"+data.data.overTvNumber+"台电视大奖，集齐周年卡片0元带走");
+            }else{
+                intervalForCutdown = setInterval(function(){showTime(2)}, 1000);
+            }
         },
         error: function(error) {
             console.log("-----------访问失败---------" + JSON.stringify(error));
@@ -2075,19 +2106,16 @@ function selectMyAllowanceNum() {
         success: function(data){
             console.log("sent------------------"+JSON.stringify(data));
             if(data.code == 0 ){//用户拥有津贴是否大于0
-                $("#allowanceValue").html((data.data.totalSubsidy/100) + "元");
-                $("#allowanceNum").html((data.data.totalSubsidy/100) + "元");
-                $("#allowanceMoney").html('<span style="font-size: 56px;">' + (data.data.totalSubsidy/100) + '</span>元');
+                $("#homeAllowanceNum").html((data.data.totalSubsidy/100) );
+
             }else{
-                $("#allowanceValue").html("0元");
-                $("#allowanceNum").html("0元");
-                $("#allowanceMoney").html('<span style="font-size: 56px;">' +0 + '</span>元');
+                $("#homeAllowanceNum").html("0");
+
             }
         },
         error: function(){
-            $("#allowanceValue").html("0元");
-            $("#allowanceNum").html("0元");
-            $("#allowanceMoney").html('<span style="font-size: 56px;">' +0 + '</span>元');
+            $("#homeAllowanceNum").html("0");
+
         }
     });
 }
@@ -2137,6 +2165,7 @@ function getMyTasksList(needCheckSpeak) {
                                 $(".mission:eq("+missionBoxNum+")").attr("url",taskList[taskOrder[i]][j].param);
                             }
                             if(taskList[taskOrder[i]][j].remainingNumber == 0){
+                                if(taskOrder[i] == "ask"){$("#finishicon").show()}
                                 overTask++;
                             }
                             missionBoxNum++;

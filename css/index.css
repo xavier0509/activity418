@@ -103,6 +103,18 @@ img[src=''] {
     width: 214px;
     background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/allowance.png");
 }
+#homeAllowanceNum{
+    width: 45px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    position: absolute;
+    top: 19px;
+    left: 915px;
+    color:#fef9ab;
+    font-size: 19px;
+    font-weight: bold;
+}
 #myAwardBtn{
     width: 130px;
     background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/award.png");
@@ -408,6 +420,28 @@ img[src=''] {
     top: 383px;
     left: 149px;
 }
+.overTvNum{
+    font-size: 20px;
+    line-height: 20px;
+    height: 20px;
+    width: 37px;
+    position: absolute;
+    top: 421px;
+    left: 494px;
+    text-align: center;
+    color: #FFFFFF;
+}
+.joinNum{
+    font-size: 14px;
+    line-height: 14px;
+    height: 14px;
+    width: 60px;
+    position: absolute;
+    top: 378px;
+    left: 574px;
+    text-align: center;
+    color: #fed12c;
+}
 #bottom{
     width: 1280px;
     height:1216px;
@@ -452,9 +486,19 @@ img[src=''] {
     margin-left: 9px;
     margin-right: 9px;
     margin-top: 10px;
+    position: relative;
 }
 .mission:nth-child(1){
     margin-left: 35px;
+}
+#finishicon{
+    width: 54px;
+    height: 26px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/finishicon.png");
+    display: none;
 }
 #payZone{
     width: 1280px;
@@ -1460,17 +1504,30 @@ img[src=''] {
     height:181px;
     position: absolute;
     text-align: center;
-    z-index: 999;
     display: none;
     background: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/toastbg1.png");
-    left:414px;
-    top:507px;
+    left:0px;
+    top:0px;
+    right: 0px;
+    bottom: 0px;
+    margin: auto;
     z-index: 89;
 }
 #normalToast span{
     display: block;
     width: 456px;
     height:181px;
+}
+#speedNum{
+    width: 13px;
+    height: 17px;
+    line-height: 17px;
+    font-size: 17px;
+    text-align: center;
+    position: absolute;
+    top: 87px;
+    left: 244px;
+    color: #ffff00;
 }
 #getallowancesuccess{
     width: 654px;
@@ -2744,6 +2801,7 @@ img[src=''] {
     position: fixed;
     top:254px;
     left:652px;
+    background-size: 100%;
 }
 .qrcodetitle{
     width: 14px;
