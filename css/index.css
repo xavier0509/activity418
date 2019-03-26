@@ -1218,11 +1218,8 @@ img[src=''] {
 }
 /*奖励页面弹窗*/
 #dialogPage {
-	/*display: block;*/
+	display: none;
 	background-color: rgba(0, 0, 0, 0.8);
-	/*background-image: url(../images/myaward/bigbg3.png);*/
-	/*background-repeat: no-repeat;*/
-    /*background-size: 100%;*/
 }
 .fullscreen{
     position: absolute;
@@ -1315,7 +1312,11 @@ img[src=''] {
     line-height: 51px;
     text-align: center;
     color: #FFFFFF;
-    font-size: 26px;
+    font-size: 22px;
+    -webkit-text-shadow:#6a3e0a 2px 0 0,#6a3e0a 0 2px 0,#6a3e0a -2px 0 0,#6a3e0a 0 -2px 0;
+	-moz-text-shadow:#6a3e0a 2px 0 0,#6a3e0a 0 2px 0,#6a3e0a -2px 0 0,#6a3e0a 0 -2px 0;
+	text-shadow:#6a3e0a 2px 0 0,#6a3e0a 0 2px 0,#6a3e0a -2px 0 0,#6a3e0a 0 -2px 0; 
+	*filter: Glow(Color=#6a3e0a, Strength=2);
 }
 .imgFocus{
 	background-image: url(../images/myaward/btn_focus.png);
@@ -1467,6 +1468,123 @@ img[src=''] {
     font-size: 26px;
     line-height: 34px;
 }
+
+
+.awardbg4{
+    position: absolute;
+    top: 129px;
+    left: 317px;
+    height: 489px;
+    width: 654px;
+    background-image: url(../images/awarddialog/goodluck.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+#otherAwardName1{
+    position: absolute;
+    top: 82px;
+    left: 110px;
+    height: 38px;
+    width: 440px;
+    text-align: center;
+    font-size: 24px;
+    color: #8e4600;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+#otherImgBox1{
+    position: absolute;
+    top: 115px;
+    left: 90px;
+    height: 170px;
+    width: 480px;
+}
+#redAwardNum{
+    position: absolute;
+    top: 96px;
+    left: 70px;
+    height: 60px;
+    width: 159px;
+    color: #fedd7e;
+    font-size: 48px;
+    font-weight: 600;
+    text-align: right;
+}
+#otherAwardInfo1{
+    position: absolute;
+    top: 283px;
+    left: 110px;
+    height: 30px;
+    width: 440px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 16px;
+    color: #b7341e;
+    font-weight: 900;
+}
+.dialogbtn{
+    position: absolute;
+    height: 61px;
+    width: 159px;
+}
+.dialogbtn .awardbgBlur{
+	background-image: url(../images/awarddialog/btnbg.png);
+	background-repeat: no-repeat;
+    background-size: 100%;
+}
+.dialogbtn .awardbgFocus{
+	background-image: url(../images/awarddialog/btnborder.png);
+	background-repeat: no-repeat;
+    background-size: 100%;
+}
+.btn-focus .awardbgFocus{
+	display: block;
+}
+#otherBtn1{
+	top: 315px;
+    left: 128px;
+}
+#otherBtn2{
+	top: 315px;
+    left: 355px;
+}
+#redAwardBox,#entityAwardBox,#coinAwardBox{
+	position: absolute;
+    top: 10px;
+    left: 160px;
+    height: 155px;
+    width: 155px;
+    background-color: #FFFFFF;
+}
+#allAwardBox{
+	position: absolute;
+    top: 10px;
+    left: -18px;
+    height: 158px;
+    width: 514px;
+    background-color: rgba(165,105,52,0.2);
+}
+/*.awardbg3{
+    position: absolute;
+    top: 129px;
+    left: 317px;
+    height: 630px;
+    width: 930px;
+    background-image: url(../images/awarddialog/packagebg1.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}*/
+
+
+
+
+
+
+
+
+
+
 
 
 
