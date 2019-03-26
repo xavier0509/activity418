@@ -433,7 +433,7 @@ var myAwardObj = {
 		"awardUrl": "http://172.20.155.51//",
 		"awardTypeId": "7",
 		"userKeyId": "49971737",
-		"awardExchangeFlag": 1,
+		"awardExchangeFlag": 0,
 		"awardInfo": {
 			"id": "",
 			"addByDay": "false",
@@ -450,11 +450,14 @@ var myAwardObj = {
 		"awardUrl": "http://172.20.155.51//",
 		"awardTypeId": "2",
 		"userKeyId": "49971737",
-		"awardExchangeFlag": 0,
-		"awardInfo": {
-			"id": "",
-			"addByDay": "false",
-			"type": "11"
+		"awardExchangeFlag": 1,
+		"addressEntity": {
+			"province": "广东省1",
+			"city": "深圳市",
+			"area": "宝安区",
+			"address": "石岩街道",
+			"userPhone": "11011211999",
+			"userName": "林心旺"
 		},
 		"awardTime": "2019-03-22 16:30:27",
 		"seq": 11,
@@ -469,10 +472,12 @@ var myAwardObj = {
 		"userKeyId": "49971737",
 		"awardExchangeFlag": 1,
 		"addressEntity": {
-			"province": "广东省",
+			"province": "广东省2",
 			"city": "深圳市",
 			"area": "宝安区",
-			"address": "石岩街道"
+			"address": "石岩街道",
+			"userPhone": "11011211999",
+			"userName": "林心旺"
 		},
 		"awardTime": "2019-03-22 16:30:27",
 		"seq": 11,
@@ -485,11 +490,12 @@ var myAwardObj = {
 		"awardUrl": "http://172.20.155.51//",
 		"awardTypeId": "2",
 		"userKeyId": "49971737",
-		"awardExchangeFlag": 0,
-		"awardInfo": {
-			"id": "",
-			"addByDay": "false",
-			"type": "11"
+		"awardExchangeFlag": 1,
+		"addressEntity": {
+			"province": "广东省3",
+			"city": "深圳市",
+			"area": "宝安区",
+			"address": "石岩街道"
 		},
 		"awardTime": "2019-03-22 16:30:27",
 		"seq": 11,
