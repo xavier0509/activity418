@@ -84,109 +84,44 @@ var app = {
 
     },
     handleBackButtonDown: function() {
-        // console.log("==============="+$(".window").css("display")+"=========="+$(".finishwindow").css("display"));
-        // if(removeBackButton){
-        //     return;
-        // }
-        // else if ($("#rulePage").css("display") == "block") {
-        //     console.log("hideNeedUpdate--------------------");
-        //     $("#mainbox").show();
-        //     $("#rulePage").hide();
-        //     map = new coocaakeymap($(".coocaabtn"), $("#rule"), "btnFocus", function() {}, function(val) {}, function(obj) {});
-        //     sentLog("okr_web_page_show", '{"page_name":"春节集卡活动主页","activity_name":"春节集卡活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","link_type":"' + link_type + '"}');
-        //     _czc.push(['_trackEvent', '春节集卡活动', '春节集卡活动主页', '曝光', '', '']);
-        //     if (ADMsg != null && ADMsg.schedules != undefined && ADMsg.schedules[0] != undefined && gameStatus!=3) {
-        //         sentInnerAdshow("img", ADMsg, "G0004", "1", "1", "1", "", "");
-        //         sentThirdAdshow("img", ADMsg);
-        //     }
-        // } else if ($("#needUpdate").css("display") == "block") {
-        //     console.log("hideNeedUpdate--------------------");
-        //     if($("#allowancePage").css("display") == "block"){
-        //         console.log("hideNeedUpdate--------------------");
-        //         hideToast(2);
-        //     }else{
-        //         console.log("hideNeedUpdate--------------------");
-        //         hideToast(1);
-        //     }
-        // } else if ($(".window").css("display") == "block" || $(".finishwindow").css("display") == "block" || $("#compoundWindow").css("display") == "block") {
-        //     $("#blackBg").hide();
-        //     $(".window").hide();
-        //     $(".finishwindow").hide();
-        //     showPage(false, false);
-        // } else if (document.getElementById("dialogPage").style.display == "block") {
-        //     if (document.getElementById("getFoca").style.display == "block") {
-        //         $("#getFoca").css("display", "none");
-        //         $("#detain").css("display", "block");
-        //         map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("detainBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
-        //     } else {
-        //         $("#dialogPage").css("display", "none");
-        //         $("#sendPrizeFail").css("display", "none");
-        //         $(".secondDialog").css("display", "none");
-        //         if (document.getElementById("myAwardPage").style.display == "block") {
-        //             getMyAwards(2);
-        //         } else {
-        //             canClick = true;
-        //             showPage(false, false);
-        //             map = new coocaakeymap($(".coocaabtn"), document.getElementById("overChance"), "btnFocus", function() {}, function(val) {}, function(obj) {});
-        //         }
-        //     }
-        // } else {
-        //     if (document.getElementById("allowancePage").style.display == "block") {
-        //         if(document.getElementById("allowanceRulePage").style.display == "block"){
-        //             $("#allowanceRulePage").css("display", "none");
-        //             map = new coocaakeymap($(".coocaa_btn"), document.getElementById("whatisallowance"), "btn-focus", function() {}, function(val) {}, function(obj) {});
-        //         }else{
-        //             if (document.getElementById("myAwardPage").style.display == "block") {
-        //                 $("#myAwardPage").css("display", "block");
-        //                 $("#allowancePage").css("display", "none");
-        //                 sentLog("okr_web_page_show", '{"page_name":"我的奖励页面","activity_name":"春节集卡活动"}');
-        //                 _czc.push(['_trackEvent', '我的奖励页面', '春节集卡活动', '', '', '']);
-        //                 map = new coocaakeymap($(".coocaa_btn2"), document.getElementById("allowanceAward"), "btn-focus", function() {}, function(val) {}, function(obj) {});
-        //             } else {
-        //                 $("#allowancePage").css("display", "none");
-        //                 // map = new coocaakeymap($(".coocaabtn"), document.getElementById("allowance"), "btnFocus", function() {}, function(val) {}, function(obj) {});
-        //                 sentLog("okr_web_page_show", '{"page_name":"春节集卡活动主页","activity_name":"春节集卡活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","link_type":"' + link_type + '"}');
-        //                 _czc.push(['_trackEvent', '春节集卡活动', '春节集卡活动主页', '曝光', '', '']);
-        //                 if (ADMsg != null && ADMsg.schedules != undefined && ADMsg.schedules[0] != undefined && gameStatus!=3) {
-        //                     sentInnerAdshow("img", ADMsg, "G0004", "1", "1", "1", "", "");
-        //                     sentThirdAdshow("img", ADMsg);
-        //                 }
-        //                 needRememberFocus = true;
-        //                 rememberBtn = "#allowance";
-        //                 showPage(false,false);
-        //             }
-        //         }
-        //     } else {
-        //         if (document.getElementById("myAwardPage").style.display == "block") {
-        //             $("#myAwardPage").css("display", "none");
-        //             if(gameStatus == 3){
-        //                 console.log("--------------------"+hasFinalAward);
-        //                 if(hasFinalAward){
-        //                     // map = new coocaakeymap($(".finishWindowBtn"), document.getElementById("finishMyAwardGet"), "btnFocus", function() {}, function(val) {}, function(obj) {});
-        //                     // $("#finishMyAwardGet").trigger("itemFocus");
-        //                     showPage(false,false);
-        //                 }else{
-        //                     // map = new coocaakeymap($(".finishWindowBtn"), document.getElementById("finishMyAward"), "btnFocus", function() {}, function(val) {}, function(obj) {});
-        //                     showPage(false,false);
-        //                 }
-        //             }else{
-        //                 map = new coocaakeymap($(".coocaabtn"), document.getElementById("mygift"), "btnFocus", function() {}, function(val) {}, function(obj) {});
-        //                 needRememberFocus = true;
-        //                 rememberBtn = "#mygift";
-        //                 showPage(false,false);
-        //             }
-        //             sentLog("okr_web_page_show", '{"page_name":"春节集卡活动主页","activity_name":"春节集卡活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","link_type":"' + link_type + '"}');
-        //             _czc.push(['_trackEvent', '春节集卡活动', '春节集卡活动主页', '曝光', '', '']);
-        //             if (ADMsg != null && ADMsg.schedules != undefined && ADMsg.schedules[0] != undefined && gameStatus!=3) {
-        //                 sentInnerAdshow("img", ADMsg, "G0004", "1", "1", "1", "", "");
-        //                 sentThirdAdshow("img", ADMsg);
-        //             }
-        //         } else {
-        //             navigator.app.exitApp();
-        //         }
-        //     }
-        // }
-        navigator.app.exitApp();
+        if(removeBackButton){
+            return;
+        }
+        else if($("#questionbox").css("display") == "block"){
+            $("#clickOkSure").show();
+            $(".answerbtn").show();
+            $("#ques").show();
+            $("#rightanswer").hide();
+            $("#erroranswer").hide();
+            $("#answer4").hide();
+            $("#answer5").hide();
+            $("#answer6").hide();
+            $("#questionbox").hide();
+            $("#blackBg").hide();
+            needRememberFocus=true;
+            rememberBtn = "#question";
+            showPage(false,false);
+        }
+        else if($("#getallowancesuccess").css("display") == "block"){
+            selectMyAllowanceNum();
+            $("#blackBg").hide();
+            $("#getallowancesuccess").hide();
+            initMap("#allowanceGet",false);
+        }
+        else if($("#compoundWindow").css("display") == "block"){
+            $("#compoundWindow").hide();
+            $("#blackBg").hide();
+            $(".replaceBtn2").trigger("itemFocus");
+            initMap("#mapBtn",true);
+        }
+        else if($("#addChanceWindow").css("display") == "block"){
+            $("#addChanceWindow").hide();
+            $("#blackBg").hide();
+            initMap("#mapBtn",false);
+        }
+        else{
+            exitAll();
+        }
     },
 
     onDeviceReady: function() {
@@ -785,7 +720,15 @@ function initBtn() {
                     getParamAndStart(this,false);
                 }
                 $("#answer4").unbind("itemClick").bind("itemClick", function(){
+                    $("#clickOkSure").show();
                     $("#questionbox").hide();
+                    $(".answerbtn").show();
+                    $("#ques").show();
+                    $("#rightanswer").hide();
+                    $("#erroranswer").hide();
+                    $("#answer4").hide();
+                    $("#answer5").hide();
+                    $("#answer6").hide();
                     $("#blackBg").hide();
                     var hasfinishNum = 0;
                     for(var i=0;i<4;i++){
@@ -817,6 +760,12 @@ function initBtn() {
                     getParamAndStart(this,false);
                 })
                 $("#answer6").unbind("itemClick").bind("itemClick", function(){
+                    $("#clickOkSure").show();
+                    $(".answerbtn").show();
+                    $("#ques").show();
+                    $("#rightanswer").hide();
+                    $("#answer4").hide();
+                    $("#answer6").hide();
                     $("#questionbox").hide();
                     $("#blackBg").hide();
                     showPage(false,false);
@@ -903,7 +852,6 @@ function initBtn() {
         $("#blackBg").hide();
         $(".replaceBtn2").trigger("itemFocus");
         initMap("#mapBtn",true);
-
     });
     $("#compoundbtn2").unbind("itemClick").bind("itemClick", function() {
         $("#compoundWindow").hide();
