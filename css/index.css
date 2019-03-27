@@ -1482,7 +1482,7 @@ img[src=''] {
     background-size: 100%;
 }
 
-#otherAwardName1{
+#otherAwardName1,#otherAwardName2{
     position: absolute;
     top: 82px;
     left: 110px;
@@ -1512,7 +1512,7 @@ img[src=''] {
     font-weight: 600;
     text-align: right;
 }
-#otherAwardInfo1{
+#otherAwardInfo1,#cardAwardInfo1{
     position: absolute;
     top: 283px;
     left: 110px;
@@ -1538,19 +1538,20 @@ img[src=''] {
 	background-image: url(../images/awarddialog/btnborder.png);
 	background-repeat: no-repeat;
     background-size: 100%;
+    display: none;
 }
 .btn-focus .awardbgFocus{
 	display: block;
 }
-#otherBtn1{
+#otherBtn1,#otherBtn3{
 	top: 315px;
     left: 128px;
 }
-#otherBtn2{
+#otherBtn2,#otherBtn4{
 	top: 315px;
     left: 355px;
 }
-#redAwardBox,#entityAwardBox,#coinAwardBox{
+#redAwardBox,#entityAwardBox,#coinAwardBox,#cardAwardBox{
 	position: absolute;
     top: 10px;
     left: 160px;
@@ -1566,16 +1567,130 @@ img[src=''] {
     width: 514px;
     background-color: rgba(165,105,52,0.2);
 }
-/*.awardbg3{
+.awardbg3{
     position: absolute;
-    top: 129px;
+    top: 138px;
     left: 317px;
-    height: 630px;
-    width: 930px;
-    background-image: url(../images/awarddialog/packagebg1.png);
+    height: 480px;
+    width: 654px;
+    background-image: url(../images/awarddialog/418.png);
     background-repeat: no-repeat;
     background-size: 100%;
-}*/
+}
+#otherAwardName2{
+	/*top: 57px;*/
+	top: 70px;
+	letter-spacing: 0px;
+}
+#cardAwardInfo1{
+	top: 90px;
+    left: 135px;
+    width: 380px;
+    height: 22px;
+    line-height: 22px;
+    background-color: #8E4600;
+    color: #FFFFFF;
+    border-radius: 15px;
+    overflow: hidden;
+    display: none;
+}
+#cardAwardInfo2{
+	position: absolute;
+    top: 270px;
+    left: 125px;
+    width: 420px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 900;
+    background-color: #D63300;
+    color: #FFFFFF;
+    border-radius: 15px;
+    letter-spacing: 1px;
+    overflow: hidden;
+}
+#cardAwardInfo3{
+	position: absolute;
+    top: 295px;
+    left: 135px;
+    width: 380px;
+    left: 135px;
+    width: 380px;
+    height: 22px;
+    line-height: 22px;
+    font-size: 14px;
+    color: #8e4600;
+    text-align: center;
+    overflow: hidden;
+}
+#otherBtn3{
+	top: 320px;
+	left: 247px;
+	/*left: 128px;*/
+}
+#otherBtn4{
+	top: 320px;
+	display: none;
+}
+#cardAwardBox1,#cardAwardBox2{
+	position: absolute;
+    top: 121px;
+    left: 72px;
+    height: 145px;
+    width: 515px;
+    background-color: rgba(165,105,52,0.2);
+    display: none;
+}
+#cardAwardBox2{
+	top: 113px;
+}
+#cardAwardImg1,#cardAwardImg2{
+	position: absolute;
+    top: 10px;
+    left: 94px;
+    height: 130px;
+    width: 125px;
+}
+#cardAwardImg2{
+	top: 10px;
+    left: 208px;
+}
+#cardQrcode{
+	position: absolute;
+    top: 5px;
+    left: 264px;
+    height: 135px;
+    width: 135px;
+    background-color: white;
+}
+#cardAwardWarm{
+	position: absolute;
+    top: 13px;
+    left: 407px;
+    height: 135px;
+    line-height: 15px;
+    width: 16px;
+    font-size: 13px;
+    color: #b7341e;
+}
+#sendPrizeFail{
+	position: absolute;
+    top: 864px;
+    left: 720px;
+    height: 60px;
+    width: 500px;
+    background-color: rgba(255,255,255,0.8);
+    text-align: center;
+    line-height: 60px;
+    font-size: 40px;
+    display: none;
+}
+
+
+
+
+
 
 
 

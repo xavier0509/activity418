@@ -1070,6 +1070,7 @@ function initBtn() {
 		}
 	});
 	$("#allowanceBtn").unbind("itemClick").bind("itemClick", function() {
+		getAllowanceInfo(1);//1表示需要初始化焦点
 	    if(donotSentAllowanceBtnLog ){
             donotSentAllowanceBtnLog = false;
         }else{
@@ -1091,10 +1092,8 @@ function initBtn() {
             sentLog("okr_web_button_click", '{"allowance_price":"","task_name":"","button_state":"'+button_state+'","button_name":"可用津贴","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
             _czc.push(['_trackEvent', '418活动', "可用津贴按钮"+button_state, "点击", '', '']);
         }
-        getAllowanceInfo();
         $("#mainbox").css("display", "none");
         $("#allowancePage").css("display", "block");
-        map = new coocaakeymap($(".coocaabtn2"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
 	});
 	$("#loginbox").unbind("itemClick").bind("itemClick", function() {
 		console.log("点击了登录按钮");
@@ -1134,8 +1133,15 @@ function initBtn() {
     	console.log("点击未领取红包二维码");
     	$("#mainbox").css("display", "block");
         $("#dialogPage").css("display", "none");
+        $(".secondDialog").css("display", "none");
         $("#redNotGet").css("display", "none");
-        map = new coocaakeymap($(".coocaa_btn2"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
+        //加个判断  奖励页面还是抽奖弹窗
+        if (document.getElementById("myAwardPage").style.display == "block") {
+        	map = new coocaakeymap($(".coocaa_btn2"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
+        } else{
+        	map = new coocaakeymap($(".coocaa_btn"), $("#mapBtn"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+        }
+        
     });
     $("#otherInfo3,#hasGotInfo4").unbind("itemClick").bind("itemClick", function() {
     	console.log("点击未领取实物奖的弹窗");
@@ -1146,8 +1152,35 @@ function initBtn() {
         //记录奖励页面的点击按钮的id,在此处赋值
         map = new coocaakeymap($(".coocaa_btn2"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
     });
-    
-    
+    $("#otherBtn1,#otherBtn3").unbind("itemClick").bind("itemClick", function() {
+        console.log("点击了继续掷骰子");
+        $("#mainbox").css("display", "block");
+        $("#dialogPage").css("display", "none");
+        $("#getOtherAward1").css("display", "none");
+        $("#getOtherAward2").css("display", "none");
+        map = new coocaakeymap($(".coocaabtn"), document.getElementById("mapBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+    	
+    	var _curId = $(this).attr("id");
+    	if (_curId=="otherBtn1"&&$(this).attr("awardType")==6) {
+    		showPage(false,false);
+    	}
+    	if (_curId=="otherBtn3"&&$(this).attr("awardType")==6) {
+    		selectChipInfo()
+    	}
+    });
+    $("#otherBtn2").unbind("itemClick").bind("itemClick", function() {
+        console.log("点击了领取奖励");
+        otherBtn2ClickFunc();
+    });
+    $("#otherBtn4").unbind("itemClick").bind("itemClick", function() {
+        console.log("点击了0元赢电视");
+        $("#dialogPage").css("display", "none");
+        $("#getOtherAward1").css("display", "none");
+        $("#getOtherAward2").css("display", "none");
+        donotSentReplacebtnLog = true;
+        $(".replaceBtn1").trigger("itemFocus");
+        map = new coocaakeymap($(".coocaabtn"), document.getElementById("drawBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+    });
 	//---------------------------------
 }
 
@@ -1185,6 +1218,7 @@ function initBtnAfter(){
     });
     $(".myAwards").unbind("itemClick").bind("itemClick", function() {
         var _clickIndex = $(".myAwards").index($(this));
+        var _awardId = $(this).attr("awardId");
         var _awardName = $(this).attr("awardName");
         var _awardTime = $(this).attr("awardTime");
         var _awardType = $(this).attr("awardType");
@@ -1193,6 +1227,7 @@ function initBtnAfter(){
         var _rememberId = $(this).attr("rememberId");
         var _userkeyId = $(this).attr("userkeyId");
         _curHomeBtn = $(this).attr("id");
+        
         console.log(_curHomeBtn);
         console.log(_awardName+";"+_awardTime+";"+_awardType+";"+_awardState+";"+_lotteryActiveId+";"+_rememberId+";"+_userkeyId);
         console.log(loginstatus);
@@ -1202,17 +1237,21 @@ function initBtnAfter(){
                 startAndSendLog();
             } else {
                 console.log("点击了购物津贴+跳转页面");
-                $("#mainbox").css("display", "none");
-                $("#myAwardPage").css("display", "none");
-		        $("#allowancePage").css("display", "block");
-                $("#everyAllowanceBox").stop(true, true).animate({ scrollTop: 0 }, { duration: 0, easing: "swing" });
-                map = new coocaakeymap($(".coocaabtn2"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
-//              sentLog("okr_web_button_click", '{"button_name":"津贴","page_name":"我的奖励页面","activity_name":"春节集卡活动"}');
-//              _czc.push(['_trackEvent', '春节集卡活动', '我的奖励页面', '津贴点击', '', '']);
-//              sentLog("okr_web_page_show", '{"page_name":"我的津贴页面","activity_name":"春节集卡活动"}');
-//              _czc.push(['_trackEvent', '春节集卡活动', '我的津贴页面曝光', '', '', '']);
-//          	//跳转津贴页面并领取未领取的津贴
-        		//getAllNotGetAllowance();
+                var curNum = document.getElementById("myallowanceNum").innerHTML;
+                console.log(curNum);
+                if (curNum == 0) {
+                	$("#mainbox").css("display", "block");
+                	$("#myAwardPage").css("display", "none");
+                	map = new coocaakeymap($(".coocaabtn"), $("#allowanceGet"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+            		$("#allowanceGet").trigger("itemFocus");
+                } else{
+                	getAllowanceInfo(1);
+			        $("#mainbox").css("display", "none");
+			        $("#myAwardPage").css("display", "none");
+			        $("#allowancePage").css("display", "block");
+	          		//跳转津贴页面并领取未领取的津贴
+	        		getAllNotGetAllowance();
+                }
             }
         }
         if (_awardType == 7) {
@@ -1281,6 +1320,7 @@ function initBtnAfter(){
         if (_awardType == 19){
         	if (_awardState == 0) {
         		console.log("领取金币+成功后跳转金币页面");
+        		sendPrizes(_awardId, _rememberId, _userkeyId, _awardType, _lotteryActiveId, movieSource, 1);
         		var coinUrl = 'https://goldshop.coocaa.com/';
         		coocaaosapi.startNewBrowser5(coinUrl, function() {}, function() {});
         	} else{
@@ -1762,11 +1802,13 @@ function mapMove(obj,isSecondMove) {
         if (i == step) {
             diceCanClick = true;
             clearInterval(time); //如果到达指定位置则停止
-            var obj1,obj2=null;
+            var obj1=obj;
+            var obj2=null;
             if(obj.ifSpeedUp){
                 obj2 = obj.speedUpRemember;
-                setTimeout(function(){mapMove(obj2,true)},2000);
+                //setTimeout(function(){mapMove(obj2,true)},2000);
             }
+            handleTheDrawData(obj1,obj2);
         }
         i++; //继续前进
     }, 500);
@@ -1797,6 +1839,7 @@ function showPage(first, resume) {
         success: function(data) {
             console.log("初始化返回状态：" + JSON.stringify(data));
             showAwardInfo();
+
             if(data.code == 50100){
                 gameStatus = 1;
                 lotteryNum = data.data.lotteryNum;
@@ -2348,15 +2391,15 @@ function selectMyAllowanceNum() {
             console.log("sent------------------"+JSON.stringify(data));
             if(data.code == 0 ){//用户拥有津贴是否大于0
                 $("#homeAllowanceNum").html((data.data.totalSubsidy/100) );
-
+		$("#myallowanceNum").html((data.data.totalSubsidy/100));
             }else{
                 $("#homeAllowanceNum").html("0");
-
+		$("#myallowanceNum").html(("0"));
             }
         },
         error: function(){
             $("#homeAllowanceNum").html("0");
-
+	    $("#allowanceMoney").html("0");
         }
     });
 }
@@ -2497,7 +2540,7 @@ function draw() {
 }
 
 //展示我的津贴页面
-function getAllowanceInfo(){
+function getAllowanceInfo(num){
 	document.getElementById("everyAllowanceUl").innerHTML = "";
     var tag_id = "";
     //if(needQQ){tag_id = 103188}else {tag_id = 103187}//test
@@ -2511,14 +2554,14 @@ function getAllowanceInfo(){
         dataType: "json",
         timeout: 8000,
         success: function(data) {
-//          console.log("运营数据==="+JSON.stringify(data));
+            //console.log("运营数据==="+JSON.stringify(data));
             if(data.data.length>0){
 				var liListItems = "";
 				for(var i = 0; i < data.data.length; i++) {
 					for (var j = 0; j < data.data[i].baseBlocks.length; j++) {
-//						console.log(data.data[i].baseBlocks[j].imgs.poster.images);
-//						console.log(data.data[i].baseBlocks[j].action);
-//						console.log(JSON.parse(data.data[i].baseBlocks[j].action).params.source_id);
+						//console.log(data.data[i].baseBlocks[j].imgs.poster.images);
+						//console.log(data.data[i].baseBlocks[j].action);
+						//console.log(JSON.parse(data.data[i].baseBlocks[j].action).params.source_id);
 						liListItems += '<div class="everyAllowanceLi coocaabtn2" action='+JSON.stringify(JSON.parse(data.data[i].baseBlocks[j].action))+'><img class="everyAllItem" src="images/itemimg.png"/><div class="everyAllBorder"></div><div class="everyAllInfo">使用津贴再减50元</div><div class="everyAllWarm">按【确定键】看详情购买</div></div>';
 					}
 				}
@@ -2527,7 +2570,6 @@ function getAllowanceInfo(){
 					var curBtnId = "myAllowance" + k;
 					$(".everyAllowanceLi:eq("+k+")").attr("id",curBtnId);
 					if (k>1&&(k%5==0)) {
-						console.log(k);
 						var upBtnId = "#myAllowance" + (k-5);
 						$(".everyAllowanceLi:eq("+k+")").attr("upTarget",upBtnId);
 					}
@@ -2547,13 +2589,17 @@ function getAllowanceInfo(){
 				$("#loginbox").css("display","none");
 				$("#notLoginNum").css("display","none");
 				$("#LoginedNum").css("display","block");
-				//map = new coocaakeymap($(".coocaabtn2"), $(".everyAllowanceLi:eq(0)"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+				if(num == 1){
+					map = new coocaakeymap($(".coocaabtn2"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
+				}
 			} else{
 				console.log("未登录");
 				$("#loginbox").css("display","block");
 				$("#notLoginNum").css("display","block");
 				$("#LoginedNum").css("display","none");
-				//map = new coocaakeymap($(".coocaabtn2"), $("#loginbox"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+				if(num == 1){
+					map = new coocaakeymap($(".coocaabtn2"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
+				}
 			}
 			initBtnAfter();
         }
@@ -2583,7 +2629,7 @@ function getMyAwards(num) {
         },
         success: function(data) {
         	//假数据
-        	data = myAwardObj;
+        	//data = myAwardObj;
             console.log(JSON.stringify(data));
             if (data.code == 50100) {
                 if (data.data == undefined){
@@ -2594,11 +2640,11 @@ function getMyAwards(num) {
                     if(num == 3){
                         console.log("津贴为0"+loginstatus);
                         if(loginstatus == "true"){
-                            //selectMyAllowanceNum();
+                            selectMyAllowanceNum();
                         }else{
-                            $("#allowanceValue").html("0元");
-                            $("#allowanceNum").html("0元");
-                            $("#allowanceMoney").html('<span style="font-size: 56px;">' + 0 + '</span>元');
+                            $("#homeAllowanceNum").html("0");
+                            $("#allowanceNum").html("0");
+                            $("#myallowanceNum").html("0");
                         }
                         return;
                     }
@@ -2659,7 +2705,8 @@ function getMyAwards(num) {
                         } else if (data.data[i].awardTypeId == "13") {
                             _arr3.push(objItem);
                         } else if (data.data[i].awardTypeId == "19") {
-                        	objItem.coinNumber = data.data[i].awardInfo.num;
+                        	console.log(JSON.stringify(data.data[i]));
+                        	objItem.coinNumber = data.data[i].awardInfo.type;
                             _arr4.push(objItem);
                         }
                     }
@@ -2843,6 +2890,7 @@ function showMyAward(arr0, arr1, arr2, arr3, arr4) {
         	console.log(KNumber);
         	var goldcoinDiv = document.createElement("div");
             goldcoinDiv.setAttribute('id', 'goldcoinNotGot');
+            goldcoinDiv.setAttribute('awardId', arr4[KNumber].awardId);
             goldcoinDiv.setAttribute('awardType', arr4[KNumber].awardType);
             goldcoinDiv.setAttribute('awardState', arr4[KNumber].state);
             goldcoinDiv.setAttribute('rememberId', arr4[KNumber].rememberId);
@@ -2873,3 +2921,341 @@ function showMyAward(arr0, arr1, arr2, arr3, arr4) {
     
     initBtnAfter();
 }
+
+function handleTheDrawData(obj1,obj2){
+	if (obj2 == "" || obj2 == null ) {
+		console.log("抽到普通奖励");
+		showThisAwardDialog(obj1.rememberModel);		
+	} else{
+		console.log("抽到加速神器");
+		//当前前进步数
+		var curNum = obj2.diceNumber;
+		$("#speedNum").html(curNum);
+		showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jiasushenqi.png",2000);
+		setTimeout(function(){mapMove(obj2,true)},2000);
+	}
+}
+function showThisAwardDialog(awardObj) {
+    console.log(JSON.stringify(awardObj));
+    console.log(awardObj.awardTypeId);
+    
+    var _cawardId = awardObj.awardId; //奖品id
+    var _cactiveId = awardObj.lotteryActiveId; //奖品活动id
+    var _crememberId = awardObj.lotteryRememberId; //奖品记录id
+    var _cuserKeyId = awardObj.userKeyId; //抽奖用户的userkeyid
+    var _cawardName = awardObj.awardName; //奖品名称
+    var _cawardTime = awardObj.awardTime; //获奖时间
+    _cawardTime = _cawardTime.substr(0, 10);
+    var _cawardUrl = awardObj.awardUrl; //奖品url
+    var _cawardTypeId = awardObj.awardTypeId; //奖品类型
+	
+    $("#otherBtn2").attr("activeId", _cactiveId);
+    $("#otherBtn2").attr("awardId", _cawardId);
+    $("#otherBtn2").attr("rememberId", _crememberId);
+    $("#otherBtn2").attr("userKeyId", _cuserKeyId);
+    $("#otherBtn2").attr("awardTypeId", _cawardTypeId);
+    $("#otherBtn2").attr("awardName", _cawardName);
+    $("#otherBtn2").attr("awardTime", _cawardTime);
+    $("#otherBtn2").attr("awardUrl", _cawardUrl);
+    
+    $(".secondDialog").css("display", "none");
+    if (awardObj.awardTypeId == 2) {
+        console.log("抽到实物奖");
+        $("#dialogPage").css("display", "block");
+        $("#getOtherAward1").css("display", "block");
+        $("#otherAwardName1").html('恭喜获得'+awardObj.awardName);
+        $("#otherBtn1 .btnName").html("继续掷骰子");
+        $("#otherBtn2 .btnName").html("立即领取");
+        $(".eachAwardStyle").css("display", "none");
+        $("#entityAwardBox").css("display", "block");
+        $("#entityAwardImg").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/lxw/foca/focared.png");
+//      $("#entityAwardImg").attr("src",awardObj.awardUrl);
+        map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+    }
+    if (awardObj.awardTypeId == 6) {
+    	//判断是418碎片还是418全套
+    	console.log(awardObj.awardInfo.focaKey);
+    	if (awardObj.awardInfo.focaKey != "lc418") {
+    		console.log("抽到418碎片");
+    		$("#otherBtn1").attr("awardType","6");
+    		$("#dialogPage").css("display", "block");
+	        $("#getOtherAward1").css("display", "block");
+	        $("#otherAwardName1").html('恭喜获得'+awardObj.awardName);
+	        $("#otherBtn1 .btnName").html("继续掷骰子");
+	        $("#otherBtn2 .btnName").html("查看我的奖励");
+	        $(".eachAwardStyle").css("display", "none");
+	        $("#cardAwardBox").css("display", "block");
+	        $("#cardAwardImg").attr("src",awardObj.awardUrl);
+    		map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+    	} else{
+    		console.log("走完一圈,送418全套");
+    		$("#otherBtn3").attr("awardType","6");
+    		$("#dialogPage").css("display", "block");
+    		$("#getOtherAward2").css("display", "block");
+    		if(!capsuleIsStart){
+    			console.log("418之前,展示预约二维码");
+    			$("#otherAwardName2").css("top","57px");
+    			$("#cardAwardInfo1").css("display","block");
+    			$("#cardAwardBox1").css("display","block");
+    			$("#cardAwardBox2").css("display","none");
+    			if (movieSource == "tencent") {
+    				$("#cardQrcode").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/tencentqrcode.png");
+    			} else{
+    				$("#cardQrcode").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/yinheqrcode.png");
+    			}
+    			$("#cardAwardImg1").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/lxw/foca/focared.png");
+    			$("#cardAwardInfo2").css("left","205px");
+    			$("#cardAwardInfo2").css("width","255px");
+    			$("#cardAwardInfo2").html("当前已拥有5套418碎片");
+    			$("#cardAwardInfo3").html("有机会4月18日0元赢电视！记得来哦~");
+    			$("#otherBtn4").css("display","none");
+    			$("#otherBtn3").css("left","247px");
+    			map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn3"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+    		}else{
+    			console.log("418之后,不展示预约二维码");
+    			$("#otherAwardName2").css("top","70px");
+    			$("#cardAwardInfo1").css("display","none");
+    			$("#cardAwardBox2").css("display","block");
+    			$("#cardAwardBox1").css("display","none");
+    			$("#cardAwardImg2").attr("src",awardObj.awardUrl);
+    			$("#cardAwardInfo2").css("left","125px");
+    			$("#cardAwardInfo2").css("width","420px");
+    			$("#cardAwardInfo2").html("当前已拥有5套418周年碎片，有机会0元赢电视");
+    			$("#cardAwardInfo3").html("集418卡片赢最新创维电视火热进行中！马上参与");
+    			$("#otherBtn4").css("display","block");
+    			$("#otherBtn3").css("left","128px");
+    			map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn3"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+    		}
+    	}
+    }
+    if (awardObj.awardTypeId == 7) {
+        console.log("抽到红包");
+        $("#dialogPage").css("display", "block");
+        $("#getOtherAward1").css("display", "block");
+        $("#otherAwardName1").html("恭喜获得"+awardObj.awardName);
+        $("#otherBtn1 .btnName").html("继续掷骰子");
+        $("#otherBtn2 .btnName").html("领取红包");
+        $(".eachAwardStyle").css("display", "none");
+        $("#redAwardBox").css("display", "block");
+        $("#redAwardImg").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/lxw/foca/focared.png");
+        if(awardObj.margeType == "true") {
+            $("#otherBtn2").attr("redNumber", awardObj.mergeAwardInfo.bonus);
+        } else {
+            $("#otherBtn2").attr("redNumber", awardObj.awardInfo.bonus);
+        }
+        map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+    }
+    if(awardObj.awardTypeId == 13){
+    	console.log("抽到特权购买奖品");
+    	var packurl = "";
+    	var packurl = 'http://dev.business.video.tc.skysrt.com/v3/web/actCenter/index.html?data={"product_id":1,"activity_id":"1","activity_name":"wasu","bg_url":"http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/jiaoyujika.png"}';
+        coocaaosapi.startNewBrowser3(packurl, function() {}, function() {});
+    }
+    if (awardObj.awardTypeId == 17) {
+        console.log("抽到津贴");
+        $("#dialogPage").css("display", "block");
+        $("#getOtherAward1").css("display", "block");
+        $("#otherAwardName1").html("恭喜获得"+awardObj.awardName);
+        $("#otherBtn1 .btnName").html("继续掷骰子");
+        $("#otherBtn2 .btnName").html("立即使用");
+        $(".eachAwardStyle").css("display", "none");
+        $("#allAwardBox").css("display", "block");
+        $("#allowAwardImg").attr("src",awardObj.awardUrl);
+        
+        map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+        getMyAwards(3);
+    }
+    if(awardObj.awardTypeId == 19){
+    	console.log("抽到金币");
+    	$("#dialogPage").css("display", "block");
+        $("#getOtherAward1").css("display", "block");
+        $("#otherAwardName1").html("恭喜获得"+awardObj.awardName);
+        $("#otherBtn1 .btnName").html("继续掷骰子");
+        $("#otherBtn2 .btnName").html("去兑换");
+        $(".eachAwardStyle").css("display", "none");
+        $("#coinAwardBox").css("display", "block");
+    	$("#coinAwardImg").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/lxw/foca/allowance.png");
+        map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+    }
+}
+//领取奖励
+function otherBtn2ClickFunc() {
+    var _kActiveId = $("#otherBtn2").attr("activeId");
+    var _kAwardId = $("#otherBtn2").attr("awardId");
+    var _kRememberId = $("#otherBtn2").attr("rememberId");
+    var _kUserKeyId = $("#otherBtn2").attr("userKeyId");
+    var _kAwardTypeId = $("#otherBtn2").attr("awardTypeId");
+    var _kAwardName = $("#otherBtn2").attr("awardName");
+    var _kAwardTime = $("#otherBtn2").attr("awardTime");
+    var _kAwardUrl = $("#otherBtn2").attr("awardUrl");
+	
+	console.log(_kAwardTypeId);
+    if (_kAwardTypeId == 2) {
+        if (loginstatus == "false") {
+            console.log("领取实物奖励+启登录");
+            startAndSendLog();
+        } else {
+            console.log("领取实物奖励+展示二维码");
+            $(".secondDialog").css("display", "none");
+            $("#otherNotGet").css("display", "block");
+            $("#otherInfo1").html("奖品名称:&nbsp;&nbsp;" + _kAwardName);
+            $("#otherInfo2").html("发放时间:&nbsp;&nbsp;" + _kAwardTime);
+//          $("#otherInfo3").html('使用<span class="otherAwardVar">微信扫码</span>完善收货信息，确保奖品能够送达哦~');
+            map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherInfo3"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+            var enstr = enurl + "activeId=" + _kActiveId + "&rememberId=" + _kRememberId + "&userKeyId=" + _kUserKeyId + "&access_token=" + access_token;
+            drawQrcode("otherQrcode", enstr, 125);
+        }
+    }
+    if (_kAwardTypeId == 6){
+    	console.log("领取卡片奖励+查看我的奖励");
+    	$("#getOtherAward1").css("display","none");
+    	$("#dialogPage").css("display","none");
+    	$("#mainbox").css("display","none");
+    	$("#myAwardPage").css("display","block");
+    	getMyAwards(2);
+    }
+    if (_kAwardTypeId == 7) {
+        var _redNumber = $("#otherBtn2").attr("redNumber");
+        console.log(_redNumber);
+        if (loginstatus == "false") {
+            console.log("领取红包奖励+启登录");
+            startAndSendLog();
+        } else {
+            console.log("领取红包奖励+展示二维码");
+            $(".secondDialog").css("display", "none");
+            $("#redNotGet").css("display", "block");
+            $("#redContent").html('<span style="font-size: 65px;">' + _redNumber + '</span>元');
+            console.log(_kActiveId + "--" + _kRememberId + "--" + _kUserKeyId);
+            getRedPacketsQrcode(_kActiveId, _kRememberId, _kUserKeyId, "redQrcode", 175, 175);
+            map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("redQrcode"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+        }
+    }
+    if (_kAwardTypeId == 17) {
+        console.log("点击了津贴奖励的马上领取");
+        if (loginstatus == "false") {
+            console.log("领取津贴奖励+启登录");
+            startAndSendLog();
+        } else {
+            sendPrizes(_kAwardId, _kRememberId, _kUserKeyId, _kAwardTypeId, _kActiveId, movieSource, 1);
+        }
+    }
+    if (_kAwardTypeId == 19) {
+        console.log("点击了金币的去兑换");
+        if (loginstatus == "false") {
+            console.log("领取津贴奖励+启登录");
+            startAndSendLog();
+        } else {
+        	var coinUrl = 'https://goldshop.coocaa.com/';
+        	coocaaosapi.startNewBrowser5(coinUrl, function() {}, function() {});
+        }
+    }
+}
+//领取优惠券并跳转津贴页面
+function sendPrizes(oAwardId, oRememberId, oUserKeyId, oType, oActiveId, oQsource, pagestate) {
+    console.log(oAwardId + "--" + oRememberId + "--" + oUserKeyId + "--" + oType + "--" + oActiveId);
+    if(oQsource != "tencent") {
+        oQsource = "iqiyi";
+    }
+    console.log(oQsource);
+    var ajaxTimeoutFive = $.ajax({
+        type: "GET",
+        async: true,
+        timeout: 5000,
+        dataType: 'jsonp',
+        jsonp: "callback",
+        url: adressIp + "/v3/lottery/verify/receive",
+        data: {
+            "cUDID": activityId,
+            "activeId": oActiveId,
+            "awardId": oAwardId,
+            "rememberId": oRememberId,
+            "awardTypeId": oType,
+            "userKeyId": oUserKeyId,
+            "MAC": macAddress,
+            "cOpenId": cOpenId,
+            "source": oQsource
+        },
+        success: function(data) {
+            console.log(JSON.stringify(data));
+            if(data.code == "50100") {
+                console.log("领取成功");
+                if(oType == 17){
+                	console.log("领取津贴奖励+跳转");
+	                selectMyAllowanceNum();
+	                if (pagestate != 2) {
+		                $("#allowanceItemBox").stop(true, true).animate({ scrollTop: 0 }, { duration: 0, easing: "swing" });
+		                if(loginstatus == "true"){
+		                	$("#loginbox").css("display","none");
+		                }else{
+		                	$("#loginbox").css("display","block");
+		                }
+		                map = new coocaakeymap($(".coocaabtn2"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
+	                }
+                }else if(oType == 19){
+                	console.log("领取金币奖励+跳转");
+                }
+            } else {
+                console.log("领取失败");
+
+            }
+        },
+        error: function() {
+            console.log("领取失败");
+            if (oType == 17) {
+            	if (pagestate != 2) {
+					$("#sendPrizeFail").css("display", "block");
+					setTimeout(function(){
+						$("#sendPrizeFail").css("display", "none");
+					},3000);
+				}
+            }
+        },
+        complete: function(XMLHttpRequest, status) {
+            console.log("-------------complete------------------" + status);
+            if(status == 'timeout') {
+                ajaxTimeoutFive.abort();
+            }
+        }
+    });
+}
+//获取未领取津贴并领取
+function getAllNotGetAllowance(){
+    console.log(JSON.stringify(notGetAllowanceArray));
+    if (notGetAllowanceArray.length == 0) {
+        selectMyAllowanceNum();
+    } else{
+        notGetAllowanceIndex = notGetAllowanceArray.length - 1;
+        for(var j=0;j<notGetAllowanceArray.length; j++){
+            setTimeout(function(){
+                console.log(notGetAllowanceIndex);
+                var allowAwardId = notGetAllowanceArray[notGetAllowanceIndex].awardId;
+                var allowRememberId = notGetAllowanceArray[notGetAllowanceIndex].rememberId;
+                var allowUserKeyId = notGetAllowanceArray[notGetAllowanceIndex].userkeyId;
+                var allowAwardTypeId = notGetAllowanceArray[notGetAllowanceIndex].awardType;
+                var allowActiveId = notGetAllowanceArray[notGetAllowanceIndex].lotteryActiveId;
+                if (notGetAllowanceIndex > 0) {
+                    notGetAllowanceIndex = notGetAllowanceIndex - 1;
+                } else{
+                    notGetAllowanceIndex = 0;
+                }
+                console.log(allowAwardId+"--"+allowRememberId+"--"+allowUserKeyId+"--"+allowAwardTypeId+"--"+allowActiveId);
+                sendPrizes(allowAwardId,allowRememberId,allowUserKeyId,allowAwardTypeId,allowActiveId,movieSource,2);
+            },100*(j+1));
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
