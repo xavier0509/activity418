@@ -109,13 +109,17 @@ var removeBackButton = false;
 var marqueeInterval1 = null;
 var marqueeInterval2 = null;
 
-var entertime = null;
-var leavetime = null;
+var startLoadTime = null;//开始加载时间
+var entertime = null;//加载完成时间
+var leavetime = null;//离开时间
 var gameStatus = 0;//0未开始；1正常期；2冻结期；3开奖结束期
 var rememberSetFocus = null;
 var pagefrom = null;
 
-
+var donotSentReplacebtnLog = false;//不要传左右切换的日志，true就是不要传
+var donotSentStartParamBtnLog = false;//不要传通用方法的日志，true就是不要传
+var donotSentAllowanceBtnLog = false;//不要传津贴点击的日志，true就是不要传
+var donotSentMissionBtnLog = false;//不要传任务点击的日志，true就是不要传
 
 
 

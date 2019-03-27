@@ -20,6 +20,17 @@ var app = {
         entertime = new Date().getTime();
         console.log("************************");
         if (needFresh) {
+            var pagename = "";
+            var page_type = "";
+            if($("#gameDraw").css("display") == "block"){
+                pagename = "扭蛋机活动";
+                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+            }else{
+                pagename = "大富翁活动";
+                if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
+            }
+            sentLog("okr_web_page_show", '{"page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+            _czc.push(['_trackEvent', '418活动', pagename, '曝光', '', '']);
             needFresh = false;
             showPage(false, true)
         } else {
@@ -31,54 +42,28 @@ var app = {
                 }
             }
 
-            if (startLoginFlag && changeLoginFlag) {
-                console.log("登录成功");
-                startLoginFlag = false;
-                changeLoginFlag = false;
+            if(startLoginFlag){
 
-                sentLog("okr_web_clicked_result", '{"page_name":"春节活动登录弹窗","activity_name":"春节集卡活动","login_result":"登录成功"}');
-                _czc.push(['_trackEvent', '春节活动登录弹窗', '春节集卡活动', '登录成功', '', '']);
-
-                if (document.getElementById("myAwardPage").style.display == "block") {
-                    console.log(_curHomeBtn);
-                    $("#" + _curHomeBtn).trigger("itemClick");
-                }
-                if (document.getElementById("getOtherAward1").style.display == "block") {
-                    $("#otherBtn2").trigger("itemClick");
-                }
-                if (document.getElementById("allowancePage").style.display == "block") {
-                    $(".allowanceInfo1").css("display","block");
-                    $(".allowanceInfo2").css("display","none");
-                    $("#allowanceLogin").css("display","none");
-                    $("#allowanceValueBox").css("display","block");
-                    map = new coocaakeymap($(".coocaa_btn"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
-                    getAllNotGetAllowance();
-                }
-
-
-            } else if (startLoginFlag) {
-                console.log("登录失败");
-                startLoginFlag = false;
-                changeLoginFlag = false;
-                sentLog("okr_web_clicked_result", '{"page_name":"春节活动登录弹窗","activity_name":"春节集卡活动","login_result":"登录失败"}');
-                _czc.push(['_trackEvent', '春节活动登录弹窗', '春节集卡活动', '登录失败', '', '']);
-            } else {
-                console.log("不提交登录日志");
-                startLoginFlag = false;
-                changeLoginFlag = false;
-                if(document.getElementById("allowancePage").style.display == "block"){
-                    sentLog("okr_web_page_show", '{"page_name":"我的津贴页面","activity_name":"春节集卡活动"}');
-                    _czc.push(['_trackEvent', '春节集卡活动', '我的津贴页面曝光', '', '', '']);
+            }else {
+                var pagename = "";
+                var page_type = "";
+                if($("#gameDraw").css("display") == "block"){
+                    pagename = "扭蛋机活动";
+                    if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
                 }else{
-                    sentLog("okr_web_page_show", '{"page_name":"春节集卡活动主页","activity_name":"春节集卡活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","link_type":"' + link_type + '"}');
-                    _czc.push(['_trackEvent', '春节集卡活动', '春节集卡活动主页', '曝光', '', '']);
+                    pagename = "大富翁活动";
+                    if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
                 }
+                sentLog("okr_web_page_show", '{"page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+                _czc.push(['_trackEvent', '418活动', pagename, '曝光', '', '']);
             }
         }
     },
     handlepause: function() {
         leavetime = new Date().getTime();
         console.log("===========================pause=========="+(leavetime-entertime));
+        sentLog("okr_web_clicked_result", '{"activity_duration":"'+(leavetime-entertime)+'","activity_name":"418活动"}');
+        _czc.push(['_trackEvent', '418活动', (leavetime-entertime), '停留时长', '', '']);
     },
     handleBackButton: function() {
 
@@ -86,6 +71,22 @@ var app = {
     handleBackButtonDown: function() {
         if(removeBackButton){
             return;
+        }
+        else if ($("#rulePage").css("display") == "block") {
+            $("#mainbox").show();
+            $("#rulePage").hide();
+            map = new coocaakeymap($(".coocaabtn"), $("#ruleBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+            var pagename = "";
+            var page_type = "";
+            if($("#gameDraw").css("display") == "block"){
+                pagename = "扭蛋机活动";
+                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+            }else{
+                pagename = "大富翁活动";
+                if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
+            }
+            sentLog("okr_web_page_show", '{"page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+            _czc.push(['_trackEvent', '418活动', pagename, '曝光', '', '']);
         }
         else if($("#questionbox").css("display") == "block"){
             $("#clickOkSure").show();
@@ -111,12 +112,26 @@ var app = {
         else if($("#compoundWindow").css("display") == "block"){
             $("#compoundWindow").hide();
             $("#blackBg").hide();
-            $(".replaceBtn2").trigger("itemFocus");
+            if($("#gameMap").css("display")=="block"){
+
+            }else{
+                donotSentReplacebtnLog = true;
+                $(".replaceBtn2").trigger("itemFocus");
+            }
             initMap("#mapBtn",true);
         }
         else if($("#addChanceWindow").css("display") == "block"){
             $("#addChanceWindow").hide();
             $("#blackBg").hide();
+            // $("#gamePanel").css("transform", "translate3D(0, 0, 0)");
+            // $("#gameMap").show();
+            // $("#gameDraw").hide();
+            if($("#gameMap").css("display")=="block"){
+
+            }else{
+                donotSentReplacebtnLog = true;
+                $(".replaceBtn2").trigger("itemFocus");
+            }
             initMap("#mapBtn",false);
         }
         else{
@@ -473,6 +488,8 @@ function mergeShow(dialog) {
 function showFinalWindow(dialog) {
     removeBackButton = false;
     $("#b418").hide();
+    sentLog("okr_web_page_show", '{"page_name":"活动弹窗","activity_name":"418活动","page_type":"418数字卡合成弹窗的曝光"}');
+    _czc.push(['_trackEvent', '418活动', "418数字卡合成弹窗的曝光", '曝光', '', '']);
     if(dialog == "needshowdialog1"){
         $(".midqrcode").hide();
         $(".qrcodetitle").hide();
@@ -571,11 +588,19 @@ function initMap(setFocus,needShowSpeak) {
             needshowdialog7 = false;
             $("#addChanceWindow").show();
             $("#blackBg").show();
+            sentLog("okr_web_page_show", '{"page_name":"活动弹窗","activity_name":"418活动","page_type":"增加游戏机会的弹窗"}');
+            _czc.push(['_trackEvent', '418活动', "增加游戏机会的弹窗", '曝光', '', '']);
             if(alterType == "jump"){
                 $("#addChanceWindow .addchancep1").html("恭喜完成跳转任务");
+                sentLog("okr_web_clicked_result", '{"page_name":"跳转浏览任务页面","activity_name":"418活动","browse_result":"浏览成功"}');
+                _czc.push(['_trackEvent', '418活动', "付费任务", '支付完成', '', '']);
             }else if(alterType == "video"){
                 $("#addChanceWindow .addchancep1").html("恭喜完成视频任务");
+                sentLog("okr_web_clicked_result", '{"page_name":"跳转浏览任务页面","activity_name":"418活动","browse_result":"浏览成功"}');
+                _czc.push(['_trackEvent', '418活动', "跳转浏览任务页面", '浏览成功', '', '']);
             }else if(alterType == "buy"){
+                sentLog("okr_web_clicked_result", '{"page_name":"付费任务","activity_name":"418活动","pay_result":"支付完成"}');
+                _czc.push(['_trackEvent', '418活动', "付费任务", '支付完成', '', '']);
                 $("#addChanceWindow .addchancep1").html("恭喜完成付费任务");
             }
             if(alter == "1"){
@@ -592,6 +617,12 @@ function initMap(setFocus,needShowSpeak) {
                 $("#blackBg").hide();
                 // map = new coocaakeymap($(".coocaabtn"), $("#mapBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
                 // $("#mapBtn").trigger("itemFocus");
+                if($("#gameMap").css("display")=="block"){
+
+                }else{
+                    donotSentReplacebtnLog = true;
+                    $(".replaceBtn2").trigger("itemFocus");
+                }
                 initMap("#mapBtn",true);
             })
         }else if(needShowSpeak){
@@ -608,6 +639,22 @@ function initBtn() {
             map = new coocaakeymap($(".coocaabtn"), $("#drawBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
             $("#drawBtn").trigger("itemFocus");
         },200)
+        var pagename = "";
+        var page_type = "";
+            pagename = "扭蛋机活动";
+            if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+        sentLog("okr_web_page_show", '{"page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+        _czc.push(['_trackEvent', '418活动', pagename, '曝光', '', '']);
+        var pagename = "";
+        var page_type = "";
+        pagename = "大富翁活动";
+        if(gameStatus == "3"){page_type="大富翁已结束"}else{page_type="大富翁已开始"}
+        if(!donotSentReplacebtnLog){
+            sentLog("okr_web_button_click", '{"allowance_price":"","task_name":"","button_state":"","button_name":"右键切换活动","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+            _czc.push(['_trackEvent', '418活动', "右键切换活动", "", '', '']);
+        }{
+            donotSentReplacebtnLog = false;
+        }
     })
     $(".replaceBtn2").unbind("itemFocus").bind("itemFocus", function() {
         $("#gameMap").show();
@@ -617,7 +664,22 @@ function initBtn() {
             map = new coocaakeymap($(".coocaabtn"), $("#mapBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
             $("#mapBtn").trigger("itemFocus");
         },200)
-
+        var pagename = "";
+        var page_type = "";
+            pagename = "大富翁活动";
+            if(gameStatus == "3"){page_type="大富翁已结束"}else{page_type="大富翁已开始"}
+        sentLog("okr_web_page_show", '{"page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+        _czc.push(['_trackEvent', '418活动', pagename, '曝光', '', '']);
+        var pagename = "";
+        var page_type = "";
+        pagename = "扭蛋机活动";
+        if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+        if(!donotSentReplacebtnLog){
+            sentLog("okr_web_button_click", '{"allowance_price":"","task_name":"","button_state":"","button_name":"左键切换活动","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+            _czc.push(['_trackEvent', '418活动', "左键切换活动", "", '', '']);
+        }{
+            donotSentReplacebtnLog = false;
+        }
     })
     $(".gameBtn").unbind("itemFocus").bind("itemFocus", function() {
         $("#mainbox").css("transform", "translate3D(0, 0, 0)");
@@ -659,19 +721,55 @@ function initBtn() {
         getParamAndStart(this,false);
     })
     $(".operationmore").unbind("itemClick").bind("itemClick", function() {
+        var btnname = "付费任务";
+        var pagename = "";
+        var page_type = "";
+        if($("#gameDraw").css("display") == "block"){
+            pagename = "扭蛋机活动";
+            if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+        }else{
+            pagename = "大富翁活动";
+            if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
+        }
+        var button_state="已完成";
+        sentLog("okr_web_button_click", '{"allowance_price":"","task_name":"更多商品","button_state":"'+button_state+'","button_name":"'+btnname+'","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+        _czc.push(['_trackEvent', '418活动', btnname+"点击", button_state, '', '']);
+        donotSentAllowanceBtnLog = true;
         $("#allowanceBtn").trigger("itemClick");
     })
     $("#question").unbind("itemClick").bind("itemClick", function(){
+        if(donotSentMissionBtnLog){
+            donotSentMissionBtnLog = false;
+        }else{
+            var _this = this;
+            var pagename = "";
+            var page_type = "";
+            if($("#gameDraw").css("display") == "block"){
+                pagename = "扭蛋机活动";
+                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+            }else{
+                pagename = "大富翁活动";
+                if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
+            }
+            var button_state = "";
+            if($(_this).attr("remainingNumber")==0){
+                button_state="已完成";
+            }else{button_state="未完成"}
+            sentLog("okr_web_button_click", '{"allowance_price":"","task_name":"'+$(_this).attr("taskName")+'","button_state":"'+button_state+'","button_name":"答题任务","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+            _czc.push(['_trackEvent', '418活动', "答题任务点击", button_state, '', '']);
+        }
+
         diceCanClick = true;
-        var _this = this;
         if($(_this).attr("remainingNumber")==0){
-            showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/yijinghuidaguo.png");
+            showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/yijinghuidaguo.png",4000);
             return;
         }else{
-            showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/dati.png");
-            setTimeout(startanswer,2000)
+            showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/dati.png",4000);
+            setTimeout(startanswer,4000)
         }
         function startanswer() {
+            sentLog("okr_web_page_show", '{"page_name":"问答任务页面","activity_name":"418活动"}');
+            _czc.push(['_trackEvent', '418活动', "问答任务页面", '曝光', '', '']);
             var date = startDayNum;
             var questionList=null;
             if(needQQ){
@@ -698,6 +796,8 @@ function initBtn() {
                 var thisRight = $(this).attr("right");
                 $("#clickOkSure").hide();
                 if(thisRight == "true"){
+                    sentLog("okr_web_clicked_result", '{"page_name":"问答任务页面","activity_name":"418活动","question_result":"回答成功"}');
+                    _czc.push(['_trackEvent', '418活动', "问答任务页面", '回答成功', '', '']);
                     console.log("true");
                     $(".answerbtn").hide();
                     $("#ques").hide();
@@ -707,6 +807,8 @@ function initBtn() {
                     addChance("1",$(_this).attr("taskId"),"1");
                     map = new coocaakeymap($(".answerResultbtn"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
                 }else if(thisRight == "false"){
+                    sentLog("okr_web_clicked_result", '{"page_name":"问答任务页面","activity_name":"418活动","question_result":"回答错误"}');
+                    _czc.push(['_trackEvent', '418活动', "问答任务页面", '回答错误', '', '']);
                     console.log("false");
                     $(".answerbtn").hide();
                     $("#ques").hide();
@@ -716,7 +818,10 @@ function initBtn() {
                     addChance("1",$(_this).attr("taskId"),"0");
                     map = new coocaakeymap($(".answerResultbtn"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
                 }else{
+                    sentLog("okr_web_clicked_result", '{"page_name":"问答任务页面","activity_name":"418活动","question_result":"偷看答案"}');
+                    _czc.push(['_trackEvent', '418活动', "问答任务页面", '偷看答案', '', '']);
                     console.log("other");
+                    donotSentStartParamBtnLog = true;
                     getParamAndStart(this,false);
                 }
                 $("#answer4").unbind("itemClick").bind("itemClick", function(){
@@ -742,7 +847,6 @@ function initBtn() {
                                 map = new coocaakeymap($(".coocaabtn"), $(".mission:eq("+i+")"), "btnFocus", function() {}, function(val) {}, function(obj) {});
                                 break;
                             }
-                            //数据采集时需要排除
                         }else{hasfinishNum++}
                     }
                     if(hasfinishNum == 4){
@@ -757,6 +861,7 @@ function initBtn() {
                     }
                 })
                 $("#answer5").unbind("itemClick").bind("itemClick", function(){
+                    donotSentStartParamBtnLog = true;
                     getParamAndStart(this,false);
                 })
                 $("#answer6").unbind("itemClick").bind("itemClick", function(){
@@ -777,31 +882,60 @@ function initBtn() {
     $(".normaltask").unbind("itemClick").bind("itemClick", function(){
         console.log("-------------"+$(".normaltask").index($(this)))
         var taskId = ($(this).attr("taskId"));
-        hasfinishvideo = ($(this).attr("remainingNumber"))>0?false:true;
         var _this = this;
-        console.log("================="+taskId);
+        hasfinishvideo = ($(this).attr("remainingNumber"))>0?false:true;
         if($(this).attr("taskType") == "jump"){
             getParamAndStart(this,true)
         }else if($(this).attr("taskType") == "video"){
+            if(donotSentMissionBtnLog){
+                donotSentMissionBtnLog = false;
+            }else{
+                var _this = this;
+                var pagename = "";
+                var page_type = "";
+                if($("#gameDraw").css("display") == "block"){
+                    pagename = "扭蛋机活动";
+                    if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+                }else{
+                    pagename = "大富翁活动";
+                    if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
+                }
+                var button_state = "";
+                if($(_this).attr("remainingNumber")==0){
+                    button_state="已完成";
+                }else{button_state="未完成"}
+                sentLog("okr_web_button_click", '{"allowance_price":"","task_name":"'+$(_this).attr("taskName")+'","button_state":"'+button_state+'","button_name":"浏览任务","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+                _czc.push(['_trackEvent', '418活动', "浏览任务点击", button_state, '', '']);
+            }
             if(hasfinishvideo){
-                showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/bujiajihui.png");
+                showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/bujiajihui.png",4000);
             }else{
                 // needFresh = true;
                 needRememberFocus = true;
                 rememberBtn = ".mission:eq("+$('.mission').index($(_this))+")";
-                showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jijiangtiaozhuan.png");
+                showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jijiangtiaozhuan.png",4000);
             }
 
             setTimeout(function () {
                 diceCanClick = true;
                 selectAd("video",null,"CCADTV10015","","","","",actionId,$(_this).attr("taskId"),$(_this).attr("url"));
-            },2000);
+            },4000);
         }else{}
     })
 
     $("#mapBtn").unbind("itemClick").bind("itemClick", function(){
-        if(gameStatus == 3){return};
         if(diceCanClick){
+            var pagename = "";
+            var page_type = "";
+            var button_state = "";
+            if(lotteryNum > 0){
+                button_state="有掷骰子机会";
+            }else{button_state="无掷骰子机会"}
+                pagename = "大富翁活动";
+                if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
+            sentLog("okr_web_button_click", '{"allowance_price":"","task_name":"","button_state":"'+button_state+'","button_name":"【掷骰子】按钮","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+            _czc.push(['_trackEvent', '418活动', "【掷骰子】按钮", button_state, '', '']);
+            if(gameStatus == 3){return};
             diceCanClick = false;
             if(lotteryNum > 0){
                 startMapFunc()
@@ -809,6 +943,7 @@ function initBtn() {
                 var hasfinishNum = 0;
                 for(var i=0;i<4;i++){
                     if($(".mission:eq("+i+")").attr("remainingNumber")>0){
+                        donotSentMissionBtnLog = true;
                         $(".mission:eq("+i+")").trigger("itemClick");
                         break;
                         //数据采集时需要排除
@@ -824,7 +959,13 @@ function initBtn() {
     })
 
     $("#allowanceGet").unbind("itemClick").bind("itemClick", function(){
+        var allowance_price = "0";
         var nowHours = new Date().getHours();
+        if((nowHours>=0&&nowHours<=12)||(nowHours>=22)){
+            allowance_price = "50";
+        }else{
+            allowance_price = "100";
+        }
         if(nowHours==11||nowHours==12||nowHours==19||nowHours==20||nowHours==21){
             //调用领取接口
             if(loginstatus=="true"){
@@ -833,24 +974,46 @@ function initBtn() {
                 startLogin(needQQ);
             }
         }else{
+            var button_state = "";
+
             if(nowHours<11 || (nowHours>12&&nowHours<19)){
+                button_state = "没到领取时间";
                 //稍后再来
-                showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jintieweidaoshijian.png");
+                showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jintieweidaoshijian.png",3000);
             }else {
                 if(startDayNum == 9){
                     //结束
-                    showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jintieyijinglingwan.png");
+                    button_state = "津贴已派发完了";
+                    showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jintieyijinglingwan.png",3000);
                 }else{
                     //稍后再来
-                    showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jintieweidaoshijian.png");
+                    button_state = "没到领取时间";
+                    showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jintieweidaoshijian.png",3000);
                 }
             }
+            var btnname = "津贴领取入口 ";
+            var pagename = "";
+            var page_type = "";
+            if($("#gameDraw").css("display") == "block"){
+                pagename = "扭蛋机活动";
+                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+            }else{
+                pagename = "大富翁活动";
+                if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
+            }
+            sentLog("okr_web_button_click", '{"allowance_price":"'+allowance_price+'","task_name":"","button_state":"'+button_state+'","button_name":"'+btnname+'","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+            _czc.push(['_trackEvent', '418活动', "津贴点击"+allowance_price, button_state, '', '']);
         }
     })
     $("#compoundbtn1").unbind("itemClick").bind("itemClick", function() {
         $("#compoundWindow").hide();
         $("#blackBg").hide();
-        $(".replaceBtn2").trigger("itemFocus");
+        if($("#gameMap").css("display")=="block"){
+
+        }else{
+            donotSentReplacebtnLog = true;
+            $(".replaceBtn2").trigger("itemFocus");
+        }
         initMap("#mapBtn",true);
     });
     $("#compoundbtn2").unbind("itemClick").bind("itemClick", function() {
@@ -858,9 +1021,33 @@ function initBtn() {
         $("#blackBg").hide();
         needshowdialog7 = false;
         $(".replaceBtn1").trigger("itemFocus");
+        if($("#gameDraw").css("display")=="block"){
+
+        }else{
+            donotSentReplacebtnLog = true;
+            $(".replaceBtn1").trigger("itemFocus");
+        }
         initMap("#drawBtn",true);
 
     });
+    $("#ruleBtn").unbind("itemClick").bind("itemClick", function() {
+        var pagename = "";
+        var page_type = "";
+        if($("#gameDraw").css("display") == "block"){
+            pagename = "扭蛋机活动";
+            if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+        }else{
+            pagename = "大富翁活动";
+            if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
+        }
+        sentLog("okr_web_button_click", '{"allowance_price":"","task_name":"","button_state":"","button_name":"活动细则","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+        _czc.push(['_trackEvent', '418活动', "活动细则按钮", "点击", '', '']);
+        $("#mainbox").hide();
+        $("#rulePage").show();
+        sentLog("okr_web_page_show", '{"page_name":"活动细则页面","activity_name":"418活动"}');
+        _czc.push(['_trackEvent', '418活动', '活动细则页面', '', '', '']);
+        map = new coocaakeymap($("#ruleInner"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
+    })
 
 
 	//	林心旺
@@ -868,7 +1055,7 @@ function initBtn() {
 	$("#drawBtn").unbind("itemClick").bind("itemClick", function() {
 		console.log("开始抽奖");
 		if(!capsuleIsStart){
-            showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/huodongweikaishi.png");
+            showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/huodongweikaishi.png",3000);
             return;
         }
 		var score = 470;
@@ -883,6 +1070,27 @@ function initBtn() {
 		}
 	});
 	$("#allowanceBtn").unbind("itemClick").bind("itemClick", function() {
+	    if(donotSentAllowanceBtnLog ){
+            donotSentAllowanceBtnLog = false;
+        }else{
+            var pagename = "";
+            var page_type = "";
+            if($("#gameDraw").css("display") == "block"){
+                pagename = "扭蛋机活动";
+                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+            }else{
+                pagename = "大富翁活动";
+                if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
+            }
+            var button_state="";
+            if(loginstatus=="true"){
+                button_state = "可使用津贴";
+            }else{
+                button_state = "待领取津贴";
+            }
+            sentLog("okr_web_button_click", '{"allowance_price":"","task_name":"","button_state":"'+button_state+'","button_name":"可用津贴","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+            _czc.push(['_trackEvent', '418活动', "可用津贴按钮"+button_state, "点击", '', '']);
+        }
         getAllowanceInfo();
         $("#mainbox").css("display", "none");
         $("#allowancePage").css("display", "block");
@@ -893,10 +1101,17 @@ function initBtn() {
 		startAndSendLog();
 	});
 	$("#myAwardBtn").unbind("itemClick").bind("itemClick", function() {
-//      sentLog("okr_web_button_click", '{"button_name":"我的奖励","page_name":"春节集卡活动主页","activity_name":"春节集卡活动","page_type":"' + page_type + '","link_type":"' + link_type + '"}');
-//      _czc.push(['_trackEvent', '春节集卡活动', '春节集卡活动主页', '我的奖励点击', '', '']);
-//      sentLog("okr_web_page_show", '{"page_name":"我的奖励","activity_name":"春节集卡活动","last_page_name":"春节集卡活动主页"}');
-//      _czc.push(['_trackEvent', '春节集卡活动', '我的奖励曝光', '', '', '']);
+        var pagename = "";
+        var page_type = "";
+        if($("#gameDraw").css("display") == "block"){
+            pagename = "扭蛋机活动";
+            if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+        }else{
+            pagename = "大富翁活动";
+            if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
+        }
+        sentLog("okr_web_button_click", '{"allowance_price":"","task_name":"","button_state":"","button_name":"我的奖励","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+        _czc.push(['_trackEvent', '418活动', "我的奖励按钮", "点击", '', '']);
 		$("#mainbox").css("display", "none");
         $("#myAwardPage").css("display", "block");
         getMyAwards(2);
@@ -946,6 +1161,7 @@ function initBtnAfter(){
 	});
 	$(".everyAllowanceLi").unbind("itemClick").bind("itemClick", function() {
 		var _fIndex = $(".everyAllowanceLi").index($(this));
+        donotSentStartParamBtnLog = true;
 		getParamAndStart(this,false);
 	});
 	
@@ -1098,7 +1314,9 @@ function getAllowance() {
         },
         success: function(data) {
             console.log("领取津贴信息=========================="+JSON.stringify(data));
+            var button_state = "";
             if(data.code == "50100") { //服务器返回正常
+                button_state = "领取成功";
                 $("#blackBg").show();
                 $("#getallowancesuccess").show();
                 map = new coocaakeymap($("#getallowancesuccess"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
@@ -1106,27 +1324,51 @@ function getAllowance() {
                     selectMyAllowanceNum();
                     $("#blackBg").hide();
                     $("#getallowancesuccess").hide();
+                    donotSentAllowanceBtnLog = true;
                     $("#allowanceBtn").trigger("itemClick");
                 })
             }
             else if(data.code == "50003") {
+                button_state = "没到领取时间";
                 if(startDayNum == 9){
                     //结束
-                    showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jintieyijinglingwan.png");
+                    showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jintieyijinglingwan.png",3000);
                 }else{
                     //稍后再来
-                    showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jintieweidaoshijian.png");
+                    showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jintieweidaoshijian.png",3000);
                 }
             }
             else if(data.code == "50046") {
-                showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jintieweidaoshijian.png");
+                button_state = "没到领取时间";
+                showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jintieweidaoshijian.png",3000);
             }
             else if(data.code == "50004") {
-                showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/yijinglingguo.png");
+                button_state = "已领取过";
+                showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/yijinglingguo.png",3000);
             }else {
-                showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/yijinglingguo.png");
+                button_state = "领取失败";
+                showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/yijinglingguo.png",3000);
                 console.log('领取津贴信息接口异常');
             }
+            var allowance_price = "0";
+            var nowHours = new Date().getHours();
+            if((nowHours>=0&&nowHours<=12)||(nowHours>=22)){
+                allowance_price = "50";
+            }else{
+                allowance_price = "100";
+            }
+            var btnname = "津贴领取入口 ";
+            var pagename = "";
+            var page_type = "";
+            if($("#gameDraw").css("display") == "block"){
+                pagename = "扭蛋机活动";
+                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+            }else{
+                pagename = "大富翁活动";
+                if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
+            }
+            sentLog("okr_web_button_click", '{"allowance_price":"'+allowance_price+'","task_name":"","button_state":"'+button_state+'","button_name":"'+btnname+'","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+            _czc.push(['_trackEvent', '418活动', "津贴点击"+allowance_price, button_state, '', '']);
         },
         error: function(err) {
             console.log(JSON.stringify(err));
@@ -1141,6 +1383,35 @@ function getAllowance() {
 }
 //获取跳转参数并执行[福利街]
 function getParamAndStart(obj,needCheckVersion) {
+    if(donotSentStartParamBtnLog || donotSentMissionBtnLog){
+        donotSentStartParamBtnLog = false;
+        donotSentMissionBtnLog = false;
+    }else{
+        var btnname = "";
+        if(needCheckVersion){
+            btnname = "浏览任务";
+        }else{
+            btnname = "付费任务";
+        }
+        var _this = obj;
+        var pagename = "";
+        var page_type = "";
+        if($("#gameDraw").css("display") == "block"){
+            pagename = "扭蛋机活动";
+            if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+        }else{
+            pagename = "大富翁活动";
+            if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
+        }
+        var button_state = "";
+        if($(_this).attr("remainingNumber")==0){
+            button_state="已完成";
+        }else{button_state="未完成"}
+        sentLog("okr_web_button_click", '{"allowance_price":"","task_name":"'+$(_this).attr("taskName")+'","button_state":"'+button_state+'","button_name":"'+btnname+'","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+        _czc.push(['_trackEvent', '418活动', btnname+"点击", button_state, '', '']);
+    }
+
+
     var startAction = $(obj).attr("action");
     console.log(startAction)
     var pkgname = JSON.parse(startAction).packagename||JSON.parse(startAction).packageName;
@@ -1148,6 +1419,10 @@ function getParamAndStart(obj,needCheckVersion) {
     var byvalue = JSON.parse(startAction).byvalue;
     var needversioncode = JSON.parse(startAction).versioncode||JSON.parse(startAction).versionCode;
     var hasversioncode = "";
+    var jumpBgImgUrl = $(obj).attr("jumpBgImgUrl");
+    var jumpImgUrl = $(obj).attr("jumpImgUrl");
+    var jumpRemindImgUrl = $(obj).attr("jumpRemindImgUrl");
+    var countdown = $(obj).attr("countdown");
     var a = '{ "pkgList": ["' + pkgname + '"] }';
     var param1 = "",
         param2 = "",
@@ -1230,19 +1505,21 @@ function getParamAndStart(obj,needCheckVersion) {
                                     startLowVersion(needAddChance);
                                 }else{
                                     if(needAddChance){
-                                        startNewVersion();
+                                        startNewVersion("false");
                                     }else{
-                                        startLowVersion(needAddChance);
+                                        // startLowVersion(needAddChance);
+                                        startNewVersion("true");
                                     }
                                 }
                             }  else if (pkgname == "com.coocaa.mall") {
-                                if(mallVersion<3410022){
+                                if(mallVersion<31100000){
                                     startLowVersion(needAddChance);
                                 }else{
                                     if(needAddChance){
-                                        startNewVersion();
+                                        startNewVersion("false");
                                     }else{
-                                        startLowVersion(needAddChance);
+                                        // startLowVersion(needAddChance);
+                                        startNewVersion("true");
                                     }
                                 }
                             }
@@ -1250,23 +1527,23 @@ function getParamAndStart(obj,needCheckVersion) {
                                 console.log("olg------------------------------"+needAddChance);
                                 if(needAddChance){
                                     addChance("1",$(obj).attr("taskId"),0);
-                                    showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jijiangtiaozhuan.png");
+                                    showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jijiangtiaozhuan.png",4000);
                                     needFresh = true;
                                     needRememberFocus = true;
                                     rememberBtn = ".mission:eq("+$('.mission').index($(obj))+")";
                                 }else{
-                                    showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/bujiajihui.png");
+                                    showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/bujiajihui.png",4000);
                                 }
                                 setTimeout(function () {
                                     diceCanClick = true;
                                     coocaaosapi.startCommonNormalAction(param1, param2, param3, param4, param5, str, function() { needSentADLog = false; }, function() {});
-                                },2000);
+                                },4000);
                             }
-                            function startNewVersion() {
+                            function startNewVersion(isFinish) {
                                 console.log("new------------------------------");
-                                showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jijiangtiaozhuan.png");
+                                showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jijiangtiaozhuan.png",4000);
                                 str = JSON.parse(str);
-                                var external = {"taskId":$(obj).attr("taskId"),"id":actionId,"userKeyId":userKeyId, "countDownTime":10, "verify_key":new Date().getTime(), "subTask":"0"};
+                                var external = {"taskId":$(obj).attr("taskId"),"id":actionId,"userKeyId":userKeyId, "countDownTime":countdown, "verify_key":new Date().getTime(), "subTask":"0","isFinish":isFinish,"jumpBgImgUrl":jumpBgImgUrl,"jumpImgUrl":jumpImgUrl,"jumpRemindImgUrl":jumpRemindImgUrl};
                                 var doubleEggs_Active = {"doubleEggs_Active":external};
                                 str.push(doubleEggs_Active);
                                 str = JSON.stringify(str);
@@ -1276,7 +1553,7 @@ function getParamAndStart(obj,needCheckVersion) {
                                     rememberBtn = ".mission:eq("+$('.mission').index($(obj))+")";
                                     diceCanClick = true;
                                     coocaaosapi.startCommonNormalAction(param1, param2, param3, param4, param5, str, function() { needSentADLog = false; }, function() {});
-                                },2000);
+                                },4000);
                             }
                         }
                     }, function(error) {
@@ -1540,9 +1817,12 @@ function showPage(first, resume) {
                 }
                 if(cardsNum>0 && capsuleIsStart && first){
                     $("#gamePanel").css("transform", "translate3D(-1280px, 0, 0)");
+                    $("#gameMap").hide();
                     $("#gameDraw").show();
                 }else{
-                    $("#gameMap").show();
+                    if(first){
+                        $("#gameMap").show();
+                    }else{}
                 }
                 if(capsuleIsStart){
                     $("#tips").css("background-image","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/huorejinxingzhong.png");
@@ -1614,11 +1894,11 @@ function speakToast(overtask){
     if(startDayNum<6){
         speak2 = true;
         if(startDayNum<4){
-            str2="大富翁<span>今日大奖</span>是<span>戴森三件套</span>，快掷骰子参与吧！";
+            str2="大富翁<span>今日大奖</span>是<span>戴森三件套</span>，参与即有机会获得快掷骰子参与吧！";
         }else if(startDayNum < 7){
-            str2="大富翁<span>今日大奖</span>是<span>iPhone XS</span>，快掷骰子参与吧！";
+            str2="大富翁<span>今日大奖</span>是<span>iPhone XS</span>，参与即有机会获得快掷骰子参与吧！";
         }else{
-            str2="大富翁<span>今日大奖</span>是<span>新款苹果电脑</span>，快掷骰子参与吧！";
+            str2="大富翁<span>今日大奖</span>是<span>新款苹果电脑</span>，参与即有机会获得快掷骰子参与吧！";
         }
         if(cardsNum==0){
             speak3 = true;
@@ -1626,7 +1906,7 @@ function speakToast(overtask){
         }else{
             if(todayFirst){
                 speak4 = true;
-                str4="您已有<span>"+cardsNum+"</span>套卡片可0元赢新品电视，<span>4月18日开奖，</span>记得回来哦！";
+                str4="您已有<span>"+cardsNum+"</span>套418卡片，可0元赢新品电视，<span>4月18日开奖，</span>记得回来哦！";
             }
         }
     }
@@ -1636,7 +1916,7 @@ function speakToast(overtask){
             str3="还在等什么呢,最新创维电视正在等您，快集齐418周年卡片吧！";
         }else{
             speak4 = true;
-            str4="您已有<span>"+cardsNum+"</span>套卡片可0元赢新品电视，<span>4月18日开奖，</span>记得回来哦！";
+            str4="您已有<span>"+cardsNum+"</span>套418卡片，可0元赢新品电视，<span>4月18日开奖，</span>记得回来哦！";
         }
         if(todayFirst){
             speak2 = true;
@@ -1840,12 +2120,12 @@ function showOperation(showMainShow) {
                     var action_this = JSON.parse(operationData.data[i].baseBlocks[j].action);
                     if(action_this.params.allowance != undefined){
                         if(loginstatus == "true"){
-                            var tabItem = '<div class="operationblock operationmap coocaabtn" action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="sureGet">按【确定】键 看详情购买</div><div class="text show" >使用津贴再减<span>'+action_this.params.allowance+'</span>元</div></div>';
+                            var tabItem = '<div class="operationblock operationmap coocaabtn" taskName='+operationData.data[i].baseBlocks[j].title+' action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="sureGet">按【确定】键 看详情购买</div><div class="text show" >使用津贴再减<span>'+action_this.params.allowance+'</span>元</div></div>';
                         }else{
-                            var tabItem = '<div class="operationblock operationmap coocaabtn" action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="sureGet">按【确定】键 看详情购买</div><div class="text show"  >领取津贴再减<span>'+action_this.params.allowance+'</span>元</div></div>';
+                            var tabItem = '<div class="operationblock operationmap coocaabtn" taskName='+operationData.data[i].baseBlocks[j].title+' action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="sureGet">按【确定】键 看详情购买</div><div class="text show"  >领取津贴再减<span>'+action_this.params.allowance+'</span>元</div></div>';
                         }
                     }else{
-                        var tabItem = '<div class="operationblock operationmap coocaabtn" action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="sureGet">按【确定】键 看详情购买</div><div class="text">&nbsp;</div></div>';
+                        var tabItem = '<div class="operationblock operationmap coocaabtn" taskName='+operationData.data[i].baseBlocks[j].title+' action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="sureGet">按【确定】键 看详情购买</div><div class="text">&nbsp;</div></div>';
                     }
                     tabInner += tabItem;
                 }
@@ -1876,8 +2156,21 @@ function showOperation(showMainShow) {
             }
             if (showMainShow) {
                 entertime = new Date().getTime();
-                sentLog("okr_web_page_show", '{"page_name":"春节集卡活动主页","activity_name":"春节集卡活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","link_type":"' + link_type + '"}');
-                _czc.push(['_trackEvent', '春节集卡活动', '春节集卡活动主页', '曝光', '', '']);
+                var pagename = "";
+                var page_type = "";
+                if(cardsNum>0&&capsuleIsStart){
+                    pagename = "扭蛋机活动";
+                    if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+                }else{
+                    pagename = "大富翁活动";
+                    if(gameStatus == "3"){page_type="大富翁已结束"}else{page_type="大富翁已开始"}
+                }
+
+                sentLog("okr_web_page_show", '{"page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+                _czc.push(['_trackEvent', '418活动', pagename, '曝光', '', '']);
+
+                sentLog("okr_web_clicked_result", '{"activity_name":"418活动","load_duration":"' + (entertime-startLoadTime) + '"}');
+                _czc.push(['_trackEvent', '418活动', (entertime-startLoadTime), '加载时长', '', '']);
             }
 
         },
@@ -1924,7 +2217,7 @@ function showAwardInfo() {
         success: function(data) {
             // console.log("中奖喜讯返回状态：" + JSON.stringify(data));
             var tabInner = "";
-            for (var i = 0; i < data.data.fakeNews.length; i++) {
+            for (var i = 0; i < data.data.newsModelList.length; i++) {
                 var tabItem = '<li>'+data.data.newsModelList[i].nickName.substr(0,6)+' '+data.data.newsModelList[i].awardName.substr(0,14)+'</li>';
                 tabInner += tabItem;
             }
@@ -2018,7 +2311,7 @@ function sentThirdAdshow(type, msg) {
 }
 //加载立即检测版本
 function checkVersion() {
-    if (activityCenterVersion < 103010) {
+    if (activityCenterVersion < 104000) {
         coocaaosapi.createDownloadTask(
             "https://apk-sky-fs.skysrt.com/uploads/20190109/20190109191141936672.apk",
             "67EF020FE82A5BBF1D3F9E719886EB8A",
@@ -2100,6 +2393,7 @@ function getMyTasksList(needCheckSpeak) {
                     if(taskList[taskOrder[i]]!=undefined){
                         for(var j=0;j<taskList[taskOrder[i]].length;j++){
                             $(".mission:eq("+missionBoxNum+")").attr("taskId",taskList[taskOrder[i]][j].taskId);
+                            $(".mission:eq("+missionBoxNum+")").attr("taskName",taskList[taskOrder[i]][j].taskName);
                             $(".mission:eq("+missionBoxNum+")").attr("taskType",taskOrder[i]);
                             $(".mission:eq("+missionBoxNum+")").attr("remainingNumber",taskList[taskOrder[i]][j].remainingNumber);
                             $(".mission:eq("+missionBoxNum+")").attr("countdown",taskList[taskOrder[i]][j].countdown);

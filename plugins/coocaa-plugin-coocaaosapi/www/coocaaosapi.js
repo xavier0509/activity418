@@ -33,7 +33,7 @@ cordova.define("coocaaosapi", function(require, exports, module) {
         }, function(message) {
             console.log("新版浏览器不存在：" + JSON.stringify(message));
         });
-
+        startLoadTime = new Date().getTime();
         startapp.check("com.tianci.user", function(message) { /* success */
             console.log("账户应用版本：" + JSON.stringify(message));
             accountVersion = message.versionCode

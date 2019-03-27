@@ -770,6 +770,7 @@ img[src=''] {
     width: 1280px;
     background-size: 100%;
 }
+
 #allowancePage{
 	background-image: url(../images/allowance.jpg);
 	background-repeat: no-repeat;
@@ -1316,7 +1317,7 @@ img[src=''] {
     -webkit-text-shadow:#6a3e0a 2px 0 0,#6a3e0a 0 2px 0,#6a3e0a -2px 0 0,#6a3e0a 0 -2px 0;
 	-moz-text-shadow:#6a3e0a 2px 0 0,#6a3e0a 0 2px 0,#6a3e0a -2px 0 0,#6a3e0a 0 -2px 0;
 	text-shadow:#6a3e0a 2px 0 0,#6a3e0a 0 2px 0,#6a3e0a -2px 0 0,#6a3e0a 0 -2px 0; 
-	*filter: Glow(Color=#6a3e0a, Strength=2);
+	/**filter: Glow(Color=#6a3e0a, Strength=2);*/
 }
 .imgFocus{
 	background-image: url(../images/myaward/btn_focus.png);
