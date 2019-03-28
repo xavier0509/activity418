@@ -457,7 +457,7 @@ var appDown = {
 function showSpeak() {
     var speakArry = [];
     var speakStatus = [speak1,speak2,speak3,speak4,speak5,speak6,speak7,speak8];
-    var speakStr = [str1,str2,speak3,str4,str5,str6,str7,str8];
+    var speakStr = [str1,str2,str3,str4,str5,str6,str7,str8];
     for(var i=0;i<8;i++){
         if(speakStatus[i]){
             speakArry.push(speakStr[i])
@@ -1952,6 +1952,7 @@ function showPage(first, resume) {
         // timeout: 20000,
         success: function(data) {
             console.log("初始化返回状态：" + JSON.stringify(data));
+            showOperation(first);
             showAwardInfo();
 
             if(data.code == 50100){
@@ -2055,11 +2056,12 @@ function showPage(first, resume) {
             }
         },
         error: function(error) {
+            showOperation(first);
             selectChipInfo();
             console.log("-----------访问失败---------" + JSON.stringify(error));
         }
     });
-    showOperation(first);
+
 }
 //小狐狸说话信息
 function speakToast(overtask){
