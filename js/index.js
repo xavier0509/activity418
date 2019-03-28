@@ -924,6 +924,7 @@ function initBtn() {
     })
 
     $("#mapBtn").unbind("itemClick").bind("itemClick", function(){
+    	curDrawBtnName = "mapBtn";
         if(diceCanClick){
             var pagename = "";
             var page_type = "";
@@ -931,8 +932,8 @@ function initBtn() {
             if(lotteryNum > 0){
                 button_state="有掷骰子机会";
             }else{button_state="无掷骰子机会"}
-                pagename = "大富翁活动";
-                if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
+            pagename = "大富翁活动";
+            if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
             sentLog("okr_web_button_click", '{"allowance_price":"","task_name":"","button_state":"'+button_state+'","button_name":"【掷骰子】按钮","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
             _czc.push(['_trackEvent', '418活动', "【掷骰子】按钮", button_state, '', '']);
             if(gameStatus == 3){return};
@@ -1054,6 +1055,7 @@ function initBtn() {
 	//---------------------------------
 	$("#drawBtn").unbind("itemClick").bind("itemClick", function() {
 		console.log("开始抽奖");
+		curDrawBtnName = "drawBtn";
 		if(!capsuleIsStart){
             showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/huodongweikaishi.png",3000);
             return;
@@ -1156,8 +1158,8 @@ function initBtn() {
         $("#dialogPage").css("display", "none");
         $("#getOtherAward1").css("display", "none");
         $("#getOtherAward2").css("display", "none");
-        map = new coocaakeymap($(".coocaabtn"), document.getElementById("mapBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
-    	
+        
+        map = new coocaakeymap($(".coocaabtn"), document.getElementById(curDrawBtnName), "btnFocus", function() {}, function(val) {}, function(obj) {});
     	var _curId = $(this).attr("id");
     	if (_curId=="otherBtn1"&&$(this).attr("awardType")==6) {
     		showPage(false,false);
@@ -3270,7 +3272,7 @@ function showEggAwardDialog(obj){
 		$("#dialogPage").css("display", "block");
         $("#getOtherAward1").css("display", "block");
         $("#otherAwardName1").html('恭喜获得'+obj.awardName);
-        $("#otherBtn1 .btnName").html("继续掷骰子");
+        $("#otherBtn1 .btnName").html("继续抽奖");
         $("#otherBtn2 .btnName").html("立即领取");
         $(".eachAwardStyle").css("display", "none");
         $("#entityAwardBox").css("display", "block");
@@ -3282,7 +3284,7 @@ function showEggAwardDialog(obj){
 		$("#dialogPage").css("display", "block");
         $("#getOtherAward1").css("display", "block");
         $("#otherAwardName1").html("恭喜获得"+obj.awardName);
-        $("#otherBtn1 .btnName").html("继续掷骰子");
+        $("#otherBtn1 .btnName").html("继续抽奖");
         $("#otherBtn2 .btnName").html("领取红包");
         $(".eachAwardStyle").css("display", "none");
         $("#redAwardBox").css("display", "block");
@@ -3299,7 +3301,7 @@ function showEggAwardDialog(obj){
 		$("#dialogPage").css("display", "block");
         $("#getOtherAward1").css("display", "block");
         $("#otherAwardName1").html("恭喜获得"+obj.awardName);
-        $("#otherBtn1 .btnName").html("继续掷骰子");
+        $("#otherBtn1 .btnName").html("继续抽奖");
         $("#otherBtn2 .btnName").html("立即使用");
         $(".eachAwardStyle").css("display", "none");
         $("#allAwardBox").css("display", "block");

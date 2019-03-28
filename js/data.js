@@ -120,7 +120,7 @@ var donotSentStartParamBtnLog = false;//不要传通用方法的日志，true就
 var donotSentAllowanceBtnLog = false;//不要传津贴点击的日志，true就是不要传
 var donotSentMissionBtnLog = false;//不要传任务点击的日志，true就是不要传
 
-
+var curDrawBtnName = "mapBtn";//记录点击的抽奖按钮的名字
 
 
 

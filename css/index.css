@@ -339,11 +339,16 @@ img[src=''] {
     display: none;
     background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/drawbg.jpg");
 }
+#drawBtn,#drawBtnBorder,#drawDoor{
+	position: absolute;
+	background: url(../images/eggs1.png) no-repeat;
+}
 #drawBtn{
     width: 89px;
     height: 142px;
     position: absolute;
-    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/nn.png");
+    background-position: -534px 0;
+    /*background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/nn.png");*/
 }
 #drawBtnBorder{
     display: none;
@@ -352,15 +357,19 @@ img[src=''] {
     position: absolute;
     top: 350px;
     left: 300px;
-    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/nnborder.png");
+    background: url(../images/eggs1.png) no-repeat;
+    background-position: -623px 0;
+    /*background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/nnborder.png");*/
 }
-#drawDoor{
-    width: 97px;
-    height: 108px;
-    position: absolute;
-    top: 513px;
-    left:489px;
-    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/M.png");
+#classesImg{
+	position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    background: url(../images/eggs1.png) no-repeat;
+    background-position: -731px 0;
 }
 #tips1{
     width: 222px;
@@ -1927,7 +1936,7 @@ img[src=''] {
 	background-size: 100%;
 	animation: zhuan 1s linear forwards;
 	-webkit-animation: zhuan 1s linear forwards;
-	background:url(../images/eggs2.png)  no-repeat;
+	background:url(../images/eggs1.png)  no-repeat;
 }
 .qiu_1 {
 	left: 16px;
@@ -2177,6 +2186,8 @@ img[src=''] {
     width: 97px;
     height: 108px;
     z-index: 1;
+    background: url(../images/eggs1.png) no-repeat;
+    background-position: -437px 0;
 }
 
 .niu_danji .dila_Y {
