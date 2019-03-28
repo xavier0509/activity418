@@ -238,6 +238,35 @@ img[src=''] {
     left: -20px;
     color: #f7f296;
 }
+.adstation1{
+    width: 125px;
+    height: 25px;
+    position: absolute;
+    top:68px;
+    left: 300px;
+    background-color: red;
+    background-size: 100%;
+}
+.adstation2{
+    width: 125px;
+    height: 25px;
+    position: absolute;
+    top:68px;
+    left: 300px;
+    background-color: blue;
+    background-size: 100%;
+}
+.adstation3{
+    width: 480px;
+    height: 35px;
+    position: absolute;
+    bottom:32px;
+    left: 0px;
+    right: 0;
+    margin: auto;
+    background-color: blue;
+    background-size: 100%;
+}
 #mapBtn{
     width: 251px;
     height:86px;

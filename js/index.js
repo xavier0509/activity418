@@ -36,10 +36,7 @@ var app = {
         } else {
             if(needSentADLog){
                 needSentADLog = false;
-                if (ADMsg != null && ADMsg.schedules != undefined && ADMsg.schedules[0] != undefined &&  gameStatus!=3) {
-                    sentInnerAdshow("img", ADMsg, "G0003", "1", "1", "1", "", "");
-                    sentThirdAdshow("img", ADMsg);
-                }
+
             }
 
             if(startLoginFlag){
@@ -79,9 +76,17 @@ var app = {
             var pagename = "";
             var page_type = "";
             if($("#gameDraw").css("display") == "block"){
+                if (ADMsg3 != null && ADMsg3.schedules != undefined && ADMsg3.schedules[0] != undefined) {
+                    sentInnerAdshow(ADMsg3, "G0006", "3", "1", "1", "", "","");
+                    sentThirdAdshow("img", ADMsg3);
+                }
                 pagename = "扭蛋机活动";
                 if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
             }else{
+                if (ADMsg2 != null && ADMsg2.schedules != undefined && ADMsg2.schedules[0] != undefined) {
+                    sentInnerAdshow(ADMsg2, "G0006", "2", "1", "1", "", "","");
+                    sentThirdAdshow("img", ADMsg2);
+                }
                 pagename = "大富翁活动";
                 if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
             }
@@ -240,13 +245,13 @@ function listenPlayerStatus() {
         if(message.web_player_event == "on_start") {
             console.log("on_start 开始播放");
             if(_bPlayFormalAdsVideo == true) { //正式广告，提交数据采集
-                sentInnerAdshow(ADMsg,"","","","",actionId,_adsTaskId.toString(), "true");
+                sentInnerAdshow(ADMsg1,"","","","",actionId,_adsTaskId.toString(), "true");
             }
         }
         if(message.web_player_event == "on_complete") {
             console.log("广告播放完成----_adsTaskId:"+_adsTaskId);
             if(_bPlayFormalAdsVideo == true) {//第三方监测:播放完成
-                sentThirdAdshow("videoEnd",ADMsg);
+                sentThirdAdshow("videoEnd",ADMsg1);
                 _bPlayFormalAdsVideo = false;//reset
             }
             //加机会
@@ -262,7 +267,7 @@ function listenPlayerStatus() {
             //正式广告播放失败，清除flag，播备用视频
             if(_bPlayFormalAdsVideo == true) {
                 _bPlayFormalAdsVideo = false;
-                sentInnerAdshow(ADMsg,"","","","",actionId.toString(),_adsTaskId.toString(), "false");
+                sentInnerAdshow(ADMsg1,"","","","",actionId.toString(),_adsTaskId.toString(), "false");
 //					playAdsBackupVideo();
             }
             toastWhenPlayVideoError();
@@ -486,6 +491,10 @@ function mergeShow(dialog) {
     setTimeout(function(){showFinalWindow(dialog)}, 3500);
 }
 function showFinalWindow(dialog) {
+    if (ADMsg5 != null && ADMsg5.schedules != undefined && ADMsg5.schedules[0] != undefined) {
+        sentInnerAdshow(ADMsg5, "G0006", "1", "1", "1", "", "","");
+        sentThirdAdshow("img", ADMsg5);
+    }
     removeBackButton = false;
     $("#b418").hide();
     sentLog("okr_web_page_show", '{"page_name":"活动弹窗","activity_name":"418活动","page_type":"418数字卡合成弹窗的曝光"}');
@@ -558,6 +567,10 @@ function initMap(setFocus,needShowSpeak) {
             $("#compoundbtn1").css("left","563px");
             $(".midcard").css("left","576px");
             $("#compoundWindow").show();
+            if (ADMsg5 != null && ADMsg5.schedules != undefined && ADMsg5.schedules[0] != undefined) {
+                sentInnerAdshow(ADMsg5, "G0006", "1", "1", "1", "", "","");
+                sentThirdAdshow("img", ADMsg5);
+            }
             $("#compoundWindow").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/zengsongkapian.png)");
             $(".topword").html("418周年狂欢正在进行中，送您一张周年卡片");
             $(".bottomword1").html("现在集齐一套418卡片即有机会0元带走创维新品电视");
@@ -587,6 +600,10 @@ function initMap(setFocus,needShowSpeak) {
         else if (needshowdialog7) {
             needshowdialog7 = false;
             $("#addChanceWindow").show();
+            if (ADMsg5 != null && ADMsg5.schedules != undefined && ADMsg5.schedules[0] != undefined) {
+                sentInnerAdshow(ADMsg5, "G0006", "1", "1", "1", "", "","");
+                sentThirdAdshow("img", ADMsg5);
+            }
             $("#blackBg").show();
             sentLog("okr_web_page_show", '{"page_name":"活动弹窗","activity_name":"418活动","page_type":"增加游戏机会的弹窗"}');
             _czc.push(['_trackEvent', '418活动', "增加游戏机会的弹窗", '曝光', '', '']);
@@ -632,6 +649,10 @@ function initMap(setFocus,needShowSpeak) {
 }
 function initBtn() {
     $(".replaceBtn1").unbind("itemFocus").bind("itemFocus", function() {
+        if (ADMsg3 != null && ADMsg3.schedules != undefined && ADMsg3.schedules[0] != undefined) {
+            sentInnerAdshow(ADMsg3, "G0006", "3", "1", "1", "", "","");
+            sentThirdAdshow("img", ADMsg3);
+        }
         $("#gameDraw").show();
         $("#gamePanel").css("transform", "translate3D(-1280px, 0, 0)");
         setTimeout(function (){
@@ -652,11 +673,16 @@ function initBtn() {
         if(!donotSentReplacebtnLog){
             sentLog("okr_web_button_click", '{"allowance_price":"","task_name":"","button_state":"","button_name":"右键切换活动","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
             _czc.push(['_trackEvent', '418活动', "右键切换活动", "", '', '']);
-        }{
+        }
+        else{
             donotSentReplacebtnLog = false;
         }
     })
     $(".replaceBtn2").unbind("itemFocus").bind("itemFocus", function() {
+        if (ADMsg2 != null && ADMsg2.schedules != undefined && ADMsg2.schedules[0] != undefined) {
+            sentInnerAdshow(ADMsg2, "G0006", "2", "1", "1", "", "","");
+            sentThirdAdshow("img", ADMsg2);
+        }
         $("#gameMap").show();
         $("#gamePanel").css("transform", "translate3D(0, 0, 0)");
         setTimeout(function (){
@@ -677,11 +703,26 @@ function initBtn() {
         if(!donotSentReplacebtnLog){
             sentLog("okr_web_button_click", '{"allowance_price":"","task_name":"","button_state":"","button_name":"左键切换活动","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
             _czc.push(['_trackEvent', '418活动', "左键切换活动", "", '', '']);
-        }{
+        }else{
             donotSentReplacebtnLog = false;
         }
     })
     $(".gameBtn").unbind("itemFocus").bind("itemFocus", function() {
+        var a =  $("#mainbox").offset().top;
+        console.log("------------------------------top--"+a);
+        if(a<0){
+            if($("#gameDraw").css("display") == "block"){
+                if (ADMsg3 != null && ADMsg3.schedules != undefined && ADMsg3.schedules[0] != undefined) {
+                    sentInnerAdshow(ADMsg3, "G0006", "3", "1", "1", "", "","");
+                    sentThirdAdshow("img", ADMsg3);
+                }
+            }else{
+                if (ADMsg2 != null && ADMsg2.schedules != undefined && ADMsg2.schedules[0] != undefined) {
+                    sentInnerAdshow(ADMsg2, "G0006", "2", "1", "1", "", "","");
+                    sentThirdAdshow("img", ADMsg2);
+                }
+            }
+        }
         $("#mainbox").css("transform", "translate3D(0, 0, 0)");
         if($("#gameMap").css("display") == "block"){
             $(".topbtn").attr("downtarget","#mapBtn");
@@ -776,6 +817,10 @@ function initBtn() {
                 questionList = _interlucationsArrayTencent;
             }else{
                 questionList = _interlucationsArrayYinhe;
+            }
+            if (ADMsg5 != null && ADMsg5.schedules != undefined && ADMsg5.schedules[0] != undefined) {
+                sentInnerAdshow(ADMsg5, "G0006", "1", "1", "1", "", "","");
+                sentThirdAdshow("img", ADMsg5);
             }
             $("#questionbox").show();
             $("#blackBg").show();
@@ -918,7 +963,8 @@ function initBtn() {
 
             setTimeout(function () {
                 diceCanClick = true;
-                selectAd("video",null,"CCADTV10015","","","","",actionId,$(_this).attr("taskId"),$(_this).attr("url"));
+                // selectAd(type,boxId, appid, game_id, game_scene, game_panel, game_position, activity_id, task_id, backUrl,adPosition);
+                selectAd("video",null,"CCADTV10015","","","","",actionId,$(_this).attr("taskId"),$(_this).attr("url"),"1");
             },4000);
         }else{}
     })
@@ -1020,7 +1066,6 @@ function initBtn() {
         $("#compoundWindow").hide();
         $("#blackBg").hide();
         needshowdialog7 = false;
-        $(".replaceBtn1").trigger("itemFocus");
         if($("#gameDraw").css("display")=="block"){
 
         }else{
@@ -1583,7 +1628,7 @@ function getParamAndStart(obj,needCheckVersion) {
                                 console.log("new------------------------------");
                                 showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jijiangtiaozhuan.png",4000);
                                 str = JSON.parse(str);
-                                var external = {"taskId":$(obj).attr("taskId"),"id":actionId,"userKeyId":userKeyId, "countDownTime":countdown, "verify_key":new Date().getTime(), "subTask":"0","isFinish":isFinish,"jumpBgImgUrl":jumpBgImgUrl,"jumpImgUrl":jumpImgUrl,"jumpRemindImgUrl":jumpRemindImgUrl};
+                                var external = {"taskId":$(obj).attr("taskId"),"id":actionId,"userKeyId":userKeyId, "countDownTime":countdown, "verify_key":new Date().getTime(), "subTask":"0","isFinish":isFinish,"jumpBgImgUrl":jumpBgImgUrl,"jumpImgUrl":jumpImgUrl,"jumpRemindImgUrl":jumpRemindImgUrl,"serverUrl":adressIp+"/building"};
                                 var doubleEggs_Active = {"doubleEggs_Active":external};
                                 str.push(doubleEggs_Active);
                                 str = JSON.stringify(str);
@@ -1729,6 +1774,7 @@ function startMapFunc() {
                 // setTimeout(function(){showAndHideToast("恭喜您，可以往前走"+obj.diceNumber+"步",obj,true)},4000);
                 setTimeout(function(){mapMove(obj,false)},4000);
             }else{
+                showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/tryagain.png",2000);
                 diceCanClick = true;
                 clearInterval(interval_diceMove);
             }
@@ -1808,7 +1854,10 @@ function mapMove(obj,isSecondMove) {
                 obj2 = obj.speedUpRemember;
                 //setTimeout(function(){mapMove(obj2,true)},2000);
             }
-            handleTheDrawData(obj1,obj2);
+            setTimeout(function () {
+                handleTheDrawData(obj1,obj2);
+            },600)
+
         }
         i++; //继续前进
     }, 500);
@@ -1816,6 +1865,11 @@ function mapMove(obj,isSecondMove) {
 //页面初始化或刷新
 function showPage(first, resume) {
     console.log("$$$$$$$$$$$$$$$$$$====" + first + "===========" + resume);
+    // selectAd(type,boxId, appid, game_id, game_scene, game_panel, game_position, activity_id, task_id, backUrl,adPosition)
+    selectAd("img","adstation1","CCADTV10017","G0006","2","1","1","","","","2");
+    selectAd("img","adstation2","CCADTV10017","G0006","3","1","1","","","","3");
+    selectAd("img","adstation4","CCADTV10017","G0006","2","2","1","","","","4");
+    selectAd("img","adstation3","CCADTV10017","G0006","1","1","1","","","","5");
     if(loginstatus == "true"){
         $("#allowanceBtn").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/allowance.png)");
         $("#allowanceBtn img").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/allowancefocus.png");
@@ -1862,9 +1916,21 @@ function showPage(first, resume) {
                     $("#gamePanel").css("transform", "translate3D(-1280px, 0, 0)");
                     $("#gameMap").hide();
                     $("#gameDraw").show();
+                    setTimeout(function(){
+                        if (ADMsg3 != null && ADMsg3.schedules != undefined && ADMsg3.schedules[0] != undefined) {
+                            sentInnerAdshow(ADMsg3, "G0006", "3", "1", "1", "", "","");
+                            sentThirdAdshow("img", ADMsg3);
+                        }
+                    },1000)
                 }else{
                     if(first){
                         $("#gameMap").show();
+                        setTimeout(function(){
+                            if (ADMsg2 != null && ADMsg2.schedules != undefined && ADMsg2.schedules[0] != undefined) {
+                                sentInnerAdshow(ADMsg2, "G0006", "2", "1", "1", "", "","");
+                                sentThirdAdshow("img", ADMsg2);
+                            }
+                        },1000)
                     }else{}
                 }
                 if(capsuleIsStart){
@@ -2287,22 +2353,33 @@ function showAwardInfo() {
     });
 }
 //获取广告信息
-function selectAd(type,boxId, appid, game_id, game_scene, game_panel, game_position, activity_id, task_id, backUrl) {
+function selectAd(type,boxId, appid, game_id, game_scene, game_panel, game_position, activity_id, task_id, backUrl,adPosition) {//backurl---视频广告时的备用地址,adPosition----整个活动页面内广告位置
     console.log("@@@@@@@@@@@@@@@@@@@@@@@"+appid+"--"+game_id+"=="+game_scene+"--"+game_panel+"=="+game_position+"---"+activity_id+"=="+task_id);
     coocaaosapi.getAdData(appid, game_id, game_scene, game_panel, game_position, activity_id, task_id, function(msg) {
-        console.log("admsg====" + msg);
-        ADMsg = JSON.parse(msg);
+        console.log("admsg"+adPosition+"====" + msg);
+        if(adPosition == "1"){
+            ADMsg1 = JSON.parse(msg);
+        }else if(adPosition=="2"){
+            ADMsg2 = JSON.parse(msg);
+        }else if(adPosition=="3"){
+            ADMsg3 = JSON.parse(msg);
+        }else if(adPosition=="4"){
+            ADMsg4 = JSON.parse(msg);
+        }else if(adPosition=="5"){
+            ADMsg5 = JSON.parse(msg);
+        }
+
         _adsTaskId = task_id;
-        if(ADMsg == null || ADMsg == undefined || ADMsg == "{}"){
+        if(JSON.parse(msg) == null || JSON.parse(msg) == undefined || JSON.parse(msg) == "{}"){
            console.log("获取广告丢失=====================================");
         }else{
             if (JSON.parse(msg).total > 0) {
-                console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                console.log("^^^^^^^^^^^^"+boxId+"^^^^^^^^^^^^^^"+JSON.parse(msg).schedules[0].content);
                 if(type=="img"){
-                    $("#" + boxId).css("backgroundImage", "url(" + JSON.parse(msg).schedules[0].content + ")");
-                    sentInnerAdshow(JSON.parse(msg), game_id, game_scene, game_panel, game_position, activity_id, task_id,"true");
+                    $("." + boxId).css("backgroundImage", "url(" + JSON.parse(msg).schedules[0].content + ")");
+                    // sentInnerAdshow(JSON.parse(msg), game_id, game_scene, game_panel, game_position, activity_id, task_id,"true");
                 }else{
-                    var url = ADMsg.schedules[0].content;
+                    var url = JSON.parse(msg).schedules[0].content;
                     console.log("广告数据正常 url:"+url);
                     _bPlayFormalAdsVideo = true;
                     coocaaosapi.startCommonWebview("", url, "广告视频", "1080", "1920", "", "广告1", "广告2", function(message) {
@@ -2311,9 +2388,10 @@ function selectAd(type,boxId, appid, game_id, game_scene, game_panel, game_posit
                         console.log("startCommonWebview-"+error);
                     });
                     sentThirdAdshow("videoStart", JSON.parse(msg));
+                    sentThirdAdshow("img", JSON.parse(msg));
                 }
 
-                sentThirdAdshow("img", JSON.parse(msg));
+                // sentThirdAdshow("img", JSON.parse(msg));
             } else {
                 console.log("广告total为0，没有投广告^^^^^^^^^^^");
                 if(type == "video"){
@@ -2331,9 +2409,9 @@ function selectAd(type,boxId, appid, game_id, game_scene, game_panel, game_posit
 //广告内部提交
 function sentInnerAdshow(msg, game_id, game_scene, game_panel, game_position, activity_id, task_id,result) {
     coocaaosapi.submitAdData(JSON.stringify(msg.schedules[0]), game_id, game_scene, game_panel, game_position, activity_id, task_id,result, function(msg) {
-        console.log("sent  inner  log  success===" + msg);
+        console.log("sent  inner  log  success===" + game_scene);
     }, function(err) {
-        console.log("sent  inner  log  err===" + err);
+        console.log("sent  inner  log  err===" + game_scene);
     })
 }
 //广告第三方监测

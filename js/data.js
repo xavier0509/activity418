@@ -58,7 +58,11 @@ var cAppVersion = 0;
 var activityCenterVersion = 0;
 var mallVersion = 0;
 
-var ADMsg = null;
+var ADMsg1 = null;//视频任务广告
+var ADMsg2 = null;//大富翁冠名
+var ADMsg3 = null;//扭蛋冠名
+var ADMsg4 = null;//大富翁奖品位
+var ADMsg5 = null;//弹窗广告位
 var lotteryNum = 0;
 var startDayNum = 0;
 var userKeyId = "";
