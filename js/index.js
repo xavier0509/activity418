@@ -22,7 +22,7 @@ var app = {
         if (needFresh) {
             var pagename = "";
             var page_type = "";
-            if($("#gameDraw").css("display") == "block"){
+            if($("#gamePanel").offset().left < -600){
                 pagename = "扭蛋机活动";
                 if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
             }else{
@@ -50,7 +50,7 @@ var app = {
             } else {
                 var pagename = "";
                 var page_type = "";
-                if($("#gameDraw").css("display") == "block"){
+                if($("#gamePanel").offset().left < -600){
                     pagename = "扭蛋机活动";
                     if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
                 }else{
@@ -81,7 +81,7 @@ var app = {
             map = new coocaakeymap($(".coocaabtn"), $("#ruleBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
             var pagename = "";
             var page_type = "";
-            if($("#gameDraw").css("display") == "block"){
+            if($("#gamePanel").offset().left < -600){
                 if (ADMsg3 != null && ADMsg3.schedules != undefined && ADMsg3.schedules[0] != undefined) {
                     sentInnerAdshow(ADMsg3, "G0006", "3", "1", "1", "", "","");
                     sentThirdAdshow("img", ADMsg3);
@@ -127,7 +127,7 @@ var app = {
         else if($("#compoundWindow").css("display") == "block"){
             $("#compoundWindow").hide();
             $("#blackBg").hide();
-            if($("#gameMap").css("display")=="block"){
+            if($("#gamePanel").offset().left > -600){
 
             }else{
                 donotSentReplacebtnLog = true;
@@ -141,7 +141,7 @@ var app = {
             // $("#gamePanel").css("transform", "translate3D(0, 0, 0)");
             // $("#gameMap").show();
             // $("#gameDraw").hide();
-            if($("#gameMap").css("display")=="block"){
+            if($("#gamePanel").offset().left > -600){
 
             }else{
                 donotSentReplacebtnLog = true;
@@ -654,7 +654,7 @@ function initMap(setFocus,needShowSpeak) {
                 $("#blackBg").hide();
                 // map = new coocaakeymap($(".coocaabtn"), $("#mapBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
                 // $("#mapBtn").trigger("itemFocus");
-                if($("#gameMap").css("display")=="block"){
+                if($("#gamePanel").offset().left > -600){
 
                 }else{
                     donotSentReplacebtnLog = true;
@@ -676,7 +676,6 @@ function initBtn() {
         $("#gameDraw").show();
         $("#gamePanel").css("transform", "translate3D(-1280px, 0, 0)");
         setTimeout(function (){
-            $("#gameMap").hide();
             map = new coocaakeymap($(".coocaabtn"), $("#drawBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
             $("#drawBtn").trigger("itemFocus");
         },200)
@@ -710,7 +709,6 @@ function initBtn() {
         $("#gameMap").show();
         $("#gamePanel").css("transform", "translate3D(0, 0, 0)");
         setTimeout(function (){
-            $("#gameDraw").hide();
             map = new coocaakeymap($(".coocaabtn"), $("#mapBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
             $("#mapBtn").trigger("itemFocus");
         },200)
@@ -732,10 +730,10 @@ function initBtn() {
         }
     })
     $(".gameBtn").unbind("itemFocus").bind("itemFocus", function() {
-        var a =  $("#mainbox").offset().top;
+        var a =  $("#gamePanel").offset().left;
         console.log("------------------------------top--"+a);
-        if(a<0){
-            if($("#gameDraw").css("display") == "block"){
+        if( $("#mainbox").offset().top<0){
+            if($("#gamePanel").offset().left < -600){
                 if (ADMsg3 != null && ADMsg3.schedules != undefined && ADMsg3.schedules[0] != undefined) {
                     sentInnerAdshow(ADMsg3, "G0006", "3", "1", "1", "", "","");
                     sentThirdAdshow("img", ADMsg3);
@@ -752,7 +750,7 @@ function initBtn() {
             }
         }
         $("#mainbox").css("transform", "translate3D(0, 0, 0)");
-        if($("#gameMap").css("display") == "block"){
+        if($("#gamePanel").offset().left > -600){
             $(".topbtn").attr("downtarget","#mapBtn");
         }else{
             $(".topbtn").attr("downtarget","#drawBtn");
@@ -768,7 +766,7 @@ function initBtn() {
     $(".mission").unbind("itemFocus").bind("itemFocus", function() {
         $("#mainbox").css("transform", "translate3D(0, -400px, 0)");
         // if(gameStatus != 3){
-            if($("#gameMap").css("display") == "block"){
+            if($("#gamePanel").offset().left >-600){
                 $(".mission").attr("uptarget","#mapBtn");
             }else{
                 $(".mission").attr("uptarget","#drawBtn");
@@ -793,7 +791,7 @@ function initBtn() {
         var btnname = "付费任务";
         var pagename = "";
         var page_type = "";
-        if($("#gameDraw").css("display") == "block"){
+        if($("#gamePanel").offset().left < -600){
             pagename = "扭蛋机活动";
             if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
         }else{
@@ -813,7 +811,7 @@ function initBtn() {
             var _this = this;
             var pagename = "";
             var page_type = "";
-            if($("#gameDraw").css("display") == "block"){
+            if($("#gamePanel").offset().left < -600){
                 pagename = "扭蛋机活动";
                 if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
             }else{
@@ -966,7 +964,7 @@ function initBtn() {
                 var _this = this;
                 var pagename = "";
                 var page_type = "";
-                if($("#gameDraw").css("display") == "block"){
+                if($("#gamePanel").offset().left < -600){
                     pagename = "扭蛋机活动";
                     if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
                 }else{
@@ -1070,7 +1068,7 @@ function initBtn() {
             var btnname = "津贴领取入口 ";
             var pagename = "";
             var page_type = "";
-            if($("#gameDraw").css("display") == "block"){
+            if($("#gamePanel").offset().left < -600){
                 pagename = "扭蛋机活动";
                 if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
             }else{
@@ -1084,7 +1082,7 @@ function initBtn() {
     $("#compoundbtn1").unbind("itemClick").bind("itemClick", function() {
         $("#compoundWindow").hide();
         $("#blackBg").hide();
-        if($("#gameMap").css("display")=="block"){
+        if($("#gamePanel").offset().left > -600){
 
         }else{
             donotSentReplacebtnLog = true;
@@ -1096,7 +1094,7 @@ function initBtn() {
         $("#compoundWindow").hide();
         $("#blackBg").hide();
         needshowdialog7 = false;
-        if($("#gameDraw").css("display")=="block"){
+        if($("#gamePanel").offset().left < -600){
 
         }else{
             donotSentReplacebtnLog = true;
@@ -1108,7 +1106,7 @@ function initBtn() {
     $("#ruleBtn").unbind("itemClick").bind("itemClick", function() {
         var pagename = "";
         var page_type = "";
-        if($("#gameDraw").css("display") == "block"){
+        if($("#gamePanel").offset().left < -600){
             pagename = "扭蛋机活动";
             if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
         }else{
@@ -1160,7 +1158,7 @@ function initBtn() {
         }else{
             var pagename = "";
             var page_type = "";
-            if($("#gameDraw").css("display") == "block"){
+            if($("#gamePanel").offset().left < -600){
                 pagename = "扭蛋机活动";
                 if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
             }else{
@@ -1186,7 +1184,7 @@ function initBtn() {
 	$("#myAwardBtn").unbind("itemClick").bind("itemClick", function() {
         var pagename = "";
         var page_type = "";
-        if($("#gameDraw").css("display") == "block"){
+        if($("#gamePanel").offset().left < -600){
             pagename = "扭蛋机活动";
             if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
         }else{
@@ -1484,7 +1482,7 @@ function getAllowance() {
             var btnname = "津贴领取入口 ";
             var pagename = "";
             var page_type = "";
-            if($("#gameDraw").css("display") == "block"){
+            if($("#gamePanel").offset().left < -600){
                 pagename = "扭蛋机活动";
                 if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
             }else{
@@ -1520,7 +1518,7 @@ function getParamAndStart(obj,needCheckVersion) {
         var _this = obj;
         var pagename = "";
         var page_type = "";
-        if($("#gameDraw").css("display") == "block"){
+        if($("#gamePanel").offset().left < -600){
             pagename = "扭蛋机活动";
             if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
         }else{
@@ -1988,8 +1986,10 @@ function showPage(first, resume) {
                 }
                 if(cardsNum>0 && capsuleIsStart && first){
                     $("#gamePanel").css("transform", "translate3D(-1280px, 0, 0)");
-                    $("#gameMap").hide();
                     $("#gameDraw").show();
+                    setTimeout(function () {
+                        $("#gameMap").show();
+                    },300)
                     setTimeout(function(){
                         if (ADMsg3 != null && ADMsg3.schedules != undefined && ADMsg3.schedules[0] != undefined) {
                             sentInnerAdshow(ADMsg3, "G0006", "3", "1", "1", "", "","");
@@ -1999,6 +1999,9 @@ function showPage(first, resume) {
                 }else{
                     if(first){
                         $("#gameMap").show();
+                        setTimeout(function () {
+                            $("#gameDraw").show();
+                        },300)
                         setTimeout(function(){
                             if (ADMsg2 != null && ADMsg2.schedules != undefined && ADMsg2.schedules[0] != undefined) {
                                 sentInnerAdshow(ADMsg2, "G0006", "2", "1", "1", "", "","");
@@ -2336,9 +2339,9 @@ function showOperation(showMainShow) {
                     initMap(null,showMainShow);
                 }
             }
-            else if($("#gameMap").css("display")=="block"){
+            else if($("#gamePanel").offset().left > -600){
                 initMap("#mapBtn",showMainShow);
-            }else if($("#gameDraw").css("display")=="block"){
+            }else if($("#gamePanel").offset().left < -600){
                 initMap("#drawBtn",showMainShow);
             }else{
                 initMap(null,showMainShow);
