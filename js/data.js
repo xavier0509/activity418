@@ -125,8 +125,7 @@ var donotSentAllowanceBtnLog = false;//不要传津贴点击的日志，true就�
 var donotSentMissionBtnLog = false;//不要传任务点击的日志，true就是不要传
 
 var curDrawBtnName = "mapBtn";//记录点击的抽奖按钮的名字
-
-
+var allowancePageForm = "mainbox";//记录进入津贴页面的上一个页面
 
 var needSentADLog = false;
 var actEnd = false;
