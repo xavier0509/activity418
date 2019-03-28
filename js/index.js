@@ -93,6 +93,10 @@ var app = {
                     sentInnerAdshow(ADMsg2, "G0006", "2", "1", "1", "", "","");
                     sentThirdAdshow("img", ADMsg2);
                 }
+                if (ADMsg4 != null && ADMsg4.schedules != undefined && ADMsg4.schedules[0] != undefined) {
+                    sentInnerAdshow(ADMsg4, "G0006", "2", "2", "1", "", "","");
+                    sentThirdAdshow("img", ADMsg4);
+                }
                 pagename = "大富翁活动";
                 if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
             }
@@ -689,6 +693,10 @@ function initBtn() {
             sentInnerAdshow(ADMsg2, "G0006", "2", "1", "1", "", "","");
             sentThirdAdshow("img", ADMsg2);
         }
+        if (ADMsg4 != null && ADMsg4.schedules != undefined && ADMsg4.schedules[0] != undefined) {
+            sentInnerAdshow(ADMsg4, "G0006", "2", "2", "1", "", "","");
+            sentThirdAdshow("img", ADMsg4);
+        }
         $("#gameMap").show();
         $("#gamePanel").css("transform", "translate3D(0, 0, 0)");
         setTimeout(function (){
@@ -726,6 +734,10 @@ function initBtn() {
                 if (ADMsg2 != null && ADMsg2.schedules != undefined && ADMsg2.schedules[0] != undefined) {
                     sentInnerAdshow(ADMsg2, "G0006", "2", "1", "1", "", "","");
                     sentThirdAdshow("img", ADMsg2);
+                }
+                if (ADMsg4 != null && ADMsg4.schedules != undefined && ADMsg4.schedules[0] != undefined) {
+                    sentInnerAdshow(ADMsg4, "G0006", "2", "2", "1", "", "","");
+                    sentThirdAdshow("img", ADMsg4);
                 }
             }
         }
@@ -1879,14 +1891,45 @@ function mapMove(obj,isSecondMove) {
         i++; //继续前进
     }, 500);
 }
+//触发vip
+function triggerVipFunction() {
+    $.ajax({
+        type: "post",
+        async: true,
+        url: adressIp + "/building/ludo/get-vip-type",
+        data: {
+            id: actionId,
+            cChip: TVchip,
+            cModel: TVmodel,
+            cUDID: activityId,
+            MAC: macAddress,
+            cEmmcCID: emmcId,
+            cOpenId: cOpenId,
+            cNickName: nick_name,
+            thirdUserId:qqtoken,
+            loginType:login_type,
+            vuserid:vuserid
+        },
+        dataType: "json",
+        // timeout: 20000,
+        success: function(data) {
+        },
+        error: function(error) {
+            console.log("-----------访问失败---------" + JSON.stringify(error));
+        },
+        complete: function(XMLHttpRequest, status) {
+            console.log("-------------complete------------------" + status);
+        }
+    });
+}
 //页面初始化或刷新
 function showPage(first, resume) {
     console.log("$$$$$$$$$$$$$$$$$$====" + first + "===========" + resume);
     // selectAd(type,boxId, appid, game_id, game_scene, game_panel, game_position, activity_id, task_id, backUrl,adPosition)
     selectAd("img","adstation1","CCADTV10017","G0006","2","1","1","","","","2");
     setTimeout(function(){selectAd("img","adstation2","CCADTV10017","G0006","3","1","1","","","","3");},1)
-    setTimeout(function(){selectAd("img","adstation4","CCADTV10017","G0006","2","2","1","","","","4");},2)
-    setTimeout(function(){selectAd("img","adstation3","CCADTV10017","G0006","1","1","1","","","","5");},3)
+    setTimeout(function(){selectAd("img","adstation4","CCADTV10017","G0006","2","2","1","","","","4");},100)
+    setTimeout(function(){selectAd("img","adstation3","CCADTV10017","G0006","1","1","1","","","","5");},300)
     if(loginstatus == "true"){
         $("#allowanceBtn").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/allowance.png)");
         $("#allowanceBtn img").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/allowancefocus.png");
@@ -1925,6 +1968,9 @@ function showPage(first, resume) {
                 activeFirst = data.data.activeFirst;
                 userKeyId = data.data.userKeyId;
                 alter = data.data.alter;
+                if(todayFirst&&loginstatus=="true"){
+                    setTimeout(triggerVipFunction,100);
+                }
                 if(alter>0){
                     alterType = data.data.alterType;
                     needshowdialog7 = true;
@@ -1946,6 +1992,10 @@ function showPage(first, resume) {
                             if (ADMsg2 != null && ADMsg2.schedules != undefined && ADMsg2.schedules[0] != undefined) {
                                 sentInnerAdshow(ADMsg2, "G0006", "2", "1", "1", "", "","");
                                 sentThirdAdshow("img", ADMsg2);
+                            }
+                            if (ADMsg4 != null && ADMsg4.schedules != undefined && ADMsg4.schedules[0] != undefined) {
+                                sentInnerAdshow(ADMsg4, "G0006", "2", "2", "1", "", "","");
+                                sentThirdAdshow("img", ADMsg4);
                             }
                         },1000)
                     }else{}

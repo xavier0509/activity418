@@ -244,7 +244,7 @@ img[src=''] {
     position: absolute;
     top:68px;
     left: 300px;
-    background-color: red;
+    /*background-color: red;*/
     background-size: 100%;
 }
 .adstation4{
@@ -253,7 +253,7 @@ img[src=''] {
     position: absolute;
     top:168px;
     left: 300px;
-    background-color: red;
+    /*background-color: red;*/
     background-size: 100%;
 }
 .adstation2{
@@ -262,7 +262,7 @@ img[src=''] {
     position: absolute;
     top:68px;
     left: 300px;
-    background-color: blue;
+    /*background-color: blue;*/
     background-size: 100%;
 }
 .adstation3{
@@ -273,7 +273,7 @@ img[src=''] {
     left: 0px;
     right: 0;
     margin: auto;
-    background-color: blue;
+    /*background-color: blue;*/
     background-size: 100%;
 }
 #mapBtn{
@@ -3077,8 +3077,8 @@ img[src=''] {
     font-weight: bold;
 }
 .bottomword1{
-    width: 400px;
-    height:26px;
+    width: 444px;
+    height: 26px;
     line-height: 26px;
     border-radius: 20px;
     text-align: center;
@@ -3086,8 +3086,8 @@ img[src=''] {
     color: #ffffff;
     background: #d12f00;
     position: fixed;
-    top:405px;
-    left:449px;
+    top: 405px;
+    left: 422px;
     font-weight: bold;
 }
 
