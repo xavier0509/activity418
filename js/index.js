@@ -34,14 +34,20 @@ var app = {
             needFresh = false;
             showPage(false, true)
         } else {
-            if(needSentADLog){
-                needSentADLog = false;
+            if(startLoginFlag && changeLoginFlag){
+                console.log("登录成功");
+                startLoginFlag = false;
+                changeLoginFlag = false;
 
-            }
-
-            if(startLoginFlag){
-
-            }else {
+                sentLog("okr_web_clicked_result", '{"page_name":"418活动登录弹窗","activity_name":"418活动","login_result":"登录成功"}');
+                _czc.push(['_trackEvent', '418活动', '418活动登录弹窗', '登录成功', '', '']);
+            }else if (startLoginFlag) {
+                console.log("登录失败");
+                startLoginFlag = false;
+                changeLoginFlag = false;
+                sentLog("okr_web_clicked_result", '{"page_name":"418活动登录弹窗","activity_name":"春节集卡活动","login_result":"登录失败"}');
+                _czc.push(['_trackEvent', '418活动', '418活动登录弹窗', '登录失败', '', '']);
+            } else {
                 var pagename = "";
                 var page_type = "";
                 if($("#gameDraw").css("display") == "block"){
@@ -312,8 +318,8 @@ function listenUserChange() {
 function startAndSendLog() {
     startLoginFlag = true;
     startLogin(needQQ);
-    sentLog("okr_web_page_show", '{"page_name":"春节活动登录弹窗","activity_name":"春节集卡活动"}');
-    _czc.push(['_trackEvent', '春节活动登录弹窗', '春节集卡活动', '', '', '']);
+    sentLog("okr_web_page_show", '{"page_name":"418活动登录弹窗","activity_name":"418活动"}');
+    _czc.push(['_trackEvent', '418活动', '418活动登录弹窗', '曝光', '', '']);
 }
 
 //保留小数
@@ -1018,7 +1024,8 @@ function initBtn() {
             if(loginstatus=="true"){
                 getAllowance();
             }else{
-                startLogin(needQQ);
+                // startLogin(needQQ);
+                startAndSendLog()
             }
         }else{
             var button_state = "";
@@ -1867,9 +1874,9 @@ function showPage(first, resume) {
     console.log("$$$$$$$$$$$$$$$$$$====" + first + "===========" + resume);
     // selectAd(type,boxId, appid, game_id, game_scene, game_panel, game_position, activity_id, task_id, backUrl,adPosition)
     selectAd("img","adstation1","CCADTV10017","G0006","2","1","1","","","","2");
-    selectAd("img","adstation2","CCADTV10017","G0006","3","1","1","","","","3");
-    selectAd("img","adstation4","CCADTV10017","G0006","2","2","1","","","","4");
-    selectAd("img","adstation3","CCADTV10017","G0006","1","1","1","","","","5");
+    setTimeout(function(){selectAd("img","adstation2","CCADTV10017","G0006","3","1","1","","","","3");},1)
+    setTimeout(function(){selectAd("img","adstation4","CCADTV10017","G0006","2","2","1","","","","4");},2)
+    setTimeout(function(){selectAd("img","adstation3","CCADTV10017","G0006","1","1","1","","","","5");},3)
     if(loginstatus == "true"){
         $("#allowanceBtn").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/allowance.png)");
         $("#allowanceBtn img").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/allowancefocus.png");
@@ -2357,7 +2364,7 @@ function showAwardInfo() {
 function selectAd(type,boxId, appid, game_id, game_scene, game_panel, game_position, activity_id, task_id, backUrl,adPosition) {//backurl---视频广告时的备用地址,adPosition----整个活动页面内广告位置
     console.log("@@@@@@@@@@@@@@@@@@@@@@@"+appid+"--"+game_id+"=="+game_scene+"--"+game_panel+"=="+game_position+"---"+activity_id+"=="+task_id);
     coocaaosapi.getAdData(appid, game_id, game_scene, game_panel, game_position, activity_id, task_id, function(msg) {
-        console.log("admsg"+adPosition+"====" + msg);
+        // console.log("admsg"+adPosition+"====" + msg);
         if(adPosition == "1"){
             ADMsg1 = JSON.parse(msg);
         }else if(adPosition=="2"){

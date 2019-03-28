@@ -247,6 +247,15 @@ img[src=''] {
     background-color: red;
     background-size: 100%;
 }
+.adstation4{
+    width: 90px;
+    height: 90px;
+    position: absolute;
+    top:168px;
+    left: 300px;
+    background-color: red;
+    background-size: 100%;
+}
 .adstation2{
     width: 125px;
     height: 25px;
