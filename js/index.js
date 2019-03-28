@@ -515,6 +515,7 @@ function showFinalWindow(dialog) {
         $(".midcard").css("left","576px");
         $("#compoundWindow").show();
         $("#compoundWindow").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/jichengkapian.png)");
+        $(".midcard").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/card418.png)");
         $(".topword").html("418周年狂欢正在进行中，送您一张周年卡片");
         $(".bottomword1").html("当前已拥有<span>"+cardsNum+"</span>套418周年卡片，有机会0元赢电视");
         $(".bottom2").html("集418卡片赢最新创维电视火热进行中！马上参与！");
@@ -529,6 +530,7 @@ function showFinalWindow(dialog) {
         $("#compoundbtn1").css("left","563px");
         $("#compoundWindow").show();
         $("#compoundWindow").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/jichengkapian.png)");
+        $(".midcard").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/card418.png)");
         $(".topword").css("top","60px");
         $(".topword").html("获得第2阶段抽奖资格<br>有机会0元带走创维新品电视！");
         $(".bottomword1").html("当前已拥有<span>"+cardsNum+"</span>套418周年卡片");
@@ -540,6 +542,7 @@ function showFinalWindow(dialog) {
         $(".midcard").css("left","576px");
         $("#compoundWindow").show();
         $("#compoundWindow").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/jichengkapian.png)");
+        $(".midcard").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/card418.png)");
         $(".topword").css("top","60px");
         $(".topword").html("获得第2阶段抽奖资格<br>有机会0元带走创维新品电视！");
         $(".bottomword1").html("当前已拥有<span>"+cardsNum+"</span>套418周年卡片");
@@ -582,6 +585,13 @@ function initMap(setFocus,needShowSpeak) {
                 sentThirdAdshow("img", ADMsg5);
             }
             $("#compoundWindow").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/zengsongkapian.png)");
+            if(chipKey == " lc4"){
+                $(".midcard").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/card4.png)");
+            }else if(chipKey == " lc1"){
+                $(".midcard").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/card1.png)");
+            }else{
+                $(".midcard").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/card8.png)");
+            }
             $(".topword").html("418周年狂欢正在进行中，送您一张周年卡片");
             $(".bottomword1").html("现在集齐一套418卡片即有机会0元带走创维新品电视");
             $(".bottom2").html("快去掷骰子赢周年卡片吧！");
