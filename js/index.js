@@ -1107,6 +1107,16 @@ function initBtn() {
 	//---------------------------------
 	$("#drawBtn").unbind("itemClick").bind("itemClick", function() {
 		console.log("开始抽奖");
+        var pagename = "";
+        var page_type = "";
+        var button_state = "";
+        if(cardsNum > 0){
+            button_state="有抽奖机会";
+        }else{button_state="无抽奖机会"}
+        pagename = "扭蛋机活动";
+        if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+        sentLog("okr_web_button_click", '{"allowance_price":"","task_name":"","button_state":"'+button_state+'","button_name":"【扭一扭】按钮","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+        _czc.push(['_trackEvent', '418活动', "【扭一扭】按钮", button_state, '', '']);
 		curDrawBtnName = "drawBtn";
 		if(!capsuleIsStart){
             showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/huodongweikaishi.png",3000);
