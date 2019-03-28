@@ -970,6 +970,7 @@ function initBtn() {
     })
 
     $("#mapBtn").unbind("itemClick").bind("itemClick", function(){
+    	curDrawBtnName = "mapBtn";
         if(diceCanClick){
             var pagename = "";
             var page_type = "";
@@ -977,8 +978,8 @@ function initBtn() {
             if(lotteryNum > 0){
                 button_state="有掷骰子机会";
             }else{button_state="无掷骰子机会"}
-                pagename = "大富翁活动";
-                if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
+            pagename = "大富翁活动";
+            if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
             sentLog("okr_web_button_click", '{"allowance_price":"","task_name":"","button_state":"'+button_state+'","button_name":"【掷骰子】按钮","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
             _czc.push(['_trackEvent', '418活动', "【掷骰子】按钮", button_state, '', '']);
             if(gameStatus == 3){return};
@@ -1099,19 +1100,18 @@ function initBtn() {
 	//---------------------------------
 	$("#drawBtn").unbind("itemClick").bind("itemClick", function() {
 		console.log("开始抽奖");
+		curDrawBtnName = "drawBtn";
 		if(!capsuleIsStart){
             showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/huodongweikaishi.png",3000);
             return;
         }
-		var score = 470;
-		score -= 100;
-		if(score < 0) {
+		if(cardsNum > 0) {
+			startEggFunc();
+		} else {
 			for(i = 1; i <= 11; i++) {
 				$(".qiu_" + i).removeClass("wieyi_" + i);
 			}
-			console.log("没有积分");
-		} else {
-			draw()
+			console.log("没有机会");
 		}
 	});
 	$("#allowanceBtn").unbind("itemClick").bind("itemClick", function() {
@@ -1203,8 +1203,8 @@ function initBtn() {
         $("#dialogPage").css("display", "none");
         $("#getOtherAward1").css("display", "none");
         $("#getOtherAward2").css("display", "none");
-        map = new coocaakeymap($(".coocaabtn"), document.getElementById("mapBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
-    	
+        
+        map = new coocaakeymap($(".coocaabtn"), document.getElementById(curDrawBtnName), "btnFocus", function() {}, function(val) {}, function(obj) {});
     	var _curId = $(this).attr("id");
     	if (_curId=="otherBtn1"&&$(this).attr("awardType")==6) {
     		showPage(false,false);
@@ -2099,6 +2099,7 @@ function selectChipInfo() {
         success: function(data) {
             console.log("卡片信息：====="+JSON.stringify(data));
             if(data.code == 50100){
+            	cardsNum = data.data.lc418Num;
                 haveUnReceive = data.data.haveUnReceive;
                 if(haveUnReceive){$("#awardCircle").show()}else{$("#awardCircle").hide()}
                 $(".lc4").html(data.data.lc4Num+"片");
@@ -2556,67 +2557,6 @@ function getMyTasksList(needCheckSpeak) {
     });
 }
 
-//扭蛋机抽奖动效
-function draw() {
-	var number = Math.floor(4 * Math.random() + 1);
-	for(i = 1; i <= 11; i++) {
-		$(".qiu_" + i).removeClass("diaol_" + i);
-		$(".qiu_" + i).addClass("wieyi_" + i);
-	};
-	setTimeout(function() {
-		for(i = 1; i <= 11; i++) {
-			$(".qiu_" + i).removeClass("wieyi_" + i);
-		}
-	}, 1500);
-	setTimeout(function() {
-		switch(number) {
-			case 1:
-				$(".zjdl").children("span").addClass("diaL_one");
-				break;
-			case 2:
-				$(".zjdl").children("span").addClass("diaL_two");
-				break;
-			case 3:
-				$(".zjdl").children("span").addClass("diaL_three");
-				break;
-			case 4:
-				$(".zjdl").children("span").addClass("diaL_four");
-				break;
-		}
-		$(".zjdl").removeClass("none").addClass("dila_Y");
-		setTimeout(function() {
-			switch(number) {
-				case 1:
-					console.log("抽到了一等奖");
-					break;
-				case 2:
-					console.log("抽到了二等奖");
-					break;
-				case 3:
-					console.log("抽到了三等奖");
-					break;
-				case 4:
-					console.log("抽到了四等奖");
-					break;
-				case 5:
-					console.log("抽到了五等奖");
-					break;
-				case 6:
-					console.log("抽到了六等奖");
-					break;
-				case 7:
-					console.log("抽到了七等奖");
-					break;
-			}
-		}, 900);
-	}, 1500);
-	//取消动画
-	setTimeout(function() {
-		$(".zjdl").addClass("none").removeClass("dila_Y");
-		$(".zjdl").children("span").removeAttr('class');
-	}, 2500);
-}
-
 //展示我的津贴页面
 function getAllowanceInfo(num){
 	document.getElementById("everyAllowanceUl").innerHTML = "";
@@ -3015,28 +2955,19 @@ function handleTheDrawData(obj1,obj2){
 }
 function showThisAwardDialog(awardObj) {
     console.log(JSON.stringify(awardObj));
-    console.log(awardObj.awardTypeId);
-    
-    var _cawardId = awardObj.awardId; //奖品id
-    var _cactiveId = awardObj.lotteryActiveId; //奖品活动id
-    var _crememberId = awardObj.lotteryRememberId; //奖品记录id
-    var _cuserKeyId = awardObj.userKeyId; //抽奖用户的userkeyid
-    var _cawardName = awardObj.awardName; //奖品名称
     var _cawardTime = awardObj.awardTime; //获奖时间
     _cawardTime = _cawardTime.substr(0, 10);
-    var _cawardUrl = awardObj.awardUrl; //奖品url
-    var _cawardTypeId = awardObj.awardTypeId; //奖品类型
-	
-    $("#otherBtn2").attr("activeId", _cactiveId);
-    $("#otherBtn2").attr("awardId", _cawardId);
-    $("#otherBtn2").attr("rememberId", _crememberId);
-    $("#otherBtn2").attr("userKeyId", _cuserKeyId);
-    $("#otherBtn2").attr("awardTypeId", _cawardTypeId);
-    $("#otherBtn2").attr("awardName", _cawardName);
+    $("#otherBtn2").attr("activeId", awardObj.lotteryActiveId);
+    $("#otherBtn2").attr("awardId", awardObj.awardId);
+    $("#otherBtn2").attr("rememberId", awardObj.lotteryRememberId);
+    $("#otherBtn2").attr("userKeyId", awardObj.userKeyId);
+    $("#otherBtn2").attr("awardTypeId", awardObj.awardTypeId);
+    $("#otherBtn2").attr("awardName", awardObj.awardName);
     $("#otherBtn2").attr("awardTime", _cawardTime);
-    $("#otherBtn2").attr("awardUrl", _cawardUrl);
+    $("#otherBtn2").attr("awardUrl", awardObj.awardUrl);
     
     $(".secondDialog").css("display", "none");
+    
     if (awardObj.awardTypeId == 2) {
         console.log("抽到实物奖");
         $("#dialogPage").css("display", "block");
@@ -3046,8 +2977,7 @@ function showThisAwardDialog(awardObj) {
         $("#otherBtn2 .btnName").html("立即领取");
         $(".eachAwardStyle").css("display", "none");
         $("#entityAwardBox").css("display", "block");
-        $("#entityAwardImg").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/lxw/foca/focared.png");
-//      $("#entityAwardImg").attr("src",awardObj.awardUrl);
+        $("#entityAwardImg").attr("src",awardObj.awardUrl);
         map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
     }
     if (awardObj.awardTypeId == 6) {
@@ -3115,7 +3045,7 @@ function showThisAwardDialog(awardObj) {
         $("#otherBtn2 .btnName").html("领取红包");
         $(".eachAwardStyle").css("display", "none");
         $("#redAwardBox").css("display", "block");
-        $("#redAwardImg").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/lxw/foca/focared.png");
+        $("#redAwardImg").attr("src",awardObj.awardUrl);
         if(awardObj.margeType == "true") {
             $("#otherBtn2").attr("redNumber", awardObj.mergeAwardInfo.bonus);
         } else {
@@ -3322,10 +3252,143 @@ function getAllNotGetAllowance(){
         }
     }
 }
+//扭蛋机抽奖接口
+function startEggFunc() {
+    $.ajax({
+        type: "post",
+        async: true,
+        url: adressIp + "/building/ludo/lottery-buy",
+        data: {
+        	id: actionId, 
+        	capsuleId:capsuleId,
+        	cUDID: activityId, 
+        	MAC: macAddress, 
+        	cModel: TVmodel, 
+        	cChip: TVchip, 
+        	cHomepageVersion:cAppVersion,
+        	cOpenId: cOpenId, 
+        	cNickName: nick_name,
+        	province:_province,
+        	city:_city
+        },
+        dataType: "json",
+        // timeout: 20000,
+        success: function(data) {
+            console.log("扭蛋返回状态：" + JSON.stringify(data));
+            if(data.code == 50100){
+                cardsNum = data.data.remainingNumber;
+                $("#gameDraw .draw418cl").html(cardsNum);
+                $("#gameMap .lc418").html("已集齐"+cardsNum+"套");
+                draw(data.data);
+            }else{
+            	console.log("扭蛋机抽奖接口出错");
+            	showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/tryagain.png",2000);
+            }
+        },
+        error: function(error) {
+            console.log("-----------访问失败---------" + JSON.stringify(error));
+        }
+    });
+}
 
-
-
-
+//扭蛋机抽奖动效
+function draw(obj) {
+	var cAwardType = obj.awardTypeId;
+	for(i = 1; i <= 11; i++) {
+		$(".qiu_" + i).removeClass("diaol_" + i);
+		$(".qiu_" + i).addClass("wieyi_" + i);
+	};
+	setTimeout(function() {
+		for(i = 1; i <= 11; i++) {
+			$(".qiu_" + i).removeClass("wieyi_" + i);
+		}
+	}, 1500);
+	setTimeout(function() {
+		switch(cAwardType) {
+			case 2:
+				console.log("抽中实物奖");
+				$(".zjdl").children("span").addClass("diaL_one");
+				break;
+			case 7:
+				console.log("抽中实红包奖");
+				$(".zjdl").children("span").addClass("diaL_two");
+				break;
+			case 17:
+				console.log("抽中津贴");
+				$(".zjdl").children("span").addClass("diaL_three");
+				break;
+		}
+		$(".zjdl").removeClass("none").addClass("dila_Y");
+		setTimeout(function() {
+			console.log(cAwardType);
+			showEggAwardDialog(obj);
+		}, 900);
+	}, 1500);
+	//取消动画
+	setTimeout(function() {
+		$(".zjdl").addClass("none").removeClass("dila_Y");
+		$(".zjdl").children("span").removeAttr('class');
+	}, 2500);
+}
+//展示扭蛋奖励
+function showEggAwardDialog(obj){
+	console.log(JSON.stringify(obj));
+	var _cawardTime = obj.awardTime; //获奖时间
+    _cawardTime = _cawardTime.substr(0, 10);
+    $("#otherBtn2").attr("activeId", obj.lotteryActiveId);
+    $("#otherBtn2").attr("awardId", obj.awardId);
+    $("#otherBtn2").attr("rememberId", obj.lotteryRememberId);
+    $("#otherBtn2").attr("userKeyId", obj.userKeyId);
+    $("#otherBtn2").attr("awardTypeId", obj.awardTypeId);
+    $("#otherBtn2").attr("awardName", obj.awardName);
+    $("#otherBtn2").attr("awardTime", _cawardTime);
+    $("#otherBtn2").attr("awardUrl", obj.awardUrl);
+    
+    $(".secondDialog").css("display", "none");
+	if (obj.awardTypeId == 2) {
+		console.log("抽中实物奖");
+		$("#dialogPage").css("display", "block");
+        $("#getOtherAward1").css("display", "block");
+        $("#otherAwardName1").html('恭喜获得'+obj.awardName);
+        $("#otherBtn1 .btnName").html("继续抽奖");
+        $("#otherBtn2 .btnName").html("立即领取");
+        $(".eachAwardStyle").css("display", "none");
+        $("#entityAwardBox").css("display", "block");
+        $("#entityAwardImg").attr("src",obj.awardUrl);
+        map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+	}
+	if (obj.awardTypeId == 7) {
+		console.log("抽中红包");
+		$("#dialogPage").css("display", "block");
+        $("#getOtherAward1").css("display", "block");
+        $("#otherAwardName1").html("恭喜获得"+obj.awardName);
+        $("#otherBtn1 .btnName").html("继续抽奖");
+        $("#otherBtn2 .btnName").html("领取红包");
+        $(".eachAwardStyle").css("display", "none");
+        $("#redAwardBox").css("display", "block");
+        $("#redAwardImg").attr("src",obj.awardUrl);
+        if(obj.margeType == "true") {
+            $("#otherBtn2").attr("redNumber", obj.mergeAwardInfo.bonus);
+        } else {
+            $("#otherBtn2").attr("redNumber", obj.awardInfo.bonus);
+        }
+        map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+	}
+	if (obj.awardTypeId == 17) {
+		console.log("抽中津贴");
+		$("#dialogPage").css("display", "block");
+        $("#getOtherAward1").css("display", "block");
+        $("#otherAwardName1").html("恭喜获得"+obj.awardName);
+        $("#otherBtn1 .btnName").html("继续抽奖");
+        $("#otherBtn2 .btnName").html("立即使用");
+        $(".eachAwardStyle").css("display", "none");
+        $("#allAwardBox").css("display", "block");
+        $("#allowAwardImg").attr("src",obj.awardUrl);
+        
+        map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+        getMyAwards(3);
+	}
+}
 
 
 

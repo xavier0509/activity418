@@ -368,11 +368,16 @@ img[src=''] {
     display: none;
     background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/drawbg.jpg");
 }
+#drawBtn,#drawBtnBorder,#drawDoor{
+	position: absolute;
+	background: url(../images/eggs1.png) no-repeat;
+}
 #drawBtn{
     width: 89px;
     height: 142px;
     position: absolute;
-    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/nn.png");
+    background-position: -534px 0;
+    /*background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/nn.png");*/
 }
 #drawBtnBorder{
     display: none;
@@ -381,15 +386,19 @@ img[src=''] {
     position: absolute;
     top: 350px;
     left: 300px;
-    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/nnborder.png");
+    background: url(../images/eggs1.png) no-repeat;
+    background-position: -623px 0;
+    /*background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/nnborder.png");*/
 }
-#drawDoor{
-    width: 97px;
-    height: 108px;
-    position: absolute;
-    top: 513px;
-    left:489px;
-    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/M.png");
+#classesImg{
+	position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+    background: url(../images/eggs1.png) no-repeat;
+    background-position: -731px 0;
 }
 #tips1{
     width: 222px;
@@ -1498,8 +1507,6 @@ img[src=''] {
     font-size: 26px;
     line-height: 34px;
 }
-
-
 .awardbg4{
     position: absolute;
     top: 129px;
@@ -1837,36 +1844,6 @@ img[src=''] {
     100% {opacity:0.1;top:424px;display: none}
 }
 
-/*.coocaabtn.btnFocus:not(.topbtn):not(.banner):not(.finishWindowBtn){*/
-    /*border: 4px solid #d900ff;*/
-    /*!*border-image-source:url("http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/index/border.png");*!*/
-    /*!*border-image-slice:8;*!*/
-    /*!*border-image-width:2;*!*/
-    /*!*border-image-repeat:round;*!*/
-    /*-webkit-border-image:url("http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/index/border1.png") 8 /2 round; !* Safari 5 *!*/
-    /*-o-border-image:url("http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/index/border1.png") 8 /2 round; !* Opera *!*/
-    /*-ms-border-image:url("http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/index/border1.png") 8 /2 round; !* Opera *!*/
-    /*-moz-border-image:url("http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/index/border1.png") 8 /2 round; !* Opera *!*/
-    /*border-image:url("http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/index/border1.png") 8 /2 round;*/
-
-    /*background-size: 100%;*/
-
-    /*padding: 0px;*/
-    /*opacity: 1;*/
-    /*!*box-shadow: 0px 0px 0px 0px black;*!*/
-    /*!*box-shadow:0px 10px 25px rgba(0,0,0,0.5);*!*/
-    /*box-shadow:0px 0px 45px rgba(0,0,0,0.8);*/
-    /*transform: scale(1.08, 1.08);*/
-    /*-ms-transform: scale(1.08, 1.08);*/
-    /*!* IE 9 *!*/
-    /*-webkit-transform: scale(1.08, 1.08);*/
-    /*!* Safari 和 Chrome *!*/
-    /*-o-transform: scale(1.08, 1.08);*/
-    /*!* Opera *!*/
-    /*-moz-transform: scale(1.08, 1.08);*/
-    /*z-index: 2;*/
-/*}*/
-
 /*扭蛋机*/
 .niu_danji {
 	position: absolute;
@@ -1988,6 +1965,7 @@ img[src=''] {
 	background-size: 100%;
 	animation: zhuan 1s linear forwards;
 	-webkit-animation: zhuan 1s linear forwards;
+	background:url(../images/eggs1.png)  no-repeat;
 }
 .qiu_1 {
 	left: 16px;
@@ -1999,7 +1977,8 @@ img[src=''] {
     -o-transform: rotate(-7deg);
 }
 .qiu_1:after {
-	background-image: url(../images/7.png);
+	/*background: url(../images/7.png);*/
+	background-position: 0 0;
 }
 .qiu_2 {
 	left: 158px;
@@ -2011,7 +1990,8 @@ img[src=''] {
     -o-transform: rotate(-7deg);
 }
 .qiu_2:after {
-	background-image: url(../images/6.png);
+	/*background-image: url(../images/6.png);*/
+	background-position: -120px 0;
 }
 .qiu_3 {
 	left: 253px;
@@ -2023,7 +2003,8 @@ img[src=''] {
     -o-transform: rotate(-15deg);
 }
 .qiu_3:after {
-	background-image: url(../images/3.png);
+	/*background-image: url(../images/3.png);*/
+	background-position: -300px 0;
 }
 .qiu_4 {
 	left: 345px;
@@ -2035,7 +2016,8 @@ img[src=''] {
     -o-transform: rotate(45deg);
 }
 .qiu_4:after {
-	background-image: url(../images/3.png);
+	/*background-image: url(../images/3.png);*/
+	background-position: -300px 0;
 }
 .qiu_5 {
 	left: 295px;
@@ -2047,7 +2029,8 @@ img[src=''] {
     -o-transform: rotate(5deg);
 }
 .qiu_5:after {
-	background-image: url(../images/7.png);
+	/*background-image: url(../images/7.png);*/
+	background-position: 0 0;
 }
 .qiu_6 {
 	left: 62px;
@@ -2059,7 +2042,8 @@ img[src=''] {
     -o-transform: rotate(-80deg);
 }
 .qiu_6:after {
-	background-image: url(../images/3.png);
+	/*background-image: url(../images/3.png);*/
+	background-position: -300px 0;
 }
 .qiu_7 {
 	left: 108px;
@@ -2071,7 +2055,8 @@ img[src=''] {
     -o-transform: rotate(-15deg);
 }
 .qiu_7:after {
-	background-image: url(../images/2.png);
+	/*background-image: url(../images/2.png);*/
+	background-position: -240px 0;
 }
 .qiu_8 {
 	left: 206px;
@@ -2083,7 +2068,8 @@ img[src=''] {
     -o-transform: rotate(35deg);
 }
 .qiu_8:after {
-	background-image: url(../images/4.png);
+	/*background-image: url(../images/4.png);*/
+	background-position: -180px 0;
 }
 .qiu_9 {
 	left: 139px;
@@ -2095,7 +2081,8 @@ img[src=''] {
     -o-transform: rotate(-30deg);
 }
 .qiu_9:after {
-	background-image: url(../images/5.png);
+	/*background-image: url(../images/5.png);*/
+	background-position: -60px 0;
 }
 .qiu_10 {
 	left: 248px;
@@ -2107,7 +2094,8 @@ img[src=''] {
     -o-transform: rotate(30deg);
 }
 .qiu_10:after {
-	background-image: url(../images/2.png);
+	/*background-image: url(../images/2.png);*/
+	background-position: -240px 0;
 }
 .qiu_11 {
 	left: 192px;
@@ -2121,7 +2109,8 @@ img[src=''] {
 .qiu_11:after {
 	height: 82px;
 	width: 77px;
-	background-image: url(../images/1.png);
+	/*background-image: url(../images/1.png);*/
+	background-position: -360px 0;
 }
 
 /*掉落动画*/
@@ -2226,6 +2215,8 @@ img[src=''] {
     width: 97px;
     height: 108px;
     z-index: 1;
+    background: url(../images/eggs1.png) no-repeat;
+    background-position: -437px 0;
 }
 
 .niu_danji .dila_Y {
@@ -2260,7 +2251,7 @@ img[src=''] {
 	background-image: url(../images/2.png);
 }
 .niu_danji .diaL_three:after {
-	background-image: url(../images/3.png);
+	background-image: url(../images/5.png);
 }
 .niu_danji .diaL_four:after {
 	background-image: url(../images/4.png);
