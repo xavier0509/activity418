@@ -483,7 +483,7 @@ function showSpeak() {
     }
     console.log("显示数组====="+speakArry);
     var intervalNum = 0;
-    var speakInter = setInterval(aaa,1000);
+    var speakInter = setInterval(aaa,2000);
     function aaa() {
         if(intervalNum == speakArry.length){
             setTimeout(function(){
@@ -603,9 +603,9 @@ function initMap(setFocus,needShowSpeak) {
                 sentThirdAdshow("img", ADMsg5);
             }
             $("#compoundWindow").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/zengsongkapian.png)");
-            if(chipKey == " lc4"){
+            if(chipKey == "lc4"){
                 $(".midcard").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/card4.png)");
-            }else if(chipKey == " lc1"){
+            }else if(chipKey == "lc1"){
                 $(".midcard").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/card1.png)");
             }else{
                 $(".midcard").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/card8.png)");
@@ -1991,7 +1991,7 @@ function showPage(first, resume) {
             console.log("初始化返回状态：" + JSON.stringify(data));
             showOperation(first);
             showAwardInfo();
-
+            selectChipInfo();
             if(data.code == 50100){
                 gameStatus = 1;
                 lotteryNum = data.data.lotteryNum;
@@ -2062,7 +2062,6 @@ function showPage(first, resume) {
                 // $("#mapBtn").removeClass("coocaabtn");
                 $("#tips").css("background-image","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/yijieshu.png")
             }
-            selectChipInfo();
 
             var nowHours = new Date().getHours();
             if(nowHours==11||nowHours==12){
