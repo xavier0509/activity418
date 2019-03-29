@@ -473,7 +473,7 @@ img[src=''] {
     height: 20px;
     width: 37px;
     position: absolute;
-    top: 421px;
+    top: 423px;
     left: 494px;
     text-align: center;
     color: #FFFFFF;
@@ -484,7 +484,7 @@ img[src=''] {
     height: 14px;
     width: 60px;
     position: absolute;
-    top: 378px;
+    top: 376px;
     left: 574px;
     text-align: center;
     color: #fed12c;
@@ -3145,8 +3145,43 @@ img[src=''] {
     height: 520px;
     background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/newf418.png");
 }
-
-
+#endGamePage{
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    position: absolute;
+    top:0;
+    left: 0;
+    display: none;
+}
+.endbox{
+    width: 1280px;
+}
+.endfirst{
+    width: 1280px;
+    height: 720px;
+    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/endfirst.jpg");
+}
+.endlast{
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/endlast.jpg");
+}
+.endbtn{
+    width: 159px;
+    height: 59px;
+    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/endbtn.png");
+    position: absolute;
+}
+.endbtn1{
+    left: 911px;
+    top:110px;
+}
+.endbtn2{
+    left: 561px;
+    top:637px;
+}
 
 
 

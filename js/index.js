@@ -481,7 +481,7 @@ function showSpeak() {
             speakArry.push(speakStr[i])
         }
     }
-    console.log("显示数组====="+speakArry);
+    // console.log("显示数组====="+speakArry);
     var intervalNum = 0;
     var speakInter = setInterval(aaa,2000);
     function aaa() {
@@ -493,7 +493,7 @@ function showSpeak() {
         }else{
             $("#map"+nowPosition).html("<div class='foxspeak'><div>"+speakArry[intervalNum]+"</div></div>");
 
-            console.log("------"+speakArry[intervalNum])
+            // console.log("------"+speakArry[intervalNum])
             setTimeout(function(){
                 $("#map"+nowPosition).html("");
             },2000)
@@ -749,7 +749,7 @@ function initBtn() {
     })
     $(".gameBtn").unbind("itemFocus").bind("itemFocus", function() {
         var a =  $("#gamePanel").offset().left;
-        console.log("------------------------------top--"+a);
+        // console.log("------------------------------top--"+a);
         if( $("#mainbox").offset().top<0){
             if($("#gamePanel").offset().left < -600){
                 if (ADMsg3 != null && ADMsg3.schedules != undefined && ADMsg3.schedules[0] != undefined) {
@@ -803,6 +803,7 @@ function initBtn() {
     })
 
     $(".operationblock").unbind("itemClick").bind("itemClick", function() {
+        remembernum = $(".operationblock").index($(this));
         getParamAndStart(this,false);
     })
     $(".operationmore").unbind("itemClick").bind("itemClick", function() {
@@ -1139,7 +1140,16 @@ function initBtn() {
         _czc.push(['_trackEvent', '418活动', '活动细则页面', '', '', '']);
         map = new coocaakeymap($("#ruleInner"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
     })
-
+    $(".endbtn").unbind("itemFocus").bind("itemFocus", function() {
+        if($(".endbtn").index($(this)) == 0){$(".endbox").css("margin-top","0")}else{$(".endbox").css("margin-top","-720px")};
+    })
+    $(".endbtn").unbind("itemClick").bind("itemClick", function() {
+        donotSentAwardBtnLog = true;
+        rememberEndBtn = $(".endbtn").index($(this));
+        $("#endGamePage").css("display", "none");
+        $("#myAwardPage").css("display", "block");
+        getMyAwards(2);
+    })
 
 	//	林心旺
 	//---------------------------------
@@ -1210,17 +1220,21 @@ function initBtn() {
 		startAndSendLog();
 	});
 	$("#myAwardBtn").unbind("itemClick").bind("itemClick", function() {
-        var pagename = "";
-        var page_type = "";
-        if($("#gamePanel").offset().left < -600){
-            pagename = "扭蛋机活动";
-            if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+	    if(donotSentAwardBtnLog){
+            donotSentAwardBtnLog = false;
         }else{
-            pagename = "大富翁活动";
-            if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
+            var pagename = "";
+            var page_type = "";
+            if($("#gamePanel").offset().left < -600){
+                pagename = "扭蛋机活动";
+                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+            }else{
+                pagename = "大富翁活动";
+                if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
+            }
+            sentLog("okr_web_button_click", '{"allowance_price":"","task_name":"","button_state":"","button_name":"我的奖励","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+            _czc.push(['_trackEvent', '418活动', "我的奖励按钮", "点击", '', '']);
         }
-        sentLog("okr_web_button_click", '{"allowance_price":"","task_name":"","button_state":"","button_name":"我的奖励","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
-        _czc.push(['_trackEvent', '418活动', "我的奖励按钮", "点击", '', '']);
 		$("#mainbox").css("display", "none");
         $("#myAwardPage").css("display", "block");
         getMyAwards(2);
@@ -1651,7 +1665,7 @@ function getParamAndStart(obj,needCheckVersion) {
                                 needAddChance = false;
                             }
                             if (pkgname == "com.tianci.movieplatform") {
-                                if(cAppVersion<7410022){
+                                if(cAppVersion<7030009){
                                     //lowVersion----自身加机会【仍需判断】
                                     startLowVersion(needAddChance);
                                 }else{
@@ -1692,7 +1706,12 @@ function getParamAndStart(obj,needCheckVersion) {
                             }
                             function startNewVersion(isFinish) {
                                 console.log("new------------------------------");
-                                showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jijiangtiaozhuan.png",4000);
+                                if(isFinish == "true"){
+                                    showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/bujiajihui.png",4000);
+                                }else{
+                                    showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jijiangtiaozhuan.png",4000);
+                                }
+
                                 str = JSON.parse(str);
                                 var external = {"taskId":$(obj).attr("taskId"),"id":actionId,"userKeyId":userKeyId, "countDownTime":countdown, "verify_key":new Date().getTime(), "subTask":"0","isFinish":isFinish,"jumpBgImgUrl":jumpBgImgUrl,"jumpImgUrl":jumpImgUrl,"jumpRemindImgUrl":jumpRemindImgUrl,"serverUrl":adressIp+"/building"};
                                 var doubleEggs_Active = {"doubleEggs_Active":external};
@@ -1791,7 +1810,7 @@ function hideToast(pageNum) {
     $("#blackBg").hide();
     $("#needUpdate").hide();
     if(pageNum == 1){
-        map = new coocaakeymap($(".coocaabtn"), $(".block:eq(" + remembernum + ")"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+        map = new coocaakeymap($(".coocaabtn"), $(".operationblock:eq(" + remembernum + ")"), "btnFocus", function() {}, function(val) {}, function(obj) {});
     }else{
         map = new coocaakeymap($(".coocaa_btn"), $(".allowanceItemLi:eq(" + _curAllBtn + ")"), "btn-focus", function() {}, function(val) {}, function(obj) {});
     }
@@ -1965,8 +1984,8 @@ function showPage(first, resume) {
     // selectAd(type,boxId, appid, game_id, game_scene, game_panel, game_position, activity_id, task_id, backUrl,adPosition)
     selectAd("img","adstation1","CCADTV10017","G0006","2","1","1","","","","2");
     setTimeout(function(){selectAd("img","adstation2","CCADTV10017","G0006","3","1","1","","","","3");},1)
-    setTimeout(function(){selectAd("img","adstation4","CCADTV10017","G0006","2","2","1","","","","4");},100)
-    setTimeout(function(){selectAd("img","adstation3","CCADTV10017","G0006","1","1","1","","","","5");},300)
+    setTimeout(function(){selectAd("img","adstation4","CCADTV10017","G0006","2","2","1","","","","4");},50)
+    setTimeout(function(){selectAd("img","adstation3","CCADTV10017","G0006","1","1","1","","","","5");},100)
     if(loginstatus == "true"){
         $("#allowanceBtn").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/allowance.png)");
         $("#allowanceBtn img").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/allowancefocus.png");
@@ -1992,6 +2011,7 @@ function showPage(first, resume) {
             showOperation(first);
             showAwardInfo();
             selectChipInfo();
+            // data={code:50003};
             if(data.code == 50100){
                 gameStatus = 1;
                 lotteryNum = data.data.lotteryNum;
@@ -2053,6 +2073,39 @@ function showPage(first, resume) {
                 }else{
                     $("#mapChance").html("点击解锁游戏机会");
                 }
+
+                var nowHours = new Date().getHours();
+                if(nowHours==11||nowHours==12){
+                    //调用领取接口
+                    $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/50/11dian.png)");
+                }
+                else if(nowHours==19||nowHours==20||nowHours==21){
+                    $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/100/19dian.png)");
+                }
+                else{
+                    if(nowHours<11 ){
+                        //稍后再来
+                        $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/50/xiachang1.png)");
+                    }else if(nowHours>12&&nowHours<19) {
+                        $("#allowanceGet").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/100/xiachang2.png)");
+                    }else{
+                        if(startDayNum == 9){
+                            //结束
+                            $("#allowanceGet").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/100/jieshu.png)");
+                        }else{
+                            //稍后再来
+                            $("#allowanceGet").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/50/mingtian.png)");
+                        }
+                    }
+                }
+
+                if(startDayNum<4){
+                    $("#todayaward").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/daisen.png)");
+                }else if(startDayNum < 7){
+                    $("#todayaward").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/iphone.png)");
+                }else{
+                    $("#todayaward").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/macbook.png)");
+                }
                 getMyTasksList(true);
             }
             else if(data.code==50003){
@@ -2060,40 +2113,9 @@ function showPage(first, resume) {
                 $("#bannerWord").html("活动已结束~获奖名单稍后公布");
                 $("#mapBtn").addClass("finishAct");
                 // $("#mapBtn").removeClass("coocaabtn");
-                $("#tips").css("background-image","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/yijieshu.png")
-            }
-
-            var nowHours = new Date().getHours();
-            if(nowHours==11||nowHours==12){
-                //调用领取接口
-                $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/50/11dian.png)");
-            }
-            else if(nowHours==19||nowHours==20||nowHours==21){
-                $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/100/19dian.png)");
-            }
-            else{
-                if(nowHours<11 ){
-                    //稍后再来
-                    $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/50/xiachang1.png)");
-                }else if(nowHours>12&&nowHours<19) {
-                    $("#allowanceGet").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/100/xiachang2.png)");
-                }else{
-                    if(startDayNum == 9){
-                        //结束
-                        $("#allowanceGet").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/100/jieshu.png)");
-                    }else{
-                        //稍后再来
-                        $("#allowanceGet").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/50/mingtian.png)");
-                    }
-                }
-            }
-
-            if(startDayNum<4){
-                $("#todayaward").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/daisen.png)");
-            }else if(startDayNum < 7){
-                $("#todayaward").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/iphone.png)");
-            }else{
-                $("#todayaward").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/macbook.png)");
+                $("#tips").css("background-image","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/yijieshu.png");
+                $("#endGamePage").show();
+                if(rememberEndBtn == 0){$(".endbox").css("margin-top","0")}else{$(".endbox").css("margin-top","-720px")};
             }
         },
         error: function(error) {
@@ -2354,7 +2376,12 @@ function showOperation(showMainShow) {
             $("#payZone").append('<div class="operationmore operationmap coocaabtn"  style="background-image:url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/operationmore.png)"><div class="sureGet">按【确定】键 看详情购买</div><div class="text">&nbsp;</div></div>');
 
             pagefrom = getUrlParam("pagefrom");
-            if (pagefrom != null && pagefrom != undefined && showMainShow) {
+            console.log("+++++++++++++++++++++++++"+($("#gamePanel").offset().left));
+            if(gameStatus == 3){
+                initBtn();
+                map = new coocaakeymap($(".endbtn"), $(".endbtn:eq("+rememberEndBtn+")"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+            }
+            else if (pagefrom != null && pagefrom != undefined && showMainShow) {
                 if(pagefrom == "task1"){
                     initMap(".normaltask:eq(0)",showMainShow);
                 }else if(pagefrom == "task2"){
@@ -2378,7 +2405,10 @@ function showOperation(showMainShow) {
                 entertime = new Date().getTime();
                 var pagename = "";
                 var page_type = "";
-                if(cardsNum>0&&capsuleIsStart){
+                if(gameStatus == 3){
+                    pagename = "结束页面";
+                }
+                else if(cardsNum>0&&capsuleIsStart){
                     pagename = "扭蛋机活动";
                     if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
                 }else{
@@ -2435,7 +2465,7 @@ function showAwardInfo() {
         dataType: "json",
         // timeout: 20000,
         success: function(data) {
-            // console.log("中奖喜讯返回状态：" + JSON.stringify(data));
+            console.log("中奖喜讯返回状态：" + JSON.stringify(data));
             var tabInner = "";
             for (var i = 0; i < data.data.newsModelList.length; i++) {
                 var tabItem = '<li>'+data.data.newsModelList[i].nickName.substr(0,6)+' '+data.data.newsModelList[i].awardName.substr(0,14)+'</li>';
@@ -2443,8 +2473,8 @@ function showAwardInfo() {
             }
             $("#gameMapNewsul").append(tabInner);
             showAwardlist("#gameMapNews", "#gameMapNewsul", "1");
-            $("#overTvNum").html(data.data.overTvNumber);
-            $("#joinNum").html(data.data.joinUsers);
+            $(".overTvNum").html(data.data.overTvNumber);
+            $(".joinNum").html(data.data.joinUsers);
             if(startDayNum<4){
                 $("#bannerWord").html("集齐周年卡片4月18日0元赢创维最新款电视");
             }else if(startDayNum < 6){

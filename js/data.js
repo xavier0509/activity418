@@ -123,34 +123,22 @@ var donotSentReplacebtnLog = false;//不要传左右切换的日志，true就是
 var donotSentStartParamBtnLog = false;//不要传通用方法的日志，true就是不要传
 var donotSentAllowanceBtnLog = false;//不要传津贴点击的日志，true就是不要传
 var donotSentMissionBtnLog = false;//不要传任务点击的日志，true就是不要传
+var donotSentAwardBtnLog = false;//不要传任务点击的日志，true就是不要传
+var toastTimeout = null;
+var startLoginFlag = false;
+var changeLoginFlag = false;
+var userIp = "";
+var needSentADLog = false;
+var remembernum = "0";//福利街版块如果版本不符合，弹窗提示后重新new焦点
+var rememberEndBtn = 0;
 
 var curDrawBtnName = "mapBtn";//记录点击的抽奖按钮的名字
 var allowancePageForm = "mainbox";//记录进入津贴页面的上一个页面
-
-var needSentADLog = false;
-var actEnd = false;
-var awardToast = false;
-var userIp = "";
-var startLoginFlag = false;
-var changeLoginFlag = false;
-var localChanceNum = 0;
-var isTrade = false;
-var remembernum = "0";//福利街版块如果版本不符合，弹窗提示后重新new焦点
-var toastTimeout = null;
-var remainNum = 0;
-var addNum = 0;
-var hasFinalAward = false;
-var _isLessThanHalfhour = false;
-var page_type = "";//开启状态;
-var link_type = "";//首行影视链接、首行教育链接、首行购物链接、首行应用链接
 var _curHomeBtn = ""; //记录我的奖励页面点击的btn
-var collectNum = 0;
 var _curAllBtn = 0; //记录我的津贴页面点击的btn
-var isActiveEndFirstIn = false;
-var finalawardInfo = null;
 var notGetAllowanceArray = [];//记录未领取的津贴
 var notGetAllowanceIndex = 0;//记录未领取津贴的数组下标
-var canClick = true;
+
 
 
 var _interlucationsArrayTencent = [
