@@ -1206,6 +1206,8 @@ function initBtn() {
 		}
 	});
 	$("#allowanceBtn").unbind("itemClick").bind("itemClick", function() {
+        needRememberFocus = true;
+        rememberBtn = "#allowanceBtn";
 		allowancePageForm = "mainbox";
 	    if(donotSentAllowanceBtnLog ){
             donotSentAllowanceBtnLog = false;
@@ -1242,6 +1244,8 @@ function initBtn() {
 		startAndSendLog();
 	});
 	$("#myAwardBtn").unbind("itemClick").bind("itemClick", function() {
+        needRememberFocus = true;
+	    rememberBtn = "#myAwardBtn";
 	    if(donotSentAwardBtnLog){
             donotSentAwardBtnLog = false;
         }else{
@@ -2043,7 +2047,6 @@ function showPage(first, resume) {
         // timeout: 20000,
         success: function(data) {
             console.log("初始化返回状态：" + JSON.stringify(data));
-            showOperation(first);
             showAwardInfo();
             selectChipInfo();
             // data={code:50003};
@@ -2098,6 +2101,7 @@ function showPage(first, resume) {
                         },1000)
                     }else{}
                 }
+                showOperation(first);
                 if(capsuleIsStart){
                     $("#tips").css("background-image","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/huorejinxingzhong.png");
                 }
@@ -2144,14 +2148,17 @@ function showPage(first, resume) {
                 getMyTasksList(true);
             }
             else if(data.code==50003){
+                showOperation(first);
                 gameStatus = 3;
                 $("#bannerWord").html("活动已结束~获奖名单稍后公布");
                 $("#mapBtn").addClass("finishAct");
                 // $("#mapBtn").removeClass("coocaabtn");
                 $("#tips").css("background-image","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/yijieshu.png");
+                $("#mainbox").hide();
                 $("#endGamePage").show();
                 if(rememberEndBtn == 0){$(".endbox").css("margin-top","0")}else{$(".endbox").css("margin-top","-720px")};
             }
+
         },
         error: function(error) {
             showOperation(first);
@@ -2355,6 +2362,8 @@ function showTime(type) {
             }
             if(second == 1){
                 setTimeout(function () {
+                    $(".freshneedhide").hide();
+                    $("#mainbox").show();
                     showPage(false,false);
                     console.log("***********刷新页面************");
                     clearInterval(intervalForCutdown);
