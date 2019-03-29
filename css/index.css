@@ -830,6 +830,7 @@ img[src=''] {
 	left: 65px;
 	height: 67px;
 	width: 145px;
+	display: none;
 }
 #loginbtn,#loginborder,#notLoginNum,#LoginedNum{
 	background:url(../images/spriteimg.png)  no-repeat;
