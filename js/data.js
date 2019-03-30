@@ -50,6 +50,7 @@ var allowanceClientId = "YS_RELEASE";
 // var allowanceUrl = "http://172.20.155.209:6081/api/subsidy/v1/query-userSubsidyInfo-byToken"  //查询津贴地址
 // var allowanceClientId = "YS_BETA";
 
+var vipstartUrl = "http://dev.business.video.tc.skysrt.com/v3/web/actCenter/index.html?"; 
 
 var showMove = false;//是否展示动效
 
@@ -138,7 +139,7 @@ var _curHomeBtn = ""; //记录我的奖励页面点击的btn
 var _curAllBtn = 0; //记录我的津贴页面点击的btn
 var notGetAllowanceArray = [];//记录未领取的津贴
 var notGetAllowanceIndex = 0;//记录未领取津贴的数组下标
-
+var isGetAwardAfterLogined = "fasle";//记录是否是登陆后领取奖励
 
 
 var _interlucationsArrayTencent = [
