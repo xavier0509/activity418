@@ -1605,7 +1605,7 @@ img[src=''] {
     width: 155px;
     background-color: #FFFFFF;
 }
-#allAwardBox{
+#allAwardBox,#vipAwardBox{
 	position: absolute;
     top: 10px;
     left: -18px;
@@ -1691,7 +1691,7 @@ img[src=''] {
 #cardAwardBox2{
 	top: 113px;
 }
-#cardAwardImg1,#cardAwardImg2{
+#cardAwardImg1,#cardAwardImg2,#vipAwardImg{
 	position: absolute;
     top: 10px;
     left: 94px;
