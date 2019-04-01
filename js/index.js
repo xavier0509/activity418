@@ -2382,15 +2382,15 @@ function selectChipInfo() {
             	cardsNum = data.data.lc418Num;
                 haveUnReceive = data.data.haveUnReceive;
                 if(haveUnReceive){$("#awardCircle").show()}else{$("#awardCircle").hide()}
-                $(".lc4").html(data.data.lc4Num+"片");
-                $(".lc1").html(data.data.lc1Num+"片");
-                $(".lc8").html(data.data.lc8Num+"片");
+                $(".lc4").html((data.data.lc4Num+cardsNum)+"片");
+                $(".lc1").html((data.data.lc1Num+cardsNum)+"片");
+                $(".lc8").html((data.data.lc8Num+cardsNum)+"片");
                 $("#gameMap .lc418").html("已集齐"+cardsNum+"套");
                 // $("#tips .tiplc418").html(cardsNum);
 
-                $(".draw4cl").html(data.data.lc4Num);
-                $(".draw1cl").html(data.data.lc1Num);
-                $(".draw8cl").html(data.data.lc8Num);
+                $(".draw4cl").html((data.data.lc4Num+cardsNum));
+                $(".draw1cl").html((data.data.lc1Num+cardsNum));
+                $(".draw8cl").html((data.data.lc8Num+cardsNum));
                 $(".draw418cl").html(cardsNum);
                 $(".draw418").html(cardsNum);
 
