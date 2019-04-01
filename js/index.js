@@ -3036,7 +3036,7 @@ function getMyAwards(num) {
                             _arr3.push(objItem);
                         } else if (data.data[i].awardTypeId == "19") {
                         	console.log(JSON.stringify(data.data[i]));
-                        	objItem.coinNumber = data.data[i].awardInfo.coinNumber;
+                        	objItem.coinNumber = data.data[i].awardInfo.coinNum;
                             _arr4.push(objItem);
                         }
                     }
