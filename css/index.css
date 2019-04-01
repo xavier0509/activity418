@@ -406,8 +406,9 @@ img[src=''] {
     height: 100%;
     width: 100%;
     z-index: 2;
-    background: url(../images/eggs1.png) no-repeat;
-    background-position: -731px 0;
+    background-image: url(../images/classes2.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 #tips1{
     width: 155px;
