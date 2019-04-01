@@ -2219,7 +2219,8 @@ function showPage(first, resume) {
                 }
                 showOperation(first);
                 if(capsuleIsStart){
-                    $("#tips").css("background-image","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/huorejinxingzhong.png");
+                    $("#tips").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/huorejinxingzhong.png)");
+                    $("#tips1").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/tiping.png)");
                 }
                 $(".map").removeClass("focus");
                 $("#map"+nowPosition).addClass("focus");
@@ -2269,7 +2270,8 @@ function showPage(first, resume) {
                 $("#bannerWord").html("活动已结束~获奖名单稍后公布");
                 $("#mapBtn").addClass("finishAct");
                 // $("#mapBtn").removeClass("coocaabtn");
-                $("#tips").css("background-image","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/yijieshu.png");
+                $("#tips").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/yijieshu.png)");
+                $("#tips1").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/tipend.png)");
                 $("#mainbox").hide();
                 $("#endGamePage").show();
                 if(rememberEndBtn == 0){$(".endbox").css("margin-top","0")}else{$(".endbox").css("margin-top","-720px")};
