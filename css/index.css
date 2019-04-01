@@ -375,7 +375,7 @@ img[src=''] {
     position: absolute;
     left: 1280px;
     display: none;
-    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/drawbg.jpg");
+    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newdrawbg.jpg");
 }
 #drawBtn,#drawBtnBorder,#drawDoor{
 	position: absolute;
@@ -610,7 +610,7 @@ img[src=''] {
 #questionbox,#addChanceWindow{
     width: 652px;
     height: 433px;
-    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/questionbg.png");
+    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newquestionbg.png");
     position: absolute;
     top: 0;
     left:0;
@@ -3001,7 +3001,7 @@ img[src=''] {
     left: 317px;
     top:138px;
     display: none;
-    background-image:url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/zengsongkapian.png");
+    background-image:url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/zengsongkapian1.png");
     z-index: 88;
 }
 #compoundbtn1{
@@ -3144,7 +3144,7 @@ img[src=''] {
     display: none;
     width: 520px;
     height: 520px;
-    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/newf418.png");
+    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/newnewf418.png");
 }
 #endGamePage{
     width: 1280px;

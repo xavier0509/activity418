@@ -573,7 +573,7 @@ function showFinalWindow(dialog) {
         $(".qrcodetitle").hide();
         $(".midcard").css("left","576px");
         $("#compoundWindow").show();
-        $("#compoundWindow").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/jichengkapian.png)");
+        $("#compoundWindow").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/jichengkapian1.png)");
         $(".midcard").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/card418.png)");
         $(".topword").html("418周年狂欢正在进行中，送您一张周年卡片");
         $(".bottomword1").html("当前已拥有<span>"+cardsNum+"</span>套418周年卡片，有机会0元赢电视");
@@ -588,7 +588,7 @@ function showFinalWindow(dialog) {
         $("#compoundbtn2").hide();
         $("#compoundbtn1").css("left","563px");
         $("#compoundWindow").show();
-        $("#compoundWindow").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/jichengkapian.png)");
+        $("#compoundWindow").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/jichengkapian1.png)");
         $(".midcard").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/card418.png)");
         $(".topword").css("top","60px");
         $(".topword").html("获得第2阶段抽奖资格<br>有机会0元带走创维新品电视！");
@@ -600,7 +600,7 @@ function showFinalWindow(dialog) {
         $(".qrcodetitle").hide();
         $(".midcard").css("left","576px");
         $("#compoundWindow").show();
-        $("#compoundWindow").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/jichengkapian.png)");
+        $("#compoundWindow").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/jichengkapian1.png)");
         $(".midcard").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/card418.png)");
         $(".topword").css("top","60px");
         $(".topword").html("获得第2阶段抽奖资格<br>有机会0元带走创维新品电视！");
@@ -643,7 +643,7 @@ function initMap(setFocus,needShowSpeak) {
                 sentInnerAdshow(ADMsg5, "G0006", "1", "1", "1", "", "","");
                 sentThirdAdshow("img", ADMsg5);
             }
-            $("#compoundWindow").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/zengsongkapian.png)");
+            $("#compoundWindow").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/zengsongkapian1.png)");
             if(chipKey == "lc4"){
                 $(".midcard").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/card4.png)");
             }else if(chipKey == "lc1"){
