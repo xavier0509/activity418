@@ -1296,7 +1296,14 @@ function initBtn() {
         console.log("点击了去玩游戏");
         $("#myAwardPage").css("display", "none");
         $("#mainbox").css("display", "block");
-        map = new coocaakeymap($(".coocaabtn"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
+		map = new coocaakeymap($(".coocaabtn"), $("#mapBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+		$("#mapBtn").trigger("itemFocus");
+		
+		var pagename = "大富翁活动";
+        var page_type = "";
+        if(gameStatus == "3"){page_type="大富翁已结束"}else{page_type="大富翁已开始"}
+        sentLog("okr_web_page_show", '{"page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+        _czc.push(['_trackEvent', '418活动', pagename, '曝光', '', '']);
     });
     $("#redHasGetBtn").unbind("itemClick").bind("itemClick", function() {
         console.log("点击了继续参与");
@@ -2968,7 +2975,7 @@ function getMyAwards(num) {
                         return;
                     }
                     console.log("没有奖品");
-                    console.log(_isLessThanHalfhour  +"====="+gameStatus);
+                    console.log(gameStatus);
                     if (gameStatus == 3) {
                         console.log("没有奖品+活动已结束");
                         $("#noAwardBox2").css("display", "block");
@@ -3584,21 +3591,22 @@ function sendPrizes(oAwardName, oAwardId, oRememberId, oUserKeyId, oType, oActiv
             if(data.code == "50100") {
                 console.log("领取成功");
                 if(oType == 17){
-                	console.log("领取津贴奖励+跳转");
+                	console.log("领取津贴奖励");
 	                selectMyAllowanceNum();
-	                if (pagestate != 2) {
-	                	allowancePageForm = "mainbox";
-	                	donotSentAllowanceBtnLog = true;
-        				$("#allowanceBtn").trigger("itemClick");
-        				sentLog("okr_web_clicked_result", '{"page_name":"领取奖品","activity_name":"418活动","award_type":"津贴","award_name":"'+oAwardName+'","receive_result":"领取成功"}');
-                		_czc.push(['_trackEvent', '418活动', '领取津贴奖品', '领取津贴成功', '', '']);
-	                }
+	                console.log(isGetAwardAfterLogined);
+//	                if (isGetAwardAfterLogined) {
+//	                	allowancePageForm = "mainbox";
+//	                	donotSentAllowanceBtnLog = true;
+//      				$("#allowanceBtn").trigger("itemClick");
+//      				sentLog("okr_web_clicked_result", '{"page_name":"领取奖品","activity_name":"418活动","award_type":"津贴","award_name":"'+oAwardName+'","receive_result":"领取成功"}');
+//              		_czc.push(['_trackEvent', '418活动', '领取津贴奖品', '领取津贴成功', '', '']);
+//	                }
                 }else if(oType == 19){
                 	console.log("领取金币奖励+跳转");
-                	if(pagestate != 2){
-                		sentLog("okr_web_clicked_result", '{"page_name":"领取奖品","activity_name":"418活动","award_type":"金币","award_name":"'+oAwardName+'","receive_result":"领取成功"}');
-                		_czc.push(['_trackEvent', '418活动', '领取金币奖品', '领取金币失败', '', '']);
-                	}
+//              	if(isGetAwardAfterLogined){
+//              		sentLog("okr_web_clicked_result", '{"page_name":"领取奖品","activity_name":"418活动","award_type":"金币","award_name":"'+oAwardName+'","receive_result":"领取成功"}');
+//              		_czc.push(['_trackEvent', '418活动', '领取金币奖品', '领取金币失败', '', '']);
+//              	}
                 }
             } else {
                 console.log("领取失败");
