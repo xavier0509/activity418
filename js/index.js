@@ -187,10 +187,14 @@ var app = {
         }else{
         	if ($("#dialogPage").css("display") == "block") {
         		$("#dialogPage").css("display","none");
+        		console.log($("#gamePanel").offset().left);
+        		console.log($("#gamePanel").offset().left < -600);
         		if($("#gamePanel").offset().left < -600){
-        			map = new coocaakeymap($(".coocaabtn"), $("#mapBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
-        		}else{
         			map = new coocaakeymap($(".coocaabtn"), $("#drawBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+        			$("#drawBtn").trigger("itemFocus");
+        		}else{
+        			map = new coocaakeymap($(".coocaabtn"), $("#mapBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+        			$("#mapBtn").trigger("itemFocus");
         		}
         	} else{
         		exitAll();
@@ -3373,6 +3377,7 @@ function showThisAwardDialog(awardObj) {
 	        $("#redAwardImg").attr("src",awardObj.awardUrl);
 	        $("#otherAwardInfo1").css("display", "block");
     		$("#otherAwardInfo1").html("*商品已放入【我的奖励】，该特权价格不可叠加津贴使用~");
+    		map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
     	}else{
     		if(vipType == "yinhe"||vipType == "6"){
     			console.log("抽中特权-影视");
