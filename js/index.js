@@ -2578,6 +2578,7 @@ function showOperation(showMainShow) {
 
         },
         error: function(error) {
+            initMap(null,showMainShow);
             console.log("-----------访问失败---------" + JSON.stringify(error));
         }
     });
