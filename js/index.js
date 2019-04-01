@@ -2438,6 +2438,13 @@ function showOperation(showMainShow) {
                     initMap(null,showMainShow);
                 }
             }
+            else if(showMainShow){
+                if(cardsNum>0 && capsuleIsStart){
+                    initMap("#drawBtn",showMainShow);
+                }else{
+                    initMap("#mapBtn",showMainShow);
+                }
+            }
             else if($("#gamePanel").offset().left > -600){
                 initMap("#mapBtn",showMainShow);
             }else if($("#gamePanel").offset().left < -600){
