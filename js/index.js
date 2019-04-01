@@ -177,6 +177,7 @@ var app = {
         }else if($("#myAwardPage").css("display") == "block"){
         	if ($("#dialogPage").css("display") == "block") {
         		$("#dialogPage").css("display","none");
+        		$(".secondDialog").css("display","none");
         		getMyAwards(2);
         	} else{
         		showPage(false,false);
@@ -196,6 +197,15 @@ var app = {
         			map = new coocaakeymap($(".coocaabtn"), $("#mapBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
         			$("#mapBtn").trigger("itemFocus");
         		}
+        		if ($("#getOtherAward1").css("display") == "block"&&$("#otherBtn2").attr("awardTypeId") == 6) {
+        			console.log("抽中碎片时的返回");
+        			showPage(false,false);
+        		}
+        		if($("#getOtherAward2").css("display") == "block"){
+        			console.log("抽中套卡时的返回");
+        			selectChipInfo();
+        		}
+        		$(".secondDialog").css("display","none");
         	} else{
         		exitAll();
         	}
