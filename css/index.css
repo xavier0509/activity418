@@ -375,7 +375,7 @@ img[src=''] {
     position: absolute;
     left: 1280px;
     display: none;
-    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/newdrawbg.jpg");
+    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/newdrawbg2.jpg");
 }
 #drawBtn,#drawBtnBorder,#drawDoor{
 	position: absolute;
@@ -485,8 +485,8 @@ img[src=''] {
     height: 14px;
     width: 60px;
     position: absolute;
-    top: 376px;
-    left: 574px;
+    top: 378px;
+    left: 576px;
     text-align: center;
     color: #fed12c;
 }
@@ -1871,7 +1871,6 @@ img[src=''] {
 	left: 310px;
 	width: 89px;
 	height: 142px;
-	background: url(../images/nn.png) no-repeat;
 }
 
 .niu_danji .wdjifen {
@@ -2253,40 +2252,6 @@ img[src=''] {
 	-webkit-animation: fanda 0.7s ease-out forwards;
 	background-repeat: no-repeat;
 	background-size: 100%;
-}
-
-.niu_danji .diaL_one:after {
-	background-image: url(../images/1.png);
-}
-.niu_danji .diaL_two:after {
-	background-image: url(../images/2.png);
-}
-.niu_danji .diaL_three:after {
-	background-image: url(../images/5.png);
-}
-.niu_danji .diaL_four:after {
-	background-image: url(../images/4.png);
-}
-.niu_danji .diaL_five:after {
-	background-image: url(../images/1.png);
-}
-.niu_danji .diaL_six:after {
-	background-image: url(../images/2.png);
-}
-.niu_danji .diaL_seven:after {
-	background-image: url(../images/3.png);
-}
-.niu_danji .diaL_eight:after {
-	background-image: url(../images/4.png);
-}
-.niu_danji .diaL_nine:after {
-	background-image: url(../images/2.png);
-}
-.niu_danji .diaL_ten:after {
-	background-image: url(../images/3.png);
-}
-.niu_danji .diaL_elevent:after {
-	background-image: url(../images/1.png);
 }
 @-webkit-keyframes cujpin {
 	0% {
