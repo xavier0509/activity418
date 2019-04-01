@@ -1587,12 +1587,9 @@ function initBtnAfter(){
             	if (_awardState == 0) {
 	        		console.log("领取金币+成功后跳转金币页面");
 	        		sendPrizes(_awardName, _awardId, _rememberId, _userkeyId, _awardType, _lotteryActiveId, movieSource, 1);
-	        		var coinUrl = 'https://goldshop.coocaa.com/';
-	        		coocaaosapi.startNewBrowser5(coinUrl, function() {}, function() {});
-	        	} else{
-	        		var coinUrl = 'https://goldshop.coocaa.com/';
-	        		coocaaosapi.startNewBrowser5(coinUrl, function() {}, function() {});
 	        	}
+	        	var coinUrl = 'https://goldshop.coocaa.com/';
+	        	coocaaosapi.startNewBrowser5(coinUrl, function() {}, function() {});
 	        	sentLog("okr_web_button_click", '{"page_name":"我的奖励页面","activity_name":"418活动","button_name":"金币"}');
             	_czc.push(['_trackEvent', '418活动', "我的奖励页面", "金币的点击", '', '']);
         	}
@@ -2765,16 +2762,13 @@ function selectMyAllowanceNum() {
         success: function(data){
             console.log("sent------------------"+JSON.stringify(data));
             if(data.code == 0 ){//用户拥有津贴是否大于0
-                $("#homeAllowanceNum").html((data.data.totalSubsidy/100) );
-		$("#myallowanceNum").html((data.data.totalSubsidy/100));
+            	changeAllowanceNum(data.data.totalSubsidy/100);
             }else{
-                $("#homeAllowanceNum").html("0");
-		$("#myallowanceNum").html(("0"));
+            	changeAllowanceNum(0);
             }
         },
         error: function(){
-            $("#homeAllowanceNum").html("0");
-	    $("#allowanceMoney").html("0");
+        	changeAllowanceNum(0);
         }
     });
 }
@@ -3029,9 +3023,7 @@ function getMyAwards(num) {
                             }
                         }
                         console.log(allMoney);
-                        $("#allowancePageForm").html(allMoney);
-                        $("#allowanceValue").html(allMoney + "元");
-                        $("#allowanceNum").html(allMoney + "元");
+                        changeAllowanceNum(allMoney);
                         return;
                     }
                     if (_arr0.length + _arr1.length + _arr2.length + _arr3.length + _arr4.length == 0) {
@@ -3088,9 +3080,7 @@ function showMyAward(arr0, arr1, arr2, arr3, arr4, num) {
         }
         console.log(allMoney);
         if(loginstatus == "false"){
-            $("#allowancePageForm").html(allMoney);
-            $("#awardCircle").html(allMoney + "元");
-            $("#allowanceNum").html(allMoney);
+        	changeAllowanceNum(allMoney);
             if (allMoney != 0) {
 		        $("#allowanceAward").attr('awardType', arr0[0].awardType);
 		        $("#allowanceAward").attr('awardState', 0);
@@ -3436,6 +3426,11 @@ function showThisAwardDialog(awardObj) {
     	$("#coinAwardImg").attr("src",awardObj.awardUrl);
         $("#otherAwardInfo1").css("display", "block");
         $("#otherAwardInfo1").html("金币可在狐狸乐园兑换奖励/大转盘抽奖哦!");
+        
+        if (loginstatus == "true") {
+        	sendPrizes(awardObj.awardName, awardObj.awardId, awardObj.lotteryRememberId, awardObj.userKeyId, awardObj.awardTypeId, awardObj.lotteryActiveId, movieSource, 1);
+        }
+        
         map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
     	sentLog("okr_web_page_show", '{"page_name":"【大富翁中奖】","activity_name":"418活动","award_type":"金币","award_name":"'+awardObj.awardName+'")}');
         _czc.push(['_trackEvent', '418活动', "【大富翁中奖】", awardObj.awardName, '', '']);
@@ -3533,6 +3528,11 @@ function otherBtn2ClickFunc() {
             console.log("领取津贴奖励+启登录");
             startAndSendLog();
         } else {
+        	if(isGetAwardAfterLogined == "true"){
+	        	console.log("登录后领取金币");
+	        	sendPrizes(obj.awardName, obj.awardId, obj.lotteryRememberId, obj.userKeyId, obj.awardTypeId, obj.lotteryActiveId, movieSource, 1);
+	        	isGetAwardAfterLogined = "false";
+	        }
         	var coinUrl = 'https://goldshop.coocaa.com/';
         	coocaaosapi.startNewBrowser5(coinUrl, function() {}, function() {});
         }
@@ -3793,7 +3793,11 @@ function showEggAwardDialog(obj){
 	}
 }
 
-
+function changeAllowanceNum(num){
+	$("#homeAllowanceNum").html(num);
+    $("#allowanceNum").html(num);
+    $("#myallowanceNum").html(num);
+}
 
 
 
