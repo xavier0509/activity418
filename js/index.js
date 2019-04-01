@@ -1311,7 +1311,13 @@ function initBtn() {
         $("#dialogPage").css("display", "none");
         $("#redHasGet").css("display", "none");
         $("#myAwardPage").css("display", "none");
-        map = new coocaakeymap($(".coocaabtn"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
+        if($("#gamePanel").offset().left < -600){
+			map = new coocaakeymap($(".coocaabtn"), $("#drawBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+			$("#drawBtn").trigger("itemFocus");
+		}else{
+			map = new coocaakeymap($(".coocaabtn"), $("#mapBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+			$("#mapBtn").trigger("itemFocus");
+		}
     });
     $("#redQrcode").unbind("itemClick").bind("itemClick", function() {
     	console.log("点击未领取红包二维码");
@@ -2401,6 +2407,9 @@ function selectChipInfo() {
             console.log("卡片信息：====="+JSON.stringify(data));
             if(data.code == 50100){
             	cardsNum = data.data.lc418Num;
+            	cardsNum4 = data.data.lc4Num;
+            	cardsNum1 = data.data.lc1Num;
+            	cardsNum8 = data.data.lc8Num;
                 haveUnReceive = data.data.haveUnReceive;
                 if(haveUnReceive){$("#awardCircle").show()}else{$("#awardCircle").hide()}
                 $(".lc4").html((data.data.lc4Num+cardsNum)+"片");
@@ -3331,7 +3340,7 @@ function showThisAwardDialog(awardObj) {
     			$("#cardAwardImg1").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/lxw/foca/focared.png");
     			$("#cardAwardInfo2").css("left","205px");
     			$("#cardAwardInfo2").css("width","255px");
-    			$("#cardAwardInfo2").html("当前已拥有5套418碎片");
+    			$("#cardAwardInfo2").html("当前已拥有"+cardsNum+"套418碎片");
     			$("#cardAwardInfo3").html("有机会4月18日0元赢电视！记得来哦~");
     			$("#otherBtn4").css("display","none");
     			$("#otherBtn3").css("left","247px");
@@ -3693,6 +3702,12 @@ function startEggFunc() {
                 cardsNum = data.data.remainingNumber;
                 $("#gameDraw .draw418cl").html(cardsNum);
                 $("#gameMap .lc418").html("已集齐"+cardsNum+"套");
+                $(".lc4").html((cardsNum4+cardsNum)+"片");
+                $(".lc1").html((cardsNum1+cardsNum)+"片");
+                $(".lc8").html((cardsNum8+cardsNum)+"片");
+                $(".draw4cl").html(cardsNum4+cardsNum);
+                $(".draw1cl").html(cardsNum1+cardsNum);
+                $(".draw8cl").html(cardsNum8+cardsNum);
                 draw(data.data);
             }else{
             	console.log("扭蛋机抽奖接口出错");
