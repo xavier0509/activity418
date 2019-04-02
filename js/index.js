@@ -3348,7 +3348,7 @@ function showThisAwardDialog(awardObj) {
     			$("#cardAwardImg1").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/lxw/foca/focared.png");
     			$("#cardAwardInfo2").css("left","205px");
     			$("#cardAwardInfo2").css("width","255px");
-    			$("#cardAwardInfo2").html("当前已拥有"+cardsNum+"套418碎片");
+    			$("#cardAwardInfo2").html("当前已拥有"+(cardsNum+1)+"套418碎片");
     			$("#cardAwardInfo3").html("有机会4月18日0元赢电视！记得来哦~");
     			$("#otherBtn4").css("display","none");
     			$("#otherBtn3").css("left","247px");
@@ -3362,7 +3362,7 @@ function showThisAwardDialog(awardObj) {
     			$("#cardAwardImg2").attr("src",awardObj.awardUrl);
     			$("#cardAwardInfo2").css("left","125px");
     			$("#cardAwardInfo2").css("width","420px");
-    			$("#cardAwardInfo2").html("当前已拥有5套418周年碎片，有机会0元赢电视");
+    			$("#cardAwardInfo2").html("当前已拥有"+(cardsNum+1)+"套418周年碎片，有机会0元赢电视");
     			$("#cardAwardInfo3").html("集418卡片赢最新创维电视火热进行中！马上参与");
     			$("#otherBtn4").css("display","block");
     			$("#otherBtn3").css("left","128px");
@@ -3384,11 +3384,11 @@ function showThisAwardDialog(awardObj) {
         $("#redAwardImg").attr("src",awardObj.awardUrl);
         $("#otherAwardInfo1").css("display", "block");
         if(awardObj.margeType == "true") {
-            $("#otherBtn2").attr("redNumber", awardObj.mergeAwardInfo.bonus);
-        	$("#otherAwardInfo1").html("当前待领取红包共计"+awardObj.mergeAwardInfo.bonus+"元,可累计提现哦!");
-        } else {
             $("#otherBtn2").attr("redNumber", awardObj.awardInfo.bonus);
-            $("#otherAwardInfo1").html("当前待领取红包共计"+awardObj.awardInfo.bonus+"元,可累计提现哦!");
+        	$("#otherAwardInfo1").html("当前待领取红包共计"+awardObj.awardInfo.bonus+"元,可累计提现哦!");
+        } else {
+            $("#otherBtn2").attr("redNumber", awardObj.mergeAwardInfo.bonus);
+            $("#otherAwardInfo1").html("当前待领取红包共计"+awardObj.mergeAwardInfo.bonus+"元,可累计提现哦!");
         }
         map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
     	
@@ -3809,9 +3809,9 @@ function showEggAwardDialog(obj){
         $("#redAwardBox").css("display", "block");
         $("#redAwardImg").attr("src",obj.awardUrl);
         if(obj.margeType == "true") {
-            $("#otherBtn2").attr("redNumber", obj.mergeAwardInfo.bonus);
-        } else {
             $("#otherBtn2").attr("redNumber", obj.awardInfo.bonus);
+        } else {
+            $("#otherBtn2").attr("redNumber", obj.mergeAwardInfo.bonus);
         }
         map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		sentLog("okr_web_page_show", '{"page_name":"【扭蛋机中奖】","activity_name":"418活动","award_type":"红包","award_name":"'+obj.awardName+'"}');
