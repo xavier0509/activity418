@@ -2912,9 +2912,9 @@ function getAllowanceInfo(num){
 					for (var j = 0; j < data.data[i].baseBlocks.length; j++) {
 						var action_this = JSON.parse(data.data[i].baseBlocks[j].action);
                         if(loginstatus == "true"){
-                        	liListItems += '<div class="everyAllowanceLi coocaabtn2" taskName='+data.data[i].baseBlocks[j].title+' action='+JSON.stringify(JSON.parse(data.data[i].baseBlocks[j].action))+'><img class="everyAllItem" src="images/itemimg.png"/><div class="everyAllBorder"></div><div class="everyAllInfo">使用津贴再减<span>'+action_this.params.allowance+'</span>元</div><div class="everyAllWarm">按【确定键】看详情购买</div></div>';
+                        	liListItems += '<div class="everyAllowanceLi coocaabtn2" taskName='+data.data[i].baseBlocks[j].title+' action='+JSON.stringify(JSON.parse(data.data[i].baseBlocks[j].action))+'><img class="everyAllItem" src="images/itemimg.webp"/><div class="everyAllBorder"></div><div class="everyAllInfo">使用津贴再减<span>'+action_this.params.allowance+'</span>元</div><div class="everyAllWarm">按【确定键】看详情购买</div></div>';
                         }else{
-                        	liListItems += '<div class="everyAllowanceLi coocaabtn2" taskName='+data.data[i].baseBlocks[j].title+' action='+JSON.stringify(JSON.parse(data.data[i].baseBlocks[j].action))+'><img class="everyAllItem" src="images/itemimg.png"/><div class="everyAllBorder"></div><div class="everyAllInfo">领取津贴再减<span>'+action_this.params.allowance+'</span>元</div><div class="everyAllWarm">按【确定键】看详情购买</div></div>';
+                        	liListItems += '<div class="everyAllowanceLi coocaabtn2" taskName='+data.data[i].baseBlocks[j].title+' action='+JSON.stringify(JSON.parse(data.data[i].baseBlocks[j].action))+'><img class="everyAllItem" src="images/itemimg.webp"/><div class="everyAllBorder"></div><div class="everyAllInfo">领取津贴再减<span>'+action_this.params.allowance+'</span>元</div><div class="everyAllWarm">按【确定键】看详情购买</div></div>';
                         }
 					}
 				}
