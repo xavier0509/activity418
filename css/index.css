@@ -406,7 +406,7 @@ img[src=''] {
     height: 100%;
     width: 100%;
     z-index: 2;
-    background-image: url(../images/classes2.png);
+    background-image: url(../images/classes2.webp);
     background-repeat: no-repeat;
     background-size: 100%;
 }
@@ -820,7 +820,7 @@ img[src=''] {
 }
 
 #allowancePage{
-	background-image: url(../images/allowance.jpg);
+	background-image: url(../images/allowance.webp);
 	background-repeat: no-repeat;
 	background-size: 100%;
 	/*display: block;*/
@@ -954,17 +954,16 @@ img[src=''] {
 .btn-focus .everyAllWarm{
 	display: block;
 }
-#myAwardPage{
-    background-image: url(../images/myawardbg.jpg);
-    /*display: block;*/
-}
+/*#myAwardPage{
+    background-image: url(../images/myawardbg.webp);
+}*/
 #hasAwardLine{
 	position: absolute;
     top: 95px;
     left: 175px;
     height: 635px;
     width: 100px;
-    background-image: url(../images/line.png);
+    /*background-image: url(../images/line.webp);*/
     background-repeat: no-repeat;
     background-size: 100%;
     z-index: -1;
@@ -1249,7 +1248,7 @@ img[src=''] {
     left: 358px;
     height: 368px;
     width: 564px;
-    background-image: url(../images/noaward1.png);
+    /*background-image: url(../images/noaward1.png);*/
     background-size: 100%;
     background-repeat: no-repeat;
 }
@@ -1349,7 +1348,7 @@ img[src=''] {
     font-size: 24px;
     font-weight: 900;
     color: #ffffff;
-    background-image: url(../images/myaward/btn_blur.png);
+    /*background-image: url(../images/btn_blur.png);*/
     background-repeat: no-repeat;
     background-size: 100%;
 }
@@ -1369,7 +1368,7 @@ img[src=''] {
 	/**filter: Glow(Color=#6a3e0a, Strength=2);*/
 }
 .imgFocus{
-	background-image: url(../images/myaward/btn_focus.png);
+	background-image: url(../images/btn_focus.png);
 	display: none;
 }
 .btn-focus .imgFocus{
@@ -1415,7 +1414,7 @@ img[src=''] {
     width: 200px;
     top: 237px;
     left: 110px;
-    background-image: url(../images/myaward/arrow.png);
+    /*background-image: url(../images/myaward/arrow.png);*/
 }
 #redQrcode{
     position: absolute;
@@ -1524,7 +1523,7 @@ img[src=''] {
     left: 317px;
     height: 489px;
     width: 654px;
-    background-image: url(../images/awarddialog/goodluck.png);
+    background-image: url(../images/awarddialog/goodluck.webp);
     background-repeat: no-repeat;
     background-size: 100%;
 }
@@ -1577,12 +1576,12 @@ img[src=''] {
     width: 159px;
 }
 .dialogbtn .awardbgBlur{
-	background-image: url(../images/awarddialog/btnbg.png);
+	background-image: url(../images/btn_blur.png);
 	background-repeat: no-repeat;
     background-size: 100%;
 }
 .dialogbtn .awardbgFocus{
-	background-image: url(../images/awarddialog/btnborder.png);
+	background-image: url(../images/btn_focus.png);
 	background-repeat: no-repeat;
     background-size: 100%;
     display: none;
@@ -1619,12 +1618,11 @@ img[src=''] {
     left: 317px;
     height: 480px;
     width: 654px;
-    background-image: url(../images/awarddialog/418.png);
+    background-image: url(../images/awarddialog/418.webp);
     background-repeat: no-repeat;
     background-size: 100%;
 }
 #otherAwardName2{
-	/*top: 57px;*/
 	top: 70px;
 	letter-spacing: 0px;
 }
@@ -1986,7 +1984,6 @@ img[src=''] {
     -o-transform: rotate(-7deg);
 }
 .qiu_1:after {
-	/*background: url(../images/7.png);*/
 	background-position: 0 0;
 }
 .qiu_2 {
@@ -1999,7 +1996,6 @@ img[src=''] {
     -o-transform: rotate(-7deg);
 }
 .qiu_2:after {
-	/*background-image: url(../images/6.png);*/
 	background-position: -120px 0;
 }
 .qiu_3 {
@@ -2012,7 +2008,6 @@ img[src=''] {
     -o-transform: rotate(-15deg);
 }
 .qiu_3:after {
-	/*background-image: url(../images/3.png);*/
 	background-position: -300px 0;
 }
 .qiu_4 {
@@ -2025,7 +2020,6 @@ img[src=''] {
     -o-transform: rotate(45deg);
 }
 .qiu_4:after {
-	/*background-image: url(../images/3.png);*/
 	background-position: -300px 0;
 }
 .qiu_5 {
@@ -2038,7 +2032,6 @@ img[src=''] {
     -o-transform: rotate(5deg);
 }
 .qiu_5:after {
-	/*background-image: url(../images/7.png);*/
 	background-position: 0 0;
 }
 .qiu_6 {
@@ -2063,7 +2056,6 @@ img[src=''] {
     -o-transform: rotate(-15deg);
 }
 .qiu_7:after {
-	/*background-image: url(../images/2.png);*/
 	background-position: -240px 0;
 }
 .qiu_8 {
@@ -2088,7 +2080,6 @@ img[src=''] {
     -o-transform: rotate(-30deg);
 }
 .qiu_9:after {
-	/*background-image: url(../images/5.png);*/
 	background-position: -60px 0;
 }
 .qiu_10 {
@@ -2101,7 +2092,6 @@ img[src=''] {
     -o-transform: rotate(30deg);
 }
 .qiu_10:after {
-	/*background-image: url(../images/2.png);*/
 	background-position: -240px 0;
 }
 .qiu_11 {
@@ -2116,7 +2106,6 @@ img[src=''] {
 .qiu_11:after {
 	height: 82px;
 	width: 77px;
-	/*background-image: url(../images/1.png);*/
 	background-position: -360px 0;
 }
 
