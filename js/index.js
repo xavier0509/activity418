@@ -56,6 +56,13 @@ var app = {
                 }
                 sentLog("okr_web_clicked_result", '{"page_name":"418活动登录弹窗","activity_name":"418活动","login_result":"登录成功"}');
                 _czc.push(['_trackEvent', '418活动', '418活动登录弹窗', '登录成功', '', '']);
+                if(loginstatus == "true"){
+                    $("#allowanceBtn").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/allowance.png)");
+                    $("#allowanceBtn img").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/allowancefocus.png");
+                }else{
+                    $("#allowanceBtn").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/dailingqu.png)");
+                    $("#allowanceBtn img").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/dailingqufocus.png");
+                }
             }else if (startLoginFlag) {
                 console.log("登录失败");
                 startLoginFlag = false;
@@ -3190,12 +3197,12 @@ function showMyAward(arr0, arr1, arr2, arr3, arr4, num) {
             entityDiv.setAttribute('class', 'myAwards coocaa_btn2');
 
             if (arr2[i].state == 0) {
-                entityDiv.innerHTML = '<div class="myawardsImg"><img class="entityImg" src="images/6.png"/><div class="entityName"><div class="entitySon">'+arr2[i].awardName+'</div></div><div class="entityStatus notget"></div></div><div class="myawardsBorder"></div>';
+                entityDiv.innerHTML = '<div class="myawardsImg"><img class="entityImg" src="'+arr2[i].awardUrl+'"/><div class="entityName"><div class="entitySon">'+arr2[i].awardName+'</div></div><div class="entityStatus notget"></div></div><div class="myawardsBorder"></div>';
             } else {
                 entityDiv.setAttribute('awardAddress', arr2[i].awardAddress);
                 entityDiv.setAttribute('userPhone', arr2[i].userPhone);
                 entityDiv.setAttribute('userName', arr2[i].userName);
-				entityDiv.innerHTML = '<div class="myawardsImg"><img class="entityImg" src="images/6.png"/><div class="entityName"><div class="entitySon">'+arr2[i].awardName+'</div></div><div class="entityStatus hasgot"></div></div><div class="myawardsBorder"></div>';            
+				entityDiv.innerHTML = '<div class="myawardsImg"><img class="entityImg" src="'+arr2[i].awardUrl+'"/><div class="entityName"><div class="entitySon">'+arr2[i].awardName+'</div></div><div class="entityStatus hasgot"></div></div><div class="myawardsBorder"></div>';
             }
             $("#entityTabs").append(entityDiv);
         }
@@ -3214,7 +3221,7 @@ function showMyAward(arr0, arr1, arr2, arr3, arr4, num) {
             packageDiv.setAttribute('lotteryActiveId', arr3[i].lotteryActiveId);
             packageDiv.setAttribute('class', 'myAwards coocaa_btn2');
             
-            packageDiv.innerHTML = '<div class="myawardsImg"><img class="packageImg" src="images/5.png"/><div class="packageName"><div class="packageSon">'+arr3[i].awardName+'</div></div><div class="packageStatus hasgot"></div></div><div class="myawardsBorder"></div>';
+            packageDiv.innerHTML = '<div class="myawardsImg"><img class="packageImg" src="'+arr3[i].awardUrl+'"/><div class="packageName"><div class="packageSon">'+arr3[i].awardName+'</div></div><div class="packageStatus hasgot"></div></div><div class="myawardsBorder"></div>';
             $("#packageTabs").append(packageDiv);
         }
     }

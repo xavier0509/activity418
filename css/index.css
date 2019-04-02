@@ -379,7 +379,7 @@ img[src=''] {
 }
 #drawBtn,#drawBtnBorder,#drawDoor{
 	position: absolute;
-	background: url(../images/eggs1.png) no-repeat;
+	background: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/eggs1.png) no-repeat;
 }
 #drawBtn{
     width: 89px;
@@ -395,7 +395,7 @@ img[src=''] {
     position: absolute;
     top: 350px;
     left: 300px;
-    background: url(../images/eggs1.png) no-repeat;
+    background: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/eggs1.png) no-repeat;
     background-position: -623px 0;
     /*background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/nnborder.png");*/
 }
@@ -406,7 +406,7 @@ img[src=''] {
     height: 100%;
     width: 100%;
     z-index: 2;
-    background-image: url(../images/classes2.webp);
+    background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/classes2.webp);
     background-repeat: no-repeat;
     background-size: 100%;
 }
@@ -820,7 +820,7 @@ img[src=''] {
 }
 
 #allowancePage{
-	background-image: url(../images/allowance.webp);
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/allowance.webp);
 	background-repeat: no-repeat;
 	background-size: 100%;
 	/*display: block;*/
@@ -834,7 +834,7 @@ img[src=''] {
 	display: none;
 }
 #loginbtn,#loginborder,#notLoginNum,#LoginedNum{
-	background:url(../images/spriteimg.png)  no-repeat;
+	background:url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/spriteimg.png)  no-repeat;
 	display: none;
 }
 #loginbtn{
@@ -955,7 +955,7 @@ img[src=''] {
 	display: block;
 }
 /*#myAwardPage{
-    background-image: url(../images/myawardbg.webp);
+    background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/myawardbg.webp);
 }*/
 #hasAwardLine{
 	position: absolute;
@@ -963,7 +963,7 @@ img[src=''] {
     left: 175px;
     height: 635px;
     width: 100px;
-    /*background-image: url(../images/line.webp);*/
+    /*background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/line.webp);*/
     background-repeat: no-repeat;
     background-size: 100%;
     z-index: -1;
@@ -993,7 +993,7 @@ img[src=''] {
     float: left;
     width: 163px;
     height: 57px;
-    background:url(../images/awardlable.png)  no-repeat;
+    background:url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/awardlable.png)  no-repeat;
 }
 #allowanceTitle{
 	background-position: -1065px 0;
@@ -1045,7 +1045,7 @@ img[src=''] {
 	position: absolute;
 	margin: 5px;
 	height:113px;
-	background:url(../images/awardlable.png)  no-repeat;
+	background:url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/awardlable.png)  no-repeat;
 }
 #allowanceTabs .myawardsImg{
 	width:341px;
@@ -1195,7 +1195,7 @@ img[src=''] {
     left: 105px;
 	height: 36px;
 	width: 106px;
-	background:url(../images/awardlable.png)  no-repeat;
+	background:url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/awardlable.png)  no-repeat;
 }
 #entityBox .hasgot{
 	background-position: -318px  0;
@@ -1248,7 +1248,7 @@ img[src=''] {
     left: 358px;
     height: 368px;
     width: 564px;
-    /*background-image: url(../images/noaward1.png);*/
+    /*background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/noaward1.png);*/
     background-size: 100%;
     background-repeat: no-repeat;
 }
@@ -1286,7 +1286,7 @@ img[src=''] {
 	left: 337px;
 	height: 426px;
 	width: 616px;
-	background-image: url(../images/myaward/bg1.png);
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/myaward/bg1.png);
 }
 #redHasGet{
 	position: absolute;
@@ -1348,7 +1348,7 @@ img[src=''] {
     font-size: 24px;
     font-weight: 900;
     color: #ffffff;
-    /*background-image: url(../images/btn_blur.png);*/
+    /*background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/btn_blur.png);*/
     background-repeat: no-repeat;
     background-size: 100%;
 }
@@ -1368,7 +1368,7 @@ img[src=''] {
 	/**filter: Glow(Color=#6a3e0a, Strength=2);*/
 }
 .imgFocus{
-	background-image: url(../images/btn_focus.png);
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/btn_focus.png);
 	display: none;
 }
 .btn-focus .imgFocus{
@@ -1414,7 +1414,7 @@ img[src=''] {
     width: 200px;
     top: 237px;
     left: 110px;
-    /*background-image: url(../images/myaward/arrow.png);*/
+    /*background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/myaward/arrow.png);*/
 }
 #redQrcode{
     position: absolute;
@@ -1523,7 +1523,7 @@ img[src=''] {
     left: 317px;
     height: 489px;
     width: 654px;
-    background-image: url(../images/awarddialog/goodluck.webp);
+    background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/awarddialog/goodluck.webp);
     background-repeat: no-repeat;
     background-size: 100%;
 }
@@ -1576,12 +1576,12 @@ img[src=''] {
     width: 159px;
 }
 .dialogbtn .awardbgBlur{
-	background-image: url(../images/btn_blur.png);
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/btn_blur.png);
 	background-repeat: no-repeat;
     background-size: 100%;
 }
 .dialogbtn .awardbgFocus{
-	background-image: url(../images/btn_focus.png);
+	background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/btn_focus.png);
 	background-repeat: no-repeat;
     background-size: 100%;
     display: none;
@@ -1618,7 +1618,7 @@ img[src=''] {
     left: 317px;
     height: 480px;
     width: 654px;
-    background-image: url(../images/awarddialog/418.webp);
+    background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/awarddialog/418.webp);
     background-repeat: no-repeat;
     background-size: 100%;
 }
@@ -1972,7 +1972,7 @@ img[src=''] {
 	background-size: 100%;
 	animation: zhuan 1s linear forwards;
 	-webkit-animation: zhuan 1s linear forwards;
-	background:url(../images/eggs1.png)  no-repeat;
+	background:url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/eggs1.png)  no-repeat;
 }
 .qiu_1 {
 	left: 16px;
@@ -2211,7 +2211,7 @@ img[src=''] {
     width: 97px;
     height: 108px;
     z-index: 1;
-    background: url(../images/eggs1.png) no-repeat;
+    background: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/eggs1.png) no-repeat;
     background-position: -437px 0;
 }
 
