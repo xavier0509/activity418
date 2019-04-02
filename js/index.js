@@ -62,7 +62,16 @@ var app = {
                 changeLoginFlag = false;
                 sentLog("okr_web_clicked_result", '{"page_name":"418活动登录弹窗","activity_name":"春节集卡活动","login_result":"登录失败"}');
                 _czc.push(['_trackEvent', '418活动', '418活动登录弹窗', '登录失败', '', '']);
-            } else {
+            }
+            else {
+                if($("#questionbox").css("display") == "block"){
+                    sentLog("okr_web_page_show", '{"page_name":"问答任务页面","activity_name":"418活动"}');
+                    _czc.push(['_trackEvent', '418活动', "问答任务页面", '曝光', '', '']);
+                    if (ADMsg5 != null && ADMsg5.schedules != undefined && ADMsg5.schedules[0] != undefined) {
+                        sentInnerAdshow(ADMsg5, "G0006", "1", "1", "1", "", "","");
+                        sentThirdAdshow("img", ADMsg5);
+                    }
+                }
                 var pagename = "";
                 var page_type = "";
                 if($("#gamePanel").offset().left < -600){
