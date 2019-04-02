@@ -522,14 +522,15 @@ function showSpeak() {
             speakArry.push(speakStr[i])
         }
     }
-    // console.log("显示数组====="+speakArry);
+    console.log("显示数组====="+speakArry);
     var intervalNum = 0;
-    var speakInter = setInterval(aaa,2000);
+    var speakInter = setInterval(aaa,5000);
+    aaa();
     function aaa() {
         if(intervalNum == speakArry.length){
             setTimeout(function(){
                 $("#map"+nowPosition).html("");
-            },2000);
+            },5000);
             clearInterval(speakInter);
         }else{
             $("#map"+nowPosition).html("<div class='foxspeak'><div>"+speakArry[intervalNum]+"</div></div>");
@@ -537,7 +538,7 @@ function showSpeak() {
             // console.log("------"+speakArry[intervalNum])
             setTimeout(function(){
                 $("#map"+nowPosition).html("");
-            },2000)
+            },5000)
             intervalNum++;
         }
     }
@@ -628,6 +629,7 @@ function initMap(setFocus,needShowSpeak) {
         if (needshowdialog1) {
             removeBackButton = true;
             needshowdialog1 = false;
+            map = new coocaakeymap($("#compound"), $("#compound"), "btnFocus", function() {}, function(val) {}, function(obj) {});
             mergeShow("needshowdialog1");
         }
         else if (needshowdialog2) {
@@ -659,21 +661,25 @@ function initMap(setFocus,needShowSpeak) {
         else if (needshowdialog3) {
             removeBackButton = true;
             needshowdialog3 = false;
+            map = new coocaakeymap($("#compound"), $("#compound"), "btnFocus", function() {}, function(val) {}, function(obj) {});
             mergeShow("needshowdialog3");
         }
         else if (needshowdialog4) {
             removeBackButton = true;
             needshowdialog4 = false;
+            map = new coocaakeymap($("#compound"), $("#compound"), "btnFocus", function() {}, function(val) {}, function(obj) {});
             mergeShow("needshowdialog4");
         }
         else if (needshowdialog5) {
             removeBackButton = true;
             needshowdialog5 = false;
+            map = new coocaakeymap($("#compound"), $("#compound"), "btnFocus", function() {}, function(val) {}, function(obj) {});
             mergeShow("needshowdialog5");
         }
         else if (needshowdialog6) {
             removeBackButton = true;
             needshowdialog6 = false;
+            map = new coocaakeymap($("#compound"), $("#compound"), "btnFocus", function() {}, function(val) {}, function(obj) {});
             mergeShow("needshowdialog6");
         }
         else if (needshowdialog7) {
@@ -2557,7 +2563,7 @@ function showOperation(showMainShow) {
             $("#payZone").append(tabInner);
             $("#payZone").append('<div class="operationmore operationmap coocaabtn"  style="background-image:url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/operationmore.png)"><div class="sureGet">按【确定】键 看详情购买</div><div class="text">&nbsp;</div></div>');
 
-            pagefrom = getUrlParam("pagefrom");
+            pagefrom = getUrlParam("pageform");
             console.log("+++++++++++++++++++++++++"+($("#gamePanel").offset().left));
             if(gameStatus == 3){
                 initBtn();
@@ -3702,6 +3708,7 @@ function startEggFunc() {
             console.log("扭蛋返回状态：" + JSON.stringify(data));
             if(data.code == 50100){
                 cardsNum = data.data.remainingNumber;
+                console.log("---------------------"+cardsNum4+"----------"+cardsNum);
                 $("#gameDraw .draw418cl").html(cardsNum);
                 $("#gameMap .lc418").html("已集齐"+cardsNum+"套");
                 $(".lc4").html((cardsNum4+cardsNum)+"片");
