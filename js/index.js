@@ -186,9 +186,34 @@ var app = {
         		showPage(false,false);
         		$("#mainbox").css("display","block");
         		map = new coocaakeymap($(".coocaabtn"), $("#allowanceBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+        		var pagename = "";
+	            var page_type = "";
+	            if($("#gamePanel").offset().left < -600){
+	                if (ADMsg3 != null && ADMsg3.schedules != undefined && ADMsg3.schedules[0] != undefined) {
+	                    sentInnerAdshow(ADMsg3, "G0006", "3", "1", "1", "", "","");
+	                    sentThirdAdshow("img", ADMsg3);
+	                }
+	                pagename = "扭蛋机活动";
+	                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+	            }else{
+	                if (ADMsg2 != null && ADMsg2.schedules != undefined && ADMsg2.schedules[0] != undefined) {
+	                    sentInnerAdshow(ADMsg2, "G0006", "2", "1", "1", "", "","");
+	                    sentThirdAdshow("img", ADMsg2);
+	                }
+	                if (ADMsg4 != null && ADMsg4.schedules != undefined && ADMsg4.schedules[0] != undefined) {
+	                    sentInnerAdshow(ADMsg4, "G0006", "2", "2", "1", "", "","");
+	                    sentThirdAdshow("img", ADMsg4);
+	                }
+	                pagename = "大富翁活动";
+	                if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
+	            }
+	            sentLog("okr_web_page_show", '{"page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+	            _czc.push(['_trackEvent', '418活动', pagename, '曝光', '', '']);
         	} else{
         		$("#myAwardPage").css("display","block");
         		map = new coocaakeymap($(".coocaa_btn2"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
+        		sentLog("okr_web_page_show", '{"page_name":"我的奖励页面","activity_name":"418活动"}');
+				_czc.push(['_trackEvent', '418活动', '我的奖励页面', '曝光', '', '']);
         	}
         }else if($("#myAwardPage").css("display") == "block"){
         	if ($("#dialogPage").css("display") == "block") {
@@ -1211,6 +1236,8 @@ function initBtn() {
         rememberEndBtn = $(".endbtn").index($(this));
         $("#endGamePage").css("display", "none");
         $("#myAwardPage").css("display", "block");
+        sentLog("okr_web_page_show", '{"page_name":"我的奖励页面","activity_name":"418活动"}');
+		_czc.push(['_trackEvent', '418活动', '我的奖励页面', '曝光', '', '']);
         getMyAwards(2);
     })
 
@@ -1312,6 +1339,7 @@ function initBtn() {
         $("#myAwardPage").css("display", "block");
         sentLog("okr_web_page_show", '{"page_name":"我的奖励页面","activity_name":"418活动"}');
 		_czc.push(['_trackEvent', '418活动', '我的奖励页面', '曝光', '', '']);
+        _curHomeBtn = "";
         getMyAwards(2);
     });
     $("#noAwardBtn").unbind("itemClick").bind("itemClick", function() {
@@ -1428,14 +1456,12 @@ function initBtn() {
     $("#otherBtn2").unbind("itemClick").bind("itemClick", function() {
         console.log("点击了领取奖励");
         otherBtn2ClickFunc();
-        
         var curPagename = "";
     	var curBtnName = "";
     	var curAwardName = "";
 		var curAwardType = "";
 		var curAwardTypeName = "";
 		var curGoodsId = "";
-		
 		curBtnName = $("#otherBtn2 .btnName").html();
 		curAwardName = $("#otherBtn2").attr("awardName");
 		console.log(curDrawBtnName);
@@ -1444,7 +1470,6 @@ function initBtn() {
         }else{
         	curPagename = "【扭蛋机中奖】";
         }
-        
 		curAwardType = $("#otherBtn2").attr("awardTypeId");
         if (curAwardType==2) {
 			curAwardTypeName = "实物";
@@ -1471,6 +1496,11 @@ function initBtn() {
         donotSentReplacebtnLog = true;
         $(".replaceBtn1").trigger("itemFocus");
         map = new coocaakeymap($(".coocaabtn"), document.getElementById("drawBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+    	var curBtnName = $("#otherBtn4 .btnName").html();
+    	var curAwardName = $("#otherBtn4").attr("awardName");
+    	var curAwardType = $("#otherBtn4").attr("awardTypeId");
+    	sentLog("okr_web_button_click", '{"page_name":"【大富翁中奖】","activity_name":"418活动","button_name":"'+curBtnName+'","award_type":"'+curAwardType+'","goods_id":" ","award_name":"'+curAwardName+'"}');
+        _czc.push(['_trackEvent', '418活动', "大富翁中奖", curBtnName+"--"+curAwardTypeName, '', '']);
     });
 	//---------------------------------
 }
@@ -1539,6 +1569,18 @@ function initBtnAfter(){
                 	$("#myAwardPage").css("display", "none");
                 	map = new coocaakeymap($(".coocaabtn"), $("#allowanceGet"), "btnFocus", function() {}, function(val) {}, function(obj) {});
             		$("#allowanceGet").trigger("itemFocus");
+            		
+            		var pagename = "";
+		            var page_type = "";
+		            if($("#gamePanel").offset().left < -600){
+		                pagename = "扭蛋机活动";
+		                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+		            }else{
+		                pagename = "大富翁活动";
+		                if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
+		            }
+		            sentLog("okr_web_page_show", '{"page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+		            _czc.push(['_trackEvent', '418活动', pagename, '曝光', '', '']);
                 } else{
                 	getAllowanceInfo(1);
 			        $("#mainbox").css("display", "none");
@@ -3350,6 +3392,8 @@ function showThisAwardDialog(awardObj) {
     		$("#otherBtn3").attr("awardType","6");
     		$("#dialogPage").css("display", "block");
     		$("#getOtherAward2").css("display", "block");
+    		$("#otherBtn4").attr("awardTypeId", awardObj.awardTypeId);
+    		$("#otherBtn4").attr("awardName", awardObj.awardName);
     		if(!capsuleIsStart){
     			console.log("418之前,展示预约二维码");
     			$("#otherAwardName2").css("top","57px");
@@ -3361,7 +3405,7 @@ function showThisAwardDialog(awardObj) {
     			} else{
     				$("#cardQrcode").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/yinheqrcode.png");
     			}
-    			$("#cardAwardImg1").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/lxw/foca/focared.png");
+    			$("#cardAwardImg1").attr("src",awardObj.awardUrl);
     			$("#cardAwardInfo2").css("left","205px");
     			$("#cardAwardInfo2").css("width","255px");
     			$("#cardAwardInfo2").html("当前已拥有"+(cardsNum+1)+"套418碎片");
@@ -3382,7 +3426,7 @@ function showThisAwardDialog(awardObj) {
     			$("#cardAwardInfo3").html("集418卡片赢最新创维电视火热进行中！马上参与");
     			$("#otherBtn4").css("display","block");
     			$("#otherBtn3").css("left","128px");
-    			map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn3"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+    			map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn4"), "btn-focus", function() {}, function(val) {}, function(obj) {});
     		}
     		sentLog("okr_web_page_show", '{"page_name":"【大富翁中奖】","activity_name":"418活动","award_type":"418全套","award_name":"'+awardObj.awardName+'"}');
         	_czc.push(['_trackEvent', '418活动', "【大富翁中奖】", awardObj.awardName, '', '']);
