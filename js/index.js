@@ -627,7 +627,12 @@ function showFinalWindow(dialog) {
     }
 }
 function initMap(setFocus,needShowSpeak) {
-    selectMyAllowanceNum();
+    if(loginstatus == "true"){
+        selectMyAllowanceNum();
+    }else{
+        getMyAwards(3);
+    }
+
     initBtn();
     console.log("--------" + needRememberFocus+"========="+rememberBtn);
     var setFocus = setFocus;
