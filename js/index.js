@@ -69,10 +69,10 @@ var app = {
                 changeLoginFlag = false;
                 sentLog("okr_web_clicked_result", '{"page_name":"418活动登录弹窗","activity_name":"春节集卡活动","login_result":"登录失败"}');
                 _czc.push(['_trackEvent', '418活动', '418活动登录弹窗', '登录失败', '', '']);
-            }else if($("#allowancePage").css("display") == "block")){
+            }else if($("#allowancePage").css("display") == "block"){
             	sentLog("okr_web_page_show", '{"page_name":"我的津贴页面","activity_name":"418活动"}');
             	_czc.push(['_trackEvent', '418活动', "我的津贴页面", '曝光', '', '']);
-            }else if($("#myAwardPage").css("display") == "block")){
+            }else if($("#myAwardPage").css("display") == "block"){
             	sentLog("okr_web_page_show", '{"page_name":"我的奖励页面","activity_name":"418活动"}');
             	_czc.push(['_trackEvent', '418活动', "我的奖励页面", '曝光', '', '']);
             }else {
@@ -944,6 +944,7 @@ function initBtn() {
         var button_state="已完成";
         sentLog("okr_web_button_click", '{"allowance_price":"","task_name":"更多商品","button_state":"'+button_state+'","button_name":"'+btnname+'","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
         _czc.push(['_trackEvent', '418活动', btnname+"点击", button_state, '', '']);
+        rememberAllowancebtnFlag = "2";
         donotSentAllowanceBtnLog = true;
         $("#allowanceBtn").trigger("itemClick");
     })
@@ -1317,7 +1318,13 @@ function initBtn() {
 	});
 	$("#allowanceBtn").unbind("itemClick").bind("itemClick", function() {
         needRememberFocus = true;
-        rememberBtn = "#allowanceBtn";
+        if(rememberAllowancebtnFlag == "2"){
+            rememberBtn = ".operationmore";
+        }else if(rememberAllowancebtnFlag == "3"){
+            rememberBtn = "#allowanceGet";
+        }else{
+            rememberBtn = "#allowanceBtn";
+        }
 		allowancePageForm = "mainbox";
 	    if(donotSentAllowanceBtnLog ){
             donotSentAllowanceBtnLog = false;
@@ -1768,6 +1775,7 @@ function getAllowance() {
                     $("#blackBg").hide();
                     $("#getallowancesuccess").hide();
                     donotSentAllowanceBtnLog = true;
+                    rememberAllowancebtnFlag = "3";
                     $("#allowanceBtn").trigger("itemClick");
                 })
             }
@@ -3525,16 +3533,17 @@ function showThisAwardDialog(awardObj) {
     	}else{
     		if(vipType == "yinhe"||vipType == "6"){
     			console.log("抽中特权-影视");
+                packurl = vipstartUrl + '?data={"product_id":1,"activity_id":"'+actionId+'","activity_name":"418活动","bg_url":"http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/jiaoyujika.png"}';
     			_award_type = "特权-影视";
     		}
     		if(vipType == "jiaoyuvip"){
 	    		console.log("抽中特权-教育");
-	    		packurl = vipstartUrl + '?data={"product_id":1,"activity_id":"1","activity_name":"wasu","bg_url":"http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/jiaoyujika.png"}';
+                packurl = vipstartUrl + '?data={"product_id":1,"activity_id":"'+actionId+'","activity_name":"418活动","bg_url":"http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/jiaoyujika.png"}';
 	    		_award_type = "特权-教育";
     		}
     		if(vipType == "shaoervip"){
 	    		console.log("抽中特权-少儿");
-	    		packurl = vipstartUrl + '?data={"product_id":1,"activity_id":"1","activity_name":"wasu","bg_url":"http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/jiaoyujika.png"}';
+                packurl = vipstartUrl + '?data={"product_id":1,"activity_id":"'+actionId+'","activity_name":"418活动","bg_url":"http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/jiaoyujika.png"}';
 	    		_award_type = "特权-少儿";
     		}
     		coocaaosapi.startNewBrowser3(packurl, function() {}, function() {});

@@ -51,6 +51,7 @@ var allowanceUrl = "http://172.20.155.209:6081/api/subsidy/v1/query-userSubsidyI
 var allowanceClientId = "YS_BETA";
 
 var vipstartUrl = "http://dev.business.video.tc.skysrt.com/v3/web/actCenter/index.html?"; 
+//var vipstartUrl = "https://api-business.skysrt.com/v3/web/actCenter/index.html?"; //正式地址
 
 var showMove = false;//是否展示动效
 
@@ -135,6 +136,8 @@ var userIp = "";
 var needSentADLog = false;
 var remembernum = "0";//福利街版块如果版本不符合，弹窗提示后重新new焦点
 var rememberEndBtn = 0;
+
+var rememberAllowancebtnFlag = "0";//2---更多商品   3-----津贴领取按钮
 
 var curDrawBtnName = "mapBtn";//记录点击的抽奖按钮的名字
 var allowancePageForm = "mainbox";//记录进入津贴页面的上一个页面
