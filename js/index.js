@@ -2435,10 +2435,8 @@ function speakToast(overtask){
         speak2 = true;
         if(startDayNum<4){
             str2="大富翁<span>今日大奖</span>是<span>戴森三件套</span>，参与即有机会获得快掷骰子参与吧！";
-        }else if(startDayNum < 7){
-            str2="大富翁<span>今日大奖</span>是<span>iPhone XS</span>，参与即有机会获得快掷骰子参与吧！";
         }else{
-            str2="大富翁<span>今日大奖</span>是<span>新款苹果电脑</span>，参与即有机会获得快掷骰子参与吧！";
+            str2="大富翁<span>今日大奖</span>是<span>iPhone XS</span>，参与即有机会获得快掷骰子参与吧！";
         }
         if(cardsNum==0){
             speak3 = true;
@@ -2464,13 +2462,7 @@ function speakToast(overtask){
                 str2='终极大奖开启！集齐418周年卡片赢新品电视！快去"扭一扭"吧！';
             }else{
                 var random = Math.random();
-                if(startDayNum<4){
-                    if(random>0.5){
-                        str2='终极大奖开启！集齐418周年卡片赢新品电视！快去"扭一扭"吧！';
-                    }else{
-                        str2="大富翁<span>今日大奖</span>是<span>戴森三件套</span>，快掷骰子参与吧！";
-                    }
-                }else if(startDayNum < 7){
+                if(startDayNum < 7){
                     if(random>0.5){
                         str2='终极大奖开启！集齐418周年卡片赢新品电视！快去"扭一扭"吧！';
                     }else {
@@ -3011,7 +3003,7 @@ function getMyTasksList(needCheckSpeak) {
 function getAllowanceInfo(num){
 	document.getElementById("everyAllowanceUl").innerHTML = "";
     var tag_id = "";
-    if(needQQ){tag_id = 103188}else {tag_id = 103187}//test
+    if(needQQ){tag_id = 103633}else {tag_id = 103634}//test
     // if (needQQ) { tag_id = 103228 } else { tag_id = 103229 }
     var header = JSON.stringify({cUDID:activityId,MAC:macAddress,cModel:TVmodel,cChip:TVchip,cSize:deviceInfo.panel,cTcVersion:deviceInfo.version.replace(/\.*/g, ""),cFMode:"Default",cPattern:"normal","cBrand":"Skyworth"});
     $.ajax({
@@ -3029,9 +3021,9 @@ function getAllowanceInfo(num){
 					for (var j = 0; j < data.data[i].baseBlocks.length; j++) {
 						var action_this = JSON.parse(data.data[i].baseBlocks[j].action);
                         if(loginstatus == "true"){
-                        	liListItems += '<div class="everyAllowanceLi coocaabtn2" taskName="'+data.data[i].baseBlocks[j].title+'" action='+JSON.stringify(JSON.parse(data.data[i].baseBlocks[j].action))+'><img class="everyAllItem" src="images/itemimg.webp"/><div class="everyAllBorder"></div><div class="everyAllInfo">使用津贴再减<span>'+action_this.params.allowance+'</span>元</div><div class="everyAllWarm">按【确定键】看详情购买</div></div>';
+                        	liListItems += '<div class="everyAllowanceLi coocaabtn2" taskName="'+data.data[i].baseBlocks[j].title+'" action='+JSON.stringify(JSON.parse(data.data[i].baseBlocks[j].action))+'><img class="everyAllItem" src="'+data.data[i].baseBlocks[j].imgs.poster.images[0]+'"/><div class="everyAllBorder"></div><div class="everyAllInfo">使用津贴再减<span>'+action_this.params.allowance+'</span>元</div><div class="everyAllWarm">按【确定键】看详情购买</div></div>';
                         }else{
-                        	liListItems += '<div class="everyAllowanceLi coocaabtn2" taskName="'+data.data[i].baseBlocks[j].title+'" action='+JSON.stringify(JSON.parse(data.data[i].baseBlocks[j].action))+'><img class="everyAllItem" src="images/itemimg.webp"/><div class="everyAllBorder"></div><div class="everyAllInfo">领取津贴再减<span>'+action_this.params.allowance+'</span>元</div><div class="everyAllWarm">按【确定键】看详情购买</div></div>';
+                        	liListItems += '<div class="everyAllowanceLi coocaabtn2" taskName="'+data.data[i].baseBlocks[j].title+'" action='+JSON.stringify(JSON.parse(data.data[i].baseBlocks[j].action))+'><img class="everyAllItem" src="'+data.data[i].baseBlocks[j].imgs.poster.images[0]+'"/><div class="everyAllBorder"></div><div class="everyAllInfo">领取津贴再减<span>'+action_this.params.allowance+'</span>元</div><div class="everyAllWarm">按【确定键】看详情购买</div></div>';
                         }
 					}
 				}
