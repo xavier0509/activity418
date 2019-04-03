@@ -651,6 +651,7 @@ function showFinalWindow(dialog) {
         $(".bottomword1").html("当前已拥有<span>"+cardsNum+"</span>套418周年卡片，有机会0元赢电视");
         $(".bottom2").html("集418卡片赢最新创维电视火热进行中！马上参与！");
         map = new coocaakeymap($(".compoundbtn"), $("#compoundbtn1"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+        $("#compoundbtn1").trigger("itemFocus");
     }else if(dialog == "needshowdialog3"){
         sentLog("okr_web_page_show", '{"page_name":"活动弹窗","activity_name":"418活动","page_type":"418数字卡主动合成弹窗的曝光"}');
         _czc.push(['_trackEvent', '418活动', "418数字卡主动合成弹窗的曝光", '曝光', '', '']);
@@ -669,6 +670,7 @@ function showFinalWindow(dialog) {
         $(".bottomword1").html("当前已拥有<span>"+cardsNum+"</span>套418周年卡片");
         $(".bottom2").html("可继续玩游戏手机更多周年卡片4月18日赢大奖！");
         map = new coocaakeymap($(".compoundbtn"), $("#compoundbtn1"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+        $("#compoundbtn1").trigger("itemFocus");
     }else if(dialog == "needshowdialog4"){
         sentLog("okr_web_page_show", '{"page_name":"活动弹窗","activity_name":"418活动","page_type":"418数字卡主动合成弹窗的曝光"}');
         _czc.push(['_trackEvent', '418活动', "418数字卡主动合成弹窗的曝光", '曝光', '', '']);
@@ -683,6 +685,7 @@ function showFinalWindow(dialog) {
         $(".bottomword1").html("当前已拥有<span>"+cardsNum+"</span>套418周年卡片");
         $(".bottom2").html("集418卡片赢最新创维电视火热进行中！马上参与！");
         map = new coocaakeymap($(".compoundbtn"), $("#compoundbtn1"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+        $("#compoundbtn1").trigger("itemFocus");
     }
 }
 function initMap(setFocus,needShowSpeak) {
@@ -736,6 +739,7 @@ function initMap(setFocus,needShowSpeak) {
             $(".bottomword1").html("现在集齐一套418卡片即有机会0元带走创维新品电视");
             $(".bottom2").html("快去掷骰子赢周年卡片吧！");
             map = new coocaakeymap($(".compoundbtn"), $("#compoundbtn1"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+            $("#compoundbtn1").trigger("itemFocus");
         }
         else if (needshowdialog3) {
             removeBackButton = true;
@@ -814,7 +818,7 @@ function initMap(setFocus,needShowSpeak) {
             map = new coocaakeymap($(".coocaabtn"), $(setFocus), "btnFocus", function() {}, function(val) {}, function(obj) {});
             $(setFocus).trigger("itemFocus");
         }
-    },1000)
+    },600)
 }
 function initBtn() {
     $(".replaceBtn1").unbind("itemFocus").bind("itemFocus", function() {
@@ -908,6 +912,14 @@ function initBtn() {
     })
     $(".gameBtn").unbind("itemBlur").bind("itemBlur", function() {
         $("#drawBtnBorder").hide();
+    })
+    $("#compoundbtn1").unbind("itemFocus").bind("itemFocus", function() {
+        $("#compoundbtnborder2").hide();
+        $("#compoundbtnborder1").show();
+    })
+    $("#compoundbtn2").unbind("itemFocus").bind("itemFocus", function() {
+        $("#compoundbtnborder1").hide();
+        $("#compoundbtnborder2").show();
     })
     $(".topbtn").unbind("itemFocus").bind("itemFocus", function() {
         $("#mainbox").css("transform", "translate3D(0, 0, 0)");
