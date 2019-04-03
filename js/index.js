@@ -102,7 +102,7 @@ var app = {
         leavetime = new Date().getTime();
         console.log("===========================pause=========="+(leavetime-entertime));
         sentLog("okr_web_clicked_result", '{"activity_duration":"'+(leavetime-entertime)+'","activity_name":"418活动"}');
-        _czc.push(['_trackEvent', '418活动', (leavetime-entertime), '停留时长', '', '']);
+        _czc.push(['_trackEvent', '418活动', '停留时长', '',(leavetime-entertime), '']);
     },
     handleBackButton: function() {
 
@@ -469,7 +469,7 @@ function getRedPacketsQrcode(activityId, rememberId, userKeyId, id, width, heigh
     var ajaxTimeoutFive = $.ajax({
         type: "GET",
         async: true,
-        timeout: 5000,
+        timeout: 10000,
         dataType: 'jsonp',
         jsonp: "callback",
         url: adressIp + "/v3/lottery/verify/wechat/qrCode",
@@ -590,7 +590,8 @@ function showSpeak() {
     var speakStr = [str1,str2,str3,str4,str5,str6,str7,str8];
     for(var i=0;i<8;i++){
         if(speakStatus[i]){
-            speakArry.push(speakStr[i])
+            speakArry.push(speakStr[i]);
+            speakStatus[i] = false;
         }
     }
     console.log("显示数组====="+speakArry);
@@ -700,8 +701,7 @@ function initMap(setFocus,needShowSpeak) {
     }
     rememberSetFocus = setFocus;
     console.log("--------" + setFocus);
-    map = new coocaakeymap($(".coocaabtn"), $(setFocus), "btnFocus", function() {}, function(val) {}, function(obj) {});
-    $(setFocus).trigger("itemFocus");
+    map = new coocaakeymap($("#deviceready"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
 
     setTimeout(function(){
         console.log("---------"+needShowSpeak);
@@ -808,6 +808,11 @@ function initMap(setFocus,needShowSpeak) {
             })
         }else if(needShowSpeak){
             showSpeak();
+            map = new coocaakeymap($(".coocaabtn"), $(setFocus), "btnFocus", function() {}, function(val) {}, function(obj) {});
+            $(setFocus).trigger("itemFocus");
+        }else{
+            map = new coocaakeymap($(".coocaabtn"), $(setFocus), "btnFocus", function() {}, function(val) {}, function(obj) {});
+            $(setFocus).trigger("itemFocus");
         }
     },1000)
 }
@@ -957,10 +962,10 @@ function initBtn() {
         $("#allowanceBtn").trigger("itemClick");
     })
     $("#question").unbind("itemClick").bind("itemClick", function(){
+        var _this = this;
         if(donotSentMissionBtnLog){
             donotSentMissionBtnLog = false;
         }else{
-            var _this = this;
             var pagename = "";
             var page_type = "";
             if($("#gamePanel").offset().left < -600){
@@ -1454,16 +1459,18 @@ function initBtn() {
         $("#dialogPage").css("display", "none");
         $("#getOtherAward1").css("display", "none");
         $("#getOtherAward2").css("display", "none");
-        
-        map = new coocaakeymap($(".coocaabtn"), document.getElementById(curDrawBtnName), "btnFocus", function() {}, function(val) {}, function(obj) {});
+
     	var _curId = $(this).attr("id");
     	if ($(this).attr("awardType")==6) {
     		if (_curId=="otherBtn1") {
     			showPage(false,false);
     		} else if(_curId=="otherBtn3"){
+                map = new coocaakeymap($(".coocaabtn"), document.getElementById(curDrawBtnName), "btnFocus", function() {}, function(val) {}, function(obj) {});
     			selectChipInfo()
     		}
-    	}
+    	}else{
+            map = new coocaakeymap($(".coocaabtn"), document.getElementById(curDrawBtnName), "btnFocus", function() {}, function(val) {}, function(obj) {});
+        }
     	var curPagename = "";
     	var curBtnName = "";
     	var curAwardName = "";
@@ -2496,6 +2503,9 @@ function speakToast(overtask){
                 }else{}
             }
         }
+    }else{
+        speak8 = false;
+        speak7 = false;
     }
 }
 //查询碎片信息
@@ -2725,7 +2735,7 @@ function showOperation(showMainShow) {
                 _czc.push(['_trackEvent', '418活动', pagename, '曝光', '', '']);
 
                 sentLog("okr_web_clicked_result", '{"activity_name":"418活动","load_duration":"' + (entertime-startLoadTime) + '"}');
-                _czc.push(['_trackEvent', '418活动', (entertime-startLoadTime), '加载时长', '', '']);
+                _czc.push(['_trackEvent', '418活动', '加载时长', '', (entertime-startLoadTime),'']);
             }
 
         },
@@ -3007,7 +3017,7 @@ function getAllowanceInfo(num){
     if(needQQ){tag_id = 103633}else {tag_id = 103634}//test
     // if (needQQ) { tag_id = 103228 } else { tag_id = 103229 }
     var header = JSON.stringify({cUDID:activityId,MAC:macAddress,cModel:TVmodel,cChip:TVchip,cSize:deviceInfo.panel,cTcVersion:deviceInfo.version.replace(/\.*/g, ""),cFMode:"Default",cPattern:"normal","cBrand":"Skyworth"});
-    $.ajax({
+    var ajaxTimeoutOne =  $.ajax({
         type: "get",
         async: true,
         url: operationurl,
@@ -3651,7 +3661,7 @@ function otherBtn2ClickFunc() {
     }
     if (_kAwardTypeId == 13) {
     	console.log("点击了特价商品的领取折扣");
-        sentLog("okr_web_button_click", '{"page_name":"大富翁活动","activity_name":"418活动","button_name":"领取折扣","award_type":"特权-商品","goods_id":"'+$("#otherBtn2").attr("awardGoodsId"+'","award_name":"'+_kAwardName+'"}');
+        sentLog("okr_web_button_click", '{"page_name":"大富翁活动","activity_name":"418活动","button_name":"领取折扣","award_type":"特权-商品","goods_id":"'+$("#otherBtn2").attr("awardGoodsId"+'","award_name":"'+_kAwardName+'"}'));
         _czc.push(['_trackEvent', '418活动', "大富翁活动", "领取折扣", '', '']);
     	
     	var packurl = vipstartUrl + '?data={"product_id":1,"activity_id":"1","activity_name":"wasu","bg_url":"http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/jiaoyujika.png"}';
@@ -3724,12 +3734,17 @@ function sendPrizes(oAwardName, oAwardId, oRememberId, oUserKeyId, oType, oActiv
             if(data.code == "50100") {
                 console.log("领取成功");
                 if(oType == 17){
-                	console.log("领取津贴奖励");
-	                selectMyAllowanceNum();
-	                console.log(isGetAwardAfterLogined);
+                    console.log("领取津贴奖励");
+                    selectMyAllowanceNum();
+                    console.log(isGetAwardAfterLogined);
+                    sentLog("okr_web_clicked_result", '{"page_name":"领取奖品","activity_name":"418活动","award_type":"津贴","award_name":"'+oAwardName+'","receive_result":"领取成功"}');
+                    _czc.push(['_trackEvent', '418活动', '领取津贴奖品', '领取津贴成功', '', '']);
                 }else if(oType == 19){
-                	console.log("领取金币奖励+跳转");
+                    console.log("领取金币奖励+跳转");
+                    sentLog("okr_web_clicked_result", '{"page_name":"领取奖品","activity_name":"418活动","award_type":"金币","award_name":"'+oAwardName+'","receive_result":"领取成功"}');
+                    _czc.push(['_trackEvent', '418活动', '领取金币奖品', '领取金币成功', '', '']);
                 }
+
             } else {
                 console.log("领取失败");
 				if(oType == 17&&pagestate != 2){
