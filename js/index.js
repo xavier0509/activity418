@@ -638,9 +638,9 @@ function showFinalWindow(dialog) {
     }
     removeBackButton = false;
     $("#b418").hide();
-    sentLog("okr_web_page_show", '{"page_name":"活动弹窗","activity_name":"418活动","page_type":"418数字卡合成弹窗的曝光"}');
-    _czc.push(['_trackEvent', '418活动', "418数字卡合成弹窗的曝光", '曝光', '', '']);
     if(dialog == "needshowdialog1"){
+        sentLog("okr_web_page_show", '{"page_name":"活动弹窗","activity_name":"418活动","page_type":"418数字卡被动合成弹窗的曝光"}');
+        _czc.push(['_trackEvent', '418活动', "418数字卡被动合成弹窗的曝光", '曝光', '', '']);
         $(".midqrcode").hide();
         $(".qrcodetitle").hide();
         $(".midcard").css("left","576px");
@@ -652,6 +652,8 @@ function showFinalWindow(dialog) {
         $(".bottom2").html("集418卡片赢最新创维电视火热进行中！马上参与！");
         map = new coocaakeymap($(".compoundbtn"), $("#compoundbtn1"), "btnFocus", function() {}, function(val) {}, function(obj) {});
     }else if(dialog == "needshowdialog3"){
+        sentLog("okr_web_page_show", '{"page_name":"活动弹窗","activity_name":"418活动","page_type":"418数字卡主动合成弹窗的曝光"}');
+        _czc.push(['_trackEvent', '418活动', "418数字卡主动合成弹窗的曝光", '曝光', '', '']);
         if(needQQ){
             $(".midqrcode").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/tencentqrcode.png)");
         }else{
@@ -668,6 +670,8 @@ function showFinalWindow(dialog) {
         $(".bottom2").html("可继续玩游戏手机更多周年卡片4月18日赢大奖！");
         map = new coocaakeymap($(".compoundbtn"), $("#compoundbtn1"), "btnFocus", function() {}, function(val) {}, function(obj) {});
     }else if(dialog == "needshowdialog4"){
+        sentLog("okr_web_page_show", '{"page_name":"活动弹窗","activity_name":"418活动","page_type":"418数字卡主动合成弹窗的曝光"}');
+        _czc.push(['_trackEvent', '418活动', "418数字卡主动合成弹窗的曝光", '曝光', '', '']);
         $(".midqrcode").hide();
         $(".qrcodetitle").hide();
         $(".midcard").css("left","576px");
@@ -3003,8 +3007,8 @@ function getMyTasksList(needCheckSpeak) {
 function getAllowanceInfo(num){
 	document.getElementById("everyAllowanceUl").innerHTML = "";
     var tag_id = "";
-    //if(needQQ){tag_id = 103188}else {tag_id = 103187}//test
-    if (needQQ) { tag_id = 103228 } else { tag_id = 103229 }
+    if(needQQ){tag_id = 103188}else {tag_id = 103187}//test
+    // if (needQQ) { tag_id = 103228 } else { tag_id = 103229 }
     var header = JSON.stringify({cUDID:activityId,MAC:macAddress,cModel:TVmodel,cChip:TVchip,cSize:deviceInfo.panel,cTcVersion:deviceInfo.version.replace(/\.*/g, ""),cFMode:"Default",cPattern:"normal","cBrand":"Skyworth"});
     $.ajax({
         type: "get",
@@ -3481,6 +3485,8 @@ function showThisAwardDialog(awardObj) {
     		}
     		sentLog("okr_web_page_show", '{"page_name":"【大富翁中奖】","activity_name":"418活动","award_type":"418全套","award_name":"'+awardObj.awardName+'"}');
         	_czc.push(['_trackEvent', '418活动', "【大富翁中奖】", awardObj.awardName, '', '']);
+            sentLog("okr_web_page_show", '{"page_name":"活动弹窗","activity_name":"418活动","page_type":"418数字卡主动合成弹窗的曝光"}');
+            _czc.push(['_trackEvent', '418活动', "418数字卡主动合成弹窗的曝光", '曝光', '', '']);
     	}
     }
     if (awardObj.awardTypeId == 7) {

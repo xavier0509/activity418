@@ -39,7 +39,6 @@ var orderUrl = "http://172.20.132.182:8090/v3/order/genOrderByJsonp.html?data=";
 
 
 // var operationurl="http://api.home.skysrt.com/v1/tvos/getWebPageContent";
-// var operationurl="http://172.20.155.91:8080/tvos/getWebPageContent";
 var operationurl="http://beta-api-home.skysrt.com/tvos/getWebPageContent";
 
 //var enurl = "https://webapp.skysrt.com/springfestival19/address/index.html?";
