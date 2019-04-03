@@ -67,7 +67,7 @@ var app = {
                 console.log("登录失败");
                 startLoginFlag = false;
                 changeLoginFlag = false;
-                sentLog("okr_web_clicked_result", '{"page_name":"418活动登录弹窗","activity_name":"春节集卡活动","login_result":"登录失败"}');
+                sentLog("okr_web_clicked_result", '{"page_name":"418活动登录弹窗","activity_name":"418活动","login_result":"登录失败"}');
                 _czc.push(['_trackEvent', '418活动', '418活动登录弹窗', '登录失败', '', '']);
             }else if($("#allowancePage").css("display") == "block"){
             	sentLog("okr_web_page_show", '{"page_name":"我的津贴页面","activity_name":"418活动"}');
@@ -1547,6 +1547,7 @@ function initBtn() {
     });
     $("#otherBtn4").unbind("itemClick").bind("itemClick", function() {
         console.log("点击了0元赢电视");
+        selectChipInfo();
         $("#dialogPage").css("display", "none");
         $("#getOtherAward1").css("display", "none");
         $("#getOtherAward2").css("display", "none");
@@ -3410,7 +3411,12 @@ function showThisAwardDialog(awardObj) {
         $("#entityAwardBox").css("display", "block");
         $("#entityAwardImg").attr("src",awardObj.awardUrl);
         $("#otherAwardInfo1").css("display", "block");
-        $("#otherAwardInfo1").html("再接再厉，集齐卡片4月18日赢千元电视");
+        if(!capsuleIsStart){
+    		console.log("418之前");
+    		$("#otherAwardInfo1").html("再接再厉！集齐周年卡片4月18日赢千元电视!");	
+        }else{
+        	$("#otherAwardInfo1").html("集418周年卡赢新品电视火热进行中，<br/>再来一次集更多周年卡吧！");
+        }
         map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
     	
     	sentLog("okr_web_page_show", '{"page_name":"【大富翁中奖】","activity_name":"418活动","award_type":"实物","award_name":"'+awardObj.awardName+'"}');
@@ -3500,13 +3506,6 @@ function showThisAwardDialog(awardObj) {
         $("#otherAwardInfo1").css("display", "block");
         $("#otherBtn2").attr("redNumber", awardObj.awardInfo.bonus);
         $("#otherAwardInfo1").html("当前待领取红包共计"+awardObj.awardInfo.bonus+"元,可累计提现哦!");
-//      if(awardObj.margeType == "true") {
-//          $("#otherBtn2").attr("redNumber", awardObj.awardInfo.bonus);
-//      	$("#otherAwardInfo1").html("当前待领取红包共计"+awardObj.awardInfo.bonus+"元,可累计提现哦!");
-//      } else {
-//          $("#otherBtn2").attr("redNumber", awardObj.mergeAwardInfo.bonus);
-//          $("#otherAwardInfo1").html("当前待领取红包共计"+awardObj.mergeAwardInfo.bonus+"元,可累计提现哦!");
-//      }
         map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
     	
     	sentLog("okr_web_page_show", '{"page_name":"【大富翁中奖】","activity_name":"418活动","award_type":"红包","award_name":"'+awardObj.awardName+'"}');
@@ -3529,8 +3528,8 @@ function showThisAwardDialog(awardObj) {
 	        $("#otherBtn1 .btnName").html("继续掷骰子");
 	        $("#otherBtn2 .btnName").html("领取折扣");
 	        $(".eachAwardStyle").css("display", "none");
-	        $("#redAwardBox").css("display", "block");
-	        $("#redAwardImg").attr("src",awardObj.awardUrl);
+	        $("#vipAwardBox").css("display", "block");
+	        $("#vipAwardImg").attr("src",awardObj.awardUrl);
 	        $("#otherAwardInfo1").css("display", "block");
     		$("#otherAwardInfo1").html("*商品已放入【我的奖励】，该特权价格不可叠加津贴使用~");
     		map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
@@ -3652,8 +3651,8 @@ function otherBtn2ClickFunc() {
     }
     if (_kAwardTypeId == 13) {
     	console.log("点击了特价商品的领取折扣");
-    	sentLog("okr_web_button_click", '{"allowance_price":"","task_name":"","button_state":"","button_name":"右键切换活动","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
-        _czc.push(['_trackEvent', '418活动', "右键切换活动", "", '', '']);
+        sentLog("okr_web_button_click", '{"page_name":"大富翁活动","activity_name":"418活动","button_name":"领取折扣","award_type":"特权-商品","goods_id":"'+$("#otherBtn2").attr("awardGoodsId"+'","award_name":"'+_kAwardName+'"}');
+        _czc.push(['_trackEvent', '418活动', "大富翁活动", "领取折扣", '', '']);
     	
     	var packurl = vipstartUrl + '?data={"product_id":1,"activity_id":"1","activity_name":"wasu","bg_url":"http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/jiaoyujika.png"}';
 		coocaaosapi.startNewBrowser3(packurl, function() {}, function() {});
@@ -3728,19 +3727,8 @@ function sendPrizes(oAwardName, oAwardId, oRememberId, oUserKeyId, oType, oActiv
                 	console.log("领取津贴奖励");
 	                selectMyAllowanceNum();
 	                console.log(isGetAwardAfterLogined);
-//	                if (isGetAwardAfterLogined) {
-//	                	allowancePageForm = "mainbox";
-//	                	donotSentAllowanceBtnLog = true;
-//      				$("#allowanceBtn").trigger("itemClick");
-//      				sentLog("okr_web_clicked_result", '{"page_name":"领取奖品","activity_name":"418活动","award_type":"津贴","award_name":"'+oAwardName+'","receive_result":"领取成功"}');
-//              		_czc.push(['_trackEvent', '418活动', '领取津贴奖品', '领取津贴成功', '', '']);
-//	                }
                 }else if(oType == 19){
                 	console.log("领取金币奖励+跳转");
-//              	if(isGetAwardAfterLogined){
-//              		sentLog("okr_web_clicked_result", '{"page_name":"领取奖品","activity_name":"418活动","award_type":"金币","award_name":"'+oAwardName+'","receive_result":"领取成功"}');
-//              		_czc.push(['_trackEvent', '418活动', '领取金币奖品', '领取金币失败', '', '']);
-//              	}
                 }
             } else {
                 console.log("领取失败");
@@ -3911,6 +3899,13 @@ function showEggAwardDialog(obj){
         $(".eachAwardStyle").css("display", "none");
         $("#entityAwardBox").css("display", "block");
         $("#entityAwardImg").attr("src",obj.awardUrl);
+        $("#otherAwardInfo1").css("display", "block");
+        if(!capsuleIsStart){
+    		console.log("418之前");
+    		$("#otherAwardInfo1").html("再接再厉！集齐周年卡片4月18日赢千元电视!");	
+        }else{
+        	$("#otherAwardInfo1").html("集418周年卡赢新品电视火热进行中，<br/>再来一次集更多周年卡吧！");
+        }
         map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		
 		sentLog("okr_web_page_show", '{"page_name":"【扭蛋机中奖】","activity_name":"418活动","award_type":"实物","award_name":"'+obj.awardName+'"}');
@@ -3927,11 +3922,7 @@ function showEggAwardDialog(obj){
         $("#redAwardBox").css("display", "block");
         $("#redAwardImg").attr("src",obj.awardUrl);
         $("#otherBtn2").attr("redNumber", obj.awardInfo.bonus);
-//      if(obj.margeType == "true") {
-//          $("#otherBtn2").attr("redNumber", obj.awardInfo.bonus);
-//      } else {
-//          $("#otherBtn2").attr("redNumber", obj.mergeAwardInfo.bonus);
-//      }
+        $("#otherAwardInfo1").html("当前待领取红包共计"+obj.awardInfo.bonus+"元,可累计提现哦!");
         map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		sentLog("okr_web_page_show", '{"page_name":"【扭蛋机中奖】","activity_name":"418活动","award_type":"红包","award_name":"'+obj.awardName+'"}');
         _czc.push(['_trackEvent', '418活动', "【扭蛋机中奖】", obj.awardName, '', '']);
@@ -3946,7 +3937,8 @@ function showEggAwardDialog(obj){
         $(".eachAwardStyle").css("display", "none");
         $("#allAwardBox").css("display", "block");
         $("#allowAwardImg").attr("src",obj.awardUrl);
-        
+        $("#otherAwardInfo1").css("display", "none");
+        $("#otherAwardInfo1").html("  ");
         sentLog("okr_web_page_show", '{"page_name":"【扭蛋机中奖】","activity_name":"418活动","award_type":"津贴","award_name":"'+obj.awardName+'"}');
         _czc.push(['_trackEvent', '418活动', "【扭蛋机中奖】", obj.awardName, '', '']);
         
