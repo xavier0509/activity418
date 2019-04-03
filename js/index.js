@@ -989,7 +989,7 @@ function initBtn() {
         function startanswer() {
             sentLog("okr_web_page_show", '{"page_name":"问答任务页面","activity_name":"418活动"}');
             _czc.push(['_trackEvent', '418活动', "问答任务页面", '曝光', '', '']);
-            var date = startDayNum;
+            var date = startDayNum>9?9:startDayNum;
             var questionList=null;
             if(needQQ){
                 questionList = _interlucationsArrayTencent;
