@@ -69,8 +69,13 @@ var app = {
                 changeLoginFlag = false;
                 sentLog("okr_web_clicked_result", '{"page_name":"418活动登录弹窗","activity_name":"春节集卡活动","login_result":"登录失败"}');
                 _czc.push(['_trackEvent', '418活动', '418活动登录弹窗', '登录失败', '', '']);
-            }
-            else {
+            }else if($("#allowancePage").css("display") == "block")){
+            	sentLog("okr_web_page_show", '{"page_name":"我的津贴页面","activity_name":"418活动"}');
+            	_czc.push(['_trackEvent', '418活动', "我的津贴页面", '曝光', '', '']);
+            }else if($("#myAwardPage").css("display") == "block")){
+            	sentLog("okr_web_page_show", '{"page_name":"我的奖励页面","activity_name":"418活动"}');
+            	_czc.push(['_trackEvent', '418活动', "我的奖励页面", '曝光', '', '']);
+            }else {
                 if($("#questionbox").css("display") == "block"){
                     sentLog("okr_web_page_show", '{"page_name":"问答任务页面","activity_name":"418活动"}');
                     _czc.push(['_trackEvent', '418活动', "问答任务页面", '曝光', '', '']);
@@ -183,9 +188,6 @@ var app = {
         	$("#allowancePage").css("display","none");
         	console.log(allowancePageForm);
         	if (allowancePageForm == "mainbox") {
-        		showPage(false,false);
-        		$("#mainbox").css("display","block");
-        		map = new coocaakeymap($(".coocaabtn"), $("#allowanceBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
         		var pagename = "";
 	            var page_type = "";
 	            if($("#gamePanel").offset().left < -600){
@@ -209,9 +211,13 @@ var app = {
 	            }
 	            sentLog("okr_web_page_show", '{"page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
 	            _czc.push(['_trackEvent', '418活动', pagename, '曝光', '', '']);
+	            
+        		showPage(false,false);
+        		$("#mainbox").css("display","block");
+        		map = new coocaakeymap($(".coocaabtn"), $("#allowanceBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
         	} else{
         		$("#myAwardPage").css("display","block");
-        		map = new coocaakeymap($(".coocaa_btn2"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
+        		map = new coocaakeymap($(".coocaa_btn2"), null, "btn-focus", function() {}, function(val) {}, function(obj) {});
         		sentLog("okr_web_page_show", '{"page_name":"我的奖励页面","activity_name":"418活动"}');
 				_czc.push(['_trackEvent', '418活动', '我的奖励页面', '曝光', '', '']);
         	}
@@ -221,6 +227,30 @@ var app = {
         		$(".secondDialog").css("display","none");
         		getMyAwards(2);
         	} else{
+        		var pagename = "";
+	            var page_type = "";
+	            if($("#gamePanel").offset().left < -600){
+	                if (ADMsg3 != null && ADMsg3.schedules != undefined && ADMsg3.schedules[0] != undefined) {
+	                    sentInnerAdshow(ADMsg3, "G0006", "3", "1", "1", "", "","");
+	                    sentThirdAdshow("img", ADMsg3);
+	                }
+	                pagename = "扭蛋机活动";
+	                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+	            }else{
+	                if (ADMsg2 != null && ADMsg2.schedules != undefined && ADMsg2.schedules[0] != undefined) {
+	                    sentInnerAdshow(ADMsg2, "G0006", "2", "1", "1", "", "","");
+	                    sentThirdAdshow("img", ADMsg2);
+	                }
+	                if (ADMsg4 != null && ADMsg4.schedules != undefined && ADMsg4.schedules[0] != undefined) {
+	                    sentInnerAdshow(ADMsg4, "G0006", "2", "2", "1", "", "","");
+	                    sentThirdAdshow("img", ADMsg4);
+	                }
+	                pagename = "大富翁活动";
+	                if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
+	            }
+	            sentLog("okr_web_page_show", '{"page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+	            _czc.push(['_trackEvent', '418活动', pagename, '曝光', '', '']);
+	            
         		showPage(false,false);
         		$("#myAwardPage").css("display","none");
         		$("#mainbox").css("display","block");
@@ -1344,16 +1374,22 @@ function initBtn() {
     });
     $("#noAwardBtn").unbind("itemClick").bind("itemClick", function() {
         console.log("点击了去玩游戏");
+        needRememberFocus = false;
         $("#myAwardPage").css("display", "none");
         $("#mainbox").css("display", "block");
-		map = new coocaakeymap($(".coocaabtn"), $("#mapBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
-		$("#mapBtn").trigger("itemFocus");
+		if($("#gamePanel").offset().left > -600){
+
+        }else{
+            donotSentReplacebtnLog = true;
+            $(".replaceBtn2").trigger("itemFocus");
+        }
+        initMap("#mapBtn",true);
 		
-		var pagename = "大富翁活动";
-        var page_type = "";
-        if(gameStatus == "3"){page_type="大富翁已结束"}else{page_type="大富翁已开始"}
-        sentLog("okr_web_page_show", '{"page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
-        _czc.push(['_trackEvent', '418活动', pagename, '曝光', '', '']);
+//		var pagename = "大富翁活动";
+//      var page_type = "";
+//      if(gameStatus == "3"){page_type="大富翁已结束"}else{page_type="大富翁已开始"}
+//      sentLog("okr_web_page_show", '{"page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
+//      _czc.push(['_trackEvent', '418活动', pagename, '曝光', '', '']);
     });
     $("#redHasGetBtn").unbind("itemClick").bind("itemClick", function() {
         console.log("点击了继续参与");
@@ -1500,7 +1536,7 @@ function initBtn() {
     	var curAwardName = $("#otherBtn4").attr("awardName");
     	var curAwardType = $("#otherBtn4").attr("awardTypeId");
     	sentLog("okr_web_button_click", '{"page_name":"【大富翁中奖】","activity_name":"418活动","button_name":"'+curBtnName+'","award_type":"'+curAwardType+'","goods_id":" ","award_name":"'+curAwardName+'"}');
-        _czc.push(['_trackEvent', '418活动', "大富翁中奖", curBtnName+"--"+curAwardTypeName, '', '']);
+        _czc.push(['_trackEvent', '418活动', "大富翁中奖", curBtnName+"--"+curAwardName, '', '']);
     });
 	//---------------------------------
 }
@@ -3079,7 +3115,7 @@ function getMyAwards(num) {
                             "awardName": data.data[i].awardName,
                             "awardTime": _time,
                             "awardType": data.data[i].awardTypeId,
-                            "imgurl": data.data[i].awardUrl,
+                            "awardUrl": data.data[i].awardUrl,
                             "state": data.data[i].awardExchangeFlag,
                             "userkeyId": data.data[i].userKeyId,
                             "awardId": data.data[i].awardId,
@@ -3237,7 +3273,7 @@ function showMyAward(arr0, arr1, arr2, arr3, arr4, num) {
             entityDiv.setAttribute('awardTime', arr2[i].awardTime);
             entityDiv.setAttribute('lotteryActiveId', arr2[i].lotteryActiveId);
             entityDiv.setAttribute('class', 'myAwards coocaa_btn2');
-
+			
             if (arr2[i].state == 0) {
                 entityDiv.innerHTML = '<div class="myawardsImg"><img class="entityImg" src="'+arr2[i].awardUrl+'"/><div class="entityName"><div class="entitySon">'+arr2[i].awardName+'</div></div><div class="entityStatus notget"></div></div><div class="myawardsBorder"></div>';
             } else {
@@ -3383,7 +3419,7 @@ function showThisAwardDialog(awardObj) {
 	        }else{
 	        	$("#otherAwardInfo1").html("集418周年卡片赢新品电视火热进行中!<br/>再来一次集更多周年卡片吧!");
 	        }
-    		map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+    		map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn1"), "btn-focus", function() {}, function(val) {}, function(obj) {});
     		
     		sentLog("okr_web_page_show", '{"page_name":"【大富翁中奖】","activity_name":"418活动","award_type":"418碎片","award_name":"'+awardObj.awardName+'"}');
         	_czc.push(['_trackEvent', '418活动', "【大富翁中奖】", awardObj.awardName, '', '']);
@@ -3443,13 +3479,15 @@ function showThisAwardDialog(awardObj) {
         $("#redAwardBox").css("display", "block");
         $("#redAwardImg").attr("src",awardObj.awardUrl);
         $("#otherAwardInfo1").css("display", "block");
-        if(awardObj.margeType == "true") {
-            $("#otherBtn2").attr("redNumber", awardObj.awardInfo.bonus);
-        	$("#otherAwardInfo1").html("当前待领取红包共计"+awardObj.awardInfo.bonus+"元,可累计提现哦!");
-        } else {
-            $("#otherBtn2").attr("redNumber", awardObj.mergeAwardInfo.bonus);
-            $("#otherAwardInfo1").html("当前待领取红包共计"+awardObj.mergeAwardInfo.bonus+"元,可累计提现哦!");
-        }
+        $("#otherBtn2").attr("redNumber", awardObj.awardInfo.bonus);
+        $("#otherAwardInfo1").html("当前待领取红包共计"+awardObj.awardInfo.bonus+"元,可累计提现哦!");
+//      if(awardObj.margeType == "true") {
+//          $("#otherBtn2").attr("redNumber", awardObj.awardInfo.bonus);
+//      	$("#otherAwardInfo1").html("当前待领取红包共计"+awardObj.awardInfo.bonus+"元,可累计提现哦!");
+//      } else {
+//          $("#otherBtn2").attr("redNumber", awardObj.mergeAwardInfo.bonus);
+//          $("#otherAwardInfo1").html("当前待领取红包共计"+awardObj.mergeAwardInfo.bonus+"元,可累计提现哦!");
+//      }
         map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
     	
     	sentLog("okr_web_page_show", '{"page_name":"【大富翁中奖】","activity_name":"418活动","award_type":"红包","award_name":"'+awardObj.awardName+'"}');
@@ -3616,7 +3654,7 @@ function otherBtn2ClickFunc() {
 	        getAllNotGetAllowance();
 	        if(isGetAwardAfterLogined == "true"){
 	        	console.log("登录后领取津贴");
-	        	sendPrizes(obj.awardName, obj.awardId, obj.lotteryRememberId, obj.userKeyId, obj.awardTypeId, obj.lotteryActiveId, movieSource, 1);
+	        	sendPrizes(_kAwardName, _kAwardId, _kRememberId, _kUserKeyId, _kAwardTypeId, _kActiveId, movieSource, 1);
 	        	isGetAwardAfterLogined = "false";
 	        }
         }
@@ -3629,7 +3667,7 @@ function otherBtn2ClickFunc() {
         } else {
         	if(isGetAwardAfterLogined == "true"){
 	        	console.log("登录后领取金币");
-	        	sendPrizes(obj.awardName, obj.awardId, obj.lotteryRememberId, obj.userKeyId, obj.awardTypeId, obj.lotteryActiveId, movieSource, 1);
+	        	sendPrizes(_kAwardName, _kAwardId, _kRememberId, _kUserKeyId, _kAwardTypeId, _kActiveId, movieSource, 1);
 	        	isGetAwardAfterLogined = "false";
 	        }
         	var coinUrl = 'https://goldshop.coocaa.com/';
@@ -3868,11 +3906,12 @@ function showEggAwardDialog(obj){
         $(".eachAwardStyle").css("display", "none");
         $("#redAwardBox").css("display", "block");
         $("#redAwardImg").attr("src",obj.awardUrl);
-        if(obj.margeType == "true") {
-            $("#otherBtn2").attr("redNumber", obj.awardInfo.bonus);
-        } else {
-            $("#otherBtn2").attr("redNumber", obj.mergeAwardInfo.bonus);
-        }
+        $("#otherBtn2").attr("redNumber", obj.awardInfo.bonus);
+//      if(obj.margeType == "true") {
+//          $("#otherBtn2").attr("redNumber", obj.awardInfo.bonus);
+//      } else {
+//          $("#otherBtn2").attr("redNumber", obj.mergeAwardInfo.bonus);
+//      }
         map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		sentLog("okr_web_page_show", '{"page_name":"【扭蛋机中奖】","activity_name":"418活动","award_type":"红包","award_name":"'+obj.awardName+'"}');
         _czc.push(['_trackEvent', '418活动', "【扭蛋机中奖】", obj.awardName, '', '']);

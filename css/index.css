@@ -1358,7 +1358,7 @@ img[src=''] {
     left: 0;
     height: 100%;
     width: 100%;
-    line-height: 51px;
+    line-height: 54px;
     text-align: center;
     color: #FFFFFF;
     font-size: 22px;
@@ -1689,12 +1689,19 @@ img[src=''] {
 #cardAwardBox2{
 	top: 113px;
 }
-#cardAwardImg1,#cardAwardImg2,#vipAwardImg{
+#cardAwardImg1,#cardAwardImg2{
 	position: absolute;
     top: 10px;
     left: 94px;
     height: 130px;
     width: 125px;
+}
+#vipAwardImg{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 158px;
+    width: 514px;
 }
 #cardAwardImg2{
 	top: 10px;
