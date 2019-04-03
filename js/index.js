@@ -3386,6 +3386,8 @@ function handleTheDrawData(obj1,obj2){
 		//当前前进步数
 		var curNum = obj2.diceNumber;
 		$("#speedNum").html(curNum);
+        sentLog("okr_web_page_show", '{"page_name":"活动弹窗","activity_name":"418活动","page_type":"加速卡toast曝光"}');
+        _czc.push(['_trackEvent', '418活动', "加速卡toast曝光", '曝光', '', '']);
 		showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jiasushenqi.png",2000);
 		setTimeout(function(){mapMove(obj2,true)},2000);
 	}
