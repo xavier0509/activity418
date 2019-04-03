@@ -60,8 +60,8 @@ var app = {
                     $("#allowanceBtn").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/allowance.png)");
                     $("#allowanceBtn img").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/allowancefocus.png");
                 }else{
-                    $("#allowanceBtn").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/dailingqu.png)");
-                    $("#allowanceBtn img").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/dailingqufocus.png");
+                    $("#allowanceBtn").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/newdailingqu.png)");
+                    $("#allowanceBtn img").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/newdailingqufocus.png");
                 }
             }else if (startLoginFlag) {
                 console.log("登录失败");
@@ -872,6 +872,7 @@ function initBtn() {
 
     $(".operationblock").unbind("itemClick").bind("itemClick", function() {
         remembernum = $(".operationblock").index($(this));
+        // console.log("---------------------------action============"+$(this).attr("action"));
         getParamAndStart(this,false);
     })
     $(".operationmore").unbind("itemClick").bind("itemClick", function() {
@@ -2189,8 +2190,8 @@ function showPage(first, resume) {
         $("#allowanceBtn").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/allowance.png)");
         $("#allowanceBtn img").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/allowancefocus.png");
     }else{
-        $("#allowanceBtn").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/dailingqu.png)");
-        $("#allowanceBtn img").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/dailingqufocus.png");
+        $("#allowanceBtn").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/newdailingqu.png)");
+        $("#allowanceBtn img").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/newdailingqufocus.png");
     }
     if (first) {
         checkVersion();
@@ -2549,8 +2550,8 @@ function showTime(type) {
 function showOperation(showMainShow) {
     console.log("开始获取运营数据===");
     var tag_id = "";
-    // if(needQQ){tag_id = 103188}else {tag_id = 103187}//test
-    if (needQQ) { tag_id = 103228 } else { tag_id = 103229 }
+    if(needQQ){tag_id = 103621}else {tag_id = 103622}//test
+    // if (needQQ) { tag_id = 103228 } else { tag_id = 103229 }
     $("#payZone").html('<div id="allowanceGet" class="allowanceGet operationmap coocaabtn"><div class="sureGet">按【确定】键 立即领取</div><div class="text">&nbsp;</div></div>');
     var header = JSON.stringify({cUDID:activityId,MAC:macAddress,cModel:TVmodel,cChip:TVchip,cSize:deviceInfo.panel,cTcVersion:deviceInfo.version.replace(/\.*/g, ""),cFMode:"Default",cPattern:"normal","cBrand":"Skyworth"});
     // var header = JSON.stringify({});
@@ -2569,14 +2570,15 @@ function showOperation(showMainShow) {
             for (var i = 0; i < operationData.data.length; i++) {
                 for (var j = 0; j < operationData.data[i].baseBlocks.length; j++) {
                     var action_this = JSON.parse(operationData.data[i].baseBlocks[j].action);
+                    // console.log("---------action=================="+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action)));
                     if(action_this.params.allowance != undefined){
                         if(loginstatus == "true"){
-                            var tabItem = '<div class="operationblock operationmap coocaabtn" taskName='+operationData.data[i].baseBlocks[j].title+' action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="sureGet">按【确定】键 看详情购买</div><div class="text show" >使用津贴再减<span>'+action_this.params.allowance+'</span>元</div></div>';
+                            var tabItem = '<div class="operationblock operationmap coocaabtn" taskName="'+operationData.data[i].baseBlocks[j].title+'" action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="sureGet">按【确定】键 看详情购买</div><div class="text show" >使用津贴再减<span>'+action_this.params.allowance+'</span>元</div></div>';
                         }else{
-                            var tabItem = '<div class="operationblock operationmap coocaabtn" taskName='+operationData.data[i].baseBlocks[j].title+' action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="sureGet">按【确定】键 看详情购买</div><div class="text show"  >领取津贴再减<span>'+action_this.params.allowance+'</span>元</div></div>';
+                            var tabItem = '<div class="operationblock operationmap coocaabtn" taskName="'+operationData.data[i].baseBlocks[j].title+'" action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="sureGet">按【确定】键 看详情购买</div><div class="text show"  >领取津贴再减<span>'+action_this.params.allowance+'</span>元</div></div>';
                         }
                     }else{
-                        var tabItem = '<div class="operationblock operationmap coocaabtn" taskName='+operationData.data[i].baseBlocks[j].title+' action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="sureGet">按【确定】键 看详情购买</div><div class="text">&nbsp;</div></div>';
+                        var tabItem = '<div class="operationblock operationmap coocaabtn" taskName="'+operationData.data[i].baseBlocks[j].title+'" action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="sureGet">按【确定】键 看详情购买</div><div class="text">&nbsp;</div></div>';
                     }
                     tabInner += tabItem;
                 }
@@ -2790,7 +2792,7 @@ function sentThirdAdshow(type, msg) {
 }
 //加载立即检测版本
 function checkVersion() {
-    if (activityCenterVersion < 104000) {
+    if (activityCenterVersion < 103014) {
         coocaaosapi.createDownloadTask(
             "https://apk-sky-fs.skysrt.com/uploads/20190109/20190109191141936672.apk",
             "67EF020FE82A5BBF1D3F9E719886EB8A",
@@ -2933,9 +2935,9 @@ function getAllowanceInfo(num){
 					for (var j = 0; j < data.data[i].baseBlocks.length; j++) {
 						var action_this = JSON.parse(data.data[i].baseBlocks[j].action);
                         if(loginstatus == "true"){
-                        	liListItems += '<div class="everyAllowanceLi coocaabtn2" taskName='+data.data[i].baseBlocks[j].title+' action='+JSON.stringify(JSON.parse(data.data[i].baseBlocks[j].action))+'><img class="everyAllItem" src="images/itemimg.webp"/><div class="everyAllBorder"></div><div class="everyAllInfo">使用津贴再减<span>'+action_this.params.allowance+'</span>元</div><div class="everyAllWarm">按【确定键】看详情购买</div></div>';
+                        	liListItems += '<div class="everyAllowanceLi coocaabtn2" taskName="'+data.data[i].baseBlocks[j].title+'" action='+JSON.stringify(JSON.parse(data.data[i].baseBlocks[j].action))+'><img class="everyAllItem" src="images/itemimg.webp"/><div class="everyAllBorder"></div><div class="everyAllInfo">使用津贴再减<span>'+action_this.params.allowance+'</span>元</div><div class="everyAllWarm">按【确定键】看详情购买</div></div>';
                         }else{
-                        	liListItems += '<div class="everyAllowanceLi coocaabtn2" taskName='+data.data[i].baseBlocks[j].title+' action='+JSON.stringify(JSON.parse(data.data[i].baseBlocks[j].action))+'><img class="everyAllItem" src="images/itemimg.webp"/><div class="everyAllBorder"></div><div class="everyAllInfo">领取津贴再减<span>'+action_this.params.allowance+'</span>元</div><div class="everyAllWarm">按【确定键】看详情购买</div></div>';
+                        	liListItems += '<div class="everyAllowanceLi coocaabtn2" taskName="'+data.data[i].baseBlocks[j].title+'" action='+JSON.stringify(JSON.parse(data.data[i].baseBlocks[j].action))+'><img class="everyAllItem" src="images/itemimg.webp"/><div class="everyAllBorder"></div><div class="everyAllInfo">领取津贴再减<span>'+action_this.params.allowance+'</span>元</div><div class="everyAllWarm">按【确定键】看详情购买</div></div>';
                         }
 					}
 				}

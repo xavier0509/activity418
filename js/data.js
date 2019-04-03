@@ -45,10 +45,10 @@ var operationurl="http://beta-api-home.skysrt.com/tvos/getWebPageContent";
 //var enurl = "https://webapp.skysrt.com/springfestival19/address/index.html?";
  var enurl = "http://beta.webapp.skysrt.com/zy/address/index.html?";//实体奖url
 
-var allowanceUrl = "https://jintie.coocaa.com/api/subsidy/v1/query-userSubsidyInfo-byToken"
-var allowanceClientId = "YS_RELEASE";
-// var allowanceUrl = "http://172.20.155.209:6081/api/subsidy/v1/query-userSubsidyInfo-byToken"  //查询津贴地址
-// var allowanceClientId = "YS_BETA";
+// var allowanceUrl = "https://jintie.coocaa.com/api/subsidy/v1/query-userSubsidyInfo-byToken"
+// var allowanceClientId = "YS_RELEASE";
+var allowanceUrl = "http://172.20.155.209:6081/api/subsidy/v1/query-userSubsidyInfo-byToken"  //查询津贴地址
+var allowanceClientId = "YS_BETA";
 
 var vipstartUrl = "http://dev.business.video.tc.skysrt.com/v3/web/actCenter/index.html?"; 
 

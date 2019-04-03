@@ -755,14 +755,22 @@ img[src=''] {
 
 
 
-
+.guangzhao{
+    width: 258px;
+    height: 247px;
+    background: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/guangzhao.png");
+    position: absolute;
+    top:264px;
+    left: 464px;
+    z-index: 12;
+}
 .dice-icon-1 {
     position: absolute;
     top: 280px;
     left: 515px;
     width: 150px;
     height: 150px;
-    background: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newdice.png") no-repeat 0px -1350px;
+    background: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/xintouzi.png") no-repeat 0px -1350px;
     z-index: 9;
 }
 
