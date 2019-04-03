@@ -601,15 +601,14 @@ function showSpeak() {
         if(intervalNum == speakArry.length){
             setTimeout(function(){
                 $("#map"+nowPosition).html("");
+                clearInterval(speakInter);
             },5000);
-            clearInterval(speakInter);
+
         }else{
             $("#map"+nowPosition).html("<div class='foxspeak'><div>"+speakArry[intervalNum]+"</div></div>");
-
-            // console.log("------"+speakArry[intervalNum])
             setTimeout(function(){
                 $("#map"+nowPosition).html("");
-            },5000)
+            },4900)
             intervalNum++;
         }
     }
@@ -876,7 +875,7 @@ function initBtn() {
     })
     $(".gameBtn").unbind("itemFocus").bind("itemFocus", function() {
         var a =  $("#gamePanel").offset().left;
-        // console.log("------------------------------top--"+a);
+        console.log("------------------------------top--"+a);
         if( $("#mainbox").offset().top<0){
             if($("#gamePanel").offset().left < -600){
                 if (ADMsg3 != null && ADMsg3.schedules != undefined && ADMsg3.schedules[0] != undefined) {
@@ -907,6 +906,11 @@ function initBtn() {
     })
     $(".topbtn").unbind("itemFocus").bind("itemFocus", function() {
         $("#mainbox").css("transform", "translate3D(0, 0, 0)");
+        if($("#gamePanel").offset().left > -600){
+            $(".topbtn").attr("downtarget","#mapBtn");
+        }else{
+            $(".topbtn").attr("downtarget","#drawBtn");
+        }
     })
     $(".mission").unbind("itemFocus").bind("itemFocus", function() {
         $("#mainbox").css("transform", "translate3D(0, -400px, 0)");
