@@ -3795,7 +3795,7 @@ function otherBtn2ClickFunc() {
     	console.log(awardGoodsId);
         sentLog("okr_web_button_click", '{"page_name":"大富翁活动","activity_name":"418活动","button_name":"领取折扣","award_type":"特权-商品","goods_id":"'+awardGoodsId+'","award_name":"'+_kAwardName+'"}');
         _czc.push(['_trackEvent', '418活动', "大富翁活动", "领取折扣", '', '']);
-    	coocaaosapi.startAppStoreDetail(awardGoodsId, function() {}, function() {});
+    	coocaaosapi.startAppShopZone(awardGoodsId, function() {}, function() {});
     }
     if (_kAwardTypeId == 17) {
         console.log("点击了津贴奖励的马上领取");
