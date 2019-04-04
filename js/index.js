@@ -73,6 +73,10 @@ var app = {
             	sentLog("okr_web_page_show", '{"page_name":"我的津贴页面","activity_name":"418活动"}');
             	_czc.push(['_trackEvent', '418活动', "我的津贴页面", '曝光', '', '']);
             }else if($("#myAwardPage").css("display") == "block"){
+                if (_curHomeBtn == "goldcoinNotGot"&&$("#goldcoinNotGot").length == 0) {
+                    _curHomeBtn = "goldcoinHasGot";
+                }
+                getMyAwards(2);
             	sentLog("okr_web_page_show", '{"page_name":"我的奖励页面","activity_name":"418活动"}');
             	_czc.push(['_trackEvent', '418活动', "我的奖励页面", '曝光', '', '']);
             }else {
@@ -2231,6 +2235,14 @@ function diceMove() {
 function mapMove(obj,isSecondMove) {
     clearInterval(interval_diceMove);
     $("#diceIcon_1").stop(true,true);
+    $("#diceNum").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newnum"+obj.diceNumber+".png)");
+    $("#diceNum").show();
+    $("#diceNum").addClass("showmove");
+    setTimeout(removeClass, 1500)
+    function removeClass() {
+        $("#diceNum").hide();
+        $("#diceNum").removeClass("showmove")
+    }
     nowPosition = obj.nowPosition;
     var i = (obj.nowPosition == 15) ? 1 : obj.nowPosition;
     var step = obj.nextPosition;

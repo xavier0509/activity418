@@ -764,13 +764,48 @@ img[src=''] {
     left: 464px;
     z-index: 12;
 }
+#diceNum{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top:244px;
+    left: 537px;
+    display: none;
+}
+#diceNum.showmove{
+    animation: myfirst1 1.5s linear 0s 1 ;
+    /* Firefox: */
+    -moz-animation: myfirst1 1.5s linear 0s 1 ;
+    /* Safari 和 Chrome: */
+    -webkit-animation: myfirst1 1.5s linear 0s 1 ;
+    /* Opera: */
+    -o-animation: myfirst1 1.5s linear 0s 1 ;
+}
+@keyframes myfirst1
+{
+    0%   {opacity:1;top:244px;display: none;}
+    1%   {opacity:1;top:244px;display: block;}
+    25%  {opacity:0.8;top:239px; display: block;}
+    50%  {opacity:0.6;top:224px; display: block;}
+    75%  {opacity:0.4;top:199px; display: block;}
+    100% {opacity:0.1;top:184px;display: none}
+}
+@-webkit-keyframes myfirst1
+{
+    0%   {opacity:1;top:244px;display: none;}
+    1%   {opacity:1;top:244px;display: block;}
+    25%  {opacity:0.8;top:239px; display: block;}
+    50%  {opacity:0.6;top:224px; display: block;}
+    75%  {opacity:0.4;top:199px; display: block;}
+    100% {opacity:0.1;top:184px;display: none}
+}
 .dice-icon-1 {
     position: absolute;
     top: 280px;
     left: 515px;
     width: 150px;
     height: 150px;
-    background: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/xinshaizi.png") no-repeat 0px -1350px;
+    background: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/lastdicel.png") no-repeat 0px -1350px;
     z-index: 9;
 }
 
@@ -1859,24 +1894,7 @@ img[src=''] {
     z-index: 999;
     background-color: red;
 }
-@keyframes myfirst1
-{
-    0%   {opacity:1;top:484px;display: none;}
-    1%   {opacity:1;top:484px;display: block;}
-    25%  {opacity:0.4;top:469px; display: block;}
-    50%  {opacity:0.3;top:454px; display: block;}
-    75%  {opacity:0.2;top:439px; display: block;}
-    100% {opacity:0.1;top:424px;display: none}
-}
-@-webkit-keyframes myfirst1
-{
-    0%   {opacity:1;top:484px;display: none;}
-    1%   {opacity:1;top:484px;display: block;}
-    25%  {opacity:0.4;top:469px; display: block;}
-    50%  {opacity:0.3;top:454px; display: block;}
-    75%  {opacity:0.2;top:439px; display: block;}
-    100% {opacity:0.1;top:424px;display: none}
-}
+
 
 /*扭蛋机*/
 .niu_danji {
