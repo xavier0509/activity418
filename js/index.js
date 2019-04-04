@@ -3192,6 +3192,8 @@ function getMyAwards(num) {
                             }
                             _arr2.push(objItem);
                         } else if (data.data[i].awardTypeId == "13") {
+                        	objItem.vipType = data.data[i].awardInfo.viptype;
+                            objItem.vipId = data.data[i].awardInfo.id;
                             _arr3.push(objItem);
                         } else if (data.data[i].awardTypeId == "19") {
                         	console.log(JSON.stringify(data.data[i]));
@@ -3344,8 +3346,8 @@ function showMyAward(arr0, arr1, arr2, arr3, arr4, num) {
             packageDiv.setAttribute('userkeyId', arr3[i].userkeyId);
             packageDiv.setAttribute('awardName', arr3[i].awardName);
             packageDiv.setAttribute('awardTime', arr3[i].awardTime);
-            packageDiv.setAttribute('vipType', arr3[i].awardInfo.vipType);
-            packageDiv.setAttribute('vipId', arr3[i].awardInfo.id);
+            packageDiv.setAttribute('vipType', arr3[i].vipType);
+            packageDiv.setAttribute('vipId', arr3[i].vipId);
             packageDiv.setAttribute('awardUrl', arr3[i].awardUrl);
             packageDiv.setAttribute('lotteryActiveId', arr3[i].lotteryActiveId);
             packageDiv.setAttribute('class', 'myAwards coocaa_btn2');
