@@ -1859,6 +1859,16 @@ img[src=''] {
     margin: auto;
     z-index: 89;
 }
+#specialToast{
+    width: 684px;
+    height: 256px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
 #normalToast span{
     display: block;
     width: 456px;

@@ -708,7 +708,7 @@ function initMap(setFocus,needShowSpeak) {
     }
     rememberSetFocus = setFocus;
     console.log("--------" + setFocus);
-    map = new coocaakeymap($("#deviceready"), null, "btnFocus", function() {}, function(val) {}, function(obj) {});
+    map = new coocaakeymap($("#deviceready"), null, "btnFocustest", function() {}, function(val) {}, function(obj) {});
 
     setTimeout(function(){
         console.log("---------"+needShowSpeak);
@@ -782,7 +782,7 @@ function initMap(setFocus,needShowSpeak) {
             if(alterType == "jump"){
                 $("#addChanceWindow .addchancep1").html("恭喜完成跳转任务");
                 sentLog("okr_web_clicked_result", '{"page_name":"跳转浏览任务页面","activity_name":"418活动","browse_result":"浏览成功"}');
-                _czc.push(['_trackEvent', '418活动', "付费任务", '支付完成', '', '']);
+                _czc.push(['_trackEvent', '418活动', "跳转浏览任务页面", '浏览成功', '', '']);
             }else if(alterType == "video"){
                 $("#addChanceWindow .addchancep1").html("恭喜完成视频任务");
                 sentLog("okr_web_clicked_result", '{"page_name":"跳转浏览任务页面","activity_name":"418活动","browse_result":"浏览成功"}');
@@ -1207,37 +1207,72 @@ function initBtn() {
     $("#allowanceGet").unbind("itemClick").bind("itemClick", function(){
         var allowance_price = "0";
         var nowHours = new Date().getHours();
-        if((nowHours>=0&&nowHours<=12)||(nowHours>=22)){
-            allowance_price = "50";
-        }else{
-            allowance_price = "100";
-        }
-        if(nowHours==11||nowHours==12||nowHours==19||nowHours==20||nowHours==21){
-            //调用领取接口
-            if(loginstatus=="true"){
-                getAllowance();
-            }else{
-                // startLogin(needQQ);
-                startAndSendLog()
-            }
-        }else{
-            var button_state = "";
+        // if((nowHours>=0&&nowHours<=12)||(nowHours>=22)){
+        //     allowance_price = "50";
+        // }else{
+        //     allowance_price = "100";
+        // }
+        // if(nowHours==11||nowHours==12||nowHours==19||nowHours==20||nowHours==21){
+        //     //调用领取接口
+        //     if(loginstatus=="true"){
+        //         getAllowance();
+        //     }else{
+        //         // startLogin(needQQ);
+        //         startAndSendLog()
+        //     }
+        // }else{
+        //     var button_state = "";
+        //
+        //     if(nowHours<11 || (nowHours>12&&nowHours<19)){
+        //         button_state = "没到领取时间";
+        //         //稍后再来
+        //         showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jintieweidaoshijian.png",3000);
+        //     }else {
+        //         if(startDayNum == 9){
+        //             //结束
+        //             button_state = "津贴已派发完了";
+        //             showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jintieyijinglingwan.png",3000);
+        //         }else{
+        //             //稍后再来
+        //             button_state = "没到领取时间";
+        //             showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jintieweidaoshijian.png",3000);
+        //         }
+        //     }
 
-            if(nowHours<11 || (nowHours>12&&nowHours<19)){
-                button_state = "没到领取时间";
-                //稍后再来
-                showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jintieweidaoshijian.png",3000);
-            }else {
-                if(startDayNum == 9){
-                    //结束
-                    button_state = "津贴已派发完了";
-                    showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jintieyijinglingwan.png",3000);
-                }else{
-                    //稍后再来
-                    button_state = "没到领取时间";
-                    showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jintieweidaoshijian.png",3000);
-                }
+            if((nowHours>=0&&nowHours<=12)||(nowHours>=18)){
+                allowance_price = "50";
+            }else{
+                allowance_price = "100";
             }
+            if((nowHours>8&&nowHours<12)||(nowHours>13&&nowHours<18)){
+                //调用领取接口
+                if(loginstatus=="true"){
+                    getAllowance();
+                }else{
+                    // startLogin(needQQ);
+                    startAndSendLog()
+                }
+            }else{
+                var button_state = "";
+
+                if(nowHours<9 || (nowHours>12&&nowHours<14)){
+                    button_state = "没到领取时间";
+                    //稍后再来
+                    showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jintieweidaoshijian.png",3000);
+                }else {
+                    if(startDayNum == 9){
+                        //结束
+                        button_state = "津贴已派发完了";
+                        showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jintieyijinglingwan.png",3000);
+                    }else{
+                        //稍后再来
+                        button_state = "没到领取时间";
+                        showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/jintieweidaoshijian.png",3000);
+                    }
+                }
+
+
+
             var btnname = "津贴领取入口 ";
             var pagename = "";
             var page_type = "";
@@ -1947,21 +1982,25 @@ function getParamAndStart(obj,needCheckVersion) {
             }
             if (hasversioncode < needversioncode) {
                 if (pkgname == "com.tianci.movieplatform") {
-                    $("#needUpdate").show();
-                    $("#blackBg").show();
-                    $("#needUpdate").css("background", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/index/movieupdate.png)");
-                    map = new coocaakeymap($("#needUpdate"), $("#needUpdate"), "btnFocus", function() {}, function(val) {}, function(obj) {});
-                    toastTimeout = setTimeout(function(){
-                        hideToast(1)
-                    }, 5000);
+                    showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/movieupdate.png",4000,"","",true);
+                    return;
+                    // $("#needUpdate").show();
+                    // $("#blackBg").show();
+                    // $("#needUpdate").css("background", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/index/movieupdate.png)");
+                    // map = new coocaakeymap($("#needUpdate"), $("#needUpdate"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+                    // toastTimeout = setTimeout(function(){
+                    //     hideToast(1)
+                    // }, 5000);
                 }  else if (pkgname == "com.coocaa.mall") {
-                    $("#needUpdate").show();
-                    $("#blackBg").show();
-                    $("#needUpdate").css("background", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/index/mallupdate.png)");
-                    map = new coocaakeymap($("#needUpdate"), $("#needUpdate"), "btnFocus", function() {}, function(val) {}, function(obj) {});
-                    toastTimeout = setTimeout(function(){
-                        hideToast(1)
-                    }, 5000);
+                    showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/mallupdate.png",4000,"","",true);
+                    return;
+                    // $("#needUpdate").show();
+                    // $("#blackBg").show();
+                    // $("#needUpdate").css("background", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/index/mallupdate.png)");
+                    // map = new coocaakeymap($("#needUpdate"), $("#needUpdate"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+                    // toastTimeout = setTimeout(function(){
+                    //     hideToast(1)
+                    // }, 5000);
                 }
                 console.log("当前版本过低，请前往应用圈搜索进行升级");
             } else {
@@ -2143,22 +2182,30 @@ function hideToast(pageNum) {
     }
 }
 //展示并隐藏toast，不抢焦点
-function showAndHideToast(text,time,obj,stopDice) {
+function showAndHideToast(text,time,obj,stopDice,specialType) {
     clearInterval(interval_diceMove);
     $("#diceIcon_1").stop(true,true);
-    if(stopDice){
-        $("#diceIcon_1").attr('class', 'dice-icon-1');
-        $("#diceIcon_1").css({ marginTop: "0", marginLeft: "0" });
-        $("#diceIcon_1").addClass("dice_aim"+obj.diceNumber);
+    if(specialType){
+        $("#specialToast").css("background-image","url("+text+")");
+        $("#specialToast").show();
+        setTimeout(function () {
+            $("#specialToast").hide();
+        },time);
+    }else{
+        if(stopDice){
+            $("#diceIcon_1").attr('class', 'dice-icon-1');
+            $("#diceIcon_1").css({ marginTop: "0", marginLeft: "0" });
+            $("#diceIcon_1").addClass("dice_aim"+obj.diceNumber);
+        }
+        $("#normalToast span").css("background-image","url("+text+")");
+        $("#normalToast").show();
+        // $("#blackBg").show();
+        setTimeout(function () {
+            $("#normalToast").hide();
+            $("#speedNum").html("");
+            // $("#blackBg").hide();
+        },time);
     }
-    $("#normalToast span").css("background-image","url("+text+")");
-    $("#normalToast").show();
-    // $("#blackBg").show();
-    setTimeout(function () {
-        $("#normalToast").hide();
-        $("#speedNum").html("");
-        // $("#blackBg").hide();
-    },time);
 }
 //掷骰子接口
 function startMapFunc() {
