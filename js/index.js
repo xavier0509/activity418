@@ -73,12 +73,24 @@ var app = {
             	sentLog("okr_web_page_show", '{"page_name":"我的津贴页面","activity_name":"418活动"}');
             	_czc.push(['_trackEvent', '418活动', "我的津贴页面", '曝光', '', '']);
             }else if($("#myAwardPage").css("display") == "block"){
-                if (_curHomeBtn == "goldcoinNotGot"&&$("#goldcoinNotGot").length == 0) {
-                    _curHomeBtn = "goldcoinHasGot";
-                }
-                getMyAwards(2);
+            	if ($("#dialogPage").css("display") == "block") {
+            		if ($("#redHasGet").css("display") == "block") {
+            			map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("redHasGetBtn"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+            		}else if($("#redNotGet").css("display") == "block"){
+            			map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("redQrcode"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+            		}else if($("#otherNotGet").css("display") == "block"){
+            			map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherInfo3"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+            		}else if($("#otherHasGet").css("display") == "block"){
+            			map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("hasGotInfo4"), "btn-focus", function() {}, function(val) {}, function(obj) {});
+            		}
+            	} else{
+            		if (_curHomeBtn == "goldcoinNotGot"&&$("#goldcoinNotGot").length == 0) {
+	                    _curHomeBtn = "goldcoinHasGot";
+	                 	getMyAwards(2);
+	            	}
+            	}
             	sentLog("okr_web_page_show", '{"page_name":"我的奖励页面","activity_name":"418活动"}');
-            	_czc.push(['_trackEvent', '418活动', "我的奖励页面", '曝光', '', '']);
+	            _czc.push(['_trackEvent', '418活动', "我的奖励页面", '曝光', '', '']);
             }else {
                 if($("#questionbox").css("display") == "block"){
                     sentLog("okr_web_page_show", '{"page_name":"问答任务页面","activity_name":"418活动"}');
@@ -1472,18 +1484,23 @@ function initBtn() {
 //      _czc.push(['_trackEvent', '418活动', pagename, '曝光', '', '']);
     });
     $("#redHasGetBtn").unbind("itemClick").bind("itemClick", function() {
-        console.log("点击了继续参与");
-        $("#mainbox").css("display", "block");
-        $("#dialogPage").css("display", "none");
-        $("#redHasGet").css("display", "none");
-        $("#myAwardPage").css("display", "none");
-        if($("#gamePanel").offset().left < -600){
-			map = new coocaakeymap($(".coocaabtn"), $("#drawBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
-			$("#drawBtn").trigger("itemFocus");
-		}else{
-			map = new coocaakeymap($(".coocaabtn"), $("#mapBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
-			$("#mapBtn").trigger("itemFocus");
-		}
+        if (gameStatus == 3) {
+        	console.log("点击了查看中奖名单");
+        	showPage(false,fasle);
+        } else{
+        	console.log("点击了继续参与");
+        	$("#mainbox").css("display", "block");
+	        $("#dialogPage").css("display", "none");
+	        $("#redHasGet").css("display", "none");
+	        $("#myAwardPage").css("display", "none");
+	        if($("#gamePanel").offset().left < -600){
+				map = new coocaakeymap($(".coocaabtn"), $("#drawBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+				$("#drawBtn").trigger("itemFocus");
+			}else{
+				map = new coocaakeymap($(".coocaabtn"), $("#mapBtn"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+				$("#mapBtn").trigger("itemFocus");
+			}
+        }
     });
     $("#redQrcode").unbind("itemClick").bind("itemClick", function() {
     	console.log("点击未领取红包二维码");
@@ -1747,6 +1764,11 @@ function initBtnAfter(){
                     console.log("点击了红包+显示领取信息");
                     $(".secondDialog").css("display", "none");
                     $("#redHasGet").css("display", "block");
+                    if (gameStatus == 3) {
+                    	$("#redHasGetBtn .btnName").html("查看中奖名单");
+                    } else{
+                    	$("#redHasGetBtn .btnName").html("继续参与");
+                    }
                     map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("redHasGetBtn"), "btn-focus", function() {}, function(val) {}, function(obj) {});
                 }
             }
@@ -3770,9 +3792,9 @@ function otherBtn2ClickFunc() {
     if (_kAwardTypeId == 13) {
     	console.log("点击了特价商品的领取折扣");
     	var awardGoodsId = $("#otherBtn2").attr("awardGoodsId");
+    	console.log(awardGoodsId);
         sentLog("okr_web_button_click", '{"page_name":"大富翁活动","activity_name":"418活动","button_name":"领取折扣","award_type":"特权-商品","goods_id":"'+awardGoodsId+'","award_name":"'+_kAwardName+'"}');
         _czc.push(['_trackEvent', '418活动', "大富翁活动", "领取折扣", '', '']);
-    	
     	coocaaosapi.startAppStoreDetail(awardGoodsId, function() {}, function() {});
     }
     if (_kAwardTypeId == 17) {
