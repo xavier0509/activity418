@@ -1666,6 +1666,13 @@ img[src=''] {
     width: 514px;
     background-color: rgba(165,105,52,0.2);
 }
+#allowAwardImg{
+	position: absolute;
+	top: 13px;
+	left: 42px;
+	height: 132px;
+	width: 432px;
+}
 .awardbg3{
     position: absolute;
     top: 138px;
