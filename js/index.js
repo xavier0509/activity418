@@ -473,7 +473,7 @@ function getRedPacketsQrcode(activityId, rememberId, userKeyId, id, width, heigh
     var ajaxTimeoutFive = $.ajax({
         type: "GET",
         async: true,
-        timeout: 10000,
+        timeout: 7000,
         dataType: 'jsonp',
         jsonp: "callback",
         url: adressIp + "/v3/lottery/verify/wechat/qrCode",
@@ -1629,6 +1629,7 @@ function initBtnAfter(){
         var _awardName = $(this).attr("awardName");
         var _awardTime = $(this).attr("awardTime");
         var _awardType = $(this).attr("awardType");
+        var _awardUrl = $(this).attr("awardUrl");
         var _awardState = $(this).attr("awardState");
         var _lotteryActiveId = $(this).attr("lotteryActiveId");
         var _rememberId = $(this).attr("rememberId");
@@ -1751,9 +1752,17 @@ function initBtnAfter(){
         	console.log("点击了特价产品包");
         	sentLog("okr_web_button_click", '{"page_name":"我的奖励页面","activity_name":"418活动","button_name":"特权"}');
             _czc.push(['_trackEvent', '418活动', "我的奖励页面", "特权的点击", '', '']);
-            	
-        	var packurl = 'http://dev.business.video.tc.skysrt.com/v3/web/actCenter/index.html?data={"product_id":1,"activity_id":"1","activity_name":"wasu","bg_url":"http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/jiaoyujika.png"}';
-        	coocaaosapi.startNewBrowser3(packurl, function() {}, function() {});
+            
+            var _curVipType = packageDiv.setAttribute('vipType');
+            var _curVipId = packageDiv.setAttribute('vipId');
+            var _curVipUrl = packageDiv.setAttribute('awardUrl');
+            console.log(_curVipType+"---"+_curVipId);
+            if (_curVipType == "product") {
+            	coocaaosapi.startAppStoreDetail(_curVipId, function() {}, function() {});
+            } else{
+            	var packurl = vipstartUrl + '?data={"product_id":"'+_curVipId+'","activity_id":"'+actionId+'","activity_name":"418活动","bg_url":"'+_curVipUrl+'"}';
+        		coocaaosapi.startNewBrowser3(packurl, function() {}, function() {});
+            }
         }
         if (_awardType == 19){
         	if (loginstatus == "false") {
@@ -2235,14 +2244,6 @@ function diceMove() {
 function mapMove(obj,isSecondMove) {
     clearInterval(interval_diceMove);
     $("#diceIcon_1").stop(true,true);
-    $("#diceNum").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newnum"+obj.diceNumber+".png)");
-    $("#diceNum").show();
-    $("#diceNum").addClass("showmove");
-    setTimeout(removeClass, 1500)
-    function removeClass() {
-        $("#diceNum").hide();
-        $("#diceNum").removeClass("showmove")
-    }
     nowPosition = obj.nowPosition;
     var i = (obj.nowPosition == 15) ? 1 : obj.nowPosition;
     var step = obj.nextPosition;
@@ -2527,9 +2528,6 @@ function speakToast(overtask){
                 }else{}
             }
         }
-    }else{
-        speak8 = false;
-        speak7 = false;
     }
 }
 //查询碎片信息
@@ -3346,6 +3344,9 @@ function showMyAward(arr0, arr1, arr2, arr3, arr4, num) {
             packageDiv.setAttribute('userkeyId', arr3[i].userkeyId);
             packageDiv.setAttribute('awardName', arr3[i].awardName);
             packageDiv.setAttribute('awardTime', arr3[i].awardTime);
+            packageDiv.setAttribute('vipType', arr3[i].awardInfo.vipType);
+            packageDiv.setAttribute('vipId', arr3[i].awardInfo.id);
+            packageDiv.setAttribute('awardUrl', arr3[i].awardUrl);
             packageDiv.setAttribute('lotteryActiveId', arr3[i].lotteryActiveId);
             packageDiv.setAttribute('class', 'myAwards coocaa_btn2');
             
@@ -3548,12 +3549,14 @@ function showThisAwardDialog(awardObj) {
     if(awardObj.awardTypeId == 13){
     	console.log("抽到特权购买奖品");
     	var vipType = awardObj.awardInfo.vipType;
+    	var vipid = awardObj.awardInfo.id;
+    	var vipImgUrl = awardObj.awardUrl;
     	var packurl = "";
     	var _award_type = "";
     	if(vipType == "product"){
     		console.log("抽中特权-购物");
-    		$("#otherBtn2").attr("awardGoodsId", awardObj.awardInfo.id);
-    		$("#otherBtn2").attr("awardVIPType", awardObj.awardInfo.vipType);
+    		$("#otherBtn2").attr("awardGoodsId", vipid);
+    		$("#otherBtn2").attr("awardVIPType", vipType);
     		_award_type = "特权-购物";
     		
     		$("#dialogPage").css("display", "block");
@@ -3563,24 +3566,24 @@ function showThisAwardDialog(awardObj) {
 	        $("#otherBtn2 .btnName").html("领取折扣");
 	        $(".eachAwardStyle").css("display", "none");
 	        $("#vipAwardBox").css("display", "block");
-	        $("#vipAwardImg").attr("src",awardObj.awardUrl);
+	        $("#vipAwardImg").attr("src",vipImgUrl);
 	        $("#otherAwardInfo1").css("display", "block");
     		$("#otherAwardInfo1").html("*商品已放入【我的奖励】，该特权价格不可叠加津贴使用~");
     		map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
     	}else{
     		if(vipType == "yinhe"||vipType == "6"){
     			console.log("抽中特权-影视");
-                packurl = vipstartUrl + '?data={"product_id":1,"activity_id":"'+actionId+'","activity_name":"418活动","bg_url":"http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/jiaoyujika.png"}';
+                packurl = vipstartUrl + '?data={"product_id":"'+vipid+'","activity_id":"'+actionId+'","activity_name":"418活动","bg_url":"'+vipImgUrl+'"}';
     			_award_type = "特权-影视";
     		}
     		if(vipType == "jiaoyuvip"){
 	    		console.log("抽中特权-教育");
-                packurl = vipstartUrl + '?data={"product_id":1,"activity_id":"'+actionId+'","activity_name":"418活动","bg_url":"http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/jiaoyujika.png"}';
+                packurl = vipstartUrl + '?data={"product_id":"'+vipid+'","activity_id":"'+actionId+'","activity_name":"418活动","bg_url":"'+vipImgUrl+'"}';
 	    		_award_type = "特权-教育";
     		}
     		if(vipType == "shaoervip"){
 	    		console.log("抽中特权-少儿");
-                packurl = vipstartUrl + '?data={"product_id":1,"activity_id":"'+actionId+'","activity_name":"418活动","bg_url":"http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/jiaoyujika.png"}';
+                packurl = vipstartUrl + '?data={"product_id":"'+vipid+'","activity_id":"'+actionId+'","activity_name":"418活动","bg_url":"'+vipImgUrl+'"}';
 	    		_award_type = "特权-少儿";
     		}
     		coocaaosapi.startNewBrowser3(packurl, function() {}, function() {});
@@ -3685,11 +3688,11 @@ function otherBtn2ClickFunc() {
     }
     if (_kAwardTypeId == 13) {
     	console.log("点击了特价商品的领取折扣");
-        sentLog("okr_web_button_click", '{"page_name":"大富翁活动","activity_name":"418活动","button_name":"领取折扣","award_type":"特权-商品","goods_id":"'+$("#otherBtn2").attr("awardGoodsId"+'","award_name":"'+_kAwardName+'"}'));
+        sentLog("okr_web_button_click", '{"page_name":"大富翁活动","activity_name":"418活动","button_name":"领取折扣","award_type":"特权-商品","goods_id":"'+$("#otherBtn2").attr("awardGoodsId"+'","award_name":"'+_kAwardName+'"}');
         _czc.push(['_trackEvent', '418活动', "大富翁活动", "领取折扣", '', '']);
     	
-    	var packurl = vipstartUrl + '?data={"product_id":1,"activity_id":"1","activity_name":"wasu","bg_url":"http://sky.fs.skysrt.com/statics/webvip/webapp/activityPay/jiaoyujika.png"}';
-		coocaaosapi.startNewBrowser3(packurl, function() {}, function() {});
+    	var _awardGoodsId = $("#otherBtn2").attr("awardGoodsId");
+    	coocaaosapi.startAppStoreDetail(_awardGoodsId, function() {}, function() {});
     }
     if (_kAwardTypeId == 17) {
         console.log("点击了津贴奖励的马上领取");
@@ -3758,17 +3761,16 @@ function sendPrizes(oAwardName, oAwardId, oRememberId, oUserKeyId, oType, oActiv
             if(data.code == "50100") {
                 console.log("领取成功");
                 if(oType == 17){
-                    console.log("领取津贴奖励");
-                    selectMyAllowanceNum();
-                    console.log(isGetAwardAfterLogined);
-                    sentLog("okr_web_clicked_result", '{"page_name":"领取奖品","activity_name":"418活动","award_type":"津贴","award_name":"'+oAwardName+'","receive_result":"领取成功"}');
-                    _czc.push(['_trackEvent', '418活动', '领取津贴奖品', '领取津贴成功', '', '']);
+                	console.log("领取津贴奖励");
+	                selectMyAllowanceNum();
+	                console.log(isGetAwardAfterLogined);
+	                sentLog("okr_web_clicked_result", '{"page_name":"领取奖品","activity_name":"418活动","award_type":"津贴","award_name":"'+oAwardName+'","receive_result":"领取成功"}');
+                	_czc.push(['_trackEvent', '418活动', '领取津贴奖品', '领取津贴成功', '', '']);
                 }else if(oType == 19){
-                    console.log("领取金币奖励+跳转");
-                    sentLog("okr_web_clicked_result", '{"page_name":"领取奖品","activity_name":"418活动","award_type":"金币","award_name":"'+oAwardName+'","receive_result":"领取成功"}');
-                    _czc.push(['_trackEvent', '418活动', '领取金币奖品', '领取金币成功', '', '']);
+                	console.log("领取金币奖励+跳转");
+                	sentLog("okr_web_clicked_result", '{"page_name":"领取奖品","activity_name":"418活动","award_type":"金币","award_name":"'+oAwardName+'","receive_result":"领取成功"}');
+                	_czc.push(['_trackEvent', '418活动', '领取金币奖品', '领取金币成功', '', '']);
                 }
-
             } else {
                 console.log("领取失败");
 				if(oType == 17&&pagestate != 2){
