@@ -1631,13 +1631,18 @@ function initBtnAfter(){
 	});
 	$(".everyAllowanceLi").unbind("itemClick").bind("itemClick", function() {
 		var _fIndex = $(".everyAllowanceLi").index($(this));
-        donotSentStartParamBtnLog = true;
-		getParamAndStart(this,false);
-		var curBtnName = $(this).attr("taskName");
-		console.log(curBtnName);
-		sentLog("okr_web_button_click", '{"page_name":"我的津贴页面","activity_name":"418活动","button_name":"'+curBtnName+'"}');
-        _czc.push(['_trackEvent', '418活动', "津贴页面津贴的点击", curBtnName, '', '']);
-		
+		if (_fIndex == ($(".everyAllowanceLi").length-1)) {
+			coocaaosapi.startHomeCommonList("102930",function(){},function(){});
+			sentLog("okr_web_button_click", '{"page_name":"我的津贴页面","activity_name":"418活动","button_name":"浏览更多"}');
+	        _czc.push(['_trackEvent', '418活动', "津贴页面津贴的点击", "浏览更多", '', '']);
+		} else{
+			donotSentStartParamBtnLog = true;
+			getParamAndStart(this,false);
+			var curBtnName = $(this).attr("taskName");
+			console.log(curBtnName);
+			sentLog("okr_web_button_click", '{"page_name":"我的津贴页面","activity_name":"418活动","button_name":"'+curBtnName+'"}');
+	        _czc.push(['_trackEvent', '418活动', "津贴页面津贴的点击", curBtnName, '', '']);
+		}
 	});
 	
 	$(".myAwards").unbind("itemFocus").bind("itemFocus", function() {
@@ -1791,7 +1796,7 @@ function initBtnAfter(){
             var _curVipType = $(this).attr('vipType');
             var _curVipId = $(this).attr('vipId');
             var _curVipUrl = $(this).attr('awardUrl');
-            console.log(_curVipType+"---"+_curVipId);
+            console.log(_curVipType+"---"+_curVipId +"--"+_curVipUrl);
             if (_curVipType == "product") {
             	coocaaosapi.startAppStoreDetail(_curVipId, function() {}, function() {});
             } else{
@@ -3118,6 +3123,7 @@ function getAllowanceInfo(num){
                         }
 					}
 				}
+				liListItems += '<div class="everyAllowanceLi coocaabtn2" taskName="查看更多商品"><img class="everyAllItem" src="http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/more.jpg"/><div class="everyAllBorder"></div><div class="everyAllWarm">按【确定键】看详情购买</div></div>';
 				$("#everyAllowanceUl").append(liListItems);
 				for (var k=0;k<$(".everyAllowanceLi").length;k++) {
 					var curBtnId = "myAllowance" + k;
@@ -3250,7 +3256,7 @@ function getMyAwards(num) {
                             }
                             _arr2.push(objItem);
                         } else if (data.data[i].awardTypeId == "13") {
-                        	objItem.vipType = data.data[i].awardInfo.viptype;
+                        	objItem.vipType = data.data[i].awardInfo.vipType;
                             objItem.vipId = data.data[i].awardInfo.id;
                             _arr3.push(objItem);
                         } else if (data.data[i].awardTypeId == "19") {
@@ -3404,13 +3410,25 @@ function showMyAward(arr0, arr1, arr2, arr3, arr4, num) {
             packageDiv.setAttribute('userkeyId', arr3[i].userkeyId);
             packageDiv.setAttribute('awardName', arr3[i].awardName);
             packageDiv.setAttribute('awardTime', arr3[i].awardTime);
+            console.log(arr3[i].vipType);
             packageDiv.setAttribute('vipType', arr3[i].vipType);
             packageDiv.setAttribute('vipId', arr3[i].vipId);
             packageDiv.setAttribute('awardUrl', arr3[i].awardUrl);
             packageDiv.setAttribute('lotteryActiveId', arr3[i].lotteryActiveId);
             packageDiv.setAttribute('class', 'myAwards coocaa_btn2');
-            
-            packageDiv.innerHTML = '<div class="myawardsImg"><img class="packageImg" src="'+arr3[i].awardUrl+'"/><div class="packageName"><div class="packageSon">'+arr3[i].awardName+'</div></div><div class="packageStatus hasgot"></div></div><div class="myawardsBorder"></div>';
+            //packageDiv.innerHTML = '<div class="myawardsImg"><img class="packageImg" src="'+arr3[i].awardUrl+'"/><div class="packageName"><div class="packageSon">'+arr3[i].awardName+'</div></div><div class="packageStatus hasgot"></div></div><div class="myawardsBorder"></div>';
+           	if (arr3[i].vipType == "product") {
+           		packageDiv.innerHTML = '<div class="myawardsImg"><div class="packageImg packageImg1" style="background-image: url('+arr3[i].awardUrl+')"></div><div class="packageName"><div class="packageSon">'+arr3[i].awardName+'</div></div><div class="packageStatus hasgot"></div></div><div class="myawardsBorder"></div>';
+           	} else if(arr3[i].vipType == "yinhe" ||arr3[i].vipType == "6" ){
+           		console.log("特权-影视");
+           		packageDiv.innerHTML = '<div class="myawardsImg"><div class="packageImg packageImg2"></div><div class="packageName"><div class="packageSon">'+arr3[i].awardName+'</div></div><div class="packageStatus hasgot"></div></div><div class="myawardsBorder"></div>';
+           	} else if(arr3[i].vipType == "jiaoyuvip"){
+           		console.log("特权-教育");
+           		packageDiv.innerHTML = '<div class="myawardsImg"><div class="packageImg packageImg3"></div><div class="packageName"><div class="packageSon">'+arr3[i].awardName+'</div></div><div class="packageStatus hasgot"></div></div><div class="myawardsBorder"></div>';
+           	} else if(arr3[i].vipType == "shaoervip"){
+           		console.log("特权-少儿");
+           		packageDiv.innerHTML = '<div class="myawardsImg"><div class="packageImg packageImg4"></div><div class="packageName"><div class="packageSon">'+arr3[i].awardName+'</div></div><div class="packageStatus hasgot"></div></div><div class="myawardsBorder"></div>';
+           	}
             $("#packageTabs").append(packageDiv);
         }
     }

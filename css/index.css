@@ -1214,13 +1214,31 @@ img[src=''] {
 	position: absolute;
 	top: 15px;
 	left: 10px;
-	height: 85px;
-	width: 81px;
+	height: 84px;
+	width: 80px;
 	border-radius: 5px;
-	/*background: url(../images/sddd.png) no-repeat;*/
-	background-repeat: no-repeat;
-	background-position: -600px 0px;
+	
 }
+.packageImg1{
+	top: 20px;
+    /*background-image: url(../images/sddd.png);*/
+    background-repeat: no-repeat;
+    background-position: -115px 0px;
+    background-size: 260%;
+}
+.packageImg2{
+	background: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/icon.png) no-repeat;
+	background-position: 0 0;
+}
+.packageImg3{
+	background: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/icon.png) no-repeat;
+	background-position: -160px 0;
+}
+.packageImg4{
+	background: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/icon.png) no-repeat;
+	background-position: -80px 0;
+}
+
 .entityName,.packageName{
 	position: absolute;
     top: 5px;
