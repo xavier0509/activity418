@@ -49,8 +49,8 @@ var operationurl="http://beta-api-home.skysrt.com/tvos/getWebPageContent";
 var allowanceUrl = "http://172.20.155.209:6081/api/subsidy/v1/query-userSubsidyInfo-byToken"  //查询津贴地址
 var allowanceClientId = "YS_BETA";
 
-var vipstartUrl = "http://dev.business.video.tc.skysrt.com/v3/web/actCenter/index.html?"; 
-//var vipstartUrl = "https://api-business.skysrt.com/v3/web/actCenter/index.html?"; //正式地址
+var vipstartUrl = "http://dev.business.video.tc.skysrt.com/v3/web/actCenter/index.html"; 
+//var vipstartUrl = "https://api-business.skysrt.com/v3/web/actCenter/index.html"; //正式地址
 
 var showMove = false;//是否展示动效
 
