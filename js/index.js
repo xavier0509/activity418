@@ -3688,7 +3688,8 @@ function otherBtn2ClickFunc() {
     }
     if (_kAwardTypeId == 13) {
     	console.log("点击了特价商品的领取折扣");
-        sentLog("okr_web_button_click", '{"page_name":"大富翁活动","activity_name":"418活动","button_name":"领取折扣","award_type":"特权-商品","goods_id":"'+$("#otherBtn2").attr("awardGoodsId"+'","award_name":"'+_kAwardName+'"}');
+    	var awardGoodsId = $("#otherBtn2").attr("awardGoodsId";
+        sentLog("okr_web_button_click", '{"page_name":"大富翁活动","activity_name":"418活动","button_name":"领取折扣","award_type":"特权-商品","goods_id":"'+awardGoodsId+'","award_name":"'+_kAwardName+'"}');
         _czc.push(['_trackEvent', '418活动', "大富翁活动", "领取折扣", '', '']);
     	
     	var _awardGoodsId = $("#otherBtn2").attr("awardGoodsId");
