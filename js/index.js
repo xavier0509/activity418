@@ -1753,9 +1753,9 @@ function initBtnAfter(){
         	sentLog("okr_web_button_click", '{"page_name":"我的奖励页面","activity_name":"418活动","button_name":"特权"}');
             _czc.push(['_trackEvent', '418活动', "我的奖励页面", "特权的点击", '', '']);
             
-            var _curVipType = packageDiv.setAttribute('vipType');
-            var _curVipId = packageDiv.setAttribute('vipId');
-            var _curVipUrl = packageDiv.setAttribute('awardUrl');
+            var _curVipType = $(this).attr('vipType');
+            var _curVipId = $(this).attr('vipId');
+            var _curVipUrl = $(this).attr('awardUrl');
             console.log(_curVipType+"---"+_curVipId);
             if (_curVipType == "product") {
             	coocaaosapi.startAppStoreDetail(_curVipId, function() {}, function() {});
