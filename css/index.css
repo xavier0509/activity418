@@ -285,7 +285,11 @@ img[src=''] {
     left:464px;
 }
 #mapBtn.btnFocus{
-    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/mapbtnfocus.png");
+    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/mapbtn.gif");
+    width: 362px;
+    height:260px;
+    top: 345px;
+    left:412px;
 }
 #mapBtn.finishAct{
     background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/finishbtn.png");

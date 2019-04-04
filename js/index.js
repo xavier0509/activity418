@@ -252,6 +252,9 @@ var app = {
 	                pagename = "大富翁活动";
 	                if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
 	            }
+                if(gameStatus == 3){
+                    pagename = "结束页面";
+                }
 	            sentLog("okr_web_page_show", '{"page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
 	            _czc.push(['_trackEvent', '418活动', pagename, '曝光', '', '']);
 	            
@@ -413,7 +416,7 @@ function listenPlayerStatus() {
                 sentInnerAdshow(ADMsg1,"","","","",actionId.toString(),_adsTaskId.toString(), "false");
 //					playAdsBackupVideo();
             }
-            toastWhenPlayVideoError();
+            showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/playerror.png",4000);
         }
         if(message.web_player_event == "on_interrupt") {
             console.log("on_interrupt 播放中断");
@@ -672,7 +675,7 @@ function showFinalWindow(dialog) {
         $(".topword").css("top","60px");
         $(".topword").html("获得第2阶段抽奖资格<br>有机会0元带走创维新品电视！");
         $(".bottomword1").html("当前已拥有<span>"+cardsNum+"</span>套418周年卡片");
-        $(".bottom2").html("可继续玩游戏手机更多周年卡片4月18日赢大奖！");
+        $(".bottom2").html("可继续玩游戏收集更多周年卡片4月18日赢大奖！");
         map = new coocaakeymap($(".compoundbtn"), $("#compoundbtn1"), "btnFocus", function() {}, function(val) {}, function(obj) {});
         $("#compoundbtn1").trigger("itemFocus");
     }else if(dialog == "needshowdialog4"){
@@ -3871,6 +3874,15 @@ function sendPrizes(oAwardName, oAwardId, oRememberId, oUserKeyId, oType, oActiv
 						$("#sendPrizeFail").css("display", "none");
 					},3000);
 				}
+            }
+            if(oType == 17&&pagestate != 2){
+                console.log("领取津贴奖励失败");
+                sentLog("okr_web_clicked_result", '{"page_name":"领取奖品","activity_name":"418活动","award_type":"津贴","award_name":"'+oAwardName+'","receive_result":"领取失败"}');
+                _czc.push(['_trackEvent', '418活动', '领取津贴奖品', '领取津贴失败', '', '']);
+            }else if(oType == 19&&pagestate != 2){
+                console.log("领取金币奖励失败");
+                sentLog("okr_web_clicked_result", '{"page_name":"领取奖品","activity_name":"418活动","award_type":"金币","award_name":"'+oAwardName+'","receive_result":"领取失败"}');
+                _czc.push(['_trackEvent', '418活动', '领取金币奖品', '领取金币失败', '', '']);
             }
         },
         complete: function(XMLHttpRequest, status) {
