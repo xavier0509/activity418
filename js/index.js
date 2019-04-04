@@ -2020,7 +2020,7 @@ function getParamAndStart(obj,needCheckVersion) {
                         console.log("===activityCenterVersion=="+activityCenterVersion+"===browserVersion=="+browserVersion+"==mallVersion=="+mallVersion+"==cAppVersion=="+cAppVersion);
                         if((activityCenterVersion < 103010) || (browserVersion < 104039)) {
                             console.log("活动中心或浏览器版本太低，需要后台升级，显示弹窗");
-                            showAndHideToast("模块加载中。。。");
+                            showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/mokuaijiazai.png",4000);
                             return;
                         } else {//版本满足需求，才真正执行按键判断:
                             console.log("剩余可完成次数======="+$(obj).attr("remainingNumber"));
