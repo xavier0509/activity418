@@ -2244,6 +2244,14 @@ function diceMove() {
 function mapMove(obj,isSecondMove) {
     clearInterval(interval_diceMove);
     $("#diceIcon_1").stop(true,true);
+    $("#diceNum").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newnum"+obj.diceNumber+".png)");
+    $("#diceNum").show();
+    $("#diceNum").addClass("showmove");
+    setTimeout(removeClass, 1500)
+    function removeClass() {
+        $("#diceNum").hide();
+        $("#diceNum").removeClass("showmove")
+    }
     nowPosition = obj.nowPosition;
     var i = (obj.nowPosition == 15) ? 1 : obj.nowPosition;
     var step = obj.nextPosition;
@@ -2528,6 +2536,9 @@ function speakToast(overtask){
                 }else{}
             }
         }
+    }else{
+        speak8 = false;
+        speak7 = false;
     }
 }
 //查询碎片信息
