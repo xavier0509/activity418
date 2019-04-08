@@ -1672,13 +1672,58 @@ img[src=''] {
 #otherBtn2,#otherBtn4{
     left: 355px;
 }
+.dialogbtn2{
+	position: absolute;
+	top: 443px;
+    height: 72px;
+    width: 175px;
+}
+#tvBtn1{
+	left: 165px;
+}
+#tvBtn2{
+	left: 363px;
+}
+.dialogbtn2 .awardbgBlur2{
+	position: absolute;
+	top: 9px;
+	left: 9px;
+	height: 54px;
+	width: 158px;
+	background: url(../images/awarddialog/tvbtns.png) no-repeat;
+}
+#tvBtnImg1{
+	background-position: -158px 0;
+}
+#tvBtnImg2{
+	background-position: 0 0;
+}
+.awardbgFocus2{
+	background: url(../images/awarddialog/tvbtns.png) no-repeat;
+	background-position: -316px 0;
+    display: none;
+}
+.btn-focus .awardbgFocus2{
+	display: block;
+}
+.awardbg5{
+	position: absolute;
+    top: 59px;
+    left: 297px;
+    height: 638px;
+    width: 629px;
+    background-image: url(../images/awarddialog/tv.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
 #redAwardBox,#entityAwardBox,#coinAwardBox,#cardAwardBox{
 	position: absolute;
     top: 10px;
     left: 160px;
     height: 155px;
     width: 155px;
-    background-color: #FFFFFF;
+    background-color: rgba(255,255,255,0);
 }
 #allAwardBox,#vipAwardBox{
 	position: absolute;
@@ -2319,9 +2364,20 @@ img[src=''] {
 	display: block;
 	animation: fanda 0.7s ease-out forwards;
 	-webkit-animation: fanda 0.7s ease-out forwards;
-	background-repeat: no-repeat;
-	background-size: 100%;
+	background: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/eggs1.png) no-repeat;
+	/*background-repeat: no-repeat;
+	background-size: 100%;*/
 }
+.niu_danji .diaL_one:after {
+	background-position: -360px 0;
+}
+.niu_danji .diaL_two:after {
+	background-position: -240px 0;
+}
+.niu_danji .diaL_three:after {
+	background-position: -60px 0;
+}
+
 @-webkit-keyframes cujpin {
 	0% {
 		-webkit-transform: translateY(-20px);
