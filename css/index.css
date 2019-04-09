@@ -276,6 +276,16 @@ img[src=''] {
     /*background-color: blue;*/
     background-size: 100%;
 }
+#gotoleft{
+	position: absolute;
+	top: 494px;
+	left: 21px;
+	height: 22px;
+	width: 186px;
+	background-image: url(../images/left.gif);
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
 #mapBtn{
     width: 251px;
     height:86px;
@@ -489,11 +499,10 @@ img[src=''] {
     height: 14px;
     width: 60px;
     position: absolute;
-    top: 378px;
-    left: 576px;
+    top: 182px;
+    left: 168px;
     text-align: center;
     color: #fed12c;
-    z-index: 100;
 }
 #bottom{
     width: 1280px;

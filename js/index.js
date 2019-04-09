@@ -3394,9 +3394,10 @@ function showMyAward(arr0, arr1, arr2, arr3, arr4, num) {
     	$("#allowanceBox").css("display", "inline-block");
         var allMoney = 0;
         for (var i = 0; i < arr0.length; i++) {
-            if (arr0[i].state == 0) {
-                allMoney += toDecimal(arr0[i].price);
-            }
+        	allMoney += toDecimal(arr0[i].price);
+//          if (arr0[i].state == 0) {
+//     			allMoney += toDecimal(arr0[i].price);	
+//          }
         }
         allMoney = toDecimal(allMoney);
         console.log(allMoney);
@@ -3994,7 +3995,7 @@ function getAllNotGetAllowance(){
                 var allowUserKeyId = notGetAllowanceArray[notGetAllowanceIndex].userkeyId;
                 var allowAwardTypeId = notGetAllowanceArray[notGetAllowanceIndex].awardType;
                 var allowActiveId = notGetAllowanceArray[notGetAllowanceIndex].lotteryActiveId;
-                if (notGetAllowanceIndex > 0) {
+                if (notGetAllowanceIndex > 1) {
                     notGetAllowanceIndex = notGetAllowanceIndex - 1;
                 } else{
                     notGetAllowanceIndex = 0;
