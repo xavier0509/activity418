@@ -425,10 +425,10 @@ img[src=''] {
     left: 0px;
 	height: 94px;
 	width: 89px;
-	background-image: url(../images/around2.gif);
-    background-repeat: no-repeat;
-    background-size: 100%;
-    display: none;
+	/*background-image: url(../images/around2.gif);*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: 100%;*/
+    /*display: none;*/
 }
 #aroundpng{
 	position: absolute;
@@ -479,12 +479,12 @@ img[src=''] {
     display: none;
     width: 108px;
     height: 159px;
-    position: absolute;
     top: 346px;
     left: 300px;
-    background: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/eggs1.png") no-repeat;
+    /*background: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/eggs1.png") no-repeat;*/
     background-position: -623px 0;
     /*background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/nnborder.png");*/
+	display: none;
 }
 #classesImg{
 	position: absolute;

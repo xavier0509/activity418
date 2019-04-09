@@ -1352,11 +1352,13 @@ function initBtn() {
 	//---------------------------------
 	$("#drawBtn").unbind("itemFocus").bind("itemFocus", function() {
 		console.log("获得焦点");
+		$("#aroundGif").attr("src","");
+		$("#aroundGif").attr("src","images/around2.gif");
 		$("#drawBtnBorder").css("display","block");
-		$("#aroundGif").css("display","block");
-		$("#aroundpng").css("display","none");
-		$("#aroundpng").attr("class","around90");
-		$("#aroundGif").css("background-image", "url(images/around2.gif)");
+//		$("#aroundGif").css("display","block");
+//		$("#aroundpng").css("display","none");
+//		$("#aroundpng").attr("class","around90");
+//		$("#aroundGif").css("background-image", "url(images/around2.gif)");
 	});
 	$("#drawBtn").unbind("itemBlur").bind("itemBlur", function() {
 		$("#drawBtnBorder").css("display","none");
@@ -1386,8 +1388,8 @@ function initBtn() {
         	_czc.push(['_trackEvent', '418活动', "【扭一扭】按钮", button_state, '', '']);
         	$("#drawBtn").attr("ctime", nowTime);
 			if(cardsNum > 0) {
-				$("#aroundGif").css("display","none");
 				$("#aroundpng").css("display","block");
+				$("#aroundGif").css("display","none");
 				$("#aroundpng").attr("class","around901");
 				setTimeout(function(){
 					startEggFunc();
