@@ -1356,10 +1356,6 @@ function initBtn() {
 		$("#aroundGif").attr("src","");
 		$("#aroundGif").attr("src","images/around2.gif");
 		$("#drawBtnBorder").css("display","block");
-//		$("#aroundGif").css("display","block");
-//		$("#aroundpng").css("display","none");
-//		$("#aroundpng").attr("class","around90");
-//		$("#aroundGif").css("background-image", "url(images/around2.gif)");
 	});
 	$("#drawBtn").unbind("itemBlur").bind("itemBlur", function() {
 		$("#drawBtnBorder").css("display","none");
