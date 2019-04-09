@@ -84,10 +84,7 @@ var app = {
             			map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("hasGotInfo4"), "btn-focus", function() {}, function(val) {}, function(obj) {});
             		}
             	} else{
-            		if (_curHomeBtn == "goldcoinNotGot"&&$("#goldcoinNotGot").length == 0) {
-	                    _curHomeBtn = "goldcoinHasGot";
-	                 	getMyAwards(2);
-	            	}
+            		getMyAwards(2);
             	}
             	sentLog("okr_web_page_show", '{"page_name":"我的奖励页面","activity_name":"418活动"}');
 	            _czc.push(['_trackEvent', '418活动', "我的奖励页面", '曝光', '', '']);
@@ -476,10 +473,11 @@ function startAndSendLog() {
 
 //保留小数
 function toDecimal(x) {
-    var val = Number(x)
+    var val = Number(x);
     if(!isNaN(parseFloat(val))) {
         val = val.toFixed(2);//把 Number 四舍五入为指定小数位数的数字。
     }
+    val = Number(val);
     return  val;
 }
 
@@ -1354,6 +1352,7 @@ function initBtn() {
         $("#myAwardPage").css("display", "block");
         sentLog("okr_web_page_show", '{"page_name":"我的奖励页面","activity_name":"418活动"}');
 		_czc.push(['_trackEvent', '418活动', '我的奖励页面', '曝光', '', '']);
+        _curHomeBtn = "";
         getMyAwards(2);
     })
 
@@ -1479,7 +1478,9 @@ function initBtn() {
     $("#redHasGetBtn").unbind("itemClick").bind("itemClick", function() {
         if (gameStatus == 3) {
         	console.log("点击了查看中奖名单");
-        	showPage(false,fasle);
+        	showPage(false,false);
+        	$("#dialogPage").css("display", "none");
+	        $("#redHasGet").css("display", "none");
         } else{
         	console.log("点击了继续参与");
         	$("#mainbox").css("display", "block");
@@ -1567,19 +1568,26 @@ function initBtn() {
     		}
     	}else if(_curId=="otherBtn3") {
     		curBtnName = $("#otherBtn3 .btnName").html();
-    		curPagename = "【扭蛋机中奖】";
+    		curPagename = "【大富翁中奖】";
     		curAwardName = $("#otherBtn4").attr("awardName");
     		curAwardType = $("#otherBtn4").attr("awardTypeId");
     		if (curAwardType==2) {
     			curAwardTypeName = "实物";
+    		}else if(curAwardType==6){
+    			curAwardTypeName = "418卡片";
     		}else if(curAwardType==7){
     			curAwardTypeName = "红包";
+    		}else if(curAwardType==13){
+    			curGoodsId = $("#otherBtn2").attr("awardGoodsId");
+    			curAwardTypeName = "特权-购物";
     		}else if(curAwardType==17){
     			curAwardTypeName = "津贴";
+    		}else if(curAwardType==19){
+    			curAwardTypeName = "金币";
     		}
     	}
     	sentLog("okr_web_button_click", '{"page_name":"'+curPagename+'","activity_name":"418活动","button_name":"'+curBtnName+'","award_type":"'+curAwardTypeName+'","goods_id":"'+curGoodsId+'","award_name":"'+curAwardName+'"}');
-        _czc.push(['_trackEvent', '418活动', "大富翁中奖", curBtnName+"--"+curAwardTypeName, '', '']);
+        _czc.push(['_trackEvent', '418活动', curPagename, curBtnName+"--"+curAwardTypeName, '', '']);
     });
     $("#otherBtn2").unbind("itemClick").bind("itemClick", function() {
         console.log("点击了领取奖励");
@@ -3330,9 +3338,10 @@ function getMyAwards(num) {
                         var allMoney = 0;
                         for (var i = 0; i < _arr0.length; i++) {
                             if (_arr0[i].state == 0) {
-                                allMoney += parseFloat(_arr0[i].price);
+                                allMoney += toDecimal(_arr0[i].price);
                             }
                         }
+                        allMoney = toDecimal(allMoney);
                         console.log(allMoney);
                         changeAllowanceNum(allMoney);
                         return;
@@ -3386,9 +3395,10 @@ function showMyAward(arr0, arr1, arr2, arr3, arr4, num) {
         var allMoney = 0;
         for (var i = 0; i < arr0.length; i++) {
             if (arr0[i].state == 0) {
-                allMoney += parseFloat(arr0[i].price);
+                allMoney += toDecimal(arr0[i].price);
             }
         }
+        allMoney = toDecimal(allMoney);
         console.log(allMoney);
         if(loginstatus == "false"){
         	changeAllowanceNum(allMoney);
@@ -3405,7 +3415,9 @@ function showMyAward(arr0, arr1, arr2, arr3, arr4, num) {
         var _cardRedNum = 0; //记录已领取的红包总额
         for (var i = 0; i < arr1.length; i++) {
             if (arr1[i].state == 1) {
-                _cardRedNum += parseFloat(arr1[i].redNumber);
+            	console.log(toDecimal(arr1[i].redNumber));
+            	console.log(typeof(toDecimal(arr1[i].redNumber)));
+                _cardRedNum += toDecimal(arr1[i].redNumber);
             } else if (arr1[i].state == 0) {
                 var redDiv = document.createElement("div");
                 redDiv.setAttribute('id', 'redAward' + i);
@@ -3417,12 +3429,14 @@ function showMyAward(arr0, arr1, arr2, arr3, arr4, num) {
                 redDiv.setAttribute('awardTime', arr1[i].awardTime);
                 redDiv.setAttribute('redNumber', arr1[i].redNumber);
                 redDiv.setAttribute('lotteryActiveId', arr1[i].lotteryActiveId);
-                redDiv.setAttribute('class', 'myAwards coocaa_btn2');
+                redDiv.setAttribute('class', 'myAwards redAwardNotGot coocaa_btn2');
                 
                 redDiv.innerHTML = '<div class="myawardsImg"></div><div class="myawardsBorder"></div><div class="redBtn">待领取</div><div class="redUnit">元</div><div class="redMoney">'+arr1[i].redNumber+'</div><div class="cumulative">累计</div>';
                 $("#redTabs").append(redDiv);
             }
         }
+        console.log(_cardRedNum);
+        _cardRedNum = toDecimal(_cardRedNum);
         if (_cardRedNum != 0) {
             var redDiv = document.createElement("div");
             redDiv.setAttribute('id', 'redAwardHasGot');
@@ -3470,7 +3484,6 @@ function showMyAward(arr0, arr1, arr2, arr3, arr4, num) {
             packageDiv.setAttribute('userkeyId', arr3[i].userkeyId);
             packageDiv.setAttribute('awardName', arr3[i].awardName);
             packageDiv.setAttribute('awardTime', arr3[i].awardTime);
-            console.log(arr3[i].vipType);
             packageDiv.setAttribute('vipType', arr3[i].vipType);
             packageDiv.setAttribute('vipId', arr3[i].vipId);
             packageDiv.setAttribute('awardUrl', arr3[i].awardUrl);
@@ -3500,11 +3513,13 @@ function showMyAward(arr0, arr1, arr2, arr3, arr4, num) {
         for (var i = 0; i < arr4.length; i++) {
             if (arr4[i].state == 0) {
             	KNumber = i;
-            	allGoldCion1 += parseFloat(arr4[i].coinNumber);
+            	allGoldCion1 += toDecimal(arr4[i].coinNumber);
             }else{
-            	allGoldCion2 += parseFloat(arr4[i].coinNumber);
+            	allGoldCion2 += toDecimal(arr4[i].coinNumber);
             }
         }
+        allGoldCion1 = toDecimal(allGoldCion1);
+        allGoldCion2 = toDecimal(allGoldCion2);
         if (allGoldCion1 != 0) {
         	console.log(KNumber);
         	var goldcoinDiv = document.createElement("div");
@@ -3537,6 +3552,17 @@ function showMyAward(arr0, arr1, arr2, arr3, arr4, num) {
     	if (_curHomeBtn==""||_curHomeBtn==null) {
 			$(".myAwards:eq(0)").trigger("itemFocus");
 		} else{
+			console.log(_curHomeBtn);
+			console.log($("#goldcoinNotGot").length);
+			console.log($(".redAwardNotGot").length);
+			if ($("#"+_curHomeBtn).length == 0) {
+				if (_curHomeBtn == "goldcoinNotGot") {
+					_curHomeBtn = "goldcoinHasGot";
+				} else{
+					_curHomeBtn = "redAwardHasGot";
+				}
+			}
+	    	console.log(_curHomeBtn);
 			$("#"+_curHomeBtn).trigger("itemFocus");
 		}
 	    map = new coocaakeymap($(".coocaa_btn2"), document.getElementById(_curHomeBtn), "btn-focus", function() {}, function(val) {}, function(obj) {});
@@ -3805,6 +3831,8 @@ function otherBtn2ClickFunc() {
     	$("#dialogPage").css("display","none");
     	$("#mainbox").css("display","none");
     	$("#myAwardPage").css("display","block");
+    	sentLog("okr_web_page_show", '{"page_name":"我的奖励页面","activity_name":"418活动"}');
+		_czc.push(['_trackEvent', '418活动', '我的奖励页面', '曝光', '', '']);
     	_curHomeBtn = "";
     	getMyAwards(2);
     }
