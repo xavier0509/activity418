@@ -1416,8 +1416,10 @@ function initBtn() {
         needRememberFocus = true;
         if(rememberAllowancebtnFlag == "2"){
             rememberBtn = ".operationmore";
+            rememberAllowancebtnFlag = "0";
         }else if(rememberAllowancebtnFlag == "3"){
             rememberBtn = "#allowanceGet";
+            rememberAllowancebtnFlag = "0";
         }else{
             rememberBtn = "#allowanceBtn";
         }
@@ -2865,8 +2867,8 @@ function showTime(type) {
 function showOperation(showMainShow) {
     console.log("开始获取运营数据===");
     var tag_id = "";
-    if(needQQ){tag_id = 103621}else {tag_id = 103622}//test
-    // if (needQQ) { tag_id = 103228 } else { tag_id = 103229 }
+    // if(needQQ){tag_id = 103621}else {tag_id = 103622}//test
+    if (needQQ) { tag_id = 103673 } else { tag_id = 103672 }
     $("#payZone").html('<div id="allowanceGet" class="allowanceGet operationmap coocaabtn"><div class="sureGet">按【确定】键 立即领取</div><div class="text">&nbsp;</div></div>');
     var header = JSON.stringify({cUDID:activityId,MAC:macAddress,cModel:TVmodel,cChip:TVchip,cSize:deviceInfo.panel,cTcVersion:deviceInfo.version.replace(/\.*/g, ""),cFMode:"Default",cPattern:"normal","cBrand":"Skyworth"});
     // var header = JSON.stringify({});
@@ -3232,8 +3234,8 @@ function getMyTasksList(needCheckSpeak) {
 function getAllowanceInfo(num){
 	document.getElementById("everyAllowanceUl").innerHTML = "";
     var tag_id = "";
-    if(needQQ){tag_id = 103633}else {tag_id = 103634}//test
-    // if (needQQ) { tag_id = 103228 } else { tag_id = 103229 }
+    // if(needQQ){tag_id = 103633}else {tag_id = 103634}//test
+    if (needQQ) { tag_id = 103674 } else { tag_id = 103675 }
     var header = JSON.stringify({cUDID:activityId,MAC:macAddress,cModel:TVmodel,cChip:TVchip,cSize:deviceInfo.panel,cTcVersion:deviceInfo.version.replace(/\.*/g, ""),cFMode:"Default",cPattern:"normal","cBrand":"Skyworth"});
     var ajaxTimeoutOne =  $.ajax({
         type: "get",
