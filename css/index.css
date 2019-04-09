@@ -295,7 +295,7 @@ img[src=''] {
     left:464px;
 }
 #mapBtn.btnFocus{
-    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/mapbtn.gif");
+    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmapbtn.gif");
     width: 362px;
     height:260px;
     top: 345px;
@@ -2898,27 +2898,27 @@ img[src=''] {
 .endfirst{
     width: 1280px;
     height: 720px;
-    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/endfirst.jpg");
+    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newend1.jpg");
 }
 .endlast{
     position: relative;
     width: 1280px;
     height: 720px;
-    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/endlast.jpg");
+    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newend2.jpg");
 }
 .endbtn{
     width: 159px;
     height: 59px;
-    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/endbtn.png");
+    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newendbtn.png");
     position: absolute;
 }
 .endbtn1{
-    left: 911px;
-    top:110px;
+    left: 1076px;
+    top:26px;
 }
 .endbtn2{
     left: 561px;
-    top:637px;
+    top:630px;
 }
 
 

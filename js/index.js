@@ -24,7 +24,7 @@ var app = {
             var page_type = "";
             if($("#gamePanel").offset().left < -600){
                 pagename = "扭蛋机活动";
-                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋未开始"}
             }else{
                 pagename = "大富翁活动";
                 if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
@@ -101,7 +101,7 @@ var app = {
                 var page_type = "";
                 if($("#gamePanel").offset().left < -600){
                     pagename = "扭蛋机活动";
-                    if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+                    if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋未开始"}
                 }else{
                     pagename = "大富翁活动";
                     if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
@@ -136,7 +136,7 @@ var app = {
                     sentThirdAdshow("img", ADMsg3);
                 }
                 pagename = "扭蛋机活动";
-                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋未开始"}
             }else{
                 if (ADMsg2 != null && ADMsg2.schedules != undefined && ADMsg2.schedules[0] != undefined) {
                     sentInnerAdshow(ADMsg2, "G0006", "2", "1", "1", "", "","");
@@ -209,7 +209,7 @@ var app = {
 	                    sentThirdAdshow("img", ADMsg3);
 	                }
 	                pagename = "扭蛋机活动";
-	                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+	                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋未开始"}
 	            }else{
 	                if (ADMsg2 != null && ADMsg2.schedules != undefined && ADMsg2.schedules[0] != undefined) {
 	                    sentInnerAdshow(ADMsg2, "G0006", "2", "1", "1", "", "","");
@@ -248,7 +248,7 @@ var app = {
 	                    sentThirdAdshow("img", ADMsg3);
 	                }
 	                pagename = "扭蛋机活动";
-	                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+	                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋未开始"}
 	            }else{
 	                if (ADMsg2 != null && ADMsg2.schedules != undefined && ADMsg2.schedules[0] != undefined) {
 	                    sentInnerAdshow(ADMsg2, "G0006", "2", "1", "1", "", "","");
@@ -852,7 +852,7 @@ function initBtn() {
         var pagename = "";
         var page_type = "";
             pagename = "扭蛋机活动";
-            if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+            if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋未开始"}
         sentLog("okr_web_page_show", '{"page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
         _czc.push(['_trackEvent', '418活动', pagename, '曝光', '', '']);
         var pagename = "";
@@ -891,7 +891,7 @@ function initBtn() {
         var pagename = "";
         var page_type = "";
         pagename = "扭蛋机活动";
-        if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+        if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋未开始"}
         if(!donotSentReplacebtnLog){
             sentLog("okr_web_button_click", '{"allowance_price":"","task_name":"","button_state":"","button_name":"左键切换活动","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
             _czc.push(['_trackEvent', '418活动', "左键切换活动", "", '', '']);
@@ -978,7 +978,7 @@ function initBtn() {
         var page_type = "";
         if($("#gamePanel").offset().left < -600){
             pagename = "扭蛋机活动";
-            if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+            if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋未开始"}
         }else{
             pagename = "大富翁活动";
             if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
@@ -999,7 +999,7 @@ function initBtn() {
             var page_type = "";
             if($("#gamePanel").offset().left < -600){
                 pagename = "扭蛋机活动";
-                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋未开始"}
             }else{
                 pagename = "大富翁活动";
                 if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
@@ -1152,7 +1152,7 @@ function initBtn() {
                 var page_type = "";
                 if($("#gamePanel").offset().left < -600){
                     pagename = "扭蛋机活动";
-                    if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+                    if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋未开始"}
                 }else{
                     pagename = "大富翁活动";
                     if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
@@ -1329,7 +1329,7 @@ function initBtn() {
         var page_type = "";
         if($("#gamePanel").offset().left < -600){
             pagename = "扭蛋机活动";
-            if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+            if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋未开始"}
         }else{
             pagename = "大富翁活动";
             if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
@@ -1378,7 +1378,7 @@ function initBtn() {
             	button_state="有抽奖机会";
         	}else{button_state="无抽奖机会"}
         	pagename = "扭蛋机活动";
-        	if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+        	if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋未开始"}
         	sentLog("okr_web_button_click", '{"allowance_price":"","task_name":"","button_state":"'+button_state+'","button_name":"【扭一扭】按钮","page_name":"'+pagename+'","activity_name":"418活动","page_type":"' + page_type + '","open_id":"' + (cOpenId || "空") + '","movie_source":"' + movieSource + '"}');
         	_czc.push(['_trackEvent', '418活动', "【扭一扭】按钮", button_state, '', '']);
         	$("#drawBtn").attr("ctime", nowTime);
@@ -1410,7 +1410,7 @@ function initBtn() {
             var page_type = "";
             if($("#gamePanel").offset().left < -600){
                 pagename = "扭蛋机活动";
-                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋未开始"}
             }else{
                 pagename = "大富翁活动";
                 if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
@@ -1447,7 +1447,7 @@ function initBtn() {
             var page_type = "";
             if($("#gamePanel").offset().left < -600){
                 pagename = "扭蛋机活动";
-                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋未开始"}
             }else{
                 pagename = "大富翁活动";
                 if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
@@ -1759,7 +1759,7 @@ function initBtnAfter(){
 		            var page_type = "";
 		            if($("#gamePanel").offset().left < -600){
 		                pagename = "扭蛋机活动";
-		                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+		                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋未开始"}
 		            }else{
 		                pagename = "大富翁活动";
 		                if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
@@ -1962,7 +1962,7 @@ function getAllowance() {
             var page_type = "";
             if($("#gamePanel").offset().left < -600){
                 pagename = "扭蛋机活动";
-                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+                if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋未开始"}
             }else{
                 pagename = "大富翁活动";
                 if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
@@ -1998,7 +1998,7 @@ function getParamAndStart(obj,needCheckVersion) {
         var page_type = "";
         if($("#gamePanel").offset().left < -600){
             pagename = "扭蛋机活动";
-            if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+            if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋未开始"}
         }else{
             pagename = "大富翁活动";
             if(gameStatus == "3"){page_type="大富翁已结束"}else {page_type="大富翁已开始"}
@@ -2878,7 +2878,7 @@ function showOperation(showMainShow) {
                 }
                 else if(cardsNum>0&&capsuleIsStart){
                     pagename = "扭蛋机活动";
-                    if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋已结束"}
+                    if(gameStatus == "3"){page_type="扭蛋已结束"}else if(capsuleIsStart){page_type="扭蛋已开始"}else{page_type="扭蛋未开始"}
                 }else{
                     pagename = "大富翁活动";
                     if(gameStatus == "3"){page_type="大富翁已结束"}else{page_type="大富翁已开始"}
