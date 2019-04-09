@@ -1413,12 +1413,12 @@ img[src=''] {
 }
 #noAwardBox2{
     position: absolute;
-    top: 243px;
+    top: 350px;
     left: 300px;
     height: 60px;
     width: 680px;
     line-height: 60px;
-    font-size: 29px;
+    font-size: 35px;
     color: #fefca3;
     text-align: center;
     letter-spacing: 3px;
