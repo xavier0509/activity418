@@ -290,9 +290,9 @@ img[src=''] {
 	left: 21px;
 	height: 22px;
 	width: 186px;
-	background-image: url(../images/left.gif);
+	/*background-image: url(../images/left.gif);
 	background-size: 100%;
-	background-repeat: no-repeat;
+	background-repeat: no-repeat;*/
 }
 #mapBtn{
     width: 251px;
