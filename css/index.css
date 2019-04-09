@@ -391,25 +391,84 @@ img[src=''] {
     display: none;
     background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/newdrawbg2.jpg");
 }
-#drawBtn,#drawBtnBorder,#drawDoor{
+#drawBtnBorder,#drawDoor{
 	position: absolute;
-	background: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/eggs1.png) no-repeat;
+	background: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/eggs1.png") no-repeat;
 }
 #drawBtn{
+	top: 355px;
+	left: 310px;
     width: 89px;
     height: 142px;
     position: absolute;
-    background-position: -534px 0;
-    /*background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/nn.png");*/
+    background-image: url(../images/eggbtnbg.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+#aroundGif{
+	position: absolute;
+	top: 0px;
+    left: 0px;
+	height: 94px;
+	width: 89px;
+	background-image: url(../images/around2.gif);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: none;
+}
+#aroundpng{
+	position: absolute;
+	top: 15px;
+    left: 5px;
+    height: 77px;
+    width: 78px;
+	background-image: url(../images/around.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: none;
+}
+.around901{
+	animation: arounddeg 1s linear;
+	-webkit-animation: arounddeg 1s linear;
+}
+@-webkit-keyframes arounddeg {
+	0%   {transform: rotate(0deg);}
+	20%   {transform: rotate(18deg);}
+	40%   {transform: rotate(36deg);}
+	60%   {transform: rotate(54deg);}
+	80%   {transform: rotate(72deg);}  
+	100%   {transform: rotate(90deg);}
+
+}
+@keyframes arounddeg {
+	0%   {transform: rotate(0deg);}
+    20%   {transform: rotate(18deg);}
+    40%   {transform: rotate(36deg);}
+    60%   {transform: rotate(54deg);}
+    80%   {transform: rotate(72deg);}
+    100%   {transform: rotate(90deg);}
+}
+#aroundNum{
+	position: absolute;
+	top: 76px;
+    left: 67px;
+    height: 27px;
+    width: 56px;
+    line-height: 27px;
+    text-align: center;
+    color: #ffecd7;
+	background-image: url(../images/eggdrawnum.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
 }
 #drawBtnBorder{
     display: none;
     width: 108px;
     height: 159px;
     position: absolute;
-    top: 350px;
+    top: 346px;
     left: 300px;
-    background: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/eggs1.png) no-repeat;
+    background: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/eggs1.png") no-repeat;
     background-position: -623px 0;
     /*background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/nnborder.png");*/
 }
@@ -420,7 +479,7 @@ img[src=''] {
     height: 100%;
     width: 100%;
     z-index: 2;
-    background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/classes2.webp);
+    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/classes2.webp");
     background-repeat: no-repeat;
     background-size: 100%;
 }
@@ -1154,10 +1213,10 @@ img[src=''] {
 .awardMoney{
     position: absolute;
     top: 30px;
-    right: 170px;
+    right: 150px;
     height: 65px;
     width: 180px;
-    text-align: right;
+    text-align: center;
     font-size: 42px;
     color: #f7d7ae;
     bottom: 0px;
@@ -1261,7 +1320,7 @@ img[src=''] {
     width: 130px;
     text-align: center;
     color: #fff4bd;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 600;
 }
 .entitySon,.packageSon{
@@ -2000,14 +2059,6 @@ img[src=''] {
 	margin: 0px auto;
 	overflow: hidden;
 }
-.niu_danji .game_go {
-	position: absolute;
-	top: 355px;
-	left: 310px;
-	width: 89px;
-	height: 142px;
-}
-
 .niu_danji .wdjifen {
 	font-size: 20px;
 	color: #e00b37;
