@@ -1350,6 +1350,17 @@ function initBtn() {
 
 	//	林心旺
 	//---------------------------------
+	$("#drawBtn").unbind("itemFocus").bind("itemFocus", function() {
+		console.log("获得焦点");
+		$("#drawBtnBorder").css("display","block");
+		$("#aroundGif").css("display","block");
+		$("#aroundpng").css("display","none");
+		$("#aroundpng").attr("class","around90");
+		$("#aroundGif").css("background-image", "url(images/around2.gif)");
+	});
+	$("#drawBtn").unbind("itemBlur").bind("itemBlur", function() {
+		$("#drawBtnBorder").css("display","none");
+	});
 	$("#drawBtn").unbind("itemClick").bind("itemClick", function() {
 		console.log("开始抽奖");
 		curDrawBtnName = "drawBtn";
@@ -1363,7 +1374,7 @@ function initBtn() {
             console.log('操作过于频繁，稍后再试');
             return false;
         } else {
-	 	var pagename = "";
+	 		var pagename = "";
         	var page_type = "";
         	var button_state = "";
         	if(cardsNum > 0){
@@ -1375,7 +1386,15 @@ function initBtn() {
         	_czc.push(['_trackEvent', '418活动', "【扭一扭】按钮", button_state, '', '']);
         	$("#drawBtn").attr("ctime", nowTime);
 			if(cardsNum > 0) {
-				startEggFunc();
+				$("#aroundGif").css("display","none");
+				$("#aroundpng").css("display","block");
+				$("#aroundpng").attr("class","around901");
+				setTimeout(function(){
+					startEggFunc();
+					$("#aroundGif").css("display","block");
+					$("#aroundpng").css("display","none");
+					$("#aroundpng").attr("class","around90");
+				},1000);
 			} else {
 				for(i = 1; i <= 11; i++) {
 					$(".qiu_" + i).removeClass("wieyi_" + i);
