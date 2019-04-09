@@ -944,7 +944,7 @@ function initBtn() {
             })
         }
     })
-    $("#mapBtn").unbind("itemBlur").bind("itemBlur", function() {
+    $("#mapBtn").bind("itemBlur", function() {
         if(gameStatus!=0){
             $("#mapBtn").css({
                 "width": "251px",
