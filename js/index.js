@@ -1208,6 +1208,7 @@ function initBtn() {
     })
 
     $("#mapBtn").unbind("itemClick").bind("itemClick", function(){
+        if(gameStatus == 0){return;}
     	curDrawBtnName = "mapBtn";
         if(diceCanClick){
             var pagename = "";
