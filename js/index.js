@@ -2752,6 +2752,7 @@ function selectChipInfo() {
                 $(".draw8cl").html((data.data.lc8Num+cardsNum));
                 $(".draw418cl").html(cardsNum);
                 $(".draw418").html(cardsNum);
+                $("#aroundNum").html("X"+cardsNum);
 
                 haveGiftChip = data.data.haveGiftChip;
                 haveMarge = data.data.haveMarge;
@@ -3390,9 +3391,10 @@ function getMyAwards(num) {
                         console.log("有津贴"+loginstatus);
                         var allMoney = 0;
                         for (var i = 0; i < _arr0.length; i++) {
-                            if (_arr0[i].state == 0) {
-                                allMoney += toDecimal(_arr0[i].price);
-                            }
+                        	allMoney += toDecimal(_arr0[i].price);
+//                          if (_arr0[i].state == 0) {
+//                              allMoney += toDecimal(_arr0[i].price);
+//                          }
                         }
                         allMoney = toDecimal(allMoney);
                         console.log(allMoney);
@@ -4093,6 +4095,7 @@ function startEggFunc() {
                 $(".draw4cl").html(cardsNum4+cardsNum);
                 $(".draw1cl").html(cardsNum1+cardsNum);
                 $(".draw8cl").html(cardsNum8+cardsNum);
+                $("#aroundNum").html("X"+cardsNum);
                 draw(data.data);
             }else{
             	console.log("扭蛋机抽奖接口出错");
