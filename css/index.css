@@ -1309,7 +1309,7 @@ img[src=''] {
 .packageImg1{
 	top: 20px;
     background-repeat: no-repeat;
-    background-position: -115px 0px;
+    background-position: -128px 0px;
     background-size: 260%;
 }
 .packageImg2{
@@ -1327,7 +1327,7 @@ img[src=''] {
 
 .entityName,.packageName{
 	position: absolute;
-    top: 5px;
+    top: 8px;
     left: 95px;
     height: 60px;
     width: 130px;
@@ -1335,9 +1335,6 @@ img[src=''] {
     color: #fff4bd;
     font-size: 22px;
     font-weight: 600;
-}
-.entityName{
-	top: 8px;
 }
 .entitySon,.packageSon{
 	position: absolute;
