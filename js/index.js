@@ -1350,13 +1350,12 @@ function initBtn() {
 
 	//	林心旺
 	//---------------------------------
-	$("#drawBtn").unbind("itemFocus").bind("itemFocus", function() {
+	$("#drawBtn").bind("itemFocus", function() {
 		console.log("获得焦点");
-		$("#aroundGif").attr("src","");
 		$("#aroundGif").attr("src","images/around2.gif");
 		$("#drawBtnBorder").css("display","block");
 	});
-	$("#drawBtn").unbind("itemBlur").bind("itemBlur", function() {
+	$("#drawBtn").bind("itemBlur", function() {
 		$("#drawBtnBorder").css("display","none");
 	});
 	$("#drawBtn").unbind("itemClick").bind("itemClick", function() {

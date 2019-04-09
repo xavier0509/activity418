@@ -1337,6 +1337,9 @@ img[src=''] {
     font-size: 22px;
     font-weight: 600;
 }
+.entityName{
+	top: 8px;
+}
 .entitySon,.packageSon{
 	position: absolute;
     width: 100%;
