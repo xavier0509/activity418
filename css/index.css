@@ -446,12 +446,12 @@ img[src=''] {
 	-webkit-animation: arounddeg 1s linear;
 }
 @-webkit-keyframes arounddeg {
-	0%   {transform: rotate(0deg);}
-	20%   {transform: rotate(18deg);}
-	40%   {transform: rotate(36deg);}
-	60%   {transform: rotate(54deg);}
-	80%   {transform: rotate(72deg);}  
-	100%   {transform: rotate(90deg);}
+	0%   {-webkit-transform: rotate(0deg);}
+	20%   {-webkit-transform: rotate(18deg);}
+	40%   {-webkit-transform: rotate(36deg);}
+	60%   {-webkit-transform: rotate(54deg);}
+	80%   {-webkit-transform: rotate(72deg);}  
+	100%   {-webkit-transform: rotate(90deg);}
 
 }
 @keyframes arounddeg {
@@ -1308,7 +1308,6 @@ img[src=''] {
 }
 .packageImg1{
 	top: 20px;
-    /*background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/sddd.png);*/
     background-repeat: no-repeat;
     background-position: -115px 0px;
     background-size: 260%;
