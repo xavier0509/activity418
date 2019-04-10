@@ -356,7 +356,8 @@ var app = {
                 emmcId = message.emmcid;
             }
             var a = { MAC: macAddress, cChip: TVchip, cModel: TVmodel, cEmmcCID: emmcId, cUDID: activityId, cSize: message.panel, cChannel: "coocaa" };
-            console.log("data=====" + JSON.stringify(a))
+            console.log("data=====" + JSON.stringify(a));
+            var startTime = new Date().getTime();
             $.ajax({
                 type: "post",
                 async: true,
@@ -365,6 +366,7 @@ var app = {
                 dataType: "json",
                 // timeout: 20000,
                 success: function(data) {
+                    _czc.push(['_trackEvent', '418活动', "我的奖品信息返回时长", '',(new Date().getTime()-startTime), '' ]);
                     console.log("电视源返回状态：" + JSON.stringify(data));
                     if (data.code == 0) {
                         movieSource = data.data.source;
@@ -2474,6 +2476,7 @@ function showPage(first, resume) {
     }
     var source = "yinhe";
     if(needQQ){source = "tencent"}else{source="yinhe"}
+    var startInitTime = new Date().getTime();
     console.log("---" + macAddress + "------" + TVchip + "-----" + TVmodel + "------" + emmcId + "--------" + activityId + "---------" + access_token + "-------" + cOpenId);
     $.ajax({
         type: "post",
@@ -2483,6 +2486,8 @@ function showPage(first, resume) {
         dataType: "json",
         // timeout: 20000,
         success: function(data) {
+            _czc.push(['_trackEvent', '418活动', "初始化时长", '', (new Date().getTime()-startInitTime),'']);
+            console.log("初始化时长：" + (new Date().getTime()-startInitTime));
             console.log("初始化返回状态：" + JSON.stringify(data));
             showAwardInfo();
             selectChipInfo();
@@ -2867,6 +2872,7 @@ function showTime(type) {
 function showOperation(showMainShow) {
     console.log("开始获取运营数据===");
     var tag_id = "";
+    var startOperationTime = new Date().getTime();
     // if(needQQ){tag_id = 103621}else {tag_id = 103622}//test
     if (needQQ) { tag_id = 103673 } else { tag_id = 103672 }
     $("#payZone").html('<div id="allowanceGet" class="allowanceGet operationmap coocaabtn"><div class="sureGet">按【确定】键 立即领取</div><div class="text">&nbsp;</div></div>');
@@ -2880,7 +2886,8 @@ function showOperation(showMainShow) {
         dataType: "json",
         timeout: 8000,
         success: function(data) {
-            console.log("得到运营数据===");
+            _czc.push(['_trackEvent', '418活动', "得到运营数据时长", '', (new Date().getTime()-startOperationTime),'' ]);
+            console.log("得到运营数据时长==="+(new Date().getTime()-startOperationTime));
             var operationData = data;
             var payZone = document.getElementById("payZone");
             var tabInner = "";
@@ -2901,7 +2908,7 @@ function showOperation(showMainShow) {
                 }
             }
             $("#payZone").append(tabInner);
-            $("#payZone").append('<div class="operationmore operationmap coocaabtn"  style="background-image:url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/operationmore.png)"><div class="sureGet">按【确定】键 看详情购买</div><div class="text">&nbsp;</div></div>');
+            $("#payZone").append('<div class="operationmore operationmap coocaabtn"  style="background-image:url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/newoperationmore.jpg)"><div class="sureGet">按【确定】键 看详情购买</div><div class="text">&nbsp;</div></div>');
 
             pagefrom = getUrlParam("pageform");
             console.log("+++++++++++++++++++++++++"+($("#gamePanel").offset().left));
@@ -2993,6 +3000,7 @@ function showOperation(showMainShow) {
 // }
 function showAwardInfo() {
     $("#gameMapNewsul").html("");
+    var startTime = new Date().getTime();
     $.ajax({
         type: "get",
         async: true,
@@ -3002,6 +3010,7 @@ function showAwardInfo() {
         // timeout: 20000,
         success: function(data) {
             console.log("中奖喜讯返回状态：" + JSON.stringify(data));
+            _czc.push(['_trackEvent', '418活动', "中奖喜讯返回时长", '', (new Date().getTime()-startTime),'' ]);
             var tabInner = "";
             for (var i = 0; i < data.data.newsModelList.length; i++) {
                 var tabItem = '<li>'+data.data.newsModelList[i].nickName.substr(0,6)+' '+data.data.newsModelList[i].awardName.substr(0,14)+'</li>';
@@ -3134,6 +3143,7 @@ function checkVersion() {
 }
 //查找我的津贴
 function selectMyAllowanceNum() {
+    var startTime = new Date().getTime();
     $.ajax({
         type: "GET",
         async: true,
@@ -3144,6 +3154,7 @@ function selectMyAllowanceNum() {
         jsonp:"callback",
         success: function(data){
             console.log("sent------------------"+JSON.stringify(data));
+            _czc.push(['_trackEvent', '418活动', "查找我的津贴返回时长", '', (new Date().getTime()-startTime),'' ]);
             if(data.code == 0 ){//用户拥有津贴是否大于0
             	changeAllowanceNum(data.data.totalSubsidy/100);
             }else{
@@ -3157,6 +3168,7 @@ function selectMyAllowanceNum() {
 }
 //获取我的任务信息
 function getMyTasksList(needCheckSpeak) {
+    var startTime = new Date().getTime();
     var ajaxTimeoutOne = $.ajax({
         type: "get",
         async: true,
@@ -3179,6 +3191,7 @@ function getMyTasksList(needCheckSpeak) {
         },
         success: function(data) {
             console.log("任务信息=========================="+JSON.stringify(data));
+            _czc.push(['_trackEvent', '418活动', "任务信息返回时长", '',(new Date().getTime()-startTime), '' ]);
             if(data.code == "50100") { //服务器返回正常
                 var taskOrder = ["jump","video","ask"];
                 var taskList = data.data;
@@ -3307,7 +3320,7 @@ function getMyAwards(num) {
     $("#hasAwardLine").css("display","none");
     $("#noAwardBox1").css("display","none");
     $("#noAwardBox2").css("display","none");
-    
+    var startTime = new Date().getTime();
     var ajaxTimeoutOne = $.ajax({
         type: "get",
         async: true,
@@ -3322,6 +3335,7 @@ function getMyAwards(num) {
         	"cChip": TVchip
         },
         success: function(data) {
+            _czc.push(['_trackEvent', '418活动', "我的奖品信息返回时长", '', (new Date().getTime()-startTime) ,'']);
             console.log(JSON.stringify(data));
             if (data.code == 50100) {
                 if (data.data == undefined){
