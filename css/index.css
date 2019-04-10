@@ -1719,11 +1719,11 @@ img[src=''] {
 }
 #otherAwardInfo1,#cardAwardInfo1{
     position: absolute;
-    top: 283px;
+    top: 286px;
     left: 110px;
     height: 30px;
     width: 440px;
-    line-height: 20px;
+    line-height: 30px;
     text-align: center;
     font-size: 16px;
     color: #b7341e;
@@ -1867,7 +1867,7 @@ img[src=''] {
 }
 #cardAwardInfo3{
 	position: absolute;
-    top: 295px;
+    top: 298px;
     left: 135px;
     width: 380px;
     left: 135px;

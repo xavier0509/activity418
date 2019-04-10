@@ -3681,8 +3681,10 @@ function showThisAwardDialog(awardObj) {
         $("#otherAwardInfo1").css("display", "block");
         if(!capsuleIsStart){
     		console.log("418之前");
+    		$("#otherAwardInfo1").css("line-height", "38px");
     		$("#otherAwardInfo1").html("再接再厉！集齐周年卡片4月18日赢千元电视!");	
         }else{
+        	$("#otherAwardInfo1").css("line-height", "18px");
         	$("#otherAwardInfo1").html("集418周年卡赢新品电视火热进行中，<br/>再来一次集更多周年卡吧！");
         }
         map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
@@ -3706,8 +3708,10 @@ function showThisAwardDialog(awardObj) {
 	        $("#cardAwardImg").attr("src",awardObj.awardUrl);
 	        $("#otherAwardInfo1").css("display", "block");
 	        if(!capsuleIsStart){
+	        	$("#otherAwardInfo1").css("line-height", "38px");
 	        	$("#otherAwardInfo1").html("再接再厉，集齐卡片4月18日赢千元电视");
 	        }else{
+	        	$("#otherAwardInfo1").css("line-height", "18px");
 	        	$("#otherAwardInfo1").html("集418周年卡片赢新品电视火热进行中!<br/>再来一次集更多周年卡片吧!");
 	        }
     		map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn1"), "btn-focus", function() {}, function(val) {}, function(obj) {});
@@ -3733,7 +3737,7 @@ function showThisAwardDialog(awardObj) {
     				$("#cardQrcode").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/yinheqrcode.png");
     			}
     			$("#cardAwardImg1").attr("src",awardObj.awardUrl);
-    			$("#cardAwardInfo2").css("left","205px");
+    			$("#cardAwardInfo2").css("left","200px");
     			$("#cardAwardInfo2").css("width","255px");
     			$("#cardAwardInfo2").html("当前已拥有"+(cardsNum+1)+"套418碎片");
     			$("#cardAwardInfo3").html("有机会4月18日0元赢电视！记得来哦~");
@@ -3773,6 +3777,7 @@ function showThisAwardDialog(awardObj) {
         $("#redAwardImg").attr("src",awardObj.awardUrl);
         $("#otherAwardInfo1").css("display", "block");
         $("#otherBtn2").attr("redNumber", awardObj.awardInfo.bonus);
+        $("#otherAwardInfo1").css("line-height", "38px");
         $("#otherAwardInfo1").html("当前待领取红包共计"+awardObj.awardInfo.bonus+"元,可累计提现哦!");
         map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
     	
@@ -3801,6 +3806,7 @@ function showThisAwardDialog(awardObj) {
 	        $("#vipAwardBox").css("display", "block");
 	        $("#vipAwardImg").attr("src",vipImgUrl);
 	        $("#otherAwardInfo1").css("display", "block");
+	        $("#otherAwardInfo1").css("line-height", "38px");
     		$("#otherAwardInfo1").html("*商品已放入【我的奖励】，该特权价格不可叠加津贴使用~");
     		map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
     	}else{
@@ -3856,6 +3862,7 @@ function showThisAwardDialog(awardObj) {
         $("#coinAwardBox").css("display", "block");
     	$("#coinAwardImg").attr("src",awardObj.awardUrl);
         $("#otherAwardInfo1").css("display", "block");
+        $("#otherAwardInfo1").css("line-height", "38px");
         $("#otherAwardInfo1").html("金币可在狐狸乐园兑换奖励/大转盘抽奖哦!");
         
         if (loginstatus == "true") {
