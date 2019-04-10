@@ -1746,28 +1746,28 @@ function initBtnAfter(){
             var _index3 = $("#redTabs .myAwards").index($(this)); //btn是第几个津贴奖励
             var _curLine = Math.floor(_index3/2);
             var _itemWidth = $("#redTabs .myAwards:eq(0)").outerHeight(true);
-            console.log(_index3+"--"+_curLine+"--"+_itemWidth);
+            // console.log(_index3+"--"+_curLine+"--"+_itemWidth);
             myScrollTopValue += _curLine*_itemWidth;
         } else if (_index2 == 2) {
             myScrollTopValue = $(".awardTabs")[0].offsetHeight + $(".awardTabs")[1].offsetHeight + 24;
         	var _index3 = $("#entityTabs .myAwards").index($(this)); //btn是第几个津贴奖励
             var _curLine = Math.floor(_index3/3);
             var _itemWidth = $("#entityTabs .myAwards:eq(0)").outerHeight(true);
-            console.log(_index3+"--"+_curLine+"--"+_itemWidth);
+            // console.log(_index3+"--"+_curLine+"--"+_itemWidth);
             myScrollTopValue += _curLine*_itemWidth;
         } else if (_index2 == 3) {
             myScrollTopValue = $(".awardTabs")[0].offsetHeight + $(".awardTabs")[1].offsetHeight + $(".awardTabs")[2].offsetHeight + 36;
         	var _index3 = $("#packageTabs .myAwards").index($(this)); //btn是第几个津贴奖励
             var _curLine = Math.floor(_index3/3);
             var _itemWidth = $("#packageTabs .myAwards:eq(0)").outerHeight(true);
-            console.log(_index3+"--"+_curLine+"--"+_itemWidth);
+            // console.log(_index3+"--"+_curLine+"--"+_itemWidth);
             myScrollTopValue += _curLine*_itemWidth;
         } else if (_index2 == 4) {
             myScrollTopValue = $(".awardTabs")[0].offsetHeight + $(".awardTabs")[1].offsetHeight + $(".awardTabs")[2].offsetHeight + $(".awardTabs")[3].offsetHeight + 48;
         	var _index3 = $("#goldcoinTabs .myAwards").index($(this)); //btn是第几个津贴奖励
             var _curLine = Math.floor(_index3/2);
             var _itemWidth = $("#goldcoinTabs .myAwards:eq(0)").outerHeight(true);
-            console.log(_index3+"--"+_curLine+"--"+_itemWidth);
+            // console.log(_index3+"--"+_curLine+"--"+_itemWidth);
             myScrollTopValue += _curLine*_itemWidth;
         }
         $("#myAwardBox").stop(true, true).animate({ scrollTop: myScrollTopValue }, { duration: 0, easing: "swing" });
@@ -3003,7 +3003,7 @@ function showAwardInfo() {
         dataType: "json",
         // timeout: 20000,
         success: function(data) {
-            console.log("中奖喜讯返回状态：" + JSON.stringify(data));
+            // console.log("中奖喜讯返回状态：" + JSON.stringify(data));
             _czc.push(['_trackEvent', '418活动', "中奖喜讯返回时长", '', (new Date().getTime()-startTime),'' ]);
             var tabInner = "";
             for (var i = 0; i < data.data.newsModelList.length; i++) {
@@ -3184,7 +3184,7 @@ function getMyTasksList(needCheckSpeak) {
             "source": (movieSource == "tencent") ? "tencent" : "iqiyi"
         },
         success: function(data) {
-            console.log("任务信息=========================="+JSON.stringify(data));
+            // console.log("任务信息=========================="+JSON.stringify(data));
             _czc.push(['_trackEvent', '418活动', "任务信息返回时长", '',(new Date().getTime()-startTime), '' ]);
             if(data.code == "50100") { //服务器返回正常
                 var taskOrder = ["jump","video","ask"];
@@ -3330,7 +3330,7 @@ function getMyAwards(num) {
         },
         success: function(data) {
             _czc.push(['_trackEvent', '418活动', "我的奖品信息返回时长", '', (new Date().getTime()-startTime) ,'']);
-            console.log(JSON.stringify(data));
+            // console.log(JSON.stringify(data));
             if (data.code == 50100) {
                 if (data.data == undefined){
                     data.data = [];
@@ -3338,7 +3338,7 @@ function getMyAwards(num) {
                 console.log(data.data.length);
                 if (data.data.length == 0) {
                     if(num == 3){
-                        console.log("津贴为0"+loginstatus);
+                        // console.log("津贴为0"+loginstatus);
                         $("#homeAllowanceNum").html("0");
                         $("#allowanceNum").html("0");
                         $("#myallowanceNum").html("0");
@@ -3403,7 +3403,7 @@ function getMyAwards(num) {
                             objItem.vipId = data.data[i].awardInfo.id;
                             _arr3.push(objItem);
                         } else if (data.data[i].awardTypeId == "19") {
-                        	console.log(JSON.stringify(data.data[i]));
+                        	// console.log(JSON.stringify(data.data[i]));
                         	objItem.coinNumber = data.data[i].awardInfo.coinNum;
                             _arr4.push(objItem);
                         }
@@ -3459,11 +3459,11 @@ function getMyAwards(num) {
 }
 //生成我的奖品
 function showMyAward(arr0, arr1, arr2, arr3, arr4, num) {
-    console.log(JSON.stringify(arr0));
-    console.log(JSON.stringify(arr1));
-    console.log(JSON.stringify(arr2));
-    console.log(JSON.stringify(arr3));
-    console.log(JSON.stringify(arr4));
+    // console.log(JSON.stringify(arr0));
+    // console.log(JSON.stringify(arr1));
+    // console.log(JSON.stringify(arr2));
+    // console.log(JSON.stringify(arr3));
+    // console.log(JSON.stringify(arr4));
     $("#myAwardBox").css("display", "block");
     $("#hasAwardLine").css("display", "block");
     if (arr0.length != 0) {
@@ -3570,13 +3570,13 @@ function showMyAward(arr0, arr1, arr2, arr3, arr4, num) {
            	if (arr3[i].vipType == "product") {
            		packageDiv.innerHTML = '<div class="myawardsImg"><div class="packageImg packageImg1" style="background-image: url('+arr3[i].awardUrl+')"></div><div class="packageName"><div class="packageSon">'+arr3[i].awardName+'</div></div><div class="packageStatus hasgot"></div></div><div class="myawardsBorder"></div>';
            	} else if(arr3[i].vipType == "yinhe" ||arr3[i].vipType == "6" ){
-           		console.log("特权-影视");
+           		// console.log("特权-影视");
            		packageDiv.innerHTML = '<div class="myawardsImg"><div class="packageImg packageImg2"></div><div class="packageName"><div class="packageSon">'+arr3[i].awardName+'</div></div><div class="packageStatus hasgot"></div></div><div class="myawardsBorder"></div>';
            	} else if(arr3[i].vipType == "jiaoyuvip"){
-           		console.log("特权-教育");
+           		// console.log("特权-教育");
            		packageDiv.innerHTML = '<div class="myawardsImg"><div class="packageImg packageImg3"></div><div class="packageName"><div class="packageSon">'+arr3[i].awardName+'</div></div><div class="packageStatus hasgot"></div></div><div class="myawardsBorder"></div>';
            	} else if(arr3[i].vipType == "shaoervip"){
-           		console.log("特权-少儿");
+           		// console.log("特权-少儿");
            		packageDiv.innerHTML = '<div class="myawardsImg"><div class="packageImg packageImg4"></div><div class="packageName"><div class="packageSon">'+arr3[i].awardName+'</div></div><div class="packageStatus hasgot"></div></div><div class="myawardsBorder"></div>';
            	}
             $("#packageTabs").append(packageDiv);
@@ -4007,7 +4007,7 @@ function sendPrizes(oAwardName, oAwardId, oRememberId, oUserKeyId, oType, oActiv
             "source": oQsource
         },
         success: function(data) {
-            console.log(JSON.stringify(data));
+            // console.log(JSON.stringify(data));
             if(data.code == "50100") {
                 console.log("领取成功");
                 if(oType == 17){
@@ -4022,20 +4022,20 @@ function sendPrizes(oAwardName, oAwardId, oRememberId, oUserKeyId, oType, oActiv
                 	_czc.push(['_trackEvent', '418活动', '领取金币奖品', '领取金币成功', '', '']);
                 }
             } else {
-                console.log("领取失败");
+                // console.log("领取失败");
 				if(oType == 17&&pagestate != 2){
-					console.log("领取津贴奖励失败");
+					// console.log("领取津贴奖励失败");
 					sentLog("okr_web_clicked_result", '{"page_name":"领取奖品","activity_name":"418活动","award_type":"津贴","award_name":"'+oAwardName+'","receive_result":"领取失败"}');
                 	_czc.push(['_trackEvent', '418活动', '领取津贴奖品', '领取津贴失败', '', '']);
 				}else if(oType == 19&&pagestate != 2){
-                	console.log("领取金币奖励失败");
+                	// console.log("领取金币奖励失败");
                 	sentLog("okr_web_clicked_result", '{"page_name":"领取奖品","activity_name":"418活动","award_type":"金币","award_name":"'+oAwardName+'","receive_result":"领取失败"}');
                 	_czc.push(['_trackEvent', '418活动', '领取金币奖品', '领取金币失败', '', '']);
                 }
             }
         },
         error: function() {
-            console.log("领取失败");
+            // console.log("领取失败");
             if (oType == 17) {
             	if (pagestate != 2) {
 					$("#sendPrizeFail").css("display", "block");
@@ -4064,7 +4064,7 @@ function sendPrizes(oAwardName, oAwardId, oRememberId, oUserKeyId, oType, oActiv
 }
 //获取未领取津贴并领取
 function getAllNotGetAllowance(){
-    console.log(JSON.stringify(notGetAllowanceArray));
+    // console.log(JSON.stringify(notGetAllowanceArray));
     if (notGetAllowanceArray.length == 0) {
         selectMyAllowanceNum();
     } else{
@@ -4083,7 +4083,7 @@ function getAllNotGetAllowance(){
                 } else{
                     notGetAllowanceIndex = 0;
                 }
-                console.log(allowAwardId+"--"+allowRememberId+"--"+allowUserKeyId+"--"+allowAwardTypeId+"--"+allowActiveId);
+                // console.log(allowAwardId+"--"+allowRememberId+"--"+allowUserKeyId+"--"+allowAwardTypeId+"--"+allowActiveId);
                 sendPrizes(allowAwardName,allowAwardId,allowRememberId,allowUserKeyId,allowAwardTypeId,allowActiveId,movieSource,2);
             },100*(j+1));
         }
