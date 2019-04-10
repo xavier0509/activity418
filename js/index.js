@@ -1355,7 +1355,7 @@ function initBtn() {
 	//---------------------------------
 	$("#drawBtn").bind("itemFocus", function() {
 		console.log("获得焦点");
-		$("#aroundGif").attr("src","images/around2.gif");
+		$("#aroundGif").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/around2.gif");
 		$("#drawBtnBorder").css("display","block");
 	});
 	$("#drawBtn").bind("itemBlur", function() {
