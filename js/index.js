@@ -685,7 +685,7 @@ function showFinalWindow(dialog) {
         $(".topword").css("top","60px");
         $(".topword").html("成功解锁第2阶段抽奖资格");
         $(".bottomword1").html("当前已拥有<span>"+cardsNum+"</span>套418周年卡片");
-        $(".bottom2").html("4月18日邀你”扭一扭“赢创维新品电视！");
+        $(".bottom2").html("4月18日邀你“扭一扭”赢创维新品电视！");
         map = new coocaakeymap($(".compoundbtn"), $("#compoundbtn1"), "btnFocus", function() {}, function(val) {}, function(obj) {});
         $("#compoundbtn1").trigger("itemFocus");
     }else if(dialog == "needshowdialog4"){
@@ -700,7 +700,7 @@ function showFinalWindow(dialog) {
         $(".topword").css("top","60px");
         $(".topword").html("获得第2阶段抽奖资格<br>有机会0元带走创维新品电视！");
         $(".bottomword1").html("当前已拥有<span>"+cardsNum+"</span>套418周年卡片");
-        $(".bottom2").html("集418卡片赢最新创维电视火热进行中！马上参与！");
+        $(".bottom2").html("快去参与“扭一扭”0元赢电视！");
         map = new coocaakeymap($(".compoundbtn"), $("#compoundbtn1"), "btnFocus", function() {}, function(val) {}, function(obj) {});
         $("#compoundbtn1").trigger("itemFocus");
     }

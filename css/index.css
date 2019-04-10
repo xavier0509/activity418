@@ -1034,6 +1034,7 @@ img[src=''] {
     margin-top: 5px;
     margin-left: 23px;
 	color: #FFFFFF;
+    overflow: hidden;
 }
 .everyAllInfo::before {
     content: '';
