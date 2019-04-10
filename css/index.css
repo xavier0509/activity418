@@ -393,7 +393,7 @@ img[src=''] {
 }
 #drawBtnBorder,#drawDoor{
 	position: absolute;
-	/*background: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/eggs1.png") no-repeat;*/
+	background: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/eggs1.png") no-repeat;
 }
 #drawBtn{
 	top: 355px;

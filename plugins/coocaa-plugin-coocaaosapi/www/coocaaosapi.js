@@ -786,7 +786,7 @@ cordova.define("coocaaosapi", function(require, exports, module) {
     //页面退出eventId = page_onPause               map:{"title":""}两者title必须保持一致，不可缺省
 
     CoocaaOSApi.prototype.notifyJSLogInfo = function(eventId, ddata, success, error) {
-        console.log("sent------------" + eventId + "-------------" + ddata);
+        // console.log("sent------------" + eventId + "-------------" + ddata);
         argscheck.checkArgs('ssff', 'CoocaaOSApi.notifyJSLogInfo', arguments);
         exec(success, error, 'CoocaaOSApi', 'notifyJSLogInfo', [{
             'eventId': eventId

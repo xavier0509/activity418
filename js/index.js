@@ -324,8 +324,6 @@ var app = {
                 showMove = true;
             }else{
                 $("#mainbox").css("transition","all 0s");
-                $("#buyZoneImg").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/720/index/buyzoneimg2.png)");
-                $("#missionImg").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/springfestival/720/index/missionimg1.png)");
             }
         }, function(err) {
             console.log("-----------baseinfo-------" + JSON.stringify(err));
@@ -667,8 +665,8 @@ function showFinalWindow(dialog) {
         $("#compoundWindow").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/jichengkapian1.png)");
         $(".midcard").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/card418.png)");
         $(".topword").html("418周年狂欢正在进行中，送您一张周年卡片");
-        $(".bottomword1").html("当前已拥有<span>"+cardsNum+"</span>套418周年卡片，有机会0元赢电视");
-        $(".bottom2").html("集418卡片赢最新创维电视火热进行中！马上参与！");
+        $(".bottomword1").html("当前已拥有<span>"+cardsNum+"</span>套418周年卡片");
+        $(".bottom2").html("快去参与“扭一扭”0元赢电视！");
         map = new coocaakeymap($(".compoundbtn"), $("#compoundbtn1"), "btnFocus", function() {}, function(val) {}, function(obj) {});
         $("#compoundbtn1").trigger("itemFocus");
     }else if(dialog == "needshowdialog3"){
@@ -685,9 +683,9 @@ function showFinalWindow(dialog) {
         $("#compoundWindow").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/jichengkapian1.png)");
         $(".midcard").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/card418.png)");
         $(".topword").css("top","60px");
-        $(".topword").html("获得第2阶段抽奖资格<br>有机会0元带走创维新品电视！");
+        $(".topword").html("成功解锁第2阶段抽奖资格");
         $(".bottomword1").html("当前已拥有<span>"+cardsNum+"</span>套418周年卡片");
-        $(".bottom2").html("可继续玩游戏收集更多周年卡片4月18日赢大奖！");
+        $(".bottom2").html("4月18日邀你”扭一扭“赢创维新品电视！");
         map = new coocaakeymap($(".compoundbtn"), $("#compoundbtn1"), "btnFocus", function() {}, function(val) {}, function(obj) {});
         $("#compoundbtn1").trigger("itemFocus");
     }else if(dialog == "needshowdialog4"){
@@ -755,7 +753,7 @@ function initMap(setFocus,needShowSpeak) {
                 $(".midcard").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/card8.png)");
             }
             $(".topword").html("418周年狂欢正在进行中，送您一张周年卡片");
-            $(".bottomword1").html("现在集齐一套418卡片即有机会0元带走创维新品电视");
+            $(".bottomword1").html("集齐一套418卡片有机会0元赢创维电视");
             $(".bottom2").html("快去掷骰子赢周年卡片吧！");
             map = new coocaakeymap($(".compoundbtn"), $("#compoundbtn1"), "btnFocus", function() {}, function(val) {}, function(obj) {});
             $("#compoundbtn1").trigger("itemFocus");
@@ -2624,7 +2622,7 @@ function showPage(first, resume) {
                 _czc.push(['_trackEvent', '418活动', '未开始页面曝光', '', '','']);
                 map = new coocaakeymap($("#waitPage"), $("#waitPage"), "btnFocus", function() {}, function(val) {}, function(obj) {});
                 $("#waitPage").unbind("itemClick").bind("itemClick",function(){
-                    exitAll();
+                    return;
                 })
             }
             else if(data.code==50003){
@@ -3944,7 +3942,7 @@ function otherBtn2ClickFunc() {
     	console.log(awardGoodsId);
         sentLog("okr_web_button_click", '{"page_name":"大富翁活动","activity_name":"418活动","button_name":"领取折扣","award_type":"特权-商品","goods_id":"'+awardGoodsId+'","award_name":"'+_kAwardName+'"}');
         _czc.push(['_trackEvent', '418活动', "大富翁活动", "领取折扣", '', '']);
-    	coocaaosapi.startAppShopZone(awardGoodsId, function() {}, function() {});
+    	coocaaosapi.startAppShopDetail(awardGoodsId, function() {}, function() {});
     }
     if (_kAwardTypeId == 17) {
         console.log("点击了津贴奖励的马上领取");
