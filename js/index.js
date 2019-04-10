@@ -1889,7 +1889,7 @@ function initBtnAfter(){
             var _curVipUrl = $(this).attr('awardUrl');
             console.log(_curVipType+"---"+_curVipId +"--"+_curVipUrl);
             if (_curVipType == "product") {
-            	coocaaosapi.startAppStoreDetail(_curVipId, function() {}, function() {});
+            	coocaaosapi.startAppShopDetail(_curVipId, function() {}, function() {});
             } else{
             	var packurl = vipstartUrl + '?data={"product_id":"'+_curVipId+'","activity_id":"'+actionId+'","activity_name":"418活动","bg_url":"'+_curVipUrl+'"}';
         		coocaaosapi.startNewBrowser3(packurl, function() {}, function() {});
@@ -2114,7 +2114,7 @@ function getParamAndStart(obj,needCheckVersion) {
                         mallVersion = apkVersion[2];
                         cAppVersion = apkVersion[3];
                         console.log("===activityCenterVersion=="+activityCenterVersion+"===browserVersion=="+browserVersion+"==mallVersion=="+mallVersion+"==cAppVersion=="+cAppVersion);
-                        if((activityCenterVersion < 103010) || (browserVersion < 104039)) {
+                        if((activityCenterVersion < 103015) || (browserVersion < 104039)) {
                             console.log("活动中心或浏览器版本太低，需要后台升级，显示弹窗");
                             showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newtoast/mokuaijiazai.png",4000);
                             return;
@@ -2127,7 +2127,7 @@ function getParamAndStart(obj,needCheckVersion) {
                                 needAddChance = false;
                             }
                             if (pkgname == "com.tianci.movieplatform") {
-                                if(cAppVersion<7030009){
+                                if(cAppVersion<7020028){
                                     //lowVersion----自身加机会【仍需判断】
                                     startLowVersion(needAddChance);
                                 }else{
@@ -2139,7 +2139,7 @@ function getParamAndStart(obj,needCheckVersion) {
                                     }
                                 }
                             }  else if (pkgname == "com.coocaa.mall") {
-                                if(mallVersion<31100000){
+                                if(mallVersion<31100003){
                                     startLowVersion(needAddChance);
                                 }else{
                                     if(needAddChance){
@@ -2493,6 +2493,7 @@ function showPage(first, resume) {
             selectChipInfo();
             // data={code:50003};
             if(data.code == 50100){
+                $("#topMain").show();
                 gameStatus = 1;
                 lotteryNum = data.data.lotteryNum;
                 cardsNum = data.data.cardsNum;
@@ -2592,44 +2593,13 @@ function showPage(first, resume) {
             }
             else if(data.code==50002){
                 gameStatus = 0;
-                $("#gameMap").show();
-                setTimeout(function () {
-                    $("#gameDraw").show();
-                },300)
-                showOperation(first);
-                $("#mapBtn").addClass("waitAct");
-                var nowHours = new Date().getHours();
-                if(nowHours==11||nowHours==12){
-                    //调用领取接口
-                    $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/50/11dian.png)");
-                }
-                else if(nowHours==19||nowHours==20||nowHours==21){
-                    $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/100/19dian.png)");
-                }
-                else{
-                    if(nowHours<11 ){
-                        //稍后再来
-                        $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/50/xiachang1.png)");
-                    }else if(nowHours>12&&nowHours<19) {
-                        $("#allowanceGet").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/100/xiachang2.png)");
-                    }else{
-                        if(startDayNum == 9){
-                            //结束
-                            $("#allowanceGet").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/100/jieshu.png)");
-                        }else{
-                            //稍后再来
-                            $("#allowanceGet").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/50/mingtian.png)");
-                        }
-                    }
-                }
-                if(startDayNum<4){
-                    $("#todayaward").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/daisen.gif)");
-                }else if(startDayNum < 7){
-                    $("#todayaward").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/iphone.gif)");
-                }else{
-                    $("#todayaward").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/macbook.gif)");
-                }
-                getMyTasksList(true);
+                $("#mainbox").hide();
+                $("#waitPage").show();
+                _czc.push(['_trackEvent', '418活动', '未开始页面曝光', '', '','']);
+                map = new coocaakeymap($("#waitPage"), $("#waitPage"), "btnFocus", function() {}, function(val) {}, function(obj) {});
+                $("#waitPage").unbind("itemClick").bind("itemClick",function(){
+                    exitAll();
+                })
             }
             else if(data.code==50003){
                 showOperation(first);
@@ -3118,10 +3088,10 @@ function sentThirdAdshow(type, msg) {
 }
 //加载立即检测版本
 function checkVersion() {
-    if (activityCenterVersion < 103014) {
+    if (activityCenterVersion < 103015) {
         coocaaosapi.createDownloadTask(
-            "https://apk-sky-fs.skysrt.com/uploads/20190109/20190109191141936672.apk",
-            "67EF020FE82A5BBF1D3F9E719886EB8A",
+            "https://apk-sky-fs.skysrt.com/uploads/20190403/20190403141921936543.apk",
+            "A80A891472EF2F1AA7E6A9139AAC2BAD",
             "活动中心",
             "com.coocaa.activecenter",
             "26417",

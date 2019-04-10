@@ -85,6 +85,7 @@ img[src=''] {
     background-size: 100%;
 }
 #topMain{
+    display: none;
     width: 1280px;
     height: 60px;
     position: absolute;
@@ -1204,7 +1205,7 @@ img[src=''] {
 	width:341px;
 	border: 5px solid #59ff3e;
 	box-shadow: 0 0 15px #59ff3e;
-	border-radius: 15px;
+	border-radius: 22px;
 	display: none;
 }
 .btn-focus .myawardsBorder{
@@ -2917,6 +2918,16 @@ img[src=''] {
     width: 520px;
     height: 520px;
     background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/newnewf418.png");
+}
+#waitPage{
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    position: absolute;
+    top:0;
+    left: 0;
+    display: none;
+    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/waitPage.jpg");
 }
 #endGamePage{
     width: 1280px;
