@@ -1738,14 +1738,39 @@ function initBtnAfter(){
         var myScrollTopValue = 0;
         if (_index2 == 0) {
             myScrollTopValue = 0;
+            var _index3 = $("#allowanceTabs .myAwards").index($(this)); //btn是第几个津贴奖励
+            var _curLine = Math.floor(_index3/2);
+            var _itemWidth = $("#allowanceTabs .myAwards:eq(0)").outerHeight(true);
+            console.log(_index3+"--"+_curLine+"--"+_itemWidth);
+            
         } else if (_index2 == 1) {
             myScrollTopValue = $(".awardTabs")[0].offsetHeight + 12;
+            var _index3 = $("#redTabs .myAwards").index($(this)); //btn是第几个津贴奖励
+            var _curLine = Math.floor(_index3/2);
+            var _itemWidth = $("#redTabs .myAwards:eq(0)").outerHeight(true);
+            console.log(_index3+"--"+_curLine+"--"+_itemWidth);
+            myScrollTopValue += _curLine*_itemWidth;
         } else if (_index2 == 2) {
             myScrollTopValue = $(".awardTabs")[0].offsetHeight + $(".awardTabs")[1].offsetHeight + 24;
+        	var _index3 = $("#entityTabs .myAwards").index($(this)); //btn是第几个津贴奖励
+            var _curLine = Math.floor(_index3/3);
+            var _itemWidth = $("#entityTabs .myAwards:eq(0)").outerHeight(true);
+            console.log(_index3+"--"+_curLine+"--"+_itemWidth);
+            myScrollTopValue += _curLine*_itemWidth;
         } else if (_index2 == 3) {
             myScrollTopValue = $(".awardTabs")[0].offsetHeight + $(".awardTabs")[1].offsetHeight + $(".awardTabs")[2].offsetHeight + 36;
+        	var _index3 = $("#packageTabs .myAwards").index($(this)); //btn是第几个津贴奖励
+            var _curLine = Math.floor(_index3/3);
+            var _itemWidth = $("#packageTabs .myAwards:eq(0)").outerHeight(true);
+            console.log(_index3+"--"+_curLine+"--"+_itemWidth);
+            myScrollTopValue += _curLine*_itemWidth;
         } else if (_index2 == 4) {
             myScrollTopValue = $(".awardTabs")[0].offsetHeight + $(".awardTabs")[1].offsetHeight + $(".awardTabs")[2].offsetHeight + $(".awardTabs")[3].offsetHeight + 48;
+        	var _index3 = $("#goldcoinTabs .myAwards").index($(this)); //btn是第几个津贴奖励
+            var _curLine = Math.floor(_index3/2);
+            var _itemWidth = $("#goldcoinTabs .myAwards:eq(0)").outerHeight(true);
+            console.log(_index3+"--"+_curLine+"--"+_itemWidth);
+            myScrollTopValue += _curLine*_itemWidth;
         }
         $("#myAwardBox").stop(true, true).animate({ scrollTop: myScrollTopValue }, { duration: 0, easing: "swing" });
     });
@@ -1880,7 +1905,6 @@ function initBtnAfter(){
             }
         }
         if (_awardType == 13) {
-        	console.log("点击了特价产品包");
         	sentLog("okr_web_button_click", '{"page_name":"我的奖励页面","activity_name":"418活动","button_name":"特权"}');
             _czc.push(['_trackEvent', '418活动', "我的奖励页面", "特权的点击", '', '']);
             
@@ -1889,8 +1913,10 @@ function initBtnAfter(){
             var _curVipUrl = $(this).attr('awardUrl');
             console.log(_curVipType+"---"+_curVipId +"--"+_curVipUrl);
             if (_curVipType == "product") {
+            	console.log("点击了特权商品");
             	coocaaosapi.startAppShopDetail(_curVipId, function() {}, function() {});
             } else{
+            	console.log("点击了特价产品包");
             	var packurl = vipstartUrl + '?data={"product_id":"'+_curVipId+'","activity_id":"'+actionId+'","activity_name":"418活动","bg_url":"'+_curVipUrl+'"}';
         		coocaaosapi.startNewBrowser3(packurl, function() {}, function() {});
             }
@@ -3123,7 +3149,7 @@ function selectMyAllowanceNum() {
         dataType:"jsonp",
         jsonp:"callback",
         success: function(data){
-            console.log("sent------------------"+JSON.stringify(data));
+            //console.log("sent------------------"+JSON.stringify(data));
             _czc.push(['_trackEvent', '418活动', "查找我的津贴返回时长", '', (new Date().getTime()-startTime),'' ]);
             if(data.code == 0 ){//用户拥有津贴是否大于0
             	changeAllowanceNum(data.data.totalSubsidy/100);
