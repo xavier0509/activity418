@@ -3745,8 +3745,8 @@ function showThisAwardDialog(awardObj) {
     				$("#cardQrcode").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/window/yinheqrcode.png");
     			}
     			$("#cardAwardImg1").attr("src",awardObj.awardUrl);
-    			$("#cardAwardInfo2").css("left","200px");
-    			$("#cardAwardInfo2").css("width","255px");
+//  			$("#cardAwardInfo2").css("left","200px");
+//  			$("#cardAwardInfo2").css("width","255px");
     			$("#cardAwardInfo2").html("当前已拥有"+(cardsNum+1)+"套418周年卡片");
     			$("#cardAwardInfo3").html("继续玩游戏集卡片4月18日0元赢电视");
     			$("#otherBtn4").css("display","none");
@@ -3759,8 +3759,8 @@ function showThisAwardDialog(awardObj) {
     			$("#cardAwardBox2").css("display","block");
     			$("#cardAwardBox1").css("display","none");
     			$("#cardAwardImg2").attr("src",awardObj.awardUrl);
-    			$("#cardAwardInfo2").css("left","125px");
-    			$("#cardAwardInfo2").css("width","420px");
+//  			$("#cardAwardInfo2").css("left","125px");
+//  			$("#cardAwardInfo2").css("width","420px");
     			$("#cardAwardInfo2").html("当前已拥有"+(cardsNum+1)+"套418周年碎片");
     			$("#cardAwardInfo3").html("快去参与“扭一扭”0元赢电视！");
     			$("#otherBtn4").css("display","block");
@@ -3820,16 +3820,19 @@ function showThisAwardDialog(awardObj) {
     	}else{
     		if(vipType == "yinhe"||vipType == "6"){
     			console.log("抽中特权-影视");
+    			$("#dialogPage").css("display", "none");
                 packurl = vipstartUrl + '?data={"product_id":"'+vipid+'","activity_id":"'+actionId+'","activity_name":"418活动","bg_url":"'+vipImgUrl+'"}';
     			_award_type = "特权-影视";
     		}
     		if(vipType == "jiaoyuvip"){
 	    		console.log("抽中特权-教育");
+	    		$("#dialogPage").css("display", "none");
                 packurl = vipstartUrl + '?data={"product_id":"'+vipid+'","activity_id":"'+actionId+'","activity_name":"418活动","bg_url":"'+vipImgUrl+'"}';
 	    		_award_type = "特权-教育";
     		}
     		if(vipType == "shaoervip"){
 	    		console.log("抽中特权-少儿");
+	    		$("#dialogPage").css("display", "none");
                 packurl = vipstartUrl + '?data={"product_id":"'+vipid+'","activity_id":"'+actionId+'","activity_name":"418活动","bg_url":"'+vipImgUrl+'"}';
 	    		_award_type = "特权-少儿";
     		}
