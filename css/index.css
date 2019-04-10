@@ -1517,6 +1517,7 @@ img[src=''] {
 #redInfo1{
     position: absolute;
     height: 34px;
+    line-height: 34px;
     width: 260px;
     top: 90px;
     left: 80px;
@@ -1528,8 +1529,8 @@ img[src=''] {
 #redStrongPart{
     display: inline-block;
     width: 120px;
-    height: 30px;
-    line-height: 30px;
+    height: 34px;
+    line-height: 34px;
     color: #FFFFFF;
     border-radius: 5px;
     background-color: #aa4d00;

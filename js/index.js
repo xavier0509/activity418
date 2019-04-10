@@ -4246,6 +4246,7 @@ function showEggAwardDialog(obj){
         $("#redAwardBox").css("display", "block");
         $("#redAwardImg").attr("src",obj.awardUrl);
         $("#otherBtn2").attr("redNumber", obj.awardInfo.bonus);
+        $("#otherAwardInfo1").css("display", "block");
         $("#otherAwardInfo1").html("当前扭一扭红包可领取金额为"+obj.awardInfo.bonus+"元,可累计提现哦!");
         map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		sentLog("okr_web_page_show", '{"page_name":"【扭蛋机中奖】","activity_name":"418活动","award_type":"红包","award_name":"'+obj.awardName+'"}');
