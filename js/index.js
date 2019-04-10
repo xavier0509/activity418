@@ -1916,7 +1916,7 @@ function initBtnAfter(){
             } else{
             	console.log("点击了特价产品包");
             	var packurl = vipstartUrl + '?data={"product_id":"'+_curVipId+'","activity_id":"'+actionId+'","activity_name":"418活动","bg_url":"'+_curVipUrl+'"}';
-        		coocaaosapi.startNewBrowser3(packurl, function() {}, function() {});
+        		coocaaosapi.startNewBrowser(packurl, function() {}, function() {});
             }
         }
         if (_awardType == 19){
@@ -3786,7 +3786,11 @@ function showThisAwardDialog(awardObj) {
         $("#otherAwardInfo1").css("display", "block");
         $("#otherBtn2").attr("redNumber", awardObj.awardInfo.bonus);
         $("#otherAwardInfo1").css("line-height", "38px");
-        $("#otherAwardInfo1").html("当前待领取红包共计"+awardObj.awardInfo.bonus+"元,可累计提现哦!");
+        if(awardObj.lotteryActiveId == actionId){
+        	$("#otherAwardInfo1").html("当前大富翁红包可领取金额为"+awardObj.awardInfo.bonus+"元,可累计提现哦!");
+        }else{
+        	$("#otherAwardInfo1").html("当前扭一扭红包可领取金额为"+awardObj.awardInfo.bonus+"元,可累计提现哦!");
+        }
         map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
     	
     	sentLog("okr_web_page_show", '{"page_name":"【大富翁中奖】","activity_name":"418活动","award_type":"红包","award_name":"'+awardObj.awardName+'"}');
@@ -3836,7 +3840,7 @@ function showThisAwardDialog(awardObj) {
                 packurl = vipstartUrl + '?data={"product_id":"'+vipid+'","activity_id":"'+actionId+'","activity_name":"418活动","bg_url":"'+vipImgUrl+'"}';
 	    		_award_type = "特权-少儿";
     		}
-    		coocaaosapi.startNewBrowser3(packurl, function() {}, function() {});
+    		coocaaosapi.startNewBrowser(packurl, function() {}, function() {});
     	}
     	sentLog("okr_web_page_show", '{"page_name":"【大富翁中奖】","activity_name":"418活动","award_type":"'+_award_type+'","goods_id":"'+awardObj.awardInfo.id+'","award_name":"'+awardObj.awardName+'"}');
         _czc.push(['_trackEvent', '418活动', "【大富翁中奖】", awardObj.awardName, '', '']);
@@ -4242,7 +4246,7 @@ function showEggAwardDialog(obj){
         $("#redAwardBox").css("display", "block");
         $("#redAwardImg").attr("src",obj.awardUrl);
         $("#otherBtn2").attr("redNumber", obj.awardInfo.bonus);
-        $("#otherAwardInfo1").html("当前待领取红包共计"+obj.awardInfo.bonus+"元,可累计提现哦!");
+        $("#otherAwardInfo1").html("当前扭一扭红包可领取金额为"+obj.awardInfo.bonus+"元,可累计提现哦!");
         map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn2"), "btn-focus", function() {}, function(val) {}, function(obj) {});
 		sentLog("okr_web_page_show", '{"page_name":"【扭蛋机中奖】","activity_name":"418活动","award_type":"红包","award_name":"'+obj.awardName+'"}');
         _czc.push(['_trackEvent', '418活动', "【扭蛋机中奖】", obj.awardName, '', '']);
