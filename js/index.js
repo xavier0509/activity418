@@ -3717,10 +3717,10 @@ function showThisAwardDialog(awardObj) {
 	        $("#otherAwardInfo1").css("display", "block");
 	        if(!capsuleIsStart){
 	        	$("#otherAwardInfo1").css("line-height", "38px");
-	        	$("#otherAwardInfo1").html("再接再厉，集齐卡片4月18日赢千元电视");
+	        	$("#otherAwardInfo1").html("再接再厉！集齐周年卡片4月18日赢新品电视！");
 	        }else{
 	        	$("#otherAwardInfo1").css("line-height", "18px");
-	        	$("#otherAwardInfo1").html("集418周年卡片赢新品电视火热进行中!<br/>再来一次集更多周年卡片吧!");
+	        	$("#otherAwardInfo1").html("集齐418卡片现在可0元赢新品电视！<br/>再来一次集更多卡片吧~");
 	        }
     		map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn1"), "btn-focus", function() {}, function(val) {}, function(obj) {});
     		
@@ -3735,8 +3735,8 @@ function showThisAwardDialog(awardObj) {
     		$("#otherBtn4").attr("awardName", awardObj.awardName);
     		if(!capsuleIsStart){
     			console.log("418之前,展示预约二维码");
-    			$("#otherAwardName2").css("top","57px");
-    			$("#cardAwardInfo1").css("display","block");
+//  			$("#otherAwardName2").css("top","57px");
+//  			$("#cardAwardInfo1").css("display","block");
     			$("#cardAwardBox1").css("display","block");
     			$("#cardAwardBox2").css("display","none");
     			if (movieSource == "tencent") {
@@ -3747,22 +3747,22 @@ function showThisAwardDialog(awardObj) {
     			$("#cardAwardImg1").attr("src",awardObj.awardUrl);
     			$("#cardAwardInfo2").css("left","200px");
     			$("#cardAwardInfo2").css("width","255px");
-    			$("#cardAwardInfo2").html("当前已拥有"+(cardsNum+1)+"套418碎片");
-    			$("#cardAwardInfo3").html("有机会4月18日0元赢电视！记得来哦~");
+    			$("#cardAwardInfo2").html("当前已拥有"+(cardsNum+1)+"套418周年卡片");
+    			$("#cardAwardInfo3").html("继续玩游戏集卡片4月18日0元赢电视");
     			$("#otherBtn4").css("display","none");
     			$("#otherBtn3").css("left","247px");
     			map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn3"), "btn-focus", function() {}, function(val) {}, function(obj) {});
     		}else{
     			console.log("418之后,不展示预约二维码");
-    			$("#otherAwardName2").css("top","70px");
-    			$("#cardAwardInfo1").css("display","none");
+//  			$("#otherAwardName2").css("top","70px");
+//  			$("#cardAwardInfo1").css("display","none");
     			$("#cardAwardBox2").css("display","block");
     			$("#cardAwardBox1").css("display","none");
     			$("#cardAwardImg2").attr("src",awardObj.awardUrl);
     			$("#cardAwardInfo2").css("left","125px");
     			$("#cardAwardInfo2").css("width","420px");
-    			$("#cardAwardInfo2").html("当前已拥有"+(cardsNum+1)+"套418周年碎片，有机会0元赢电视");
-    			$("#cardAwardInfo3").html("集418卡片赢最新创维电视火热进行中！马上参与");
+    			$("#cardAwardInfo2").html("当前已拥有"+(cardsNum+1)+"套418周年碎片");
+    			$("#cardAwardInfo3").html("快去参与“扭一扭”0元赢电视！");
     			$("#otherBtn4").css("display","block");
     			$("#otherBtn3").css("left","128px");
     			map = new coocaakeymap($(".coocaa_btn3"), document.getElementById("otherBtn4"), "btn-focus", function() {}, function(val) {}, function(obj) {});
