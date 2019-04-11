@@ -1168,6 +1168,21 @@ img[src=''] {
 	width:341px;
 	background-position: -3041px 0;
 }
+.myawardsImg1,.myawardsImg2{
+	position: absolute;
+	margin: 5px;
+	height:113px;
+	width:341px;
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+.myawardsImg1{
+	background-image: url(../images/myaward/draw1red.png);
+}
+.myawardsImg2{
+	background-image: url(../images/myaward/draw2red.png);
+}
+
 #entityTabs .myawardsImg{
 	width:231px;
 	background-position: -2128px 0;
@@ -1529,7 +1544,7 @@ img[src=''] {
 }
 #redStrongPart{
     display: inline-block;
-    width: 120px;
+    width: 90px;
     height: 34px;
     line-height: 34px;
     color: #FFFFFF;
