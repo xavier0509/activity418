@@ -564,6 +564,7 @@ img[src=''] {
     height:1216px;
     position: relative;
     top:-1px;
+    display: none;
     background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/bgbottom.jpg");
 }
 #missionListTitle{

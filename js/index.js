@@ -2518,6 +2518,7 @@ function showPage(first, resume) {
             // data={code:50003};
             if(data.code == 50100){
                 $("#topMain").show();
+                $("#bottom").show();
                 gameStatus = 1;
                 lotteryNum = data.data.lotteryNum;
                 cardsNum = data.data.cardsNum;

@@ -41,7 +41,7 @@ var orderUrl = "http://172.20.132.182:8090/v3/order/genOrderByJsonp.html?data=";
 var operationurl="http://api.home.skysrt.com/v1/tvos/getWebPageContent";
 // var operationurl="http://beta-api-home.skysrt.com/tvos/getWebPageContent";
 
-//var enurl = "https://webapp.skysrt.com/springfestival19/address/index.html?";
+//var enurl = "https://webapp.skysrt.com/activity418/address/index.html?";
  var enurl = "http://beta.webapp.skysrt.com/zy/address/index.html?";//实体奖url
 
 // var allowanceUrl = "https://jintie.coocaa.com/api/subsidy/v1/query-userSubsidyInfo-byToken"
