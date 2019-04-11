@@ -3507,8 +3507,11 @@ function showMyAward(arr0, arr1, arr2, arr3, arr4, num) {
                 redDiv.setAttribute('redNumber', arr1[i].redNumber);
                 redDiv.setAttribute('lotteryActiveId', arr1[i].lotteryActiveId);
                 redDiv.setAttribute('class', 'myAwards redAwardNotGot coocaa_btn2');
-                
-                redDiv.innerHTML = '<div class="myawardsImg"></div><div class="myawardsBorder"></div><div class="redBtn">待领取</div><div class="redUnit">元</div><div class="redMoney">'+arr1[i].redNumber+'</div><div class="cumulative">累计</div>';
+                if(arr1[i].lotteryActiveId == actionId){
+                	 redDiv.innerHTML = '<div class="myawardsImg1"></div><div class="myawardsBorder"></div><div class="redBtn">待领取</div><div class="redUnit">元</div><div class="redMoney">'+arr1[i].redNumber+'</div><div class="cumulative">累计</div>';
+                }else{
+                	 redDiv.innerHTML = '<div class="myawardsImg2"></div><div class="myawardsBorder"></div><div class="redBtn">待领取</div><div class="redUnit">元</div><div class="redMoney">'+arr1[i].redNumber+'</div><div class="cumulative">累计</div>';
+                }
                 $("#redTabs").append(redDiv);
             }
         }
@@ -3937,6 +3940,11 @@ function otherBtn2ClickFunc() {
             console.log("领取红包奖励+展示二维码");
             $(".secondDialog").css("display", "none");
             $("#redNotGet").css("display", "block");
+            if(_kActiveId == actionId){
+	        	$("#redStrongPart").html("大富翁");
+	        }else{
+	        	$("#redStrongPart").html("扭一扭");
+	        }
             $("#redContent").html('<span style="font-size: 65px;">' + _redNumber + '</span>元');
             console.log(_kActiveId + "--" + _kRememberId + "--" + _kUserKeyId);
             getRedPacketsQrcode(_kActiveId, _kRememberId, _kUserKeyId, "redQrcode", 175, 175);
