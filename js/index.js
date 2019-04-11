@@ -869,7 +869,7 @@ function initBtn() {
         }
     })
     $(".replaceBtn2").unbind("itemFocus").bind("itemFocus", function() {
-        $(".rightBtn img").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/rightBtn.gif");
+        $(".rightBtn img").attr("src","http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newrightBtn.gif");
         if (ADMsg2 != null && ADMsg2.schedules != undefined && ADMsg2.schedules[0] != undefined) {
             sentInnerAdshow(ADMsg2, "G0006", "2", "1", "1", "", "","");
             sentThirdAdshow("img", ADMsg2);
@@ -2593,24 +2593,24 @@ function showPage(first, resume) {
                 var nowHours = new Date().getHours();
                 if(nowHours==11||nowHours==12){
                     //调用领取接口
-                    $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/50/new11dian.png)");
+                    $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/50/m11dian.png)");
                 }
                 else if(nowHours==19||nowHours==20||nowHours==21){
-                    $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/100/new19dian.png)");
+                    $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/100/m19dian.png)");
                 }
                 else{
                     if(nowHours<11 ){
                         //稍后再来
-                        $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/50/newxiachang1.png)");
+                        $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/50/mxiachang1.png)");
                     }else if(nowHours>12&&nowHours<19) {
-                        $("#allowanceGet").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/100/newxiachang2.png)");
+                        $("#allowanceGet").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/100/mxiachang2.png)");
                     }else{
                         if(startDayNum == 9){
                             //结束
-                            $("#allowanceGet").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/100/newjieshu.png)");
+                            $("#allowanceGet").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/100/mjieshu.png)");
                         }else{
                             //稍后再来
-                            $("#allowanceGet").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/50/newmingtian.png)");
+                            $("#allowanceGet").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/50/mmingtian.png)");
                         }
                     }
                 }
