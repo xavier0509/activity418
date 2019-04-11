@@ -65,9 +65,14 @@
                     <div class="niu_danji">
                     	<div id="drawBtnBorder"></div>
 						<div class="coocaabtn game_go gameBtn" id="drawBtn" leftTarget=".replaceBtn2" rightTarget="#drawBtn" downTarget=".normaltask:eq(0)">
-							<img id="aroundGif" src="http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/around2.gif"/>
-							<div id="aroundpng" class="around90"></div>
-							<div id="aroundNum"></div>
+							<div id="activityHasStart" class="fullChild none">
+								<img id="aroundGif" src="http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/around2.gif"/>
+								<div id="aroundpng" class="around90"></div>
+								<div id="aroundNum"></div>
+							</div>
+							<div id="activityNotStart" class="fullChild none">
+								<div id="notStartInfo"></div>
+							</div>
 						</div>
 						<div class="dan_gund">
 							<span class="egg qiu_1 diaol_1"></span>
@@ -189,7 +194,7 @@
     <div id="dialogPage" class="fullChild none freshneedhide">
     	<!--抽到奖励 红包、实物、津贴、卡片、金币-->
     	<div id="getOtherAward1" class="fullscreen awardbg4 secondDialog">
-            <div id="otherAwardName1">恭喜获得科沃斯扫地机</div>
+            <div id="otherAwardName1"></div>
             <div id="otherImgBox1" class="imgstyle">
             	<div id="redAwardBox" class="none eachAwardStyle">
             		<img id="redAwardImg" class="fullChild" src=""/><!--红包奖图片-->
@@ -210,7 +215,6 @@
 	                <img id="vipAwardImg" class="fullChild" src=""/><!--特权商品奖-->
             	</div>
             </div>
-            <!--*当前待领取红包共计999元，可累计提现哦~    再接再厉，集齐卡片4月18日赢千元电视-->
             <div id="otherAwardInfo1">再接再厉，集齐卡片4月18日赢千元电视</div>
             <div id="otherBtn1" class="dialogbtn coocaa_btn3">
             	<div id="otherBtn1bg" class="awardbgBlur fullChild"></div>
@@ -230,16 +234,16 @@
         	<div id="cardAwardInfo1">可继续玩游戏收集更多周年卡片4月18日赢大奖</div>
         	<div id="otherImgBox2" class="imgstyle">
         		<div id="cardAwardBox1" class="none">
-            		<img id="cardAwardImg1" src=""/><!--418之前的卡片展示-->
+            		<img id="cardAwardImg1" src=""/>
             		<img id="cardQrcode" src=""/>
             		<div id="cardAwardWarm">扫码预约抽奖提醒</div>
             	</div>
         		<div id="cardAwardBox2" class="none">
-            		<img id="cardAwardImg2" src=""/><!--418之后的卡片展示-->
+            		<img id="cardAwardImg2" src=""/>
             	</div>
         	</div>
-        	<div id="cardAwardInfo2">当前已拥有5套418周年碎片，有机会0元赢电视</div><!--当前已拥有5套418碎片    当前已拥有5套418周年碎片，有机会0元赢电视-->
-            <div id="cardAwardInfo3">集418卡片赢最新创维电视火热进行中！马上参与</div><!--有机会4月18日0元赢电视！记得来哦~    集418卡片赢最新创维电视火热进行中！马上参与-->
+        	<div id="cardAwardInfo2"></div>
+            <div id="cardAwardInfo3"></div>
         	<div id="otherBtn3" class="dialogbtn coocaa_btn3">
             	<div id="otherBtn3bg" class="awardbgBlur fullChild"></div>
             	<div id="otherBtn3border" class="awardbgFocus fullChild"></div>
@@ -284,20 +288,20 @@
         </div>
     	<!--实物奖未领取弹窗-->
     	<div id="otherNotGet" class="fullscreen awardbg secondDialog">
-	        <div id="otherInfo1">奖品名称:科沃斯扫地机</div>
-	        <div id="otherInfo2">发放时间:2018.8.23</div>
+	        <div id="otherInfo1"></div>
+	        <div id="otherInfo2"></div>
 	        <div class="awardLine"></div>
 	        <div id="otherInfo3" class="coocaa_btn3">请微信扫码完善收货信息，确保奖品能送达您手中哦~</div>
 	        <div id="otherQrcode"></div>
 	    </div>
     	<!--实物奖已领取弹窗-->
     	<div id="otherHasGet" class="fullscreen awardbg secondDialog">
-            <div id="hasGotInfo1">奖品名称:科沃斯扫地机</div>
-            <div id="hasGotInfo2">发放时间:2018.8.23</div>
+            <div id="hasGotInfo1"></div>
+            <div id="hasGotInfo2"></div>
             <div class="awardLine"></div>
-            <div id="hasGotInfo3">收货人:&nbsp;&nbsp;马花藤</div>
-            <div id="hasGotInfo4" class="coocaa_btn3">收货电话:&nbsp;&nbsp;13728728225</div>
-            <div id="hasGotInfo5">收货地址:&nbsp;&nbsp;广东省深圳市宝安区创维工业园省深圳市宝安区创维工业园</div>
+            <div id="hasGotInfo3"></div>
+            <div id="hasGotInfo4" class="coocaa_btn3"></div>
+            <div id="hasGotInfo5"></div>
         </div>
         
         <div id="sendPrizeFail">津贴领取失败，请重试</div>
@@ -378,7 +382,7 @@
 		$("#redInfo2").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/myaward/arrow.png)");
 		$("#aroundpng").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/around.png)");
 		$("#aroundNum").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/eggdrawnum.png)");
-		$("#drawBtn").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/eggbtnbg.png)");
+		$("#notStartInfo").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/eggstartinfo.png)");
 		$("#classesImg").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/classes2.webp)");
 		$("#allowancePage").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/allowance.webp)");
     }

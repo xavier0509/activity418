@@ -2572,6 +2572,13 @@ function showPage(first, resume) {
                 if(capsuleIsStart){
                     $("#tips").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/huorejinxingzhong.png)");
                     $("#tips1").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newmain/tiping.png)");
+                    $("#drawBtn").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/eggbtnbg.png)");
+                	$("#activityHasStart").css("display","block");
+                	$("#activityNotStart").css("display","none");
+                }else{
+					$("#drawBtn").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/eggbtnbg2.png)");
+                	$("#activityNotStart").css("display","block");
+                	$("#activityHasStart").css("display","none");
                 }
                 $(".map").removeClass("focus");
                 $("#map"+nowPosition).addClass("focus");
@@ -3412,10 +3419,10 @@ function getMyAwards(num) {
                         console.log("有津贴"+loginstatus);
                         var allMoney = 0;
                         for (var i = 0; i < _arr0.length; i++) {
-                        	allMoney += toDecimal(_arr0[i].price);
-//                          if (_arr0[i].state == 0) {
-//                              allMoney += toDecimal(_arr0[i].price);
-//                          }
+                        	//allMoney += toDecimal(_arr0[i].price);
+                            if (_arr0[i].state == 0) {
+                                allMoney += toDecimal(_arr0[i].price);
+                            }
                         }
                         allMoney = toDecimal(allMoney);
                         console.log(allMoney);
@@ -3470,10 +3477,10 @@ function showMyAward(arr0, arr1, arr2, arr3, arr4, num) {
     	$("#allowanceBox").css("display", "inline-block");
         var allMoney = 0;
         for (var i = 0; i < arr0.length; i++) {
-        	allMoney += toDecimal(arr0[i].price);
-//          if (arr0[i].state == 0) {
-//     			allMoney += toDecimal(arr0[i].price);	
-//          }
+        	//allMoney += toDecimal(arr0[i].price);
+            if (arr0[i].state == 0) {
+       			allMoney += toDecimal(arr0[i].price);	
+            }
         }
         allMoney = toDecimal(allMoney);
         console.log(allMoney);
