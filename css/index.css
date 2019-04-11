@@ -467,6 +467,16 @@ img[src=''] {
     background-repeat: no-repeat;
     background-size: 100%;
 }
+#eggDrawNotStart{
+	position: absolute;
+    top: 165px;
+    left: 113px;
+    height: 43px;
+    width: 198px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    z-index: 110;
+}
 #drawBtnBorder{
     display: none;
     width: 108px;
@@ -568,6 +578,7 @@ img[src=''] {
     left: 168px;
     text-align: center;
     color: #fed12c;
+    z-index: 100;
 }
 #bottom{
     width: 1280px;

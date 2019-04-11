@@ -2577,10 +2577,12 @@ function showPage(first, resume) {
                     $("#drawBtn").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/eggbtnbg.png)");
                 	$("#activityHasStart").css("display","block");
                 	$("#activityNotStart").css("display","none");
+                	$("#eggDrawNotStart").css("display","none");
                 }else{
 					$("#drawBtn").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/eggbtnbg2.png)");
                 	$("#activityNotStart").css("display","block");
                 	$("#activityHasStart").css("display","none");
+                	$("#eggDrawNotStart").css("display","block");
                 }
                 $(".map").removeClass("focus");
                 $("#map"+nowPosition).addClass("focus");
