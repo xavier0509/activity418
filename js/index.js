@@ -1238,6 +1238,7 @@ function initBtn() {
                 if(hasfinishNum == 4){
                     diceCanClick = true;
                     $("#allowanceGet").trigger("itemFocus");
+                    $("#mapBtn").trigger("itemBlur");
                     map = new coocaakeymap($(".coocaabtn"), $("#allowanceGet"), "btnFocus", function() {}, function(val) {}, function(obj) {});
                 }
             }
@@ -2144,7 +2145,7 @@ function getParamAndStart(obj,needCheckVersion) {
                             return;
                         } else {//版本满足需求，才真正执行按键判断:
                             console.log("剩余可完成次数======="+$(obj).attr("remainingNumber"));
-                            if($(obj).attr("remainingNumber")!=undefined&&$(obj).attr("remainingNumber")!=0){
+                            if($(obj).attr("remainingNumber")!=undefined&&$(obj).attr("remainingNumber")>0){
                                 console.log("剩余可完成次数======="+$(obj).attr("remainingNumber"));
                                 needAddChance = true;
                             }else{
@@ -2585,24 +2586,24 @@ function showPage(first, resume) {
                 var nowHours = new Date().getHours();
                 if(nowHours==11||nowHours==12){
                     //调用领取接口
-                    $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/50/11dian.png)");
+                    $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/50/new11dian.png)");
                 }
                 else if(nowHours==19||nowHours==20||nowHours==21){
-                    $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/100/19dian.png)");
+                    $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/100/new19dian.png)");
                 }
                 else{
                     if(nowHours<11 ){
                         //稍后再来
-                        $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/50/xiachang1.png)");
+                        $("#allowanceGet").css("background-image","url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/50/newxiachang1.png)");
                     }else if(nowHours>12&&nowHours<19) {
-                        $("#allowanceGet").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/100/xiachang2.png)");
+                        $("#allowanceGet").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/100/newxiachang2.png)");
                     }else{
                         if(startDayNum == 9){
                             //结束
-                            $("#allowanceGet").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/100/jieshu.png)");
+                            $("#allowanceGet").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/100/newjieshu.png)");
                         }else{
                             //稍后再来
-                            $("#allowanceGet").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/50/mingtian.png)");
+                            $("#allowanceGet").css("background-image", "url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/50/newmingtian.png)");
                         }
                     }
                 }
@@ -2657,9 +2658,9 @@ function speakToast(overtask){
     if(startDayNum<6){
         speak2 = true;
         if(startDayNum<4){
-            str2="大富翁<span>今日大奖</span>是<span>戴森三件套</span>，参与即有机会获得快掷骰子参与吧！";
+            str2="<span>今日大奖</span>是<span>戴森三件套</span>，快掷骰子参与吧！";
         }else{
-            str2="大富翁<span>今日大奖</span>是<span>iPhone XS</span>，参与即有机会获得快掷骰子参与吧！";
+            str2="<span>今日大奖</span>是<span>iPhone XS</span>，快掷骰子参与吧！";
         }
         if(cardsNum==0){
             speak3 = true;
@@ -2689,13 +2690,13 @@ function speakToast(overtask){
                     if(random>0.5){
                         str2='终极大奖开启！集齐418周年卡片赢新品电视！快去"扭一扭"吧！';
                     }else {
-                        str2 = "大富翁<span>今日大奖</span>是<span>iPhone XS</span>，快掷骰子参与吧！";
+                        str2 = "<span>今日大奖</span>是<span>iPhone XS</span>，快掷骰子参与吧！";
                     }
                 }else{
                     if(random>0.5){
                         str2='终极大奖开启！集齐418周年卡片赢新品电视！快去"扭一扭"吧！';
                     }else {
-                        str2 = "大富翁<span>今日大奖</span>是<span>新款苹果电脑</span>，快掷骰子参与吧！";
+                        str2 = "<span>今日大奖</span>是<span>新款苹果电脑</span>，快掷骰子参与吧！";
                     }
                 }
             }
@@ -3209,7 +3210,7 @@ function getMyTasksList(needCheckSpeak) {
                             }else if(taskOrder[i] == "video"){
                                 $(".mission:eq("+missionBoxNum+")").attr("url",taskList[taskOrder[i]][j].param);
                             }
-                            if(taskList[taskOrder[i]][j].remainingNumber == 0){
+                            if(taskList[taskOrder[i]][j].remainingNumber <= 0){
                                 if(taskOrder[i] == "ask"){$("#finishicon").show()}
                                 overTask++;
                             }
@@ -3473,7 +3474,7 @@ function showMyAward(arr0, arr1, arr2, arr3, arr4, num) {
         for (var i = 0; i < arr0.length; i++) {
         	allMoney += toDecimal(arr0[i].price);
 //          if (arr0[i].state == 0) {
-//     			allMoney += toDecimal(arr0[i].price);	
+//     			allMoney += toDecimal(arr0[i].price);
 //          }
         }
         allMoney = toDecimal(allMoney);

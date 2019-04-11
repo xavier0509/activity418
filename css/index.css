@@ -637,21 +637,22 @@ img[src=''] {
     position: relative;
 }
 .text{
-    width: 174px;
+    width: 240px;
     height: 28px;
     position: relative;
-    top:9px;
-    left:41px;
-    line-height: 28px;
+    top:4px;
+    left:4px;
+    line-height: 30px;
     text-align: center;
     color: #ffffff;
-    font-size: 14px;
+    font-size: 18px;
+    font-weight: bold;
 }
 .text span{
     color:#fff900;
 }
 .text.show{
-    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/shopbanner.png");
+    background-image: url("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newshopbanner.png");
 }
 .sureGet{
     width: 100%;
