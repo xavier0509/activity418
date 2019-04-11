@@ -457,6 +457,16 @@ img[src=''] {
     background-repeat: no-repeat;
     background-size: 100%;
 }
+#notStartInfo{
+	position: absolute;
+	top: 76px;
+    left: 67px;
+    height: 29px;
+    width: 123px;
+	/*background-image: url(http://sky.fs.skysrt.com/statics/webvip/webapp/418/images/eggstartinfo.png);*/
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
 #drawBtnBorder{
     display: none;
     width: 108px;
@@ -1877,6 +1887,7 @@ img[src=''] {
     color: #8e4600;
     text-align: center;
     overflow: hidden;
+    font-weight: 900;
 }
 #otherBtn3{
 	top: 320px;
@@ -1934,6 +1945,7 @@ img[src=''] {
     width: 16px;
     font-size: 13px;
     color: #b7341e;
+    font-weight: 900;
 }
 #sendPrizeFail{
 	position: absolute;
