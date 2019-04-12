@@ -112,10 +112,10 @@ var app = {
         }
     },
     handlepause: function() {
-        leavetime = new Date().getTime();
-        console.log("===========================pause=========="+(leavetime-entertime));
-        sentLog("okr_web_clicked_result", '{"activity_duration":"'+(leavetime-entertime)+'","activity_name":"418活动"}');
-        _czc.push(['_trackEvent', '418活动', '停留时长', '',(leavetime-entertime), '']);
+        // leavetime = new Date().getTime();
+        // console.log("===========================pause=========="+(leavetime-entertime));
+        // sentLog("okr_web_clicked_result", '{"activity_duration":"'+(leavetime-entertime)+'","activity_name":"418活动"}');
+        // _czc.push(['_trackEvent', '418活动', '停留时长', '',(leavetime-entertime), '']);
     },
     handleBackButton: function() {
 
@@ -545,6 +545,10 @@ function exit() {
     navigator.app.exitApp();
 }
 function exitAll() {
+    leavetime = new Date().getTime();
+    console.log("===========================pause=========="+(leavetime-entertime));
+    sentLog("okr_web_clicked_result", '{"activity_duration":"'+(leavetime-entertime)+'","activity_name":"418活动"}');
+    _czc.push(['_trackEvent', '418活动', '停留时长', '',(leavetime-entertime), '']);
     navigator.app.exitAll();
 }
 var appDown = {
@@ -1014,7 +1018,12 @@ function initBtn() {
         _czc.push(['_trackEvent', '418活动', btnname+"点击", button_state, '', '']);
         rememberAllowancebtnFlag = "2";
         donotSentAllowanceBtnLog = true;
-        $("#allowanceBtn").trigger("itemClick");
+        // $("#allowanceBtn").trigger("itemClick");
+        leavetime = new Date().getTime();
+        console.log("===========================pause=========="+(leavetime-entertime));
+        sentLog("okr_web_clicked_result", '{"activity_duration":"'+(leavetime-entertime)+'","activity_name":"418活动"}');
+        _czc.push(['_trackEvent', '418活动', '停留时长', '',(leavetime-entertime), '']);
+        coocaaosapi.startHomeCommonList("102930",function(){},function(){});
     })
     $("#question").unbind("itemClick").bind("itemClick", function(){
         var _this = this;
@@ -1717,6 +1726,10 @@ function initBtnAfter(){
 	$(".everyAllowanceLi").unbind("itemClick").bind("itemClick", function() {
 		var _fIndex = $(".everyAllowanceLi").index($(this));
 		if (_fIndex == ($(".everyAllowanceLi").length-1)) {
+            leavetime = new Date().getTime();
+            console.log("===========================pause=========="+(leavetime-entertime));
+            sentLog("okr_web_clicked_result", '{"activity_duration":"'+(leavetime-entertime)+'","activity_name":"418活动"}');
+            _czc.push(['_trackEvent', '418活动', '停留时长', '',(leavetime-entertime), '']);
 			coocaaosapi.startHomeCommonList("102930",function(){},function(){});
 			sentLog("okr_web_button_click", '{"page_name":"我的津贴页面","activity_name":"418活动","button_name":"浏览更多"}');
 	        _czc.push(['_trackEvent', '418活动', "津贴页面津贴的点击", "浏览更多", '', '']);
@@ -1913,9 +1926,17 @@ function initBtnAfter(){
             console.log(_curVipType+"---"+_curVipId +"--"+_curVipUrl);
             if (_curVipType == "product") {
             	console.log("点击了特权商品");
+                leavetime = new Date().getTime();
+                console.log("===========================pause=========="+(leavetime-entertime));
+                sentLog("okr_web_clicked_result", '{"activity_duration":"'+(leavetime-entertime)+'","activity_name":"418活动"}');
+                _czc.push(['_trackEvent', '418活动', '停留时长', '',(leavetime-entertime), '']);
             	coocaaosapi.startAppShopDetail(_curVipId, function() {}, function() {});
             } else{
             	console.log("点击了特价产品包");
+                leavetime = new Date().getTime();
+                console.log("===========================pause=========="+(leavetime-entertime));
+                sentLog("okr_web_clicked_result", '{"activity_duration":"'+(leavetime-entertime)+'","activity_name":"418活动"}');
+                _czc.push(['_trackEvent', '418活动', '停留时长', '',(leavetime-entertime), '']);
             	var packurl = vipstartUrl + '?data={"product_id":"'+_curVipId+'","activity_id":"'+actionId+'","activity_name":"418活动","bg_url":"'+_curVipUrl+'"}';
         		coocaaosapi.startNewBrowser(packurl, function() {}, function() {});
             }
@@ -1929,6 +1950,10 @@ function initBtnAfter(){
 	        		console.log("领取金币+成功后跳转金币页面");
 	        		sendPrizes(_awardName, _awardId, _rememberId, _userkeyId, _awardType, _lotteryActiveId, movieSource, 1);
 	        	}
+                leavetime = new Date().getTime();
+                console.log("===========================pause=========="+(leavetime-entertime));
+                sentLog("okr_web_clicked_result", '{"activity_duration":"'+(leavetime-entertime)+'","activity_name":"418活动"}');
+                _czc.push(['_trackEvent', '418活动', '停留时长', '',(leavetime-entertime), '']);
 	        	var coinUrl = 'https://goldshop.coocaa.com/';
 	        	coocaaosapi.startNewBrowser5(coinUrl, function() {}, function() {});
 	        	sentLog("okr_web_button_click", '{"page_name":"我的奖励页面","activity_name":"418活动","button_name":"金币"}');
@@ -2081,6 +2106,10 @@ function getParamAndStart(obj,needCheckVersion) {
     coocaaosapi.getAppInfo(a, function(message) {
         console.log("getAppInfo====" + message);
         if (JSON.parse(message)[pkgname].status == -1) {
+            leavetime = new Date().getTime();
+            console.log("===========================pause=========="+(leavetime-entertime));
+            sentLog("okr_web_clicked_result", '{"activity_duration":"'+(leavetime-entertime)+'","activity_name":"418活动"}');
+            _czc.push(['_trackEvent', '418活动', '停留时长', '',(leavetime-entertime), '']);
             coocaaosapi.startAppStoreDetail(pkgname, function() {}, function() {});
         } else {
             hasversioncode = JSON.parse(message)[pkgname].versionCode;
@@ -2187,6 +2216,10 @@ function getParamAndStart(obj,needCheckVersion) {
                                     showAndHideToast("http://sky.fs.skysrt.com/statics/webvip/webapp/418/main/newtoast/bujiajihui.png",4000);
                                 }
                                 setTimeout(function () {
+                                    leavetime = new Date().getTime();
+                                    console.log("===========================pause=========="+(leavetime-entertime));
+                                    sentLog("okr_web_clicked_result", '{"activity_duration":"'+(leavetime-entertime)+'","activity_name":"418活动"}');
+                                    _czc.push(['_trackEvent', '418活动', '停留时长', '',(leavetime-entertime), '']);
                                     diceCanClick = true;
                                     coocaaosapi.startCommonNormalAction(param1, param2, param3, param4, param5, str, function() { needSentADLog = false; }, function() {});
                                 },4000);
@@ -2205,6 +2238,10 @@ function getParamAndStart(obj,needCheckVersion) {
                                 str.push(doubleEggs_Active);
                                 str = JSON.stringify(str);
                                 setTimeout(function () {
+                                    leavetime = new Date().getTime();
+                                    console.log("===========================pause=========="+(leavetime-entertime));
+                                    sentLog("okr_web_clicked_result", '{"activity_duration":"'+(leavetime-entertime)+'","activity_name":"418活动"}');
+                                    _czc.push(['_trackEvent', '418活动', '停留时长', '',(leavetime-entertime), '']);
                                     needFresh = true;
                                     needRememberFocus = true;
                                     rememberBtn = ".mission:eq("+$('.mission').index($(obj))+")";
@@ -2218,12 +2255,20 @@ function getParamAndStart(obj,needCheckVersion) {
                     });
                 }
                 else{
+                    leavetime = new Date().getTime();
+                    console.log("===========================pause=========="+(leavetime-entertime));
+                    sentLog("okr_web_clicked_result", '{"activity_duration":"'+(leavetime-entertime)+'","activity_name":"418活动"}');
+                    _czc.push(['_trackEvent', '418活动', '停留时长', '',(leavetime-entertime), '']);
                     coocaaosapi.startCommonNormalAction(param1, param2, param3, param4, param5, str, function() { needSentADLog = false; }, function() {});
                 }
             }
         }
     }, function(error) {
         console.log("getAppInfo----error" + JSON.stringify(error));
+        leavetime = new Date().getTime();
+        console.log("===========================pause=========="+(leavetime-entertime));
+        sentLog("okr_web_clicked_result", '{"activity_duration":"'+(leavetime-entertime)+'","activity_name":"418活动"}');
+        _czc.push(['_trackEvent', '418活动', '停留时长', '',(leavetime-entertime), '']);
         coocaaosapi.startAppStoreDetail(pkgname, function() {}, function() {});
     });
 }
@@ -2904,7 +2949,7 @@ function showOperation(showMainShow) {
                         if(loginstatus == "true"){
                             var tabItem = '<div class="operationblock operationmap coocaabtn" taskName="'+operationData.data[i].baseBlocks[j].title+'" action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="sureGet">按【确定】键 看详情购买</div><div class="text show" >使用津贴再减<span>'+action_this.params.allowance+'</span>元</div></div>';
                         }else{
-                            var tabItem = '<div class="operationblock operationmap coocaabtn" taskName="'+operationData.data[i].baseBlocks[j].title+'" action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="sureGet">按【确定】键 看详情购买</div><div class="text show"  >领取津贴再减<span>'+action_this.params.allowance+'</span>元</div></div>';
+                            var tabItem = '<div class="operationblock operationmap coocaabtn" taskName="'+operationData.data[i].baseBlocks[j].title+'" action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="sureGet">按【确定】键 看详情购买</div><div class="text show"  >登录领取津贴再减<span>'+action_this.params.allowance+'</span>元</div></div>';
                         }
                     }else{
                         var tabItem = '<div class="operationblock operationmap coocaabtn" taskName="'+operationData.data[i].baseBlocks[j].title+'" action='+JSON.stringify(JSON.parse(operationData.data[i].baseBlocks[j].action))+' style="background-image:url('+operationData.data[i].baseBlocks[j].imgs.poster.images[0]+')"><div class="sureGet">按【确定】键 看详情购买</div><div class="text">&nbsp;</div></div>';
@@ -3854,6 +3899,10 @@ function showThisAwardDialog(awardObj) {
                 packurl = vipstartUrl + '?data={"product_id":"'+vipid+'","activity_id":"'+actionId+'","activity_name":"418活动","bg_url":"'+vipImgUrl+'"}';
 	    		_award_type = "特权-少儿";
     		}
+            leavetime = new Date().getTime();
+            console.log("===========================pause=========="+(leavetime-entertime));
+            sentLog("okr_web_clicked_result", '{"activity_duration":"'+(leavetime-entertime)+'","activity_name":"418活动"}');
+            _czc.push(['_trackEvent', '418活动', '停留时长', '',(leavetime-entertime), '']);
     		coocaaosapi.startNewBrowser(packurl, function() {}, function() {});
     	}
     	sentLog("okr_web_page_show", '{"page_name":"【大富翁中奖】","activity_name":"418活动","award_type":"'+_award_type+'","goods_id":"'+awardObj.awardInfo.id+'","award_name":"'+awardObj.awardName+'"}');
@@ -3968,6 +4017,10 @@ function otherBtn2ClickFunc() {
     	console.log(awardGoodsId);
         sentLog("okr_web_button_click", '{"page_name":"大富翁活动","activity_name":"418活动","button_name":"领取折扣","award_type":"特权-商品","goods_id":"'+awardGoodsId+'","award_name":"'+_kAwardName+'"}');
         _czc.push(['_trackEvent', '418活动', "大富翁活动", "领取折扣", '', '']);
+        leavetime = new Date().getTime();
+        console.log("===========================pause=========="+(leavetime-entertime));
+        sentLog("okr_web_clicked_result", '{"activity_duration":"'+(leavetime-entertime)+'","activity_name":"418活动"}');
+        _czc.push(['_trackEvent', '418活动', '停留时长', '',(leavetime-entertime), '']);
     	coocaaosapi.startAppShopDetail(awardGoodsId, function() {}, function() {});
     }
     if (_kAwardTypeId == 17) {
@@ -4003,6 +4056,10 @@ function otherBtn2ClickFunc() {
 	        	isGetAwardAfterLogined = "false";
 	        }
         	var coinUrl = 'https://goldshop.coocaa.com/';
+            leavetime = new Date().getTime();
+            console.log("===========================pause=========="+(leavetime-entertime));
+            sentLog("okr_web_clicked_result", '{"activity_duration":"'+(leavetime-entertime)+'","activity_name":"418活动"}');
+            _czc.push(['_trackEvent', '418活动', '停留时长', '',(leavetime-entertime), '']);
         	coocaaosapi.startNewBrowser5(coinUrl, function() {}, function() {});
         }
     }

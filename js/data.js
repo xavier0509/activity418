@@ -199,7 +199,7 @@ var _interlucationsArrayTencent = [
             },
             "bywhat": "action"}
     },
-    {businessName: "影视活动", question: "超级影视VIP会员可以免费看4K或1080p高清画质的影片吗?", answerA:"A:可以", answerB:"B:不可以", right: "A",
+    {businessName: "影视活动", question: "超级影视VIP周年庆大促进行中，年卡特惠价是几折？", answerA:"A:4.8折", answerB:"B:7折", right: "A",
         jump: {"byvalue": "coocaa.intent.vip.center",
             "packagename": "com.tianci.movieplatform",
             "dowhat": "startActivity",
@@ -293,7 +293,7 @@ var _interlucationsArrayYinhe = [
             },
             "bywhat": "action"}
     },
-    {businessName: "影视活动", question: "奇异果VIP会员可以免费看4K或1080p高清画质的影片吗?", answerA:"A:可以", answerB:"B:不可以", right: "A",
+    {businessName: "影视活动", question: "奇异果VIP周年庆大促进行中，年卡特惠价是几折？", answerA:"A:7折", answerB:"B:5折", right: "B",
         jump: {"byvalue": "coocaa.intent.vip.center",
             "packagename": "com.tianci.movieplatform",
             "dowhat": "startActivity",
