@@ -972,8 +972,12 @@ function initBtn() {
         $("#mainbox").css("transform", "translate3D(0, 0, 0)");
         if($("#gamePanel").offset().left > -600){
             $(".topbtn").attr("downtarget","#mapBtn");
+            $("#ruleBtn").attr("righttarget",".replaceBtn1");
+            $("#allowanceBtn").attr("lefttarget","#allowanceBtn");
         }else{
             $(".topbtn").attr("downtarget","#drawBtn");
+            $("#ruleBtn").attr("righttarget","#ruleBtn");
+            $("#allowanceBtn").attr("lefttarget",".replaceBtn2");
         }
     })
     $(".mission").unbind("itemFocus").bind("itemFocus", function() {
